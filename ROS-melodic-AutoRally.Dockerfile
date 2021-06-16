@@ -174,7 +174,8 @@ RUN cd ~/catkin_ws/src \
     && cd ~/catkin_ws \
     && apt-get update \
     && rosdep install --from-path src --ignore-src --default-yes \
-    && git clone https://gitlab.com/libeigen/eigen.git /opt \
+    && cd /opt
+    && git clone https://gitlab.com/libeigen/eigen.git \
     && cd /opt/eigen \
     && mkdir build \
     && cd build \
