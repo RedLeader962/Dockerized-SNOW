@@ -145,61 +145,54 @@ RUN apt-get update \
 #RUN echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> ~/.bashrc
 #CMD ["source ~/.bashrc"]
 
-#RUN echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> ~/.bashrc \
-#    && echo 'source ~/.bashrc'
-
 # ... Create and build a catkin workspace ..............................................................................
-#RUN mkdir -p ~/catkin_ws/src \
-#    && cd ~/catkin_ws/ \
-#    && catkin_make \
-#    && source ~/catkin_ws/devel/setup.bash
 
 RUN /bin/bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash \
     && mkdir -p ~/catkin_ws/src \
     && cd ~/catkin_ws/ \
-    && catkin_make'
-#    && source ~/catkin_ws/devel/setup.bash'
-RUN echo 'source ~/catkin_ws/devel/setup.sh' >> /root/.bashrc
+    && catkin_make' \
+    && echo 'source ~/catkin_ws/devel/setup.sh' >> /root/.bashrc
 # Make sure your workspace is properly overlayed by the setup script by making sure the ROS_PACKAGE_PATH environment
 # variable includes the directory you're in.
 #   $ echo $ROS_PACKAGE_PATH
 #   > /home/youruser/catkin_ws/src:/opt/ros/melodic/share
 
 
-## ... Fork AutoRally repo and install ..................................................................................
-## Steps:
-##   1. clone repos
-##   2. Install AutoRally ROS Dependencies
-##   3. upgrade Eigen to version >=3.3.5.  Check package version: $ pkg-config --modversion eigen3
-##   4. Compilation & Running
-## Note:
-##   - No need to build Pointgrey Camera driver from source anymore. Check pullrequest 243548 merge into `ros:master`
-##       on 3 Apr 2020: https://github.com/ros/rosdistro/pull/24348
-#RUN ~/catkin_ws/src \
-#    && git clone https://github.com/RedLeader962/autorally.git  \
-#    && git clone https://github.com/AutoRally/imu_3dm_gx4.git \
-#    && git clone https://github.com/ros-drivers/pointgrey_camera_driver.git \
-#    && cd ~/catkin_ws \
-#    && apt-get update \
-#    && rosdep install --from-path src --ignore-src --default-yes \
-#    && git clone https://gitlab.com/libeigen/eigen.git /opt \
-#    && cd /opt/eigen \
-#    && mkdir build \
-#    && cd build \
-#    && cmake /opt/eigen \
-#    && make install \
-#    && cd ~/catkin_ws \
-#    && catkin_make
-#
-## Due to the additional requirement of ROS's distributed launch system, you must run
-#RUN echo 'source ~/catkin_ws/devel/setup.sh' >> /root/.bashrc \
-#    && echo 'source ~/catkin_ws/src/autorally/autorally_util/setupEnvLocal.sh' >> /root/.bashrc
-## before using any AutoRally components. See https://github.com/AutoRally/autorally/wiki for more information
-## about how to set this system up for distributed launches on your vehicle platform.
-#
-## ... Generate Documentation ...........................................................................................
-#RUN cd ~/catkin_ws/src/autorally/ \
-#    && doxygen
+# ... Fork AutoRally repo and install ..................................................................................
+# Steps:
+#   1. clone repos
+#   2. Install AutoRally ROS Dependencies
+#   3. upgrade Eigen to version >=3.3.5.  Check package version: $ pkg-config --modversion eigen3
+#   4. Compilation & Running
+# Note:
+#   - No need to build Pointgrey Camera driver from source anymore. Check pullrequest 243548 merge into `ros:master`
+#       on 3 Apr 2020: https://github.com/ros/rosdistro/pull/24348
+RUN ~/catkin_ws/src \
+    && git clone https://github.com/RedLeader962/autorally.git  \
+    && git clone https://github.com/AutoRally/imu_3dm_gx4.git \
+    && git clone https://github.com/ros-drivers/pointgrey_camera_driver.git \
+    && cd ~/catkin_ws \
+    && apt-get update \
+    && rosdep install --from-path src --ignore-src --default-yes \
+    && git clone https://gitlab.com/libeigen/eigen.git /opt \
+    && cd /opt/eigen \
+    && mkdir build \
+    && cd build \
+    && cmake /opt/eigen \
+    && make install \
+    && /bin/bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash \
+        && cd ~/catkin_ws/ \
+        && catkin_make'
+
+# Due to the additional requirement of ROS's distributed launch system, you must run
+RUN echo 'source ~/catkin_ws/devel/setup.sh' >> /root/.bashrc \
+    && echo 'source ~/catkin_ws/src/autorally/autorally_util/setupEnvLocal.sh' >> /root/.bashrc
+# before using any AutoRally components. See https://github.com/AutoRally/autorally/wiki for more information
+# about how to set this system up for distributed launches on your vehicle platform.
+
+# ... Generate Documentation ...........................................................................................
+RUN cd ~/catkin_ws/src/autorally/ \
+    && doxygen
 
 
 
