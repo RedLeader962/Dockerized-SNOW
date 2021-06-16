@@ -159,7 +159,7 @@ RUN apt-get update \
 RUN /bin/bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash \
     && mkdir -p ~/catkin_ws/src \
     && cd ~/catkin_ws/ \
-    && catkin_make'
+    && catkin_make' \
     && echo 'source ~/catkin_ws/devel/setup.bash'
 # Make sure your workspace is properly overlayed by the setup script by making sure the ROS_PACKAGE_PATH environment
 # variable includes the directory you're in.
