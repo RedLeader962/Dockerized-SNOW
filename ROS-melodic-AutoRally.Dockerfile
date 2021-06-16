@@ -205,6 +205,7 @@ RUN mkdir -p ~/catkin_ws/src \
 
 # ... Finish container setup ...........................................................................................
 COPY ./dockerfile_util/ros_entrypoint.sh /ros_entrypoint.sh
+RUN bash -c "chmod +x /ros_entrypoint.sh"
 ENTRYPOINT ["/ros_entrypoint.sh"]
 CMD ["bash"]
 WORKDIR /
