@@ -140,11 +140,6 @@ RUN cd /opt \
     && sudo ldconfig
 
 
-# ... Environment setup ................................................................................................
-
-#RUN echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> ~/.bashrc
-#CMD ["source ~/.bashrc"]
-
 # ... Create and build a catkin workspace ..............................................................................
 
 RUN /bin/bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash \
@@ -167,6 +162,15 @@ RUN /bin/bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash \
 # Note:
 #   - No need to build Pointgrey Camera driver from source anymore. Check pullrequest 243548 merge into `ros:master`
 #       on 3 Apr 2020: https://github.com/ros/rosdistro/pull/24348
+RUN cd /opt \
+    && git clone https://gitlab.com/libeigen/eigen.git \
+    && cd /opt/eigen \
+    && mkdir build \
+    && cd build \
+    && cmake /opt/eigen \
+    && make install
+
+
 RUN cd ~/catkin_ws/src \
     && git clone https://github.com/RedLeader962/autorally.git  \
     && git clone https://github.com/AutoRally/imu_3dm_gx4.git \
@@ -174,28 +178,40 @@ RUN cd ~/catkin_ws/src \
     && cd ~/catkin_ws \
     && apt-get update \
     && rosdep install --from-path src --ignore-src --default-yes \
-    && cd /opt \
-    && git clone https://gitlab.com/libeigen/eigen.git \
-    && cd /opt/eigen \
-    && mkdir build \
-    && cd build \
-    && cmake /opt/eigen \
-    && make install \
-    && /bin/bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash \
+    && rm -rf /var/lib/apt/lists/* \
+#    && cd /opt \
+#    && git clone https://gitlab.com/libeigen/eigen.git \
+#    && cd /opt/eigen \
+#    && mkdir build \
+#    && cd build \
+#    && cmake /opt/eigen \
+#    && make install \
+#    && /bin/bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash \
+#        && source ~/catkin_ws/devel/setup.sh \
+#        && cd ~/catkin_ws/ \
+#        && catkin_make'
+
+RUN /bin/bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash \
         && source ~/catkin_ws/devel/setup.sh \
         && cd ~/catkin_ws/ \
         && catkin_make'
 
+
+# ... Environment setup ................................................................................................
 # Due to the additional requirement of ROS's distributed launch system, you must run
-RUN echo 'source ~/catkin_ws/devel/setup.sh' >> /root/.bashrc \
-    && echo 'source ~/catkin_ws/src/autorally/autorally_util/setupEnvLocal.sh' >> /root/.bashrc
+
+RUN echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> ~/.bashrc \
+    && echo 'source ~/catkin_ws/devel/setup.sh' >> ~/.bashrc \
+    && echo 'source ~/catkin_ws/src/autorally/autorally_util/setupEnvLocal.sh' >> ~/.bashrc
 # before using any AutoRally components. See https://github.com/AutoRally/autorally/wiki for more information
 # about how to set this system up for distributed launches on your vehicle platform.
+
+#CMD ["source ~/.bashrc"]
+RUN /bin/bash -c 'source ~/.bashrc'
 
 # ... Generate Documentation ...........................................................................................
 RUN cd ~/catkin_ws/src/autorally/ \
     && doxygen
-
 
 
 # ... Finish container setup ...........................................................................................
