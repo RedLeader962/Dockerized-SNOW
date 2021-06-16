@@ -193,9 +193,9 @@ RUN cd ~/catkin_ws/src \
 #        && catkin_make'
 
 RUN /bin/bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash \
-        && source ~/catkin_ws/devel/setup.sh \
         && cd ~/catkin_ws/ \
-        && catkin_make'
+        && catkin_make \
+        && source ~/catkin_ws/devel/setup.sh'
 
 
 # ... Environment setup ................................................................................................
