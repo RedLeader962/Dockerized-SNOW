@@ -141,7 +141,8 @@ RUN apt-get update \
 
 
 # ... Environment setup ................................................................................................
-RUN echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> ~/.bashrc \
+#RUN echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> ~/.bashrc \
+RUN echo 'source /opt/ros/melodic/setup.bash' >> ~/.bashrc \
     && source ~/.bashrc
 
 
