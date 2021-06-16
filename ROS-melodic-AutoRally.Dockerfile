@@ -14,12 +14,12 @@
 #       }
 #   2. Restart the Docker service or reboot your system .
 #   3. Execute build command
-#       $ sudo docker build -t l4t-ROS-melodic-full-AutoRally:r1.0 -f ROS-melodic-AutoRally.Dockerfile .
+#       $ sudo docker build -t snow-autorally-l4t-ros-melodic-full:r1.0 -f ROS-melodic-AutoRally.Dockerfile .
 #
 # Usage:
 #   $ export DISPLAY=:0
 #   $ sudo xhost +si:localuser:root
-#   $ sudo docker run --runtime nvidia --network host -it -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix nvcr.io/nvidia/l4t-base:r32.5.0
+#   $ sudo docker run --runtime nvidia --network host -it -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix snow-autorally-l4t-ros-melodic-full:r1.0
 #
 # Flags Options Explained:
 #   `--runtime` nvidia refers to using the NVIDIA container runtime while running the l4t-base container
@@ -92,7 +92,7 @@ RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb
 # Setup keys
 RUN wget https://packages.osrfoundation.org/gazebo.key -O - | apt-key add -
 # Install Gazebo and upgrade `ignition-math`
-RUN apt-get update
+RUN apt-get update \
     && apt-get install -y gazebo9 \
     && apt-get upgrade libignition-math2 \
     && rm -rf /var/lib/apt/lists/*
