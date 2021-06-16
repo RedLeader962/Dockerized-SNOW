@@ -107,8 +107,8 @@ RUN apt-get update \
 
 # ... Install MPPI Dependencies ........................................................................................
 # Note: cmake will install in the default directory `/usr/local`
-RUN git clone https://github.com/rogersce/cnpy.git /opt
-    && cd /opt \
+RUN cd /opt \
+    && git clone https://github.com/rogersce/cnpy.git \
     && mkdir $HOME/build \
     && cd $HOME/build \
     && cmake /opt/cnpy \
@@ -123,7 +123,8 @@ RUN git clone https://github.com/rogersce/cnpy.git /opt
 #   $ cmake -DGTSAM_INSTALL_GEOGRAPHICLIB=ON -DGTSAM_WITH_EIGEN_MKL=OFF -DCMAKE_BUILD_TYPE=Release ..
 # runs unit tests (optional step ... it's very long)
 #   $ make check
-RUN git clone https://github.com/borglab/gtsam.git /opt \
+RUN cd /opt \
+    && git clone https://github.com/borglab/gtsam.git \
     && cd /opt/gtsam \
     && mkdir build \
     && cd build \
@@ -151,9 +152,10 @@ RUN mkdir -p ~/catkin_ws/src \
 # Note:
 #   - No need to build Pointgrey Camera driver from source anymore. Check pullrequest 243548 merge into `ros:master`
 #       on 3 Apr 2020: https://github.com/ros/rosdistro/pull/24348
-RUN git clone https://github.com/RedLeader962/autorally.git ~/catkin_ws/src \
-    && git clone https://github.com/AutoRally/imu_3dm_gx4.git ~/catkin_ws/src \
-    && git clone https://github.com/ros-drivers/pointgrey_camera_driver.git ~/catkin_ws/src \
+RUN ~/catkin_ws/src \
+    && git clone https://github.com/RedLeader962/autorally.git  \
+    && git clone https://github.com/AutoRally/imu_3dm_gx4.git \
+    && git clone https://github.com/ros-drivers/pointgrey_camera_driver.git \
     && cd ~/catkin_ws \
     && apt-get update \
     && rosdep install --from-path src --ignore-src -y \
