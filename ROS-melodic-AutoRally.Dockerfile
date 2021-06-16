@@ -182,6 +182,7 @@ RUN cd ~/catkin_ws/src \
     && cmake /opt/eigen \
     && make install \
     && /bin/bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash \
+        && source ~/catkin_ws/devel/setup.sh \
         && cd ~/catkin_ws/ \
         && catkin_make'
 
