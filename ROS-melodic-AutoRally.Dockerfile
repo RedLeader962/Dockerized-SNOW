@@ -167,7 +167,7 @@ RUN /bin/bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash \
 # Note:
 #   - No need to build Pointgrey Camera driver from source anymore. Check pullrequest 243548 merge into `ros:master`
 #       on 3 Apr 2020: https://github.com/ros/rosdistro/pull/24348
-RUN ~/catkin_ws/src \
+RUN cd ~/catkin_ws/src \
     && git clone https://github.com/RedLeader962/autorally.git  \
     && git clone https://github.com/AutoRally/imu_3dm_gx4.git \
     && git clone https://github.com/ros-drivers/pointgrey_camera_driver.git \
