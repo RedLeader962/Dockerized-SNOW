@@ -144,8 +144,9 @@ RUN apt-get update \
 #RUN echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> ~/.bashrc \
 #    && source ~/.bashrc
 
-RUN echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> /root/.bashrc \
-    && source /root/.bashrc
+RUN echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> ~/.bashrc
+
+RUN source ~/.bashrc
 
 
 # ... Create and build a catkin workspace ..............................................................................
