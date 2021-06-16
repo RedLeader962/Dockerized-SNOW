@@ -47,7 +47,7 @@ WORKDIR /workspace
 
 # install development utilities
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
+    && apt-get install --assume-yes --no-install-recommends \
         git \
         cmake \
         build-essential \
@@ -61,6 +61,7 @@ RUN apt-get update \
         libusb-dev \
         texinfo \
         libboost-all-dev\
+        apt-utils \
     && rm -rf /var/lib/apt/lists/*
 
 
@@ -75,7 +76,7 @@ RUN curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xC1CF6E31E6
 
 # install ROS packages
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
+    && apt-get install --assume-yes --no-install-recommends \
         ros-melodic-`echo "${ROS_PKG}" | tr '_' '-'` \
         python-rosdep \
         python-rosinstall \
@@ -91,10 +92,14 @@ RUN apt-get update \
 RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
 # Setup keys
 RUN wget https://packages.osrfoundation.org/gazebo.key -O - | apt-key add -
-# Install Gazebo and upgrade `ignition-math`
+
 RUN apt-get update \
-    && apt-get install -y gazebo9 \
-    && apt-get upgrade libignition-math2 \
+    && apt-get install --assume-yes --no-install-recommends gazebo9 \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update \
+    && apt-get upgrade --assume-yes --no-install-recommends \
+        libignition-math2 \
     && rm -rf /var/lib/apt/lists/*
 
 # update and initialize rosdep
@@ -158,7 +163,7 @@ RUN ~/catkin_ws/src \
     && git clone https://github.com/ros-drivers/pointgrey_camera_driver.git \
     && cd ~/catkin_ws \
     && apt-get update \
-    && rosdep install --from-path src --ignore-src -y \
+    && rosdep install --from-path src --ignore-src --default-yes \
     && git clone https://gitlab.com/libeigen/eigen.git /opt \
     && cd /opt/eigen \
     && mkdir build \
