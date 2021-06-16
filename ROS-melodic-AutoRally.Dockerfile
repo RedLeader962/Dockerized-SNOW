@@ -145,8 +145,7 @@ RUN apt-get update \
 #    && source ~/.bashrc
 
 RUN echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> ~/.bashrc
-
-RUN source ~/.bashrc
+CMD ["source ~/.bashrc"]
 
 
 # ... Create and build a catkin workspace ..............................................................................
