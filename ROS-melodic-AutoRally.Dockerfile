@@ -142,8 +142,10 @@ RUN apt-get update \
 
 # ... Environment setup ................................................................................................
 #RUN echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> ~/.bashrc \
-RUN echo 'source /opt/ros/melodic/setup.bash' >> ~/.bashrc \
-    && source ~/.bashrc
+#    && source ~/.bashrc
+
+RUN echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> /root/.bashrc \
+    && source /root/.bashrc
 
 
 # ... Create and build a catkin workspace ..............................................................................
