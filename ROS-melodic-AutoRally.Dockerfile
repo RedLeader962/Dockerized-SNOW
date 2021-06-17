@@ -224,8 +224,10 @@ RUN apt-get update \
 # ... Finish container setup ...........................................................................................
 COPY ./dockerfile_util/ros_entrypoint.sh /ros_entrypoint.sh
 # set read/write permission to entrypoint file and joystick dir js0
-RUN /bin/bash -c "chmod +x /ros_entrypoint.sh \
-    && chmod a+rw /dev/input/js0"
+RUN /bin/bash -c "chmod +x /ros_entrypoint.sh"
+#RUN /bin/bash -c "chmod +x /ros_entrypoint.sh \
+#    && chmod a+rw /dev/input/js0"
+RUN echo "find /dev/input"
 ENTRYPOINT ["/ros_entrypoint.sh"]
 CMD ["bash"]
 WORKDIR /
