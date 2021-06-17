@@ -211,9 +211,15 @@ RUN echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> ~/.bashrc \
 RUN /bin/bash -c 'source ~/.bashrc'
 
 # ... Generate Documentation ...........................................................................................
+# Run doxygen with the `-u` flag to remove obsolete configuration tag
 RUN cd ~/catkin_ws/src/autorally/ \
-    && doxygen
+    && doxygen -u
 
+# ... Fix missing import ...............................................................................................
+RUN apt-get update \
+    && apt-get install --assume-yes --no-install-recommends \
+        usbutils
+    && rm -rf /var/lib/apt/lists/*
 
 # ... Finish container setup ...........................................................................................
 COPY ./dockerfile_util/ros_entrypoint.sh /ros_entrypoint.sh
