@@ -1,34 +1,6 @@
 # Adaptation of `Dockerfile.ros.melodic` by dusty-nv
 #   at https://github.com/dusty-nv/jetson-containers/blob/master/Dockerfile.ros.melodic
 #
-# Build:
-#   1. Add "default-runtime": "nvidia" to your `/etc/docker/daemon.json` configuration file
-#       {
-#           "runtimes": {
-#               "nvidia": {
-#                   "path": "nvidia-container-runtime",
-#                   "runtimeArgs": []
-#               }
-#           },
-#           "default-runtime": "nvidia"
-#       }
-#   2. Restart the Docker service or reboot your system .
-#   3. Execute build command
-#       $ sudo docker build -t snow-autorally-l4t-ros-melodic-full:r1.0 -f ROS-melodic-AutoRally.Dockerfile .
-#
-# Usage:
-#   $ export DISPLAY=:0
-#   $ sudo xhost +si:localuser:root
-#   $ sudo docker run --device=/dev/input/js0 --runtime nvidia --gpus all --network host --name joystick -it -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix snow-autorally-l4t-ros-melodic-full:r1.3
-#
-# Flags Options Explained:
-#   `--runtime` nvidia refers to using the NVIDIA container runtime while running the l4t-base container
-#   `-it` refers to running in interactive mode
-#   `-v` refers to the mounting directory, and used to mount host’s X11 display in the container filesystem to render output videos
-#   `--name` refers to the specification of the container name
-#   `-d`or `--device` refers to mapping an attached device such as camera to the container with full access
-#   `-H` or `--hostname` specifies remote host name: eg. if you want to execute the run command on your Xavier
-#   `-p` or `--publish` publish a container’s port(s) to the host, necessary when you need a port to communicate with a program in your container.
 
 # /// NVIDIA-docker SNOW-AutoRally /////////////////////////////////////////////////////////////////////////////////////
 
@@ -80,6 +52,7 @@ RUN curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xC1CF6E31E6
 RUN apt-get update \
     && apt-get install --assume-yes --no-install-recommends \
         ros-melodic-`echo "${ROS_PKG}" | tr '_' '-'` \
+#        ros-melodic-joy \
         python-rosdep \
         python-rosinstall \
         python-rosinstall-generator \
@@ -207,7 +180,6 @@ RUN echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> ~/.bashrc \
 # before using any AutoRally components. See https://github.com/AutoRally/autorally/wiki for more information
 # about how to set this system up for distributed launches on your vehicle platform.
 
-#CMD ["source ~/.bashrc"]
 RUN /bin/bash -c 'source ~/.bashrc'
 
 # ... Generate Documentation ...........................................................................................
@@ -225,9 +197,7 @@ RUN apt-get update \
 COPY ./dockerfile_util/ros_entrypoint.sh /ros_entrypoint.sh
 # set read/write permission to entrypoint file and joystick dir js0
 RUN /bin/bash -c "chmod +x /ros_entrypoint.sh"
-#RUN /bin/bash -c "chmod +x /ros_entrypoint.sh \
-#    && chmod a+rw /dev/input/js0"
-#RUN /bin/bash -c "find /dev/input"
+#RUN /bin/bash -c "chmod a+rw /dev/input/js0"  # Quick fix: pushed to ros_entrypoint.sh
 ENTRYPOINT ["/ros_entrypoint.sh"]
 CMD ["bash"]
 WORKDIR /
