@@ -218,7 +218,7 @@ RUN cd ~/catkin_ws/src/autorally/ \
 # ... Fix missing import ...............................................................................................
 RUN apt-get update \
     && apt-get install --assume-yes --no-install-recommends \
-        usbutils
+        usbutils \
     && rm -rf /var/lib/apt/lists/*
 
 # ... Finish container setup ...........................................................................................
