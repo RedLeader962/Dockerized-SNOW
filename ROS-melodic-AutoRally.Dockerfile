@@ -36,6 +36,7 @@ RUN apt-get update \
         texinfo \
         libboost-all-dev\
         apt-utils \
+#        usbutils \     # TODO: unmute before starting nightly rebuilding
     && rm -rf /var/lib/apt/lists/*
 
 
@@ -114,7 +115,6 @@ RUN cd /opt \
 
 
 # ... Create and build a catkin workspace ..............................................................................
-
 RUN /bin/bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash \
     && mkdir -p ~/catkin_ws/src \
     && cd ~/catkin_ws/ \
@@ -165,29 +165,39 @@ RUN cd ~/catkin_ws/src \
 #        && cd ~/catkin_ws/ \
 #        && catkin_make'
 
-RUN /bin/bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash \
-        && cd ~/catkin_ws/ \
-        && catkin_make \
-        && source ~/catkin_ws/devel/setup.sh'
-
-
-# ... Environment setup ................................................................................................
-# Due to the additional requirement of ROS's distributed launch system, you must run
-
-RUN echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> ~/.bashrc \
-    && echo 'source ~/catkin_ws/devel/setup.sh' >> ~/.bashrc \
-    && echo 'source ~/catkin_ws/src/autorally/autorally_util/setupEnvLocal.sh' >> ~/.bashrc
-# before using any AutoRally components. See https://github.com/AutoRally/autorally/wiki for more information
-# about how to set this system up for distributed launches on your vehicle platform.
-
-RUN /bin/bash -c 'source ~/.bashrc'
-
-# ... Generate Documentation ...........................................................................................
-# Run doxygen with the `-u` flag to remove obsolete configuration tag
-RUN cd ~/catkin_ws/src/autorally/ \
-    && doxygen -u
+## /=== IN PROGRESS =====================================================================================================
+#
+## TODO: refactor out to a shell script
+#RUN /bin/bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash \
+#        && cd ~/catkin_ws/ \
+#        && catkin_make \
+#        && source ~/catkin_ws/devel/setup.sh'
+#
+#
+## ... Environment setup ................................................................................................
+## Due to the additional requirement of ROS's distributed launch system, you must run
+#
+## TODO: refactor out to a shell script
+#RUN echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> ~/.bashrc \
+#    && echo 'source ~/catkin_ws/devel/setup.sh' >> ~/.bashrc \
+#    && echo 'source ~/catkin_ws/src/autorally/autorally_util/setupEnvLocal.sh' >> ~/.bashrc
+## before using any AutoRally components. See https://github.com/AutoRally/autorally/wiki for more information
+## about how to set this system up for distributed launches on your vehicle platform.
+#
+## TODO: refactor out to a shell script
+#RUN /bin/bash -c 'source ~/.bashrc'
+#
+## ... Generate Documentation ...........................................................................................
+## Run doxygen with the `-u` flag to remove obsolete configuration tag
+#
+## TODO: refactor out to a shell script
+#RUN cd ~/catkin_ws/src/autorally/ \
+#    && doxygen -u
+#
+## ===================================================================================================== IN PROGRESS ===/
 
 # ... Fix missing import ...............................................................................................
+# TODO:refactor out to the first `apt-get`
 RUN apt-get update \
     && apt-get install --assume-yes --no-install-recommends \
         usbutils \

@@ -1,5 +1,13 @@
-# SNOW-AutoRally nvidia-docker
-## Build:
+# /// _SNOW-AutoRally nvidia-docker_ ////////////////////////////
+- Latest: `snow-autorally-l4t-ros-melodic-full`
+- Base image: `nvcr.io/nvidia/l4t-base:r32.5.0` 
+
+## Setup alternative:
+- build the docker image from a Jetson device;
+- build the docker image from an x86_64 host using qemu (TODO);
+- or pull the pre-builded docker image from DockerHub (TODO).
+
+### Build the docker image from a Jetson device
 1. Add "default-runtime": "nvidia" to your `/etc/docker/daemon.json` configuration file
     ```bash
     {
@@ -17,26 +25,57 @@
     ```bash
     sudo docker build -t snow-autorally-l4t-ros-melodic-full:r1.0 -f ROS-melodic-AutoRally.Dockerfile .
     ```
+   Note: The `.` is the context for the building step. It's the current directory.
+
+### Build the docker image from an x86_64 host using qemu 
+(TODO)
+### Pull the pre-build container from DockerHub 
+(TODO)
+
 
 ## Usage:
+### Instanciate a new container
+Note on configuration:
+- run Gazebo GUI on the host computer via X11
+- map the default joystick usb input from the host (eg. a Jetson Xavier) to the container    
 ```bash
 export DISPLAY=:0
 sudo xhost +si:localuser:root
-sudo docker run --device=/dev/input/js0 --runtime nvidia --gpus all --network host --name joystick -it -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix snow-autorally-l4t-ros-melodic-full:r1.3
+sudo docker run \
+    --device=/dev/input/js0 \
+    --runtime nvidia --gpus all \ 
+    --network host \
+    --name <theContainerCoolName> \
+    --interactive \
+    --tty \
+    --env DISPLAY=$DISPLAY \
+    --volume /tmp/.X11-unix/:/tmp/.X11-unix \
+    snow-autorally-l4t-ros-melodic-full:<theLatestVersionTag>
 ```
 
-**Flags Options Explained:**
-- `--runtime` nvidia refers to using the NVIDIA container runtime while running the l4t-base container
-- `-it` refers to running in interactive mode
-- `-v` refers to the mounting directory, and used to mount host’s X11 display in the container filesystem to render output videos
-- `--name` refers to the specification of the container name
-- `-d`or `--device` refers to mapping an attached device such as camera to the container with full access
-- `-H` or `--hostname` specifies remote host name: eg. if you want to execute the run command on your Xavier
-- `-p` or `--publish` publish a container’s port(s) to the host, necessary when you need a port to communicate with a program in your container.
+**Flags explanation:**
+- `--name` a meaningful container name
 
-# Opening new terminal access in the container
+**Flags explanation:**
+- `--runtime nvidia` set the container to use the NVIDIA container runtime  
+- `--volume` or `-v` set a mounting directory.
+  We use this to mount the host X11 display in the container filesystem. Rendered output videos from the container can then be displayed on the host.
+- `--device`or `-d` set full access from a container to a host attached device (eg. joystick, camera)  
+
+**Others usefull flags:**
+- `--hostname` or `-H` specifies remote host name: eg. if you want to execute the run command on your Xavier
+- `--publish` or `-p` publish a container’s port(s) to the host, necessary when you need a port to communicate with a program in your container.
+
+### Stop and start a container
 ```bash
-sudo docker exec -it myCoolContainerName bash
+sudo docker stop <myCoolContainerName>
+
+sudo docker start -i <myCoolContainerName>
+```
+
+###  Opening new terminal access in a running container
+```bash
+sudo docker exec -it <myCoolContainerName> bash
 
 # ex:
 sudo docker exec -it amazing_vaughan bash
