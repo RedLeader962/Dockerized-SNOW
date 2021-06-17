@@ -19,7 +19,7 @@
 # Usage:
 #   $ export DISPLAY=:0
 #   $ sudo xhost +si:localuser:root
-#   $ sudo docker run --runtime nvidia --network host -it -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix snow-autorally-l4t-ros-melodic-full:r1.0
+#   $ sudo docker run --device=/dev/input/js0 --runtime nvidia --gpus all --network host --name joystick -it -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix snow-autorally-l4t-ros-melodic-full:r1.3
 #
 # Flags Options Explained:
 #   `--runtime` nvidia refers to using the NVIDIA container runtime while running the l4t-base container
@@ -223,7 +223,9 @@ RUN apt-get update \
 
 # ... Finish container setup ...........................................................................................
 COPY ./dockerfile_util/ros_entrypoint.sh /ros_entrypoint.sh
-RUN bash -c "chmod +x /ros_entrypoint.sh"
+# set read/write permission to entrypoint file and joystick dir js0
+RUN /bin/bash -c "chmod +x /ros_entrypoint.sh /
+    && chmod a+rw /dev/input/js0"
 ENTRYPOINT ["/ros_entrypoint.sh"]
 CMD ["bash"]
 WORKDIR /
