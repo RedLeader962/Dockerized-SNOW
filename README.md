@@ -40,7 +40,7 @@
 
 
 ## Usage:
-### Instanciate a new container
+### Instantiate a new container
 Note on configuration:
 - run Gazebo GUI on the host computer via X11
 - map the default joystick usb input from the host (eg. a Jetson Xavier) to the container    
