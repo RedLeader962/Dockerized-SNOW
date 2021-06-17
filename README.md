@@ -8,7 +8,7 @@
 - or pull the pre-builded docker image from DockerHub (TODO).
 
 ### Build the docker image from a Jetson device
-1. Add "default-runtime": "nvidia" to your `/etc/docker/daemon.json` configuration file
+1. Add "default-runtime": "nvidia" to your Jetson `/etc/docker/daemon.json` configuration file
     ```bash
     {
         "runtimes": {
@@ -20,8 +20,14 @@
         "default-runtime": "nvidia"
     }
     ```
-2. Restart the Docker service or reboot your system .
-3. Execute build command
+2. Restart the Docker service or reboot your system
+3. Clone the repo in the jetson 
+   ```bash
+   cd /opt
+   git clone https://github.com/RedLeader962/SNOW_AutoRally.git
+   cd /opt/SNOW_AutoRally 
+   ```
+4. Build the nvidia-docker image
     ```bash
     sudo docker build -t snow-autorally-l4t-ros-melodic-full:r1.0 -f ROS-melodic-AutoRally.Dockerfile .
     ```
