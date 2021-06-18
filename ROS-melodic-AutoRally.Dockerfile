@@ -126,7 +126,8 @@ RUN /bin/bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash \
     && cd ~/catkin_ws/ \
     && catkin_make \
     && source ~/catkin_ws/devel/setup.bash' \
-    && echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> ~/.bashrc \
+#    && echo 'source /opt/ros/$ROS_DISTRO/setup.bash' >> ~/.bashrc \
+    && echo 'source $ROS_ROOT/setup.bash' >> ~/.bashrc \
     && echo 'source ~/catkin_ws/devel/setup.bash' >> ~/.bashrc
 # Make sure your workspace is properly overlayed by the setup script by making sure the ROS_PACKAGE_PATH environment
 # variable includes the directory you're in.
@@ -188,8 +189,9 @@ RUN /bin/bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash \
 
 # ... Generate Documentation ...........................................................................................
 # Run doxygen with the `-u` flag to remove obsolete configuration tag
-RUN cd ~/catkin_ws/src/autorally/ \
-    && doxygen -u
+# TODO: unmute
+#RUN cd ~/catkin_ws/src/autorally/ \
+#    && doxygen -u
 
 ## ===================================================================================================== IN PROGRESS ===/
 
