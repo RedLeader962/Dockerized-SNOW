@@ -29,9 +29,12 @@
    ```
 4. Build the nvidia-docker image
     ```bash
-    sudo docker build -t snow-autorally-l4t-ros-melodic-full:r1.0 -f ROS-melodic-AutoRally.Dockerfile .
+    sudo docker build -t snow-autorally-l4t-ros-melodic-full:<theLatestVersionTag> -f ROS-melodic-AutoRally.Dockerfile .
     ```
-   Note: The `.` is the context for the building step. It's the current directory.
+   Note: 
+   - The `.` is the context for the building step (It's the current directory);
+   - Set the `<theLatestVersionTag>` following the pattern `rX.Y`
+   
 
 ### Build the docker image from an x86_64 host using qemu 
 (TODO)

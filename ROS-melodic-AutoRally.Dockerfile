@@ -113,13 +113,21 @@ RUN cd /opt \
     && make install \
     && sudo ldconfig
 
+# ... Fix missing import ...............................................................................................
+# TODO:refactor out to the first `apt-get`
+RUN apt-get update \
+    && apt-get install --assume-yes --no-install-recommends \
+        usbutils \
+    && rm -rf /var/lib/apt/lists/*
 
 # ... Create and build a catkin workspace ..............................................................................
 RUN /bin/bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash \
     && mkdir -p ~/catkin_ws/src \
     && cd ~/catkin_ws/ \
-    && catkin_make' \
-    && echo 'source ~/catkin_ws/devel/setup.sh' >> /root/.bashrc
+    && catkin_make \
+    && source ~/catkin_ws/devel/setup.bash' \
+    && echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> ~/.bashrc
+    && echo 'source ~/catkin_ws/devel/setup.bash' >> ~/.bashrc
 # Make sure your workspace is properly overlayed by the setup script by making sure the ROS_PACKAGE_PATH environment
 # variable includes the directory you're in.
 #   $ echo $ROS_PACKAGE_PATH
@@ -128,13 +136,15 @@ RUN /bin/bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash \
 
 # ... Fork AutoRally repo and install ..................................................................................
 # Steps:
-#   1. clone repos
-#   2. Install AutoRally ROS Dependencies
-#   3. upgrade Eigen to version >=3.3.5.  Check package version: $ pkg-config --modversion eigen3
+#   1. Upgrade Eigen to version >=3.3.5.  Check package version: $ pkg-config --modversion eigen3
+#   2. clone AutoRally repos
+#   3. Install AutoRally ROS Dependencies
 #   4. Compilation & Running
 # Note:
 #   - No need to build Pointgrey Camera driver from source anymore. Check pullrequest 243548 merge into `ros:master`
 #       on 3 Apr 2020: https://github.com/ros/rosdistro/pull/24348
+
+# Install eigen
 RUN cd /opt \
     && git clone https://gitlab.com/libeigen/eigen.git \
     && cd /opt/eigen \
@@ -143,7 +153,7 @@ RUN cd /opt \
     && cmake /opt/eigen \
     && make install
 
-
+# Clone AutoRally and dependencies
 RUN cd ~/catkin_ws/src \
     && git clone https://github.com/RedLeader962/autorally.git  \
     && git clone https://github.com/AutoRally/imu_3dm_gx4.git \
@@ -153,55 +163,37 @@ RUN cd ~/catkin_ws/src \
     && rosdep install --from-path src --ignore-src --default-yes \
     && rm -rf /var/lib/apt/lists/*
 
-#    && cd /opt \
-#    && git clone https://gitlab.com/libeigen/eigen.git \
-#    && cd /opt/eigen \
-#    && mkdir build \
-#    && cd build \
-#    && cmake /opt/eigen \
-#    && make install \
-#    && /bin/bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash \
-#        && source ~/catkin_ws/devel/setup.sh \
-#        && cd ~/catkin_ws/ \
-#        && catkin_make'
+# Build AutoRally
+RUN /bin/bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash \
+        && cd ~/catkin_ws/ \
+        && catkin_make \
+        && source ~/catkin_ws/devel/setup.bash' \
+        && echo 'source ~/catkin_ws/src/autorally/autorally_util/setupEnvLocal.sh' >> ~/.bashrc
 
 ## /=== IN PROGRESS =====================================================================================================
 #
-## TODO: refactor out to a shell script
-#RUN /bin/bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash \
-#        && cd ~/catkin_ws/ \
-#        && catkin_make \
-#        && source ~/catkin_ws/devel/setup.sh'
 #
 #
 ## ... Environment setup ................................................................................................
 ## Due to the additional requirement of ROS's distributed launch system, you must run
-#
-## TODO: refactor out to a shell script
+## TODO: To remove but KEEP COMMENT!
 #RUN echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> ~/.bashrc \
 #    && echo 'source ~/catkin_ws/devel/setup.sh' >> ~/.bashrc \
 #    && echo 'source ~/catkin_ws/src/autorally/autorally_util/setupEnvLocal.sh' >> ~/.bashrc
 ## before using any AutoRally components. See https://github.com/AutoRally/autorally/wiki for more information
 ## about how to set this system up for distributed launches on your vehicle platform.
 #
-## TODO: refactor out to a shell script
+## TODO: To remove
 #RUN /bin/bash -c 'source ~/.bashrc'
-#
-## ... Generate Documentation ...........................................................................................
-## Run doxygen with the `-u` flag to remove obsolete configuration tag
-#
-## TODO: refactor out to a shell script
-#RUN cd ~/catkin_ws/src/autorally/ \
-#    && doxygen -u
-#
+
+# ... Generate Documentation ...........................................................................................
+# Run doxygen with the `-u` flag to remove obsolete configuration tag
+RUN cd ~/catkin_ws/src/autorally/ \
+    && doxygen -u
+
 ## ===================================================================================================== IN PROGRESS ===/
 
-# ... Fix missing import ...............................................................................................
-# TODO:refactor out to the first `apt-get`
-RUN apt-get update \
-    && apt-get install --assume-yes --no-install-recommends \
-        usbutils \
-    && rm -rf /var/lib/apt/lists/*
+
 
 # ... Finish container setup ...........................................................................................
 COPY ./dockerfile_util/ros_entrypoint.sh /ros_entrypoint.sh
