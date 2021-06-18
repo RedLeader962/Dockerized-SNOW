@@ -13,8 +13,8 @@ echo "ROS_DISTRO $ROS_DISTRO"
 #source "~/catkin_ws/devel/setup.bash"
 #source "~/catkin_ws/src/autorally/autorally_util/setupEnvLocal.sh"
 
-printenv | grep ROS
-printenv | grep AR_
+#printenv | grep ROS
+#printenv | grep AR_
 
 find /dev/input
 chmod a+rw /dev/input/js0
