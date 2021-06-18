@@ -86,17 +86,17 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 
-# ... Install MPPI Dependencies ........................................................................................
-# Note: cmake will install in the default directory `/usr/local`
-RUN cd /opt \
-    && git clone https://github.com/rogersce/cnpy.git \
-    && mkdir $HOME/build \
-    && cd $HOME/build \
-    && cmake /opt/cnpy \
-    && make \
-    && make install
-
-
+## ... Install MPPI Dependencies ........................................................................................
+## Note: cmake will install in the default directory `/usr/local`
+#RUN cd /opt \
+#    && git clone https://github.com/rogersce/cnpy.git \
+#    && mkdir $HOME/build \
+#    && cd $HOME/build \
+#    && cmake /opt/cnpy \
+#    && make \
+#    && make install
+#
+#
 ## ... Install GTSAM ....................................................................................................
 ## CMAKE_BUILD_TYPE: https://github.com/borglab/gtsam/blob/develop/INSTALL.md
 ## Debug: default
