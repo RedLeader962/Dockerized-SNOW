@@ -36,7 +36,7 @@ RUN apt-get update \
         texinfo \
         libboost-all-dev\
         apt-utils \
-#        usbutils \     # TODO: unmute before starting nightly rebuilding
+        usbutils \
     && rm -rf /var/lib/apt/lists/*
 
 
@@ -74,8 +74,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update \
-    && apt-get upgrade --assume-yes --no-install-recommends \
-        libignition-math2 \
+    && apt-get upgrade --assume-yes --no-install-recommends libignition-math2 \
     && rm -rf /var/lib/apt/lists/*
 
 # update and initialize rosdep
@@ -83,6 +82,7 @@ RUN apt-get update \
     && cd ${ROS_ROOT} \
     && rosdep init \
     && rosdep update \
+    && rosdep fix-permissions \
     && rm -rf /var/lib/apt/lists/*
 
 
@@ -97,28 +97,29 @@ RUN cd /opt \
     && make install
 
 
-# ... Install GTSAM ....................................................................................................
-# CMAKE_BUILD_TYPE: https://github.com/borglab/gtsam/blob/develop/INSTALL.md
-# Debug: default
-# Release: Optimizations turned on, no debug symbols
-#   $ cmake -DGTSAM_INSTALL_GEOGRAPHICLIB=ON -DGTSAM_WITH_EIGEN_MKL=OFF -DCMAKE_BUILD_TYPE=Release ..
-# runs unit tests (optional step ... it's very long)
-#   $ make check
-RUN cd /opt \
-    && git clone https://github.com/borglab/gtsam.git \
-    && cd /opt/gtsam \
-    && mkdir build \
-    && cd build \
-    && cmake -DGTSAM_INSTALL_GEOGRAPHICLIB=ON -DGTSAM_WITH_EIGEN_MKL=OFF .. \
-    && make install \
-    && sudo ldconfig
+## ... Install GTSAM ....................................................................................................
+## CMAKE_BUILD_TYPE: https://github.com/borglab/gtsam/blob/develop/INSTALL.md
+## Debug: default
+## Release: Optimizations turned on, no debug symbols
+##   $ cmake -DGTSAM_INSTALL_GEOGRAPHICLIB=ON -DGTSAM_WITH_EIGEN_MKL=OFF -DCMAKE_BUILD_TYPE=Release ..
+## runs unit tests (optional step ... it's very long)
+##   $ make check
+#RUN cd /opt \
+#    && git clone https://github.com/borglab/gtsam.git \
+#    && cd /opt/gtsam \
+#    && mkdir build \
+#    && cd build \
+##    && cmake -DGTSAM_INSTALL_GEOGRAPHICLIB=ON -DGTSAM_WITH_EIGEN_MKL=OFF .. \
+#    && cmake -DGTSAM_INSTALL_GEOGRAPHICLIB=ON -DGTSAM_WITH_EIGEN_MKL=OFF -DCMAKE_BUILD_TYPE=Release ..
+#    && make install \
+#    && sudo ldconfig
 
 # ... Fix missing import ...............................................................................................
 # TODO:refactor out to the first `apt-get`
-RUN apt-get update \
-    && apt-get install --assume-yes --no-install-recommends \
-        usbutils \
-    && rm -rf /var/lib/apt/lists/*
+#RUN apt-get update \
+#    && apt-get install --assume-yes --no-install-recommends \
+#        usbutils \
+#    && rm -rf /var/lib/apt/lists/*
 
 # ... Create and build a catkin workspace ..............................................................................
 RUN /bin/bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash \
@@ -126,8 +127,7 @@ RUN /bin/bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash \
     && cd ~/catkin_ws/ \
     && catkin_make \
     && source ~/catkin_ws/devel/setup.bash' \
-#    && echo 'source /opt/ros/$ROS_DISTRO/setup.bash' >> ~/.bashrc \
-    && echo 'source $ROS_ROOT/setup.bash' >> ~/.bashrc \
+    && echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> ~/.bashrc \
     && echo 'source ~/catkin_ws/devel/setup.bash' >> ~/.bashrc
 # Make sure your workspace is properly overlayed by the setup script by making sure the ROS_PACKAGE_PATH environment
 # variable includes the directory you're in.
@@ -168,8 +168,8 @@ RUN cd ~/catkin_ws/src \
 RUN /bin/bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash \
         && cd ~/catkin_ws/ \
         && catkin_make \
-        && source ~/catkin_ws/devel/setup.bash' \
-        && echo 'source ~/catkin_ws/src/autorally/autorally_util/setupEnvLocal.sh' >> ~/.bashrc
+        && source ~/catkin_ws/devel/setup.bash \
+        && echo "source ~/catkin_ws/src/autorally/autorally_util/setupEnvLocal.sh" >> ~/.bashrc'
 
 ## /=== IN PROGRESS =====================================================================================================
 #
