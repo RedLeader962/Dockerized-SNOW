@@ -86,33 +86,33 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 
-## ... Install MPPI Dependencies ........................................................................................
-## Note: cmake will install in the default directory `/usr/local`
-#RUN cd /opt \
-#    && git clone https://github.com/rogersce/cnpy.git \
-#    && mkdir $HOME/build \
-#    && cd $HOME/build \
-#    && cmake /opt/cnpy \
-#    && make \
-#    && make install
-#
-#
-## ... Install GTSAM ....................................................................................................
-## CMAKE_BUILD_TYPE: https://github.com/borglab/gtsam/blob/develop/INSTALL.md
-## Debug: default
-## Release: Optimizations turned on, no debug symbols
-##   $ cmake -DGTSAM_INSTALL_GEOGRAPHICLIB=ON -DGTSAM_WITH_EIGEN_MKL=OFF -DCMAKE_BUILD_TYPE=Release ..
-## runs unit tests (optional step ... it's very long)
-##   $ make check
-#RUN cd /opt \
-#    && git clone https://github.com/borglab/gtsam.git \
-#    && cd /opt/gtsam \
-#    && mkdir build \
-#    && cd build \
-##    && cmake -DGTSAM_INSTALL_GEOGRAPHICLIB=ON -DGTSAM_WITH_EIGEN_MKL=OFF .. \
-#    && cmake -DGTSAM_INSTALL_GEOGRAPHICLIB=ON -DGTSAM_WITH_EIGEN_MKL=OFF -DCMAKE_BUILD_TYPE=Release ..
-#    && make install \
-#    && sudo ldconfig
+# ... Install MPPI Dependencies ........................................................................................
+# Note: cmake will install in the default directory `/usr/local`
+RUN cd /opt \
+    && git clone https://github.com/rogersce/cnpy.git \
+    && mkdir $HOME/build \
+    && cd $HOME/build \
+    && cmake /opt/cnpy \
+    && make \
+    && make install
+
+
+# ... Install GTSAM ....................................................................................................
+# CMAKE_BUILD_TYPE: https://github.com/borglab/gtsam/blob/develop/INSTALL.md
+# Debug: default
+# Release: Optimizations turned on, no debug symbols
+#   $ cmake -DGTSAM_INSTALL_GEOGRAPHICLIB=ON -DGTSAM_WITH_EIGEN_MKL=OFF -DCMAKE_BUILD_TYPE=Release ..
+# runs unit tests (optional step ... it's very long)
+#   $ make check
+RUN cd /opt \
+    && git clone https://github.com/borglab/gtsam.git \
+    && cd /opt/gtsam \
+    && mkdir build \
+    && cd build \
+#    && cmake -DGTSAM_INSTALL_GEOGRAPHICLIB=ON -DGTSAM_WITH_EIGEN_MKL=OFF .. \
+    && cmake -DGTSAM_INSTALL_GEOGRAPHICLIB=ON -DGTSAM_WITH_EIGEN_MKL=OFF -DCMAKE_BUILD_TYPE=Release ..
+    && make install \
+    && sudo ldconfig
 
 # ... Fix missing import ...............................................................................................
 # TODO:refactor out to the first `apt-get`
