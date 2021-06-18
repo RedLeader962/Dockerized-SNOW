@@ -122,13 +122,13 @@ RUN cd /opt \
 #    && rm -rf /var/lib/apt/lists/*
 
 # ... Create and build a catkin workspace ..............................................................................
-RUN /bin/bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash \
+RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
     && mkdir -p ~/catkin_ws/src \
     && cd ~/catkin_ws/ \
     && catkin_make \
-    && source ~/catkin_ws/devel/setup.bash' \
-    && echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> ~/.bashrc \
-    && echo 'source ~/catkin_ws/devel/setup.bash' >> ~/.bashrc
+    && source ~/catkin_ws/devel/setup.bash" \
+    && echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc \
+    && echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
 # Make sure your workspace is properly overlayed by the setup script by making sure the ROS_PACKAGE_PATH environment
 # variable includes the directory you're in.
 #   $ echo $ROS_PACKAGE_PATH
@@ -165,15 +165,13 @@ RUN cd ~/catkin_ws/src \
     && rm -rf /var/lib/apt/lists/*
 
 # Build AutoRally
-RUN /bin/bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash \
+RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
         && cd ~/catkin_ws/ \
         && catkin_make \
-        && source ~/catkin_ws/devel/setup.bash'
+        && source ~/catkin_ws/devel/setup.bash"
 
 
 ## /=== IN PROGRESS =====================================================================================================
-#
-#
 #
 ## ... Environment setup ................................................................................................
 ## Due to the additional requirement of ROS's distributed launch system, you must run
