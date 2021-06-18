@@ -10,8 +10,8 @@ source "$ros_env_setup"
 echo "ROS_ROOT   $ROS_ROOT"
 echo "ROS_DISTRO $ROS_DISTRO"
 
-source "~/catkin_ws/devel/setup.bash"
-source "~/catkin_ws/src/autorally/autorally_util/setupEnvLocal.sh"
+#source "~/catkin_ws/devel/setup.bash"
+#source "~/catkin_ws/src/autorally/autorally_util/setupEnvLocal.sh"
 
 printenv | grep ROS
 printenv | grep AR_
