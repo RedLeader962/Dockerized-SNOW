@@ -168,8 +168,8 @@ RUN cd ~/catkin_ws/src \
 RUN /bin/bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash \
         && cd ~/catkin_ws/ \
         && catkin_make \
-        && source ~/catkin_ws/devel/setup.bash \
-        && echo "source ~/catkin_ws/src/autorally/autorally_util/setupEnvLocal.sh" >> ~/.bashrc'
+        && source ~/catkin_ws/devel/setup.bash'
+
 
 ## /=== IN PROGRESS =====================================================================================================
 #
@@ -177,10 +177,13 @@ RUN /bin/bash -c 'source /opt/ros/${ROS_DISTRO}/setup.bash \
 #
 ## ... Environment setup ................................................................................................
 ## Due to the additional requirement of ROS's distributed launch system, you must run
+RUN echo "source ~/catkin_ws/src/autorally/autorally_util/setupEnvLocal.sh" >> ~/.bashrc
+
 ## TODO: To remove but KEEP COMMENT!
 #RUN echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> ~/.bashrc \
 #    && echo 'source ~/catkin_ws/devel/setup.sh' >> ~/.bashrc \
 #    && echo 'source ~/catkin_ws/src/autorally/autorally_util/setupEnvLocal.sh' >> ~/.bashrc
+
 ## before using any AutoRally components. See https://github.com/AutoRally/autorally/wiki for more information
 ## about how to set this system up for distributed launches on your vehicle platform.
 #
