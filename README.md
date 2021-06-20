@@ -217,15 +217,18 @@ printenv | grep AR_
 
 1. Launch an AutoRally simulation in gazebo
    ```shell
-   roslaunch autorally_gazebo autoRallyTrackGazeboSim.launch
+   roslaunch autorally_gazebo autoRallyTrackGazeboSim.launch yaw:=3.92709
    ```
-   or reset the robot position in Gazebo at the same spot as when the simulation starts
+   Note: the `yaw:=3.92709` argument is to make the car point in the same direction as the MPPI controler (This is undocumented).
+   
+   Reset the robot position in Gazebo at the same spot as when the simulation starts if needed
    ```shell
    rosservice call /gazebo/reset_simulation
    ```
 2. Open a new terminal, subscribe to this topic 
    ```shell
    rostopic echo /chassisState
+   rostopic echo /path_topicsudo
    ```
    and set `runstopMotionEnabled = true` using the joystick **BUT DONT MOVE THE ROBOT!**
 3. launch the state estimator with those arguments specific to the simulator case  
