@@ -215,7 +215,7 @@ printenv | grep AR_
 > Configure a publisher on topic `constantSpeedController/speedCommand` of type `std_msgs/Float64` at rate 10 with value of 3 (you can adjust he value once everything is running). The value is the target velocity in m/s, and **as soon as you do this the platform should move if motion is enabled**.
 
 ```shell
-rostopic pub /cosntantSpeedController/speedCommand std_msgs/Float64 "data: 3.0" -r 10
+rostopic pub -r 10 /constantSpeedController/speedCommand std_msgs/Float64 '{data: 1.5}'
 ```
 
 
