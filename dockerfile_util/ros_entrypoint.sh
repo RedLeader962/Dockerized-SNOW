@@ -18,12 +18,10 @@ echo "sourcing   $autorally_env_setup"
 
 echo "AR_JOYSTICK $AR_JOYSTICK"
 
-#printenv | grep ROS
-#printenv | grep AR_
-
 joystickZero="/dev/input/js0"
 
-if [[ -d "$joystickZero" ]]; then
+# The '-c' flag is a character device file test operator
+if [[ -c "$joystickZero" ]]; then
   chmod a+rw /dev/input/js0
 else
   echo "SNOW-AutoRally: No input device js0 detected"

@@ -57,15 +57,15 @@ Note on configuration:
 ```shell
 export DISPLAY=:0
 sudo xhost +si:localuser:root
-sudo docker run \
-    --device=/dev/input/js0 \
-    --runtime nvidia --gpus all \ 
-    --network host \
-    --name <theContainerCoolName> \
-    --interactive \
-    --tty \
-    --env DISPLAY=$DISPLAY \
-    --volume /tmp/.X11-unix/:/tmp/.X11-unix \
+sudo docker run 
+    --device=/dev/input/js0 
+    --runtime nvidia --gpus all  
+    --network host 
+    --name <theContainerCoolName> 
+    --interactive 
+    --tty 
+    --env DISPLAY=$DISPLAY 
+    --volume /tmp/.X11-unix/:/tmp/.X11-unix 
     snow-autorally-l4t-ros-melodic-full:<theLatestVersionTag>
 ```
 
@@ -118,14 +118,19 @@ roslaunch autorally_gazebo autoRallyTrackGazeboSim.launch
     # check listing of input device
     ls /dev/input/
     
+    # Install jstest-gtk 
     # check if the joystick is working (could be an other device eg. `js3`) 
     sudo jstest /dev/input/js0
     # move joystick and check data
     ```
 2. Fix permission 
-    ```shell
-    sudo chmod a+rw /dev/input/js0
-    ```
+   ```shell
+   # check permission 
+   ls -l /dev/input/js0
+   
+   # fix
+   sudo chmod a+rw /dev/input/js0
+   ```
 
 3. Start AutoRally 
 4. set `rosparam` joy_node/dev 
@@ -208,7 +213,12 @@ printenv | grep AR_
     ```
 
 > Configure a publisher on topic `constantSpeedController/speedCommand` of type `std_msgs/Float64` at rate 10 with value of 3 (you can adjust he value once everything is running). The value is the target velocity in m/s, and **as soon as you do this the platform should move if motion is enabled**.
->
+
+```shell
+rostopic pub /cosntantSpeedController/speedCommand std_msgs/Float64 "data: 3.0" -r 10
+```
+
+
 > If the robot turns and hits the barrier it's probably because the state estimator has not converged, so its orientation estimate is incorrect. Just select the track barriers and move them up to allow the robot to continue driving, and the estimator should converge and the vehicle will return to within the barriers.
 
 
