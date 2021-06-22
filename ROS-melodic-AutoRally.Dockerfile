@@ -77,9 +77,9 @@ RUN apt-get update \
     && apt-get upgrade --assume-yes --no-install-recommends libignition-math2 \
     && rm -rf /var/lib/apt/lists/*
 
-RUN apt-add-repository ppa:dartsim \
+RUN apt-add-repository ppa:dartsim/ppa \
     && apt-get update \
-    && apt-get upgrade --assume-yes --no-install-recommends libdart6-all-dev \
+    && apt-get install --assume-yes --no-install-recommends libdart6-all-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # update and initialize rosdep
