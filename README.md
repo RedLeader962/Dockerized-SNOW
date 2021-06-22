@@ -5,6 +5,8 @@
 #### Remote development quick ref 
 ```shell
 ssh snowxavier@10.0.1.73
+ssh snowxavier@192.168.55.1
+
 sudo docker exec -it thirsty_dirac bash
 export AR_JOYSTICK=/dev/input/js0 
 ```

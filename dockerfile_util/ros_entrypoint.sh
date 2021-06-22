@@ -13,11 +13,6 @@ echo "ROS_DISTRO $ROS_DISTRO"
 ros_devel_env_setup="~/catkin_ws/devel/setup.bash"
 echo "sourcing   $ros_devel_env_setup"
 
-autorally_env_setup="~/catkin_ws/src/autorally/autorally_util/setupEnvLocal.sh"
-echo "sourcing   $autorally_env_setup"
-
-echo "AR_JOYSTICK $AR_JOYSTICK"
-
 joystickZero="/dev/input/js0"
 
 # The '-c' flag is a character device file test operator
@@ -26,5 +21,10 @@ if [[ -c "$joystickZero" ]]; then
 else
   echo "SNOW-AutoRally: No input device js0 detected"
 fi
+
+autorally_env_setup="~/catkin_ws/src/autorally/autorally_util/setupEnvLocal.sh"
+echo "sourcing   $autorally_env_setup"
+
+echo "AR_JOYSTICK $AR_JOYSTICK"
 
 exec "$@"
