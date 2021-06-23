@@ -119,12 +119,6 @@ RUN cd /opt \
     && make install \
     && sudo ldconfig
 
-# ... Fix missing import ...............................................................................................
-# TODO:refactor out to the first `apt-get`
-#RUN apt-get update \
-#    && apt-get install --assume-yes --no-install-recommends \
-#        usbutils \
-#    && rm -rf /var/lib/apt/lists/*
 
 # ... Create and build a catkin workspace ..............................................................................
 RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
