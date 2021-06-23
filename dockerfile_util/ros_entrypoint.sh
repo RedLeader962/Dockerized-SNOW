@@ -1,4 +1,4 @@
-#!/bin/bash -i --verbose
+#!/bin/bash --verbose -i
 
 # ref: https://github.com/dusty-nv/jetson-containers/tree/master/packages
 set -e
@@ -28,7 +28,7 @@ fi
 
 autorally_env_setup=~/catkin_ws/src/autorally/autorally_util/setupEnvLocal.sh
 echo "sourcing   $autorally_env_setup"
-source "$autorally_env_setup"
+. "$autorally_env_setup"
 
 echo "AR_MPPI_PARAMS_PATH $AR_MPPI_PARAMS_PATH"
 echo "AR_CONFIG_PATH $AR_CONFIG_PATH"
