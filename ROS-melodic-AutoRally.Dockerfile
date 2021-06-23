@@ -183,7 +183,6 @@ RUN echo "source ~/catkin_ws/src/autorally/autorally_util/setupEnvLocal.sh" >> ~
 #RUN echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> ~/.bashrc \
 #    && echo 'source ~/catkin_ws/devel/setup.sh' >> ~/.bashrc \
 #    && echo 'source ~/catkin_ws/src/autorally/autorally_util/setupEnvLocal.sh' >> ~/.bashrc
-
 ## before using any AutoRally components. See https://github.com/AutoRally/autorally/wiki for more information
 ## about how to set this system up for distributed launches on your vehicle platform.
 #

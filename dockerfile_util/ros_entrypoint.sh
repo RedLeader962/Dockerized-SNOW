@@ -14,6 +14,10 @@ echo "ROS_DISTRO $ROS_DISTRO"
 #echo "sourcing   $ros_devel_env_setup"
 #source "$ros_devel_env_setup"
 
+echo "Make sure your workspace is properly overlayed by the setup script by making sure the ROS_PACKAGE_PATH environment variable includes the directory you're in."
+echo "You should see: /home/<youruser>/catkin_ws/src:/opt/ros/melodic/share"
+echo $ROS_PACKAGE_PATH
+
 joystickZero="/dev/input/js0"
 
 # The '-c' flag is a character device file test operator
@@ -28,9 +32,7 @@ fi
 #. "$autorally_env_setup"
 
 echo "AR_JOYSTICK $AR_JOYSTICK"
+echo "AR_MPPI_PARAMS_PATH $AR_MPPI_PARAMS_PATH"
 
-echo "Make sure your workspace is properly overlayed by the setup script by making sure the ROS_PACKAGE_PATH environment variable includes the directory you're in."
-echo "You should see: /home/youruser/catkin_ws/src:/opt/ros/melodic/share"
-echo $ROS_PACKAGE_PATH
 
 exec "$@"
