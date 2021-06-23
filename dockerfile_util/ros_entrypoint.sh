@@ -1,4 +1,4 @@
-#!/bin/bash --verbose -i
+#!/bin/bash --verbose
 
 # ref: https://github.com/dusty-nv/jetson-containers/tree/master/packages
 set -e
