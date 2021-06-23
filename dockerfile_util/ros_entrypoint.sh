@@ -28,6 +28,7 @@ fi
 
 autorally_env_setup=~/catkin_ws/src/autorally/autorally_util/setupEnvLocal.sh
 echo "sourcing   $autorally_env_setup"
+chmod a+rw ~/catkin_ws/src/autorally/autorally_util/setupEnvLocal.sh
 . "$autorally_env_setup"
 
 echo "AR_MPPI_PARAMS_PATH $AR_MPPI_PARAMS_PATH"
