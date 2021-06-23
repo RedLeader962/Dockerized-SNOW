@@ -160,6 +160,8 @@ RUN cd /opt \
     && cmake /opt/eigen \
     && make install
 
+RUN echo "Pull latest SNOW-melodic-devel branch"
+
 # Clone AutoRally and dependencies
 RUN cd ~/catkin_ws/src \
     && git clone --branch SNOW-melodic-devel https://github.com/RedLeader962/autorally.git  \
