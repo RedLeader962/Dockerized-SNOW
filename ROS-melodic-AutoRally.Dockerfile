@@ -78,9 +78,9 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 #RUN apt-add-repository ppa:dartsim/ppa \
-RUN apt-add-repository ppa:dartsim \
-    && apt-get update \
-#RUN apt-get update \
+#RUN apt-add-repository ppa:dartsim \
+#    && apt-get update \
+RUN apt-get update \
     && apt-get install --assume-yes --no-install-recommends libdart-core5-dev \
     && rm -rf /var/lib/apt/lists/*
 
