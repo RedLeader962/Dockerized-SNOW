@@ -40,58 +40,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 
-# ... register the ROS package source ..................................................................................
-# setup sources.list
-RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-
-# Setup your keys (from https://github.com/dusty-nv/jetson-containers/blob/master/Dockerfile.ros.melodic)
-# $ curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
-# or this alternative from wiki.ROS.org
-RUN curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xC1CF6E31E6BADE8868B172B4F42ED6FBAB17C654' | apt-key add -
-
-# install ROS packages
-RUN apt-get update \
-    && apt-get install --assume-yes --no-install-recommends \
-        ros-melodic-`echo "${ROS_PKG}" | tr '_' '-'` \
-#        ros-melodic-joy \
-        python-rosdep \
-        python-rosinstall \
-        python-rosinstall-generator \
-        python-wstool \
-    && rm -rf /var/lib/apt/lists/*
-
-
-# ... Install Gazebo ...................................................................................................
-# Note:
-#   - AutoRally require Gazebo version 9.XX
-#   - Latest Gazebo 9.XX require an upgrade of `ignition-math`
-RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
-# Setup keys
-RUN wget https://packages.osrfoundation.org/gazebo.key -O - | apt-key add -
-
-RUN apt-get update \
-    && apt-get install --assume-yes --no-install-recommends gazebo9 \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN apt-get update \
-    && apt-get upgrade --assume-yes --no-install-recommends libignition-math2 \
-    && rm -rf /var/lib/apt/lists/*
-
-# TODO: To install DART to use with ROS, ROS must be install from source
-#RUN apt-get update \
-#    && apt-get install --assume-yes --no-install-recommends libdart-core5-dev \
-#    && rm -rf /var/lib/apt/lists/*
-
-# update and initialize rosdep
-RUN apt-get update \
-    && cd ${ROS_ROOT} \
-    && rosdep init \
-    && rosdep update \
-    && rosdep fix-permissions \
-    && rm -rf /var/lib/apt/lists/*
-
-
-# ... Install MPPI Dependencies ........................................................................................
+# ... Install AutoRally MPPI Dependencies ..............................................................................
 # Note: cmake will install in the default directory `/usr/local`
 RUN cd /opt \
     && git clone https://github.com/rogersce/cnpy.git \
@@ -120,7 +69,7 @@ RUN cd /opt \
     && sudo ldconfig
 
 
-# Install eigen
+# ... Install eigen ....................................................................................................
 # Upgrade Eigen to version >=3.3.5.  Check package version: $ pkg-config --modversion eigen3
 RUN cd /opt \
     && git clone https://gitlab.com/libeigen/eigen.git \
@@ -129,6 +78,60 @@ RUN cd /opt \
     && cd build \
     && cmake /opt/eigen \
     && make install
+
+
+# ... register the ROS package source ..................................................................................
+# setup sources.list
+RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+
+# Setup your keys (from https://github.com/dusty-nv/jetson-containers/blob/master/Dockerfile.ros.melodic)
+# $ curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
+# or this alternative from wiki.ROS.org
+RUN curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xC1CF6E31E6BADE8868B172B4F42ED6FBAB17C654' | apt-key add -
+
+# install ROS packages
+RUN apt-get update \
+    && apt-get install --assume-yes --no-install-recommends \
+        ros-melodic-`echo "${ROS_PKG}" | tr '_' '-'` \
+#        ros-melodic-joy \
+        python-rosdep \
+        python-rosinstall \
+        python-rosinstall-generator \
+        python-wstool \
+    && rm -rf /var/lib/apt/lists/*
+
+
+# update and initialize rosdep
+RUN apt-get update \
+    && cd ${ROS_ROOT} \
+    && rosdep init \
+    && rosdep update \
+    && rosdep fix-permissions \
+    && rm -rf /var/lib/apt/lists/*
+
+
+# ... Install Gazebo ...................................................................................................
+# Note:
+#   - AutoRally require Gazebo version 9.XX
+#   - Latest Gazebo 9.XX require an upgrade of `ignition-math`
+RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
+# Setup keys
+RUN wget https://packages.osrfoundation.org/gazebo.key -O - | apt-key add -
+
+RUN apt-get update \
+    && apt-get install --assume-yes --no-install-recommends gazebo9 \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update \
+    && apt-get upgrade --assume-yes --no-install-recommends libignition-math2 \
+    && rm -rf /var/lib/apt/lists/*
+
+# TODO: To install DART to use with ROS, ROS must be install from source
+#RUN apt-get update \
+#    && apt-get install --assume-yes --no-install-recommends libdart-core5-dev \
+#    && rm -rf /var/lib/apt/lists/*
+
+
 
 
 # ... Create and build a catkin workspace ..............................................................................
@@ -174,7 +177,7 @@ RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
 #        && source ~/catkin_ws/devel/setup.bash"
 
 # Environment setup
-RUN echo "source ~/catkin_ws/src/autorally/autorally_util/setupEnvLocal.sh" >> ~/.bashrc
+RUN echo ". ~/catkin_ws/src/autorally/autorally_util/setupEnvLocal.sh" >> ~/.bashrc
 
 
 # ... Generate Documentation ...........................................................................................
