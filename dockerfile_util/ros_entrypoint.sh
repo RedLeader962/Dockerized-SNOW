@@ -12,6 +12,7 @@ echo "ROS_DISTRO $ROS_DISTRO"
 
 ros_devel_env_setup="~/catkin_ws/devel/setup.bash"
 echo "sourcing   $ros_devel_env_setup"
+source "$ros_devel_env_setup"
 
 joystickZero="/dev/input/js0"
 
@@ -24,6 +25,7 @@ fi
 
 autorally_env_setup="~/catkin_ws/src/autorally/autorally_util/setupEnvLocal.sh"
 echo "sourcing   $autorally_env_setup"
+source "$autorally_env_setup"
 
 echo "AR_JOYSTICK $AR_JOYSTICK"
 
