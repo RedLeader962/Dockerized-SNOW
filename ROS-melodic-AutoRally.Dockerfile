@@ -78,9 +78,10 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 #RUN apt-add-repository ppa:dartsim/ppa \
-#    && apt-get update \
-RUN apt-get update \
-    && apt-get install --assume-yes --no-install-recommends libdart6-all-dev \
+RUN apt-add-repository ppa:dartsim \
+    && apt-get update \
+#RUN apt-get update \
+    && apt-get install --assume-yes --no-install-recommends libdart-core5-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # update and initialize rosdep
@@ -175,8 +176,9 @@ RUN cd ~/catkin_ws/src \
 # Build AutoRally
 RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
         && cd ~/catkin_ws/ \
-        && catkin_make \
-        && source ~/catkin_ws/devel/setup.bash"
+        && catkin_make"
+#        && catkin_make \
+#        && source ~/catkin_ws/devel/setup.bash"
 
 
 ## /=== IN PROGRESS =====================================================================================================

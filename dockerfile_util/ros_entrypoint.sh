@@ -23,9 +23,9 @@ else
   echo "SNOW-AutoRally: No input device js0 detected"
 fi
 
-#autorally_env_setup=~/catkin_ws/src/autorally/autorally_util/setupEnvLocal.sh
-#echo "sourcing   $autorally_env_setup"
-#source "$autorally_env_setup"
+autorally_env_setup=~/catkin_ws/src/autorally/autorally_util/setupEnvLocal.sh
+echo "sourcing   $autorally_env_setup"
+. "$autorally_env_setup"
 
 echo "AR_JOYSTICK $AR_JOYSTICK"
 
