@@ -120,15 +120,25 @@ RUN cd /opt \
     && sudo ldconfig
 
 
+# Install eigen
+# Upgrade Eigen to version >=3.3.5.  Check package version: $ pkg-config --modversion eigen3
+RUN cd /opt \
+    && git clone https://gitlab.com/libeigen/eigen.git \
+    && cd /opt/eigen \
+    && mkdir build \
+    && cd build \
+    && cmake /opt/eigen \
+    && make install
+
+
 # ... Create and build a catkin workspace ..............................................................................
 RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
     && mkdir -p ~/catkin_ws/src \
     && cd ~/catkin_ws/ \
     && catkin_make \
     && source ~/catkin_ws/devel/setup.bash" \
-    && echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc
-#    && echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc \
-#    && echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
+    && echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc \
+    && echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
 # Make sure your workspace is properly overlayed by the setup script by making sure the ROS_PACKAGE_PATH environment
 # variable includes the directory you're in.
 #   $ echo $ROS_PACKAGE_PATH
@@ -145,19 +155,9 @@ RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
 #   - No need to build Pointgrey Camera driver from source anymore. Check pullrequest 243548 merge into `ros:master`
 #       on 3 Apr 2020: https://github.com/ros/rosdistro/pull/24348
 
-# Install eigen
-RUN cd /opt \
-    && git clone https://gitlab.com/libeigen/eigen.git \
-    && cd /opt/eigen \
-    && mkdir build \
-    && cd build \
-    && cmake /opt/eigen \
-    && make install
-
-RUN echo "Pull latest SNOW-melodic-devel branch"
-
 # Clone AutoRally and dependencies
 RUN cd ~/catkin_ws/src \
+    && echo "Pull latest SNOW-melodic-devel branch" \
     && git clone --branch SNOW-melodic-devel https://github.com/RedLeader962/autorally.git  \
     && git clone https://github.com/AutoRally/imu_3dm_gx4.git \
     && git clone https://github.com/ros-drivers/pointgrey_camera_driver.git \
