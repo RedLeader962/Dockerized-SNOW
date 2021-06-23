@@ -126,8 +126,9 @@ RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
     && cd ~/catkin_ws/ \
     && catkin_make \
     && source ~/catkin_ws/devel/setup.bash" \
-    && echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc \
-    && echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
+    && echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc
+#    && echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc \
+#    && echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
 # Make sure your workspace is properly overlayed by the setup script by making sure the ROS_PACKAGE_PATH environment
 # variable includes the directory you're in.
 #   $ echo $ROS_PACKAGE_PATH
@@ -172,31 +173,15 @@ RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
 #        && catkin_make \
 #        && source ~/catkin_ws/devel/setup.bash"
 
-
-## /=== IN PROGRESS =====================================================================================================
-#
-## ... Environment setup ................................................................................................
-## Due to the additional requirement of ROS's distributed launch system, you must run
+# Environment setup
 RUN echo "source ~/catkin_ws/src/autorally/autorally_util/setupEnvLocal.sh" >> ~/.bashrc
 
-## TODO: To remove but KEEP COMMENT!
-#RUN echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> ~/.bashrc \
-#    && echo 'source ~/catkin_ws/devel/setup.sh' >> ~/.bashrc \
-#    && echo 'source ~/catkin_ws/src/autorally/autorally_util/setupEnvLocal.sh' >> ~/.bashrc
-## before using any AutoRally components. See https://github.com/AutoRally/autorally/wiki for more information
-## about how to set this system up for distributed launches on your vehicle platform.
-#
-## TODO: To remove
-#RUN /bin/bash -c 'source ~/.bashrc'
 
 # ... Generate Documentation ...........................................................................................
 # Run doxygen with the `-u` flag to remove obsolete configuration tag
 # TODO: unmute
 #RUN cd ~/catkin_ws/src/autorally/ \
 #    && doxygen -u
-
-## ===================================================================================================== IN PROGRESS ===/
-
 
 
 # ... Finish container setup ...........................................................................................
