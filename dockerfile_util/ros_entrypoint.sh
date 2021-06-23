@@ -29,4 +29,8 @@ fi
 
 echo "AR_JOYSTICK $AR_JOYSTICK"
 
+echo "Make sure your workspace is properly overlayed by the setup script by making sure the ROS_PACKAGE_PATH environment variable includes the directory you're in."
+echo "You should see: /home/youruser/catkin_ws/src:/opt/ros/melodic/share"
+echo $ROS_PACKAGE_PATH
+
 exec "$@"
