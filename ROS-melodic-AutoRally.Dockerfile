@@ -162,7 +162,7 @@ RUN cd /opt \
 
 # Clone AutoRally and dependencies
 RUN cd ~/catkin_ws/src \
-    && git clone -branch SNOW-melodic-devel https://github.com/RedLeader962/autorally.git  \
+    && git clone --branch SNOW-melodic-devel https://github.com/RedLeader962/autorally.git  \
     && git clone https://github.com/AutoRally/imu_3dm_gx4.git \
     && git clone https://github.com/ros-drivers/pointgrey_camera_driver.git \
     && cd ~/catkin_ws \
