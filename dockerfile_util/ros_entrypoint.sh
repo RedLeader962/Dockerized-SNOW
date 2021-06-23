@@ -10,9 +10,9 @@ source "$ros_env_setup"
 echo "ROS_ROOT   $ROS_ROOT"
 echo "ROS_DISTRO $ROS_DISTRO"
 
-ros_devel_env_setup=~/catkin_ws/devel/setup.bash
-echo "sourcing   $ros_devel_env_setup"
-source "$ros_devel_env_setup"
+#ros_devel_env_setup=~/catkin_ws/devel/setup.bash
+#echo "sourcing   $ros_devel_env_setup"
+#source "$ros_devel_env_setup"
 
 joystickZero="/dev/input/js0"
 
