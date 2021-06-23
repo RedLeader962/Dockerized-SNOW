@@ -77,12 +77,10 @@ RUN apt-get update \
     && apt-get upgrade --assume-yes --no-install-recommends libignition-math2 \
     && rm -rf /var/lib/apt/lists/*
 
-#RUN apt-add-repository ppa:dartsim/ppa \
-#RUN apt-add-repository ppa:dartsim \
-#    && apt-get update \
-RUN apt-get update \
-    && apt-get install --assume-yes --no-install-recommends libdart-core5-dev \
-    && rm -rf /var/lib/apt/lists/*
+# TODO: To install DART to use with ROS, ROS must be install from source
+#RUN apt-get update \
+#    && apt-get install --assume-yes --no-install-recommends libdart-core5-dev \
+#    && rm -rf /var/lib/apt/lists/*
 
 # update and initialize rosdep
 RUN apt-get update \
