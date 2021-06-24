@@ -66,7 +66,8 @@ RUN cd /opt \
 #    && cmake -DGTSAM_INSTALL_GEOGRAPHICLIB=ON -DGTSAM_WITH_EIGEN_MKL=OFF .. \
     && cmake -DGTSAM_INSTALL_GEOGRAPHICLIB=ON -DGTSAM_WITH_EIGEN_MKL=OFF -DCMAKE_BUILD_TYPE=Release .. \
     && make install \
-    && sudo ldconfig
+    && ldconfig
+#    && sudo ldconfig
 
 
 # ... Install eigen ....................................................................................................
