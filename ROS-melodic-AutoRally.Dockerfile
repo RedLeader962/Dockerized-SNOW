@@ -40,7 +40,9 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 
-# ... Install AutoRally MPPI Dependencies ..............................................................................
+# === Install AutoRally MPPI Dependencies ==============================================================================
+
+# ... Install CNPY .....................................................................................................
 # Note: cmake will install in the default directory `/usr/local`
 RUN cd /opt \
     && git clone https://github.com/rogersce/cnpy.git \
@@ -81,6 +83,7 @@ RUN cd /opt \
     && make install
 
 
+# === Install ROS + GAZEBO =============================================================================================
 # ... register the ROS package source ..................................................................................
 # setup sources.list
 RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
@@ -133,8 +136,6 @@ RUN apt-get update \
 #    && rm -rf /var/lib/apt/lists/*
 
 
-
-
 # ... Create and build a catkin workspace ..............................................................................
 RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
     && mkdir -p ~/catkin_ws/src \
@@ -143,21 +144,22 @@ RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
     && source ~/catkin_ws/devel/setup.bash" \
     && echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc \
     && echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
-# Make sure your workspace is properly overlayed by the setup script by making sure the ROS_PACKAGE_PATH environment
-# variable includes the directory you're in.
+# Make sure your workspace is properly overlayed by the setup script by checking the ROS_PACKAGE_PATH environment
+# variable. It should include the directory you're in:
 #   $ echo $ROS_PACKAGE_PATH
 #   > /home/youruser/catkin_ws/src:/opt/ros/melodic/share
 
 
-# ... Fork AutoRally repo and install ..................................................................................
+# === Fork AutoRally repo and install ==================================================================================
+#
 # Steps:
 #   1. Upgrade Eigen to version >=3.3.5.  Check package version: $ pkg-config --modversion eigen3
 #   2. clone AutoRally repos
 #   3. Install AutoRally ROS Dependencies
 #   4. Compilation & Running
 # Note:
-#   - No need to build Pointgrey Camera driver from source anymore. Check pullrequest 243548 merge into `ros:master`
-#       on 3 Apr 2020: https://github.com/ros/rosdistro/pull/24348
+#   - No need to build Pointgrey Camera driver from source anymore (apparently).
+#       See pullrequest 243548 merge into `ros:master` on 3 Apr 2020: https://github.com/ros/rosdistro/pull/24348
 
 # Clone AutoRally and dependencies
 RUN cd ~/catkin_ws/src \
