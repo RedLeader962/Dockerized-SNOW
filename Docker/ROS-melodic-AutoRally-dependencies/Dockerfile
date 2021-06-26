@@ -1,15 +1,18 @@
-# Adaptation of `Dockerfile.ros.melodic` by dusty-nv
-#   at https://github.com/dusty-nv/jetson-containers/blob/master/Dockerfile.ros.melodic
+
+# /// ROS-melodic-AutoRally-dependencies ///////////////////////////////////////////////////////////////////////////////
+# This container is the base image for all other imageS: dev, deploy, ...
 #
+# Usefull ref:
+# - NVIDIA Container Runtime on Jetson: https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson
+# - dusty-nv/jetson-containers: https://github.com/dusty-nv/jetson-containers/blob/master/Dockerfile.ros.melodic
 
-# /// NVIDIA-docker SNOW-AutoRally /////////////////////////////////////////////////////////////////////////////////////
 
-# This dockerfile roughly follows the 'Ubuntu install of ROS Melodic' from:
-#   http://wiki.ros.org/melodic/Installation/Ubuntu
+# Base image: nvidia linux 4 tegra (l 4 t) nvidia docker container official image
+#   https://ngc.nvidia.com/catalog/containers/nvidia:l4t-base
+#
 ARG BASE_IMAGE=nvcr.io/nvidia/l4t-base:r32.5.0
 FROM ${BASE_IMAGE}
 
-#ARG ROS_PKG=ros_base
 ARG ROS_PKG=desktop-full
 ENV ROS_DISTRO=melodic
 ENV ROS_ROOT=/opt/ros/${ROS_DISTRO}
@@ -18,6 +21,15 @@ ENV ROS_ROOT=/opt/ros/${ROS_DISTRO}
 ENV DEBIAN_FRONTEND=noninteractive
 
 WORKDIR /workspace
+
+# Setup timezone
+#   Source: OSRF docker_images
+#       https://github.com/osrf/docker_images/blob/master/ros/melodic/ubuntu/bionic/ros-core/Dockerfile
+RUN echo 'Etc/UTC' > /etc/timezone && \
+    ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime && \
+    apt-get update && \
+    apt-get install -q -y --no-install-recommends tzdata && \
+    rm -rf /var/lib/apt/lists/*
 
 # install development utilities
 RUN apt-get update \
@@ -102,6 +114,7 @@ RUN apt-get update \
         python-rosinstall \
         python-rosinstall-generator \
         python-wstool \
+        python-vcstools \
     && rm -rf /var/lib/apt/lists/*
 
 
@@ -137,26 +150,33 @@ RUN apt-get update \
 
 
 # ... Create and build a catkin workspace ..............................................................................
+ENV DEV_WORKSPACE=~/catkin_ws
+
 RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
-    && mkdir -p ~/catkin_ws/src \
-    && cd ~/catkin_ws/ \
+    && mkdir -p ${DEV_WORKSPACE}/src \
+    && cd ${DEV_WORKSPACE}/ \
     && catkin_make \
-    && source ~/catkin_ws/devel/setup.bash" \
+    && source ${DEV_WORKSPACE}/devel/setup.bash" \
     && echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc \
-    && echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
+    && echo "source ${DEV_WORKSPACE}/devel/setup.bash" >> ~/.bashrc
 # Make sure your workspace is properly overlayed by the setup script by checking the ROS_PACKAGE_PATH environment
 # variable. It should include the directory you're in:
 #   $ echo $ROS_PACKAGE_PATH
 #   > /home/youruser/catkin_ws/src:/opt/ros/melodic/share
 
+# Clone AutoRally required driver
+RUN cd ${DEV_WORKSPACE}/src \
+    && git clone https://github.com/AutoRally/imu_3dm_gx4.git \
+    && git clone https://github.com/ros-drivers/pointgrey_camera_driver.git
 
-WORKDIR /
+
+WORKDIR ${DEV_WORKSPACE}
 
 # Make sure that you have your environment properly setup. A good way to check is to ensure that environment variables
 # like ROS_ROOT and ROS_PACKAGE_PATH are set:
 #   $ printenv | grep ROS
 
-# ///////////////////////////////////////////////////////////////////////////////////// NVIDIA-docker SNOW-AutoRally ///
+# /////////////////////////////////////////////////////////////////////////////// ROS-melodic-AutoRally-dependencies ///
 
 
 
