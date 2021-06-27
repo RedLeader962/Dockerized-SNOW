@@ -21,7 +21,7 @@ echo "It should include the directory you're in: /home/<youruser>/catkin_ws/src:
 echo "ROS_PACKAGE_PATH $ROS_PACKAGE_PATH"
 echo
 
-echo "printenv | grep ROS"
+printenv | grep ROS
 
 JOYSTICK_ZERO="/dev/input/js0"
 # The '-c' flag is a character device file test operator
