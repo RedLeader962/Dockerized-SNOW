@@ -17,7 +17,6 @@ echo "It should include the directory you're in: /home/<youruser>/catkin_ws/src:
 echo
 printenv | grep ROS
 echo
-printenv | grep AR
 
 JOYSTICK_ZERO="/dev/input/js0"
 # The '-c' flag is a character device file test operator
@@ -35,4 +34,6 @@ fi
 #echo "AR_CONFIG_PATH $AR_CONFIG_PATH"
 #echo "AR_JOYSTICK $AR_JOYSTICK"
 
-exec "$@"
+#exec "$@"
+exec "$@" && printenv | grep AR
+
