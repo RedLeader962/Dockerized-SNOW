@@ -156,9 +156,12 @@ RUN apt-get update \
 # ... Create and build a catkin workspace ..............................................................................
 ENV DEV_WORKSPACE=~/catkin_ws
 
+WORKDIR "${DEV_WORKSPACE}/src"
+WORKDIR "${DEV_WORKSPACE}"
+
+#    && mkdir -p ${DEV_WORKSPACE}/src \
+#    && cd ${DEV_WORKSPACE}/ \
 RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
-    && mkdir -p ${DEV_WORKSPACE}/src \
-    && cd ${DEV_WORKSPACE}/ \
     && catkin_make \
     && source ${DEV_WORKSPACE}/devel/setup.bash" \
     && echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc \
@@ -169,12 +172,15 @@ RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
 #   > /home/youruser/catkin_ws/src:/opt/ros/melodic/share
 
 # Clone AutoRally required driver
-RUN cd "${DEV_WORKSPACE}/src" \
-    && git clone https://github.com/AutoRally/imu_3dm_gx4.git \
+WORKDIR "${DEV_WORKSPACE}/src"
+#RUN cd "${DEV_WORKSPACE}/src" \
+#    && git clone https://github.com/AutoRally/imu_3dm_gx4.git \
+#    && git clone https://github.com/ros-drivers/pointgrey_camera_driver.git
+RUN git clone https://github.com/AutoRally/imu_3dm_gx4.git \
     && git clone https://github.com/ros-drivers/pointgrey_camera_driver.git
 
 
-WORKDIR ${DEV_WORKSPACE}
+WORKDIR "${DEV_WORKSPACE}"
 
 # Make sure that you have your environment properly setup. A good way to check is to ensure that environment variables
 # like ROS_ROOT and ROS_PACKAGE_PATH are set:

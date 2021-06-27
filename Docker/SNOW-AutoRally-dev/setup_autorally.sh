@@ -15,7 +15,7 @@ set -e
 
 # Clone AutoRally and dependencies
 DEV_BRANCH=SNOW-melodic-devel
-cd ${DEV_WORKSPACE}/src &&
+cd "${DEV_WORKSPACE}/src/" &&
   echo "Pull latest ${DEV_BRANCH} branch" &&
   git clone --branch ${DEV_BRANCH} https://github.com/RedLeader962/autorally.git &&
   cd ${DEV_WORKSPACE} &&
