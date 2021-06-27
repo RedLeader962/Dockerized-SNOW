@@ -7,21 +7,17 @@ ROS_ENV_SETUP="/opt/ros/$ROS_DISTRO/setup.bash"
 echo "sourcing   $ROS_ENV_SETUP"
 source "$ROS_ENV_SETUP"
 
-echo "ROS_ROOT   $ROS_ROOT"
-echo "ROS_DISTRO $ROS_DISTRO"
-
 ROS_DEVEL_ENV_SETUP="${DEV_WORKSPACE}/devel/setup.bash"
-echo
 echo "sourcing   $ROS_DEVEL_ENV_SETUP"
 source "$ROS_DEVEL_ENV_SETUP"
 
 echo
 echo "Make sure your workspace is properly overlayed by the setup script by checking the ROS_PACKAGE_PATH environment variable. "
 echo "It should include the directory you're in: /home/<youruser>/catkin_ws/src:/opt/ros/melodic/share"
-echo "ROS_PACKAGE_PATH $ROS_PACKAGE_PATH"
 echo
-
 printenv | grep ROS
+echo
+printenv | grep AR
 
 JOYSTICK_ZERO="/dev/input/js0"
 # The '-c' flag is a character device file test operator
