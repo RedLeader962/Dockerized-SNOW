@@ -15,35 +15,34 @@ set -e
 
 # Clone AutoRally and dependencies
 DEV_BRANCH=SNOW-melodic-devel
-cd "${DEV_WORKSPACE}/src/" &&
-  echo "Pull latest ${DEV_BRANCH} branch" &&
-  git clone --branch ${DEV_BRANCH} https://github.com/RedLeader962/autorally.git &&
-  cd ${DEV_WORKSPACE} &&
-  apt-get update &&
-  rosdep install --from-path src --ignore-src --default-yes &&
-  rm -rf /var/lib/apt/lists/*
+cd "${DEV_WORKSPACE}/src/"
+echo "Pull latest ${DEV_BRANCH} branch"
+git clone --branch ${DEV_BRANCH} https://github.com/RedLeader962/autorally.git
+cd ${DEV_WORKSPACE}
+apt-get update && rosdep install --from-path src --ignore-src --default-yes
+rm -rf /var/lib/apt/lists/*
 
 # Build AutoRally
-source "/opt/ros/${ROS_DISTRO}/setup.bash" &&
-  cd "${DEV_WORKSPACE}"/ &&
-  catkin_make &&
-  source "${DEV_WORKSPACE}/devel/setup.bash"
+source "/opt/ros/${ROS_DISTRO}/setup.bash"
+cd "${DEV_WORKSPACE}"
+catkin_make
+source "${DEV_WORKSPACE}/devel/setup.bash"
 
 # ===Sourcing===========================================================================================================
-ROS_ENV_SETUP="/opt/ros/${ROS_DISTRO}/setup.bash"
-echo "sourcing   $ROS_ENV_SETUP"
-source "$ROS_ENV_SETUP"
+#ROS_ENV_SETUP="/opt/ros/$ROS_DISTRO/setup.bash"
+#echo "sourcing   $ROS_ENV_SETUP"
+#source "$ROS_ENV_SETUP"
+#
+#ROS_DEVEL_ENV_SETUP="${DEV_WORKSPACE}/devel/setup.bash"
+#echo "sourcing   $ROS_DEVEL_ENV_SETUP"
+#source "$ROS_DEVEL_ENV_SETUP"
 
-echo "ROS_ROOT   $ROS_ROOT"
-echo "ROS_DISTRO $ROS_DISTRO"
-
-ROS_DEVEL_ENV_SETUP=~/catkin_ws/devel/setup.bash
-echo "sourcing   $ROS_DEVEL_ENV_SETUP"
-source "$ROS_DEVEL_ENV_SETUP"
-
+echo
 echo "Make sure your workspace is properly overlayed by the setup script by checking the ROS_PACKAGE_PATH environment variable. "
 echo "It should include the directory you're in: /home/<youruser>/catkin_ws/src:/opt/ros/melodic/share"
-echo "ROS_PACKAGE_PATH $ROS_PACKAGE_PATH"
+echo
+printenv | grep ROS
+echo
 
 JOYSTICK_ZERO="/dev/input/js0"
 # The '-c' flag is a character device file test operator
@@ -61,9 +60,12 @@ source "$autorally_env_setup"
 
 echo ". ${DEV_WORKSPACE}/src/autorally/autorally_util/setupEnvLocal.sh" >>~/.bashrc
 
-echo "AR_MPPI_PARAMS_PATH $AR_MPPI_PARAMS_PATH"
-echo "AR_CONFIG_PATH $AR_CONFIG_PATH"
-echo "AR_JOYSTICK $AR_JOYSTICK"
+#echo "AR_MPPI_PARAMS_PATH $AR_MPPI_PARAMS_PATH"
+#echo "AR_CONFIG_PATH $AR_CONFIG_PATH"
+#echo "AR_JOYSTICK $AR_JOYSTICK"
+echo
+printenv | grep AR_
+echo
 
 ## ... Generate Documentation ...........................................................................................
 ## Run doxygen with the `-u` flag to remove obsolete configuration tag
