@@ -2,7 +2,7 @@
 # /// SNOW-AutoRally-deploy ////////////////////////////////////////////////////////////////////////////////////////////
 
 ARG  CODE_VERSION=latest
-FROM ROS-melodic-AutoRally-dependencies:${CODE_VERSION}
+FROM ros-melodic-auto-rally-dependencies:${CODE_VERSION}
 
 WORKDIR ${DEV_WORKSPACE}
 
