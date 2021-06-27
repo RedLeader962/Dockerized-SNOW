@@ -169,7 +169,7 @@ RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
 #   > /home/youruser/catkin_ws/src:/opt/ros/melodic/share
 
 # Clone AutoRally required driver
-RUN cd ${DEV_WORKSPACE}/src \
+RUN cd "${DEV_WORKSPACE}/src" \
     && git clone https://github.com/AutoRally/imu_3dm_gx4.git \
     && git clone https://github.com/ros-drivers/pointgrey_camera_driver.git
 
