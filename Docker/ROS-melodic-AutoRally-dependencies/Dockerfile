@@ -32,6 +32,7 @@ RUN echo 'Etc/UTC' > /etc/timezone && \
     rm -rf /var/lib/apt/lists/*
 
 # install development utilities
+# Note: libboost-all-dev and  libtbb-dev are GTSAM dependencies
 RUN apt-get update \
     && apt-get install --assume-yes --no-install-recommends \
         git \
@@ -44,11 +45,12 @@ RUN apt-get update \
         ca-certificates \
         doxygen \
         openssh-server \
+        apt-utils \
         libusb-dev \
+        usbutils \
         texinfo \
         libboost-all-dev\
-        apt-utils \
-        usbutils \
+        libtbb-dev \
     && rm -rf /var/lib/apt/lists/*
 
 
@@ -66,11 +68,13 @@ RUN cd /opt \
 
 
 # ... Install GTSAM ....................................................................................................
-# CMAKE_BUILD_TYPE: https://github.com/borglab/gtsam/blob/develop/INSTALL.md
-# Debug: default
-# Release: Optimizations turned on, no debug symbols
-#   $ cmake -DGTSAM_INSTALL_GEOGRAPHICLIB=ON -DGTSAM_WITH_EIGEN_MKL=OFF -DCMAKE_BUILD_TYPE=Release ..
-# runs unit tests (optional step ... it's very long)
+# Performance:
+#   Source: https://github.com/borglab/gtsam/blob/develop/INSTALL.md
+#   - CMAKE_BUILD_TYPE: Debug (default), Release (Optimizations turned on, no debug symbols, run 10X faster)
+#       $ cmake -DGTSAM_INSTALL_GEOGRAPHICLIB=ON -DGTSAM_WITH_EIGEN_MKL=OFF -DCMAKE_BUILD_TYPE=Release ..
+#   - Enable TBB (it can speed up optimization by 30-50%)
+#   - Add -march=native to GTSAM_CMAKE_CXX_FLAGS. A performance gain of 25-30 % can be expected on modern processors
+# To runs unit tests (optional step ... it's very long)
 #   $ make check
 RUN cd /opt \
     && git clone https://github.com/borglab/gtsam.git \
