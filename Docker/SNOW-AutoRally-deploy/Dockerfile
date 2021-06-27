@@ -4,7 +4,6 @@
 ARG  CODE_VERSION=latest
 FROM ros-melodic-auto-rally-dependencies:${CODE_VERSION}
 
-WORKDIR ${DEV_WORKSPACE}
 
 # === Fork AutoRally repo and install ==================================================================================
 #
@@ -18,8 +17,12 @@ WORKDIR ${DEV_WORKSPACE}
 
 # Clone AutoRally and dependencies
 ARG DEV_BRANCH=SNOW-melodic-devel
-RUN cd ${DEV_WORKSPACE}/src \
-    && echo "Pull latest ${DEV_BRANCH} branch" \
+
+#RUN cd ${DEV_WORKSPACE}/src \
+#    && echo "Pull latest ${DEV_BRANCH} branch" \
+
+WORKDIR ${DEV_WORKSPACE}/src
+RUN echo "Pull latest ${DEV_BRANCH} branch" \
     && git clone --branch ${DEV_BRANCH} https://github.com/RedLeader962/autorally.git  \
 #    && git clone https://github.com/AutoRally/imu_3dm_gx4.git \
 #    && git clone https://github.com/ros-drivers/pointgrey_camera_driver.git \
@@ -29,11 +32,15 @@ RUN cd ${DEV_WORKSPACE}/src \
     && rm -rf /var/lib/apt/lists/*
 
 # Build AutoRally
-RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
-        && cd ${DEV_WORKSPACE}/ \
-        && catkin_make"
+#RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
+#        && cd ${DEV_WORKSPACE}/ \
+#        && catkin_make"
 #        && catkin_make \
 #        && source ${DEV_WORKSPACE}/devel/setup.bash"
+
+WORKDIR ${DEV_WORKSPACE}
+RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
+        && catkin_make"
 
 # Environment setup
 RUN echo ". ${DEV_WORKSPACE}/src/autorally/autorally_util/setupEnvLocal.sh" >> ~/.bashrc
@@ -47,13 +54,13 @@ RUN echo ". ${DEV_WORKSPACE}/src/autorally/autorally_util/setupEnvLocal.sh" >> ~
 
 
 # ... Finish container setup ...........................................................................................
-COPY /ros_entrypoint.sh /ros_entrypoint.sh
+WORKDIR /
+COPY ./ros_entrypoint.sh /ros_entrypoint.sh
 # set read/write permission to entrypoint file and joystick dir js0
 RUN /bin/bash -c "chmod +x /ros_entrypoint.sh"
 #RUN /bin/bash -c "chmod a+rw /dev/input/js0"  # Quick fix: pushed to ros_entrypoint.sh
 ENTRYPOINT ["/ros_entrypoint.sh"]
 CMD ["bash"]
-WORKDIR /
 
 # Make sure that you have your environment properly setup. A good way to check is to ensure that environment variables
 # like ROS_ROOT and ROS_PACKAGE_PATH are set:
