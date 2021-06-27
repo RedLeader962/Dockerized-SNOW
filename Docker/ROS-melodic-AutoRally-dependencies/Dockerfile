@@ -185,7 +185,9 @@ WORKDIR "${DEV_WORKSPACE}"
 # Make sure that you have your environment properly setup. A good way to check is to ensure that environment variables
 # like ROS_ROOT and ROS_PACKAGE_PATH are set:
 #   $ printenv | grep ROS
-CMD bash printenv | grep ROS
+RUN printenv | grep ROS
+
+CMD [ "bash" ]
 
 # /////////////////////////////////////////////////////////////////////////////// ROS-melodic-AutoRally-dependencies ///
 
