@@ -60,7 +60,7 @@ COPY ./ros_entrypoint.sh /ros_entrypoint.sh
 RUN /bin/bash -c "chmod +x /ros_entrypoint.sh"
 #RUN /bin/bash -c "chmod a+rw /dev/input/js0"  # Quick fix: pushed to ros_entrypoint.sh
 ENTRYPOINT ["/ros_entrypoint.sh"]
-CMD ["bash"]
+CMD ["bash", "printenv" ]
 
 # Make sure that you have your environment properly setup. A good way to check is to ensure that environment variables
 # like ROS_ROOT and ROS_PACKAGE_PATH are set:

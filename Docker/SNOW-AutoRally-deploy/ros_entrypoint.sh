@@ -34,6 +34,5 @@ fi
 #echo "AR_CONFIG_PATH $AR_CONFIG_PATH"
 #echo "AR_JOYSTICK $AR_JOYSTICK"
 
-#exec "$@"
-exec "$@" && printenv | grep AR
+exec "$@"
 
