@@ -10,7 +10,7 @@ source "$ROS_ENV_SETUP"
 echo "ROS_ROOT   $ROS_ROOT"
 echo "ROS_DISTRO $ROS_DISTRO"
 
-ROS_DEVEL_ENV_SETUP=~/catkin_ws/devel/setup.bash
+ROS_DEVEL_ENV_SETUP="${DEV_WORKSPACE}/devel/setup.bash"
 echo "sourcing   $ROS_DEVEL_ENV_SETUP"
 source "$ROS_DEVEL_ENV_SETUP"
 
@@ -26,7 +26,7 @@ else
   echo "SNOW-AutoRally: No input device js0 detected"
 fi
 
-#autorally_env_setup=~/catkin_ws/src/autorally/autorally_util/setupEnvLocal.sh
+#autorally_env_setup="${DEV_WORKSPACE}/src/autorally/autorally_util/setupEnvLocal.sh"
 #echo "sourcing   $autorally_env_setup"
 #. "$autorally_env_setup"
 
