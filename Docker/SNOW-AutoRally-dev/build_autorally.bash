@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
-set -e  # exit script if any statement returns a non-true return value
-set -v  # verbose
-
+set -e # exit script if any statement returns a non-true return value
+set -v # verbose
 
 ## Clone AutoRally and dependencies
 #DEV_BRANCH=SNOW-melodic-devel
@@ -19,14 +18,14 @@ source "/opt/ros/${ROS_DISTRO}/setup.bash"
 catkin_make
 source "${DEV_WORKSPACE}/devel/setup.bash"
 
-
 # AutoRally environment setup
-autorally_env_setup="${DEV_WORKSPACE}/src/autorally/autorally_util/setupEnvLocal.sh"
-echo "sourcing   $autorally_env_setup"
-. "$autorally_env_setup"
-echo "<<< RED" # todo:on task end >> delete this line ←
+#autorally_env_setup="${DEV_WORKSPACE}/src/autorally/autorally_util/setupEnvLocal.sh"
+autorally_env_setup="${DEV_WORKSPACE}/src/autorally/autorally_util/setupEnvRemote.sh"
+echo "sourcing   ${autorally_env_setup}"
+. "${autorally_env_setup}"
 
-echo ". ${DEV_WORKSPACE}/src/autorally/autorally_util/setupEnvLocal.sh" >> ~/.bashrc
+echo "<<< RED" # todo:on task end >> delete this line ←
+echo ". ${autorally_env_setup}" >> ~/.bashrc
 
 ## AutoRally environment setup
 #autorally_env_setup="${DEV_WORKSPACE}/src/autorally_fork/autorally_util/setupEnvLocal.sh"
@@ -34,7 +33,6 @@ echo ". ${DEV_WORKSPACE}/src/autorally/autorally_util/setupEnvLocal.sh" >> ~/.ba
 #source "$autorally_env_setup"
 #
 #echo ". ${DEV_WORKSPACE}/src/autorally_fork/autorally_util/setupEnvLocal.sh" >> ~/.bashrc
-
 
 JOYSTICK_ZERO="/dev/input/js0"
 # The '-c' flag is a character device file test operator
@@ -52,6 +50,5 @@ printenv | grep ROS
 echo
 printenv | grep AR_
 echo
-
 
 cd /
