@@ -26,7 +26,7 @@
 #   A joystick mounted to /dev/input/js0 or /dev/input/js1
 
 if [ $# -ne 1 ]; then
-  echo "Usage: $0 <dir with workspace>"
+  echo "SNOW-AutoRally | missing argument: $0 <dir with workspace>"
   exit 1
 fi
 
