@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-#set -e  # exit script if any statement returns a non-true return value
-set -o errexit # output and error message and exit if any subcommand fails
+set -e  # exit script if any statement returns a non-true return value
+
 
 ROS_ENV_SETUP="/opt/ros/$ROS_DISTRO/setup.bash"
 echo "sourcing   $ROS_ENV_SETUP"

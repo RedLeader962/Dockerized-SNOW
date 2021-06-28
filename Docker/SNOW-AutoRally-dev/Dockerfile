@@ -27,7 +27,7 @@ ARG DEV_BRANCH=SNOW-melodic-devel
 
 # ... Finish container setup ...........................................................................................
 WORKDIR /
-COPY build_autorally.bash /
+COPY ./build_autorally.bash /
 
 #ENTRYPOINT [ "/build_autorally.bash" ]
 CMD [ "bash" ]
