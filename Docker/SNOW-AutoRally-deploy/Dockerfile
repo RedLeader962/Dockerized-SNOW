@@ -51,10 +51,10 @@ RUN echo ". ${DEV_WORKSPACE}/src/autorally/autorally_util/setupEnvLocal.sh" >> ~
 
 # ... Finish container setup ...........................................................................................
 WORKDIR /
-COPY ./ros_entrypoint.sh /
+COPY ros_entrypoint.bash /
 # set read/write permission to entrypoint file and joystick dir js0
-RUN /bin/bash -c "chmod +x /ros_entrypoint.sh"
-ENTRYPOINT [ "/ros_entrypoint.sh" ]
+RUN /bin/bash -c "chmod +x /ros_entrypoint.bash"
+ENTRYPOINT [ "/ros_entrypoint.bash" ]
 CMD [ "bash" ]
 
 # Make sure that you have your environment properly setup. A good way to check is to ensure that environment variables
