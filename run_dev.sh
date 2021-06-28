@@ -80,7 +80,6 @@ docker run \
   --network host \
   --env DISPLAY=$DISPLAY \
   --privileged \
-  --security-opt seccomp=unconfined \
   --volume "/tmp/.X11-unix/:/tmp/.X11-unix" \
   --volume "/etc/localtime:/etc/localtime:ro" \
   $DOCKER_OPTS \
