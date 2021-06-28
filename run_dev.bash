@@ -62,8 +62,8 @@ DOCKER_OPTS=
 #CONTAINER_WS_PATH_="${DEV_WORKSPACE}/src/"
 CONTAINER_WS_PATH_="/catkin_ws/src/"   # (Priority) todo:refactor >> this line ← make it global
 WS_DIR=$1
-#WS_DIRNAME=$(basename $WS_DIR)
-WS_DIRNAME=autorally
+WS_DIRNAME=$(basename $WS_DIR)
+#WS_DIRNAME=autorally
 echo "Workspace: $WS_DIR -> $CONTAINER_WS_PATH_$WS_DIRNAME"
 DOCKER_OPTS="$DOCKER_OPTS --volume $WS_DIR:$CONTAINER_WS_PATH_$WS_DIRNAME"
 
