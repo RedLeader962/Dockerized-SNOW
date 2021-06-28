@@ -60,7 +60,7 @@ DOCKER_OPTS=
 
 # mount the subt_solution source code as a volume into the workspace 'solution_ws'
 #CONTAINER_WS_PATH_="${DEV_WORKSPACE}/src/"
-CONTAINER_WS_PATH_="$HOME/catkin_ws/src/"   # (Priority) todo:refactor >> this line ← make it global
+CONTAINER_WS_PATH_="/catkin_ws/src/"   # (Priority) todo:refactor >> this line ← make it global
 WS_DIR=$1
 #WS_DIRNAME=$(basename $WS_DIR)
 WS_DIRNAME=autorally
