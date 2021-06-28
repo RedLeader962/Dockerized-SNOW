@@ -59,7 +59,8 @@ DOCKER_OPTS=
 #fi
 
 # mount the subt_solution source code as a volume into the workspace 'solution_ws'
-CONTAINER_WS_PATH_="${DEV_WORKSPACE}/src/"
+#CONTAINER_WS_PATH_="${DEV_WORKSPACE}/src/"
+CONTAINER_WS_PATH_="$HOME/catkin_ws/src/"   # (Priority) todo:refactor >> this line ← make it global
 WS_DIR=$1
 #WS_DIRNAME=$(basename $WS_DIR)
 WS_DIRNAME=autorally
@@ -70,7 +71,7 @@ DOCKER_OPTS="$DOCKER_OPTS --volume $WS_DIR:$CONTAINER_WS_PATH_$WS_DIRNAME"
 # E.g.:
 # -v "/opt/sublime_text:/opt/sublime_text" \
 
-docker run \
+sudo docker run \
   --rm \
   --interactive \
   --tty \
