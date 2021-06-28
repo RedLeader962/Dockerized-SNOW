@@ -15,6 +15,8 @@ apt-get update && rosdep install --from-path src --ignore-src --default-yes
 #rm -rf /var/lib/apt/lists/*
 
 # Build AutoRally
+echo "<<< RED" # todo:on task end >> delete this line ←
+
 source "/opt/ros/${ROS_DISTRO}/setup.bash"
 #cd "${DEV_WORKSPACE}"
 catkin_make
