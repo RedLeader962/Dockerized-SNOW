@@ -72,12 +72,11 @@ DOCKER_OPTS="$DOCKER_OPTS --volume $WS_DIR:$CONTAINER_WS_PATH_$WS_DIRNAME"
 # -v "/opt/sublime_text:/opt/sublime_text" \
 
 sudo docker run \
-  --rm \
+  --runtime nvidia \
   --interactive \
   --tty \
+  --rm \
   --device=/dev/input/js0 \
-  --runtime nvidia \
-  --gpus all \
   --network host \
   --env DISPLAY=$DISPLAY \
   --privileged \
