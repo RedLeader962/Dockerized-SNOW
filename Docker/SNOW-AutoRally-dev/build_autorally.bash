@@ -14,8 +14,6 @@ apt-get update && rosdep install --from-path src --ignore-src --default-yes
 #rm -rf /var/lib/apt/lists/*
 
 # Build AutoRally
-echo "<<< RED" # todo:on task end >> delete this line ←
-
 source "/opt/ros/${ROS_DISTRO}/setup.bash"
 #cd "${DEV_WORKSPACE}"
 catkin_make
@@ -26,6 +24,7 @@ source "${DEV_WORKSPACE}/devel/setup.bash"
 autorally_env_setup="${DEV_WORKSPACE}/src/autorally/autorally_util/setupEnvLocal.sh"
 echo "sourcing   $autorally_env_setup"
 . "$autorally_env_setup"
+echo "<<< RED" # todo:on task end >> delete this line ←
 
 echo ". ${DEV_WORKSPACE}/src/autorally/autorally_util/setupEnvLocal.sh" >> ~/.bashrc
 
