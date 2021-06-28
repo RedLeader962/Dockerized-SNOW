@@ -5,7 +5,7 @@ ARG  CODE_VERSION=latest
 FROM ros-melodic-auto-rally-dependencies:${CODE_VERSION}
 
 
-# === Fork AutoRally repo and install ==================================================================================
+# === Clone the SNOW-AutoRally fork of AutoRally repo and install ======================================================
 #
 # Steps:
 #   1. clone AutoRally repos
@@ -15,11 +15,7 @@ FROM ros-melodic-auto-rally-dependencies:${CODE_VERSION}
 #   - No need to build Pointgrey Camera driver from source anymore (apparently).
 #       See pullrequest 243548 merge into `ros:master` on 3 Apr 2020: https://github.com/ros/rosdistro/pull/24348
 
-# Clone AutoRally and dependencies
 ARG DEV_BRANCH=SNOW-melodic-devel
-
-#RUN cd ${DEV_WORKSPACE}/src \
-#    && echo "Pull latest ${DEV_BRANCH} branch" \
 
 WORKDIR ${DEV_WORKSPACE}/src
 RUN echo "Pull latest ${DEV_BRANCH} branch" \
@@ -55,10 +51,9 @@ RUN echo ". ${DEV_WORKSPACE}/src/autorally/autorally_util/setupEnvLocal.sh" >> ~
 
 # ... Finish container setup ...........................................................................................
 WORKDIR /
-COPY ./ros_entrypoint.sh /ros_entrypoint.sh
+COPY ./ros_entrypoint.sh /
 # set read/write permission to entrypoint file and joystick dir js0
 RUN /bin/bash -c "chmod +x /ros_entrypoint.sh"
-#RUN /bin/bash -c "chmod a+rw /dev/input/js0"  # Quick fix: pushed to ros_entrypoint.sh
 ENTRYPOINT [ "/ros_entrypoint.sh" ]
 CMD [ "bash" ]
 

@@ -2,24 +2,36 @@
 # /// SNOW-AutoRally-dev ///////////////////////////////////////////////////////////////////////////////////////////////
 
 ARG  CODE_VERSION=latest
-FROM ROS-melodic-AutoRally-dependencies:${CODE_VERSION}
+FROM ros-melodic-auto-rally-dependencies:${CODE_VERSION}
 
-WORKDIR ${DEV_WORKSPACE}
+# === Clone the SNOW-AutoRally fork of AutoRally repo and install ======================================================
+#
+# Steps:
+#   1. clone AutoRally repos
+#   2. Install AutoRally ROS Dependencies
+#   3. Compilation & Running
+# Note:
+#   - No need to build Pointgrey Camera driver from source anymore (apparently).
+#       See pullrequest 243548 merge into `ros:master` on 3 Apr 2020: https://github.com/ros/rosdistro/pull/24348
+
+ARG DEV_BRANCH=SNOW-melodic-devel
+
+#WORKDIR ${DEV_WORKSPACE}/src
+
+
+
+
+
 
 
 
 # ... Finish container setup ...........................................................................................
-COPY /ros_entrypoint.sh /ros_entrypoint.sh
-# set read/write permission to entrypoint file and joystick dir js0
-RUN /bin/bash -c "chmod +x /ros_entrypoint.sh"
-#RUN /bin/bash -c "chmod a+rw /dev/input/js0"  # Quick fix: pushed to setup_autorally.sh
-ENTRYPOINT [ "/ros_entrypoint.sh" ]
-CMD [ "bash" ]
 WORKDIR /
+COPY ./build_autorally.sh /
 
-# Make sure that you have your environment properly setup. A good way to check is to ensure that environment variables
-# like ROS_ROOT and ROS_PACKAGE_PATH are set:
-#   $ printenv | grep ROS
+#ENTRYPOINT [ "/build_autorally.sh" ]
+CMD [ "bash" ]
+
 
 # /////////////////////////////////////////////////////////////////////////////////////////////// SNOW-AutoRally-dev ///
 

@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# ref: https://github.com/dusty-nv/jetson-containers/tree/master/packages
-set -e
+#set -e  # exit script if any statement returns a non-true return value
+set -o errexit # output and error message and exit if any subcommand fails
 
 ROS_ENV_SETUP="/opt/ros/$ROS_DISTRO/setup.bash"
 echo "sourcing   $ROS_ENV_SETUP"
@@ -23,7 +23,7 @@ JOYSTICK_ZERO="/dev/input/js0"
 if [[ -c "$JOYSTICK_ZERO" ]]; then
   chmod a+rw /dev/input/js0
 else
-  echo "SNOW-AutoRally: No input device js0 detected"
+  echo "> SNOW-AutoRally: No input device js0 detected"
 fi
 
 #autorally_env_setup="${DEV_WORKSPACE}/src/autorally/autorally_util/setupEnvLocal.sh"
