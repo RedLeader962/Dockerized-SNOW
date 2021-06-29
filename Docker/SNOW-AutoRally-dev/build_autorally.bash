@@ -36,3 +36,7 @@ echo
 cd /
 #exec bash
 source ~/.bashrc
+
+echo
+printenv | grep AR_
+echo
