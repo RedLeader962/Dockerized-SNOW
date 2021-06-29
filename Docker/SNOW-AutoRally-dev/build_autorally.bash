@@ -3,40 +3,30 @@
 set -e # exit script if any statement returns a non-true return value
 set -v # verbose
 
-## Clone AutoRally and dependencies
-#DEV_BRANCH=SNOW-melodic-devel
-#cd "${DEV_WORKSPACE}/src/"
-#echo "Pull latest ${DEV_BRANCH} branch"
-#git clone --branch ${DEV_BRANCH} https://github.com/RedLeader962/autorally.git
 cd "${DEV_WORKSPACE}"
+
+# Install AutoRally dependencies
 apt-get update && rosdep install --from-path src --ignore-src --default-yes
 #rm -rf /var/lib/apt/lists/*
 
 # Build AutoRally
 source "/opt/ros/${ROS_DISTRO}/setup.bash"
-#cd "${DEV_WORKSPACE}"
 catkin_make
 source "${DEV_WORKSPACE}/devel/setup.bash"
 
-# AutoRally environment setup
-autorally_env_setup="src/autorally/autorally_util/setupEnvLocal.sh"
+## AutoRally environment setup
+#autorally_env_setup="src/autorally/autorally_util/setupEnvLocal.sh"
 #autorally_env_setup="${DEV_WORKSPACE}/src/autorally/autorally_util/setupEnvLocal.sh"
-
-#echo "<<< RED" # todo:on task end >> delete this line ←
 #chmod +x "${DEV_WORKSPACE}/${autorally_env_setup}"
 #chmod +x "${DEV_WORKSPACE}/src/autorally/autorally_util/setupEnvVariables.sh"
 #echo "sourcing   ${autorally_env_setup}"
 #exec . "${DEV_WORKSPACE}/${autorally_env_setup}"
+#echo "source ${DEV_WORKSPACE}/${autorally_env_setup}" >> ~/.bashrc
 
-echo "<<< RED" # todo:on task end >> delete this line ←
-echo "source ${DEV_WORKSPACE}/${autorally_env_setup}" >> ~/.bashrc
+# AutoRally environment setup
+autorally_env_setup="${DEV_WORKSPACE}/src/autorally/autorally_util/setupEnvLocal.sh"
+echo "source ${autorally_env_setup}" >> ~/.bashrc
 
-## AutoRally environment setup
-#autorally_env_setup="${DEV_WORKSPACE}/src/autorally_fork/autorally_util/setupEnvLocal.sh"
-#echo "sourcing   $autorally_env_setup"
-#source "$autorally_env_setup"
-#
-#echo ". ${DEV_WORKSPACE}/src/autorally_fork/autorally_util/setupEnvLocal.sh" >> ~/.bashrc
 
 JOYSTICK_ZERO="/dev/input/js0"
 # The '-c' flag is a character device file test operator
@@ -52,8 +42,6 @@ echo "It should include the directory you're in: /home/<youruser>/catkin_ws/src:
 echo
 printenv | grep ROS
 echo
-#printenv | grep AR_
-#echo
 
-#cd /
+cd /
 exec bash
