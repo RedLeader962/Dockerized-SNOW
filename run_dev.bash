@@ -8,18 +8,19 @@ if [ $# -ne 1 ]; then
   exit 1
 fi
 
-sudo xhost +si:localuser:root
-
 DOCKER_OPTS=
 
-# mount the subt_solution source code as a volume into the workspace 'solution_ws'
-#CONTAINER_WS_PATH_="${DEV_WORKSPACE}/src/"
-CONTAINER_WS_PATH_="/catkin_ws/src/"   # (Priority) todo:refactor >> this line ← make it global
+CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/catkin_ws/src/"   # (Priority) todo:refactor >> this line ← make it global
 WS_DIR=$1
 #WS_DIRNAME=$(basename $WS_DIR)
 WS_DIRNAME=autorally
-echo "Workspace: $WS_DIR -> $CONTAINER_WS_PATH_$WS_DIRNAME"
-DOCKER_OPTS="$DOCKER_OPTS --volume $WS_DIR:$CONTAINER_WS_PATH_$WS_DIRNAME"
+echo "Source code mapping from host to container: ${WS_DIR} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+DOCKER_OPTS="${DOCKER_OPTS} --volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+
+## # todo:assessment (ref task NLSAR-159 Fix the execute permission of source code mounted volume)
+sudo chmod --recursive +x "${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+
+sudo xhost +si:localuser:root
 
 sudo docker run \
   --runtime nvidia \

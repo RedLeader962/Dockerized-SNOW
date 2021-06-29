@@ -257,16 +257,16 @@ rostopic pub -r 10 /constantSpeedController/speedCommand std_msgs/Float64 '{data
    ```
 6. To change configuration as you run
    (see [MPPI · AutoRally/autorally Wiki](https://github.com/AutoRally/autorally/wiki/Model-Predictive-Path-Integral-Controller-(MPPI)#dynamic-reconfigure-variables) for more `dynamic_reconfigure` parameter details)
-   > `max_throttle`: Maximum applied throttle, Def:0.65, min: 0.0, max: 1.0
-   > `desired_speed`: Speed Target for the MPPI controller, Def:6.0, min: 0.0, max:  25.0
-   > `speed_coefficient`: Weight for acheiving target velocity, Def:4.25, min: 0.0, max:  20.0
-   > `track_coefficient`: Weight for staying on the track, Def:200.0, min: 0, max: 500.0
-   > `max_slip_angle`: maximum allowable slip angle before killing trajectory, Def:1.25, min: 0.0, max: 3.14
-   > `slip_penalty`: Penalty for violating slip angle threshold, Def:10.0, min: 0, max: 1000.0
-   > `crash_coefficient`: Penalty for crashing, Def:10000, min: 0, max: 20000
-   > `track_slop`: Value for clipping track cost to zero, Def:0, min: 0,  max: .75
-   > `steering_coeff`: Steering Cost Coefficient, Def:0.0, min: 0, max: 1.0
-   > `throttle_coeff`: Throttle Cost Coefficient, Def:0.0, min: 0, max: 1.0   
+   > - `max_throttle`: Maximum applied throttle, Def:0.65, min: 0.0, max: 1.0
+   > - `desired_speed`: Speed Target for the MPPI controller, Def:6.0, min: 0.0, max:  25.0
+   > - `speed_coefficient`: Weight for acheiving target velocity, Def:4.25, min: 0.0, max:  20.0
+   > - `track_coefficient`: Weight for staying on the track, Def:200.0, min: 0, max: 500.0
+   > - `max_slip_angle`: maximum allowable slip angle before killing trajectory, Def:1.25, min: 0.0, max: 3.14
+   > - `slip_penalty`: Penalty for violating slip angle threshold, Def:10.0, min: 0, max: 1000.0
+   > - `crash_coefficient`: Penalty for crashing, Def:10000, min: 0, max: 20000
+   > - `track_slop`: Value for clipping track cost to zero, Def:0, min: 0,  max: .75
+   > - `steering_coeff`: Steering Cost Coefficient, Def:0.0, min: 0, max: 1.0
+   > - `throttle_coeff`: Throttle Cost Coefficient, Def:0.0, min: 0, max: 1.0   
    ```shell
    rosrun dynamic_reconfigure dynparam set /mppi_controller desired_speed 7.5
    rosrun dynamic_reconfigure dynparam set /mppi_controller speed_coefficient 25.0  
