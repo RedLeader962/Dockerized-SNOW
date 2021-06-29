@@ -23,6 +23,7 @@ autorally_env_setup="src/autorally/autorally_util/setupEnvLocal.sh"
 #autorally_env_setup="${DEV_WORKSPACE}/src/autorally/autorally_util/setupEnvLocal.sh"
 #echo "sourcing   ${autorally_env_setup}"
 echo "execute AutoRally environment setup:   ${autorally_env_setup}"
+echo "<<< RED" # todo:on task end >> delete this line ←
 exec "${DEV_WORKSPACE}/${autorally_env_setup}"
 
 echo "<<< RED" # todo:on task end >> delete this line ←
