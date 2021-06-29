@@ -156,7 +156,8 @@ RUN apt-get update \
 # ... Create and build a catkin workspace ..............................................................................
 ENV DEV_WORKSPACE=$HOME/catkin_ws
 
-WORKDIR "${DEV_WORKSPACE}/src"
+#WORKDIR "${DEV_WORKSPACE}/src"
+RUN mkdir -p ${SOLUTION_WS_PATH}/src
 WORKDIR "${DEV_WORKSPACE}"
 
 #    && mkdir -p ${DEV_WORKSPACE}/src \
