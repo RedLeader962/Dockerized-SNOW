@@ -35,6 +35,9 @@ echo
 
 cd /
 #exec bash
+
+tail ~/.bashrc
+
 source ~/.bashrc
 
 echo
