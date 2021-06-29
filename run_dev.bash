@@ -32,5 +32,6 @@ sudo docker run \
   --privileged \
   --volume "/tmp/.X11-unix/:/tmp/.X11-unix" \
   --volume "/etc/localtime:/etc/localtime:ro" \
+  --security-opt seccomp=unconfined \
   $DOCKER_OPTS \
   snow-auto-rally-dev
