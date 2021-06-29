@@ -157,7 +157,7 @@ RUN apt-get update \
 ENV DEV_WORKSPACE=$HOME/catkin_ws
 
 #WORKDIR "${DEV_WORKSPACE}/src"
-RUN mkdir -p ${SOLUTION_WS_PATH}/src
+RUN mkdir -p ${DEV_WORKSPACE}/src
 WORKDIR "${DEV_WORKSPACE}"
 
 #    && mkdir -p ${DEV_WORKSPACE}/src \
