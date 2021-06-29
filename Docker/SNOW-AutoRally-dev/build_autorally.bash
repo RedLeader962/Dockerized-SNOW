@@ -19,13 +19,13 @@ catkin_make
 source "${DEV_WORKSPACE}/devel/setup.bash"
 
 # AutoRally environment setup
-autorally_env_setup="/src/autorally/autorally_util/setupEnvLocal.sh"
+autorally_env_setup="src/autorally/autorally_util/setupEnvLocal.sh"
 #autorally_env_setup="${DEV_WORKSPACE}/src/autorally/autorally_util/setupEnvLocal.sh"
 echo "sourcing   ${autorally_env_setup}"
 source "${autorally_env_setup}"
 
 echo "<<< RED" # todo:on task end >> delete this line ←
-echo "source ${DEV_WORKSPACE}${autorally_env_setup}" >> ~/.bashrc
+echo "source ${DEV_WORKSPACE}/${autorally_env_setup}" >> ~/.bashrc
 
 ## AutoRally environment setup
 #autorally_env_setup="${DEV_WORKSPACE}/src/autorally_fork/autorally_util/setupEnvLocal.sh"
