@@ -38,7 +38,7 @@ cd /
 #exec bash
 
 #source ~/.bashrc
-exec $SHELL
+exec -c $SHELL
 
 echo
 printenv | grep AR_
