@@ -16,6 +16,7 @@ source "${DEV_WORKSPACE}/devel/setup.bash"
 
 # AutoRally environment setup
 autorally_env_setup="${DEV_WORKSPACE}/src/autorally/autorally_util/setupEnvLocal.sh"
+source "${autorally_env_setup}"
 echo "source ${autorally_env_setup}" >> ~/.bashrc
 
 
