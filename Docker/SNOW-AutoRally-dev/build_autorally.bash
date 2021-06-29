@@ -1,6 +1,6 @@
 #!/bin/bash -i
 
-#set -e # exit script if any statement returns a non-true return value
+set -e # exit script if any statement returns a non-true return value
 #set -v
 
 cd "${DEV_WORKSPACE}"
