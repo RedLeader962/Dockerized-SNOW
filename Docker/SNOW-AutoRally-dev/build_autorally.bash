@@ -47,4 +47,5 @@ cd /
 echo "Finished building AutoRally, just run 'source ~/.bashrc' or open a new terminal"
 echo "Run 'printenv | grep AR_' to check if AutoRally was properly sourced"
 
+## # (ICEBOXED) todo:assessment >> exec bash does not behave like expected!
 #exec bash -i
