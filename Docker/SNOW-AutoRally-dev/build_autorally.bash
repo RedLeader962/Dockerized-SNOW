@@ -21,10 +21,12 @@ source "${DEV_WORKSPACE}/devel/setup.bash"
 # AutoRally environment setup
 autorally_env_setup="src/autorally/autorally_util/setupEnvLocal.sh"
 #autorally_env_setup="${DEV_WORKSPACE}/src/autorally/autorally_util/setupEnvLocal.sh"
-#echo "sourcing   ${autorally_env_setup}"
-#echo "execute AutoRally environment setup:   ${autorally_env_setup}"
+
 #echo "<<< RED" # todo:on task end >> delete this line ←
-#. "${DEV_WORKSPACE}/${autorally_env_setup}"
+#chmod +x "${DEV_WORKSPACE}/${autorally_env_setup}"
+#chmod +x "${DEV_WORKSPACE}/src/autorally/autorally_util/setupEnvVariables.sh"
+#echo "sourcing   ${autorally_env_setup}"
+#exec . "${DEV_WORKSPACE}/${autorally_env_setup}"
 
 echo "<<< RED" # todo:on task end >> delete this line ←
 echo "source ${DEV_WORKSPACE}/${autorally_env_setup}" >> ~/.bashrc
@@ -50,7 +52,8 @@ echo "It should include the directory you're in: /home/<youruser>/catkin_ws/src:
 echo
 printenv | grep ROS
 echo
-printenv | grep AR_
-echo
+#printenv | grep AR_
+#echo
 
-cd /
+#cd /
+exec bash
