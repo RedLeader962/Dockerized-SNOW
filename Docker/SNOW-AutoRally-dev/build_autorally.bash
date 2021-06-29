@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e # exit script if any statement returns a non-true return value
 set -v # verbose
@@ -13,18 +13,18 @@ apt-get update && rosdep install --from-path src --ignore-src --default-yes
 #rm -rf /var/lib/apt/lists/*
 
 # Build AutoRally
-. "/opt/ros/${ROS_DISTRO}/setup.bash"
+source "/opt/ros/${ROS_DISTRO}/setup.bash"
 #cd "${DEV_WORKSPACE}"
 catkin_make
-. "${DEV_WORKSPACE}/devel/setup.bash"
+source "${DEV_WORKSPACE}/devel/setup.bash"
 
 # AutoRally environment setup
 autorally_env_setup="src/autorally/autorally_util/setupEnvLocal.sh"
 #autorally_env_setup="${DEV_WORKSPACE}/src/autorally/autorally_util/setupEnvLocal.sh"
 #echo "sourcing   ${autorally_env_setup}"
-echo "execute AutoRally environment setup:   ${autorally_env_setup}"
-echo "<<< RED" # todo:on task end >> delete this line ←
-. "${DEV_WORKSPACE}/${autorally_env_setup}"
+#echo "execute AutoRally environment setup:   ${autorally_env_setup}"
+#echo "<<< RED" # todo:on task end >> delete this line ←
+#. "${DEV_WORKSPACE}/${autorally_env_setup}"
 
 echo "<<< RED" # todo:on task end >> delete this line ←
 echo "source ${DEV_WORKSPACE}/${autorally_env_setup}" >> ~/.bashrc
