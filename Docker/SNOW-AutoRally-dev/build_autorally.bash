@@ -16,7 +16,7 @@ source "${DEV_WORKSPACE}/devel/setup.bash"
 
 # AutoRally environment setup
 autorally_env_setup="${DEV_WORKSPACE}/src/autorally/autorally_util/setupEnvLocal.sh"
-source "${autorally_env_setup}"
+#source "${autorally_env_setup}"
 echo "source ${autorally_env_setup}" >> ~/.bashrc
 
 
@@ -38,9 +38,10 @@ echo
 cd /
 
 source ~/.bashrc
-#exec bash -i
 
 echo
 printenv | grep AR_
 echo
 echo "Finished building AutoRally, just run 'source ~/.bashrc' or open a new terminal"
+
+exec bash -i
