@@ -1,7 +1,6 @@
 #!/bin/bash
 
 set -e # exit script if any statement returns a non-true return value
-set -v # verbose
 
 cd "${DEV_WORKSPACE}"
 
@@ -13,15 +12,6 @@ apt-get update && rosdep install --from-path src --ignore-src --default-yes
 source "/opt/ros/${ROS_DISTRO}/setup.bash"
 catkin_make
 source "${DEV_WORKSPACE}/devel/setup.bash"
-
-## AutoRally environment setup
-#autorally_env_setup="src/autorally/autorally_util/setupEnvLocal.sh"
-#autorally_env_setup="${DEV_WORKSPACE}/src/autorally/autorally_util/setupEnvLocal.sh"
-#chmod +x "${DEV_WORKSPACE}/${autorally_env_setup}"
-#chmod +x "${DEV_WORKSPACE}/src/autorally/autorally_util/setupEnvVariables.sh"
-#echo "sourcing   ${autorally_env_setup}"
-#exec . "${DEV_WORKSPACE}/${autorally_env_setup}"
-#echo "source ${DEV_WORKSPACE}/${autorally_env_setup}" >> ~/.bashrc
 
 # AutoRally environment setup
 autorally_env_setup="${DEV_WORKSPACE}/src/autorally/autorally_util/setupEnvLocal.sh"
