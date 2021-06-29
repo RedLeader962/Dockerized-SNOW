@@ -18,7 +18,7 @@ echo "Source code mapping from host to container: ${WS_DIR} >>> ${CONTAINER_SIDE
 DOCKER_OPTS="${DOCKER_OPTS} --volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
 
 ## # todo:assessment (ref task NLSAR-159 Fix the execute permission of source code mounted volume)
-sudo chmod --recursive +x "${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+#sudo chmod --recursive +x "${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
 
 sudo xhost +si:localuser:root
 
