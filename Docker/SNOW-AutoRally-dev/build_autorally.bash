@@ -34,4 +34,4 @@ printenv | grep ROS
 echo
 
 cd /
-#exec bash
+exec bash
