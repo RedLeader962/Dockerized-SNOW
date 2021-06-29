@@ -36,9 +36,8 @@ printenv | grep ROS
 echo
 
 cd /
-#exec bash
 
-#source ~/.bashrc
+source ~/.bashrc
 #exec bash -i
 
 echo
