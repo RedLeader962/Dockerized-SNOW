@@ -10,7 +10,7 @@ WORKDIR /
 COPY build_autorally.bash /
 RUN /bin/bash -c "chmod +x /build_autorally.bash"
 
-CMD [ "bash" ]
+#CMD [ "bash" ]
 # /////////////////////////////////////////////////////////////////////////////////////////////// SNOW-AutoRally-dev ///
 
 

@@ -1,12 +1,14 @@
 #!/bin/bash -i
 
+## Note: Only use 'set -e' for debugging until 'autorally_util/setupEnvVariables.sh' is refactored
 #set -e # exit script if any statement returns a non-true return value
 #set -v
 
 cd "${DEV_WORKSPACE}"
 
 # Install AutoRally dependencies
-apt-get update && rosdep install --from-path src --ignore-src --default-yes
+sudo apt-get update
+rosdep install --from-path src --ignore-src -r --default-yes
 #rm -rf /var/lib/apt/lists/*
 
 # Build AutoRally
@@ -36,11 +38,13 @@ printenv | grep ROS
 echo
 
 cd /
-source ~/.bashrc
 
-echo
-printenv | grep AR_
-echo
+#source ~/.bashrc
+#echo
+#printenv | grep AR_
+#echo
+
 echo "Finished building AutoRally, just run 'source ~/.bashrc' or open a new terminal"
+echo "Run 'printenv | grep AR_' to check if AutoRally was properly sourced"
 
-exec bash -i
+#exec bash -i
