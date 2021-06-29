@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -e # exit script if any statement returns a non-true return value
+set -v
 
 cd "${DEV_WORKSPACE}"
 
@@ -36,10 +37,9 @@ echo
 cd /
 #exec bash
 
-tail ~/.bashrc
-
 source ~/.bashrc
 
 echo
 printenv | grep AR_
 echo
+echo "Finished building AutoRally, just run 'source ~/.bashrc' or open a new terminal"
