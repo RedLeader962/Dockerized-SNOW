@@ -26,7 +26,7 @@ sudo docker run \
   --runtime nvidia \
   --interactive \
   --tty \
-  --rm \
+#  --rm \
   --device=/dev/input/js0 \
   --network host \
   --env DISPLAY=$DISPLAY \

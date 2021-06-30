@@ -2,13 +2,21 @@
 - Latest: `snow-autorally-l4t-ros-melodic-full`
 - Base image: `nvcr.io/nvidia/l4t-base:r32.5.0` 
 
+<br>
+
+<p>
+<img src="Dockerized-SNOW-plan.png">
+<img src="Dockerized-SNOW-plan.png" width="410px">
+</p>
+
+[Dockerized-SNOW-plan.drawio](https://viewer.diagrams.net/?highlight=0000ff&edit=_blank&layers=1&nav=1&title=Dockerized-SNOW-plan.drawio#Uhttps%3A%2F%2Fdrive.google.com%2Fuc%3Fid%3D1T5JsUv6CdRqGBdZ7K_5i6t3gAgHYuqO2%26export%3Ddownload)
+
+<br>
+
 #### Remote development quick ref 
 ```shell
-ssh snowxavier@10.0.1.73
-ssh snowxavier@192.168.55.1
-
+ssh snowxavier@10.0.1.103
 sudo docker exec -it thirsty_dirac bash
-export AR_JOYSTICK=/dev/input/js0 
 ```
 
 ## Setup alternative:
