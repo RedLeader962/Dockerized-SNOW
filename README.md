@@ -6,9 +6,10 @@
 
 
 
-![diagram](visual/Dockerized-SNOW-plan-2.png) 
+![diagram](visual/Dockerized-SNOW-plan-2.svg)
 
-[self editing](http://jgraph.github.io/SNOW_AutoRally/blob/master/visual/Dockerized-SNOW-plan-2.svg)
+<a href="http://jgraph.github.io/visual/Dockerized-SNOW-plan-2.svg" target="_blank">self-editing.svg</a>
+
 
 
 <p>
