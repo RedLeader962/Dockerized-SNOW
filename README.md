@@ -4,6 +4,9 @@
 
 <br>
 
+![diagram](visual/Dockerized-SNOW-plan-2.svg) 
+
+
 <p>
 <img src="visual/Dockerized-SNOW-plan.png">
 </p>
