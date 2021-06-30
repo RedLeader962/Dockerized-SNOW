@@ -6,7 +6,7 @@
 
 
 
-![diagram](visual/Dockerized-SNOW-plan-2.svg) 
+![diagram](visual/Dockerized-SNOW-plan-2.png) 
 
 
 <p>
