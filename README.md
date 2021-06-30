@@ -10,7 +10,7 @@
 
 <a href="http://jgraph.github.io/visual/Dockerized-SNOW-plan-2.svg" target="_blank">self-editing.svg</a>
 
-
+https://app.diagrams.net/?mode=github#HRedLeader962%2FSNOW_AutoRally%2Fmaster%2Fvisual%2FDockerized-SNOW-plan-2.drawio
 
 <p>
 <img src="visual/Dockerized-SNOW-plan.png">
