@@ -8,7 +8,7 @@
 
 ![diagram](visual/Dockerized-SNOW-plan-2.png) 
 
-http://jgraph.github.io/drawio-github/visual/Dockerized-SNOW-plan-2.svg
+[self editing](http://jgraph.github.io/SNOW_AutoRally/visual/Dockerized-SNOW-plan-2.svg)
 
 
 <p>
