@@ -4,13 +4,9 @@
 
 <br>
 
-![diagram](visual/Dockerized-SNOW-plan-2.png)
+![diagram](visual/Dockerized-SNOW-plan-2.svg)
 
 [edit Dockerized-SNOW-plan.drawio](https://app.diagrams.net/?mode=github#HRedLeader962%2FSNOW_AutoRally%2Fmaster%2Fvisual%2FDockerized-SNOW-plan-2.drawio)
-
----
-
-[edit diagram](https://app.diagrams.net/?mode=github#HRedLeader962%2FSNOW_AutoRally%2Fmaster%2Fvisual%2FDockerized-SNOW-plan-2.drawio)
 
 <br>
 
