@@ -4,9 +4,6 @@
 
 <br>
 
-<iframe frameborder="0" style="width:100%;height:1167px;" src="https://viewer.diagrams.net/?highlight=0000ff&edit=_blank&layers=1&nav=1&title=Dockerized-SNOW-plan-2.drawio#Uhttps%3A%2F%2Fraw.githubusercontent.com%2FRedLeader962%2FSNOW_AutoRally%2Fmaster%2Fvisual%2FDockerized-SNOW-plan-2.drawio"></iframe>
-
-
 
 
 ![diagram](visual/Dockerized-SNOW-plan-2.svg) 
