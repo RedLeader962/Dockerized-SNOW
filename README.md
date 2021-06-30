@@ -8,6 +8,8 @@
 
 ![diagram](visual/Dockerized-SNOW-plan-2.png) 
 
+http://jgraph.github.io/drawio-github/visual/Dockerized-SNOW-plan-2.svg
+
 
 <p>
 <img src="visual/Dockerized-SNOW-plan.png">
