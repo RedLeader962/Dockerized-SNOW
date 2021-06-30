@@ -4,19 +4,13 @@
 
 <br>
 
-![diagram](visual/Dockerized-SNOW-plan-2.svg)
+![diagram](visual/Dockerized-SNOW-plan-2.png)
+
+[edit Dockerized-SNOW-plan.drawio](https://app.diagrams.net/?mode=github#HRedLeader962%2FSNOW_AutoRally%2Fmaster%2Fvisual%2FDockerized-SNOW-plan-2.drawio)
+
+---
 
 [edit diagram](https://app.diagrams.net/?mode=github#HRedLeader962%2FSNOW_AutoRally%2Fmaster%2Fvisual%2FDockerized-SNOW-plan-2.drawio)
-
----
-
-![edit diagram](https://app.diagrams.net/?mode=github#HRedLeader962%2FSNOW_AutoRally%2Fmaster%2Fvisual%2FDockerized-SNOW-plan-2.drawio)
-
-
----
-
-
-![Dockerized-SNOW-plan.drawio](https://viewer.diagrams.net/?highlight=0000ff&edit=_blank&layers=1&nav=1&title=Dockerized-SNOW-plan.drawio#Uhttps%3A%2F%2Fdrive.google.com%2Fuc%3Fid%3D1T5JsUv6CdRqGBdZ7K_5i6t3gAgHYuqO2%26export%3Ddownload)
 
 <br>
 
