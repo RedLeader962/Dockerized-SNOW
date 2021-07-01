@@ -12,10 +12,10 @@
 <img src="drawio/dockerized_snow_plan.svg">
 </a>
 </p>
-<br>
 <p>
-<a href="https://app.diagrams.net/?mode=github#HRedLeader962%2FSNOW_AutoRally%2Fmaster%2Fdrawio%2Fdockerized_snow_plan.drawio" target="_blank" rel="noopener noreferrer">Edit dockerized_snow_plan.drawio
+<a href="https://app.diagrams.net/?mode=github#HRedLeader962%2FSNOW_AutoRally%2Fmaster%2Fdrawio%2Fdockerized_snow_plan.drawio" target="_blank" rel="noopener noreferrer">Edit
 </a>
+dockerized_snow_plan.drawio plan
 </p>
 <br>
 
