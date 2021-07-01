@@ -1,4 +1,6 @@
-# /// _SNOW-AutoRally nvidia-docker_ /////////////////////////////////
+# /// _Dockerized SNOW_ /////////////////////////////////
+
+Containerized workflow for the _SNOW-AutoRally_ project leveraging _nvidia-docker_ technology
 
 - Base image: `nvcr.io/nvidia/l4t-base:r32.5.0`
 - Latest images: 
@@ -19,6 +21,7 @@ diagram)
 </p>
 <br>
 
+---
 #### Remote development quick ref
 
 ```shell
