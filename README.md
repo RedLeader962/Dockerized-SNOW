@@ -1,6 +1,12 @@
 # _/// Dockerized SNOW ////////////////////////////////////////////_
 
-Containerized workflow for the _SNOW-AutoRally_ project leveraging _nvidia-docker_ technology
+Containerized workflow for the NorLab _SNOW-AutoRally_ project leveraging [_nvidia-docker_](https://github.com/NVIDIA/nvidia-docker) technology
+
+<p> <img src="./images/norlab_logo_acronym_dark.png" width="200"> </p>
+
+Project link: 
+- [Youtrack](https://redleader.myjetbrains.com/youtrack/dashboard?id=bce3112d-bda1-425c-8628-802a047be4d3) dashboard
+- [SNOW-AutoRally](https://github.com/RedLeader962/autorally)
 
 - Base image: `nvcr.io/nvidia/l4t-base:r32.5.0`
 - Latest images: 
