@@ -1,4 +1,4 @@
-# _/// Dockerized SNOW ////////////////////////////////////////////_
+# _/// Dockerized SNOW //////////////////////////////////////////_
 
 Containerized workflow for the NorLab _SNOW-AutoRally_ project leveraging [_nvidia-docker_](https://github.com/NVIDIA/nvidia-docker) technology
 
@@ -27,6 +27,12 @@ diagram)
    - `ros-melodic-auto-rally-dependencies`
    - `snow-auto-rally-deploy`
    - `snow-auto-rally-dev`
+   
+#### _nvidia-docker_ references:
+- [nvidia-docker: Build and run Docker containers leveraging NVIDIA GPUs](https://github.com/NVIDIA/nvidia-docker) 
+  - [NVIDIA Container Runtime on Jetson](https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson)
+  - [Driver containers](https://github.com/NVIDIA/nvidia-docker/wiki/Driver-containers)
+- [NVIDIA Cloud Native Technologies](https://docs.nvidia.com/datacenter/cloud-native/#)
 
 ---
 #### Remote development quick ref
