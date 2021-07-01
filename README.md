@@ -13,9 +13,9 @@
 </a>
 </p>
 <p>
-<a href="https://app.diagrams.net/?mode=github#HRedLeader962%2FSNOW_AutoRally%2Fmaster%2Fdrawio%2Fdockerized_snow_plan.drawio" target="_blank" rel="noopener noreferrer">Edit
+( <a href="https://app.diagrams.net/?mode=github#HRedLeader962%2FSNOW_AutoRally%2Fmaster%2Fdrawio%2Fdockerized_snow_plan.drawio" target="_blank" rel="noopener noreferrer">Edit
 </a>
-dockerized_snow_plan.drawio plan
+diagram)
 </p>
 <br>
 
