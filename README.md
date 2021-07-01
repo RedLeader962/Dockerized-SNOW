@@ -1,4 +1,4 @@
-# /// _Dockerized SNOW_ /////////////////////////////////////////////////
+# /// Dockerized SNOW /////////////////////////////////////////////////////
 
 Containerized workflow for the _SNOW-AutoRally_ project leveraging _nvidia-docker_ technology
 
