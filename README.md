@@ -1,6 +1,7 @@
 # /// _SNOW-AutoRally nvidia-docker_ ////////////////////////////
+
 - Latest: `snow-autorally-l4t-ros-melodic-full`
-- Base image: `nvcr.io/nvidia/l4t-base:r32.5.0` 
+- Base image: `nvcr.io/nvidia/l4t-base:r32.5.0`
 
 <br>
 
@@ -8,25 +9,27 @@
 <a href="https://viewer.diagrams.net/?target=blank&highlight=0000ff&edit=_blank&layers=1&nav=1&title=Dockerized-SNOW-plan-2.drawio#Uhttps%3A%2F%2Fraw.githubusercontent.com%2FRedLeader962%2FSNOW_AutoRally%2Fmaster%2Fvisual%2FDockerized-SNOW-plan-2.drawio" target="_blank" rel="noopener noreferrer">
 <img src="visual/Dockerized-SNOW-plan-2.svg">
 </a>
+</p>
+<p style="text-align:center;">
 <a href="https://app.diagrams.net/?mode=github#HRedLeader962%2FSNOW_AutoRally%2Fmaster%2Fvisual%2FDockerized-SNOW-plan-2.drawio" target="_blank" rel="noopener noreferrer">Edit Dockerized-SNOW-plan.drawio
 </a>
 </p>
 
+#### Remote development quick ref
 
-
-
-#### Remote development quick ref 
 ```shell
 ssh snowxavier@10.0.1.103
 sudo docker exec -it thirsty_dirac bash
 ```
 
 ## Setup alternative:
+
 - build the docker image from a Jetson device;
 - build the docker image from an x86_64 host using qemu (TODO);
 - or pull the pre-builded docker image from DockerHub (TODO).
 
 ### Build the docker image from a Jetson device
+
 1. Add "default-runtime": "nvidia" to your Jetson `/etc/docker/daemon.json` configuration file
     ```shell
     {
@@ -40,7 +43,7 @@ sudo docker exec -it thirsty_dirac bash
     }
     ```
 2. Restart the Docker service or reboot your system
-3. Clone the repo in the jetson 
+3. Clone the repo in the jetson
    ```shell
    cd /opt
    git clone https://github.com/RedLeader962/SNOW_AutoRally.git
@@ -50,22 +53,27 @@ sudo docker exec -it thirsty_dirac bash
     ```shell
     sudo docker build -t snow-autorally-l4t-ros-melodic-full:<theLatestVersionTag> -f Dockerfile .
     ```
-   Note: 
-   - The `.` is the context for the building step (It's the current directory);
-   - Set the `<theLatestVersionTag>` following the pattern `rX.Y`
-   
+   Note:
+    - The `.` is the context for the building step (It's the current directory);
+    - Set the `<theLatestVersionTag>` following the pattern `rX.Y`
 
-### Build the docker image from an x86_64 host using qemu 
-(TODO)
-### Pull the pre-build container from DockerHub 
+### Build the docker image from an x86_64 host using qemu
+
 (TODO)
 
+### Pull the pre-build container from DockerHub
+
+(TODO)
 
 ## Usage:
+
 ### Instantiate a new container
+
 Note on configuration:
+
 - the container run Gazebo GUI on the host computer via X11;
-- and map the default joystick usb input from the host (eg. a Jetson Xavier) to the container.    
+- and map the default joystick usb input from the host (eg. a Jetson Xavier) to the container.
+
 ```shell
 export DISPLAY=:0
 sudo xhost +si:localuser:root
@@ -82,26 +90,32 @@ sudo docker run
 ```
 
 **Flags explanation:**
+
 - `--name` a meaningful container name
 
 **Flags explanation:**
-- `--runtime nvidia` set the container to use the NVIDIA container runtime  
-- `--volume` or `-v` set a mounting directory.
-  We use this to mount the host X11 display in the container filesystem. Rendered output videos from the container can then be displayed on the host.
-- `--device`or `-d` set full access from a container to a host attached device (eg. joystick, camera)  
+
+- `--runtime nvidia` set the container to use the NVIDIA container runtime
+- `--volume` or `-v` set a mounting directory. We use this to mount the host X11 display in the container filesystem.
+  Rendered output videos from the container can then be displayed on the host.
+- `--device`or `-d` set full access from a container to a host attached device (eg. joystick, camera)
 
 **Others usefull flags:**
+
 - `--hostname` or `-H` specifies remote host name: eg. if you want to execute the run command on your Xavier
-- `--publish` or `-p` publish a container’s port(s) to the host, necessary when you need a port to communicate with a program in your container.
+- `--publish` or `-p` publish a container’s port(s) to the host, necessary when you need a port to communicate with a
+  program in your container.
 
 ### Stop and start a container
+
 ```shell
 sudo docker stop <myCoolContainerName>
 
 sudo docker start -i <myCoolContainerName>
 ```
 
-###  Opening new terminal access in a running container
+### Opening new terminal access in a running container
+
 ```shell
 sudo docker exec -it <myCoolContainerName> bash
 
@@ -110,22 +124,29 @@ sudo docker exec -it amazing_vaughan bash
 ```
 
 ---
+
 # Quick ref
+
 ```shell
 printenv | grep ROS 
 ```
+
  
 ---
-# Test AutoRally Configuration in Gazebo 
+
+# Test AutoRally Configuration in Gazebo
+
 ## 1. Start AutoRally simulator
+
 ```shell
 roslaunch autorally_gazebo autoRallyTrackGazeboSim.launch
 ```
 
 ## 2. Configure joystick with ROS
+
 [joy/Tutorials/ConfiguringALinuxJoystick - ROS Wiki](http://wiki.ros.org/joy/Tutorials/ConfiguringALinuxJoystick)
- 
-1. Check if os recognize the joystick 
+
+1. Check if os recognize the joystick
     ```shell
     # check listing of input device
     ls /dev/input/
@@ -135,7 +156,7 @@ roslaunch autorally_gazebo autoRallyTrackGazeboSim.launch
     sudo jstest /dev/input/js0
     # move joystick and check data
     ```
-2. Fix permission 
+2. Fix permission
    ```shell
    # check permission 
    ls -l /dev/input/js0
@@ -144,8 +165,8 @@ roslaunch autorally_gazebo autoRallyTrackGazeboSim.launch
    sudo chmod a+rw /dev/input/js0
    ```
 
-3. Start AutoRally 
-4. set `rosparam` joy_node/dev 
+3. Start AutoRally
+4. set `rosparam` joy_node/dev
     ```shell
     rosparam set joy_node/dev "/dev/input/js0"
     rosparam get joy_node/dev
@@ -159,20 +180,23 @@ roslaunch autorally_gazebo autoRallyTrackGazeboSim.launch
     # move joystick and check data
     ```
 
-## 3. Verify if runstop motion is enabled 
+## 3. Verify if runstop motion is enabled
+
 ```shell
 rostopic echo /chassisState
 # check for the runstopMotionEnabled field 
 ```
 
-
 ---
+
 # Quick hack for AutoRally unrecognized device problem
 
-Pipeline: device ››› Xavier L4T ››› nvidia-container ››› `joystickController` ›››  `StateEstimator` ››› `path_integral_nn`
+Pipeline: device ››› Xavier L4T ››› nvidia-container ››› `joystickController` ›››  `StateEstimator`
+››› `path_integral_nn`
 Requirement for MPPI: source of `runstop` information via device
 
 ### Assess recognize device attributes using from udev device manager
+
 ```shell
 udevadm info -a -p $(udevadm info -q path -n /dev/input/js0)
 
@@ -182,6 +206,7 @@ udevadm info -n /dev/input/js0 -q property --export | grep ID_INPUT_JOYSTICK
 ```  
 
 💎 | Quick hack
+
 1. Start the `snow-autorally-l4t-ros-melodic-full` container,
 2. if ```[WARNING] No joystick detected.``` is printed in the terminal,
 3. overwrite the `AR_JOYSTICK` environment variable generated by  ```autorally/autorally_util/setupEnvVariables.sh```
@@ -197,8 +222,10 @@ export AR_JOYSTICK=/dev/input/js0
 
 printenv | grep AR_
 ```
+
  
 ---
+
 # Autonomous Driving in Simulation
 
 1. Launch an AutoRally simulation in gazebo
@@ -209,7 +236,7 @@ printenv | grep AR_
    ```shell
    rosservice call /gazebo/reset_simulation
    ```
-2. Open a new terminal, subscribe to this topic 
+2. Open a new terminal, subscribe to this topic
    ```shell
    rostopic echo /chassisState
    ```
@@ -230,28 +257,28 @@ printenv | grep AR_
 rostopic pub -r 10 /constantSpeedController/speedCommand std_msgs/Float64 '{data: 1.5}'
 ```
 
-
 > If the robot turns and hits the barrier it's probably because the state estimator has not converged, so its orientation estimate is incorrect. Just select the track barriers and move them up to allow the robot to continue driving, and the estimator should converge and the vehicle will return to within the barriers.
 
 
 ---
+
 # Autonomous Driving in Simulation using MPPI
 
 1. Launch an AutoRally simulation in gazebo
    ```shell
    roslaunch autorally_gazebo autoRallyTrackGazeboSim.launch
    ```
-   
+
    Reset the robot position in Gazebo at the same spot as when the simulation starts (if needed)
    ```shell
    rosservice call /gazebo/reset_world
    ```
-2. Open a new terminal, subscribe to those topic 
+2. Open a new terminal, subscribe to those topic
    ```shell
    rostopic echo /chassisState
    ```
    and set `runstopMotionEnabled = true` using the joystick **BUT DONT MOVE THE ROBOT!**
-3. launch the state estimator with those arguments specific to the simulator case  
+3. launch the state estimator with those arguments specific to the simulator case
    ```shell
    # check available parameter
    roslaunch --ros-args autorally_core stateEstimator.launch 
@@ -259,14 +286,20 @@ rostopic pub -r 10 /constantSpeedController/speedCommand std_msgs/Float64 '{data
    # start the node with the argument for running in simulation 
    roslaunch autorally_core stateEstimator.launch InvertY:=false InvertZ:=false FixedInitialPose:=true sim:=true
    ```
-   Note: the AutoRally doc as an obsolete procedure for lauching the [State Estimator](https://github.com/AutoRally/autorally/wiki/State-Estimator). It tell to overwrite the setting on the parameter server using `rosparam set /gps_imu/FixedInitialPose true` but the `stateEstimator.launch` file as a param `sim` with default argument `false` that overwrite this setting. Pass argument `sim:=true` to the launcher instead. 
+   Note: the AutoRally doc as an obsolete procedure for lauching
+   the [State Estimator](https://github.com/AutoRally/autorally/wiki/State-Estimator). It tell to overwrite the setting
+   on the parameter server using `rosparam set /gps_imu/FixedInitialPose true` but the `stateEstimator.launch` file as a
+   param `sim` with default argument `false` that overwrite this setting. Pass argument `sim:=true` to the launcher
+   instead.
 4. move the vehicle around manually until the state estimator has converged
 5. Open a new terminal and start MPPI
    ```shell
    roslaunch autorally_control path_integral_nn.launch
    ```
 6. To change configuration as you run
-   (see [MPPI · AutoRally/autorally Wiki](https://github.com/AutoRally/autorally/wiki/Model-Predictive-Path-Integral-Controller-(MPPI)#dynamic-reconfigure-variables) for more `dynamic_reconfigure` parameter details)
+   (
+   see [MPPI · AutoRally/autorally Wiki](https://github.com/AutoRally/autorally/wiki/Model-Predictive-Path-Integral-Controller-(MPPI)#dynamic-reconfigure-variables)
+   for more `dynamic_reconfigure` parameter details)
    > - `max_throttle`: Maximum applied throttle, Def:0.65, min: 0.0, max: 1.0
    > - `desired_speed`: Speed Target for the MPPI controller, Def:6.0, min: 0.0, max:  25.0
    > - `speed_coefficient`: Weight for acheiving target velocity, Def:4.25, min: 0.0, max:  20.0
@@ -274,9 +307,9 @@ rostopic pub -r 10 /constantSpeedController/speedCommand std_msgs/Float64 '{data
    > - `max_slip_angle`: maximum allowable slip angle before killing trajectory, Def:1.25, min: 0.0, max: 3.14
    > - `slip_penalty`: Penalty for violating slip angle threshold, Def:10.0, min: 0, max: 1000.0
    > - `crash_coefficient`: Penalty for crashing, Def:10000, min: 0, max: 20000
-   > - `track_slop`: Value for clipping track cost to zero, Def:0, min: 0,  max: .75
+   > - `track_slop`: Value for clipping track cost to zero, Def:0, min: 0, max: .75
    > - `steering_coeff`: Steering Cost Coefficient, Def:0.0, min: 0, max: 1.0
-   > - `throttle_coeff`: Throttle Cost Coefficient, Def:0.0, min: 0, max: 1.0   
+   > - `throttle_coeff`: Throttle Cost Coefficient, Def:0.0, min: 0, max: 1.0
    ```shell
    rosrun dynamic_reconfigure dynparam set /mppi_controller desired_speed 7.5
    rosrun dynamic_reconfigure dynparam set /mppi_controller speed_coefficient 25.0  
@@ -291,11 +324,13 @@ rostopic pub -r 10 /constantSpeedController/speedCommand std_msgs/Float64 '{data
    ```
 
 ---
+
 # Simulator services
 
 These services allow the user to pause and unpause physics in simulation:
 
 Ref. [Gazebo : Tutorial : ROS communication](http://gazebosim.org/tutorials/?tut=ros_comm#Services:Simulationcontrol)
+
 ```shell
 # Resets the entire simulation including the time
 rosservice call /gazebo/reset_simulation
