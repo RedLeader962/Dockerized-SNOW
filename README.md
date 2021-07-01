@@ -6,19 +6,18 @@
 
 ![diagram](visual/Dockerized-SNOW-plan-2.png)
 
-[edit Dockerized-SNOW-plan.drawio](https://app.diagrams.net/?mode=github#HRedLeader962%2FSNOW_AutoRally%2Fmaster%2Fvisual%2FDockerized-SNOW-plan-2.drawio)
-
-[publish Dockerized-SNOW-plan.drawio](https://viewer.diagrams.net/?target=blank&highlight=0000ff&edit=_blank&layers=1&nav=1&title=Dockerized-SNOW-plan-2.drawio#Uhttps%3A%2F%2Fraw.githubusercontent.com%2FRedLeader962%2FSNOW_AutoRally%2Fmaster%2Fvisual%2FDockerized-SNOW-plan-2.drawio)
 
 <br>
 
 <p>
-<a href="https://viewer.diagrams.net/?target=blank&highlight=0000ff&edit=_blank&layers=1&nav=1&title=Dockerized-SNOW-plan-2.drawio#Uhttps%3A%2F%2Fraw.githubusercontent.com%2FRedLeader962%2FSNOW_AutoRally%2Fmaster%2Fvisual%2FDockerized-SNOW-plan-2.drawio">
+<a href="https://viewer.diagrams.net/?target=blank&highlight=0000ff&edit=_blank&layers=1&nav=1&title=Dockerized-SNOW-plan-2.drawio#Uhttps%3A%2F%2Fraw.githubusercontent.com%2FRedLeader962%2FSNOW_AutoRally%2Fmaster%2Fvisual%2FDockerized-SNOW-plan-2.drawio" target="_blank">
 <img src="visual/Dockerized-SNOW-plan-2.svg">
 </a>
-
-<img src="visual/Dockerized-SNOW-plan-2.svg">
+<a href="https://app.diagrams.net/?mode=github#HRedLeader962%2FSNOW_AutoRally%2Fmaster%2Fvisual%2FDockerized-SNOW-plan-2.drawio" target="_blank">Edit Dockerized-SNOW-plan.drawio
+</a>
 </p>
+
+[edit Dockerized-SNOW-plan.drawio](https://app.diagrams.net/?mode=github#HRedLeader962%2FSNOW_AutoRally%2Fmaster%2Fvisual%2FDockerized-SNOW-plan-2.drawio)
 
 
 
