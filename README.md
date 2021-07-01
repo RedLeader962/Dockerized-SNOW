@@ -1,12 +1,15 @@
 # /// _SNOW-AutoRally nvidia-docker_ ////////////////////////////
 
-- Latest: `snow-autorally-l4t-ros-melodic-full`
 - Base image: `nvcr.io/nvidia/l4t-base:r32.5.0`
+- Latest images: 
+  - `ros-melodic-auto-rally-dependencies`
+  - `snow-auto-rally-deploy`
+  - `snow-auto-rally-dev`
 
 <br>
 
 <p>
-<a href="https://viewer.diagrams.net/?highlight=0000ff&edit=_blank&layers=1&nav=1&title=dockerized_snow_plan.drawio#Uhttps%3A%2F%2Fraw.githubusercontent.com%2FRedLeader962%2FSNOW_AutoRally%2Fmaster%2Fdrawio%2Fdockerized_snow_plan.drawio" target="_blank" rel="noopener noreferrer">
+<a href="https://viewer.diagrams.net/?target=_blank&highlight=0000ff&edit=_blank&layers=1&nav=1&title=dockerized_snow_plan.drawio#Uhttps%3A%2F%2Fraw.githubusercontent.com%2FRedLeader962%2FSNOW_AutoRally%2Fmaster%2Fdrawio%2Fdockerized_snow_plan.drawio">
 <img src="drawio/dockerized_snow_plan.svg">
 </a>
 </p>
