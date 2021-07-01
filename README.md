@@ -1,12 +1,13 @@
-# /// Dockerized SNOW /////////////////////////////////////////////////////
+# _/// Dockerized SNOW ///////////////////////////////////////////////////////_
 
 Containerized workflow for the _SNOW-AutoRally_ project leveraging _nvidia-docker_ technology
 
-- Base image: `nvcr.io/nvidia/l4t-base:r32.5.0`
-- Latest images: 
-  - `ros-melodic-auto-rally-dependencies`
-  - `snow-auto-rally-deploy`
-  - `snow-auto-rally-dev`
+Base image: `nvcr.io/nvidia/l4t-base:r32.5.0`
+
+Latest images: 
+- `ros-melodic-auto-rally-dependencies`
+- `snow-auto-rally-deploy`
+- `snow-auto-rally-dev`
 
 <br>
 <p>
