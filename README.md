@@ -4,10 +4,11 @@ Containerized workflow for the NorLab _SNOW-AutoRally_ project leveraging [_nvid
 
 <p> <img src="./images/norlab_logo_acronym_dark.png" width="200"> </p>
 
-Project link: 
+#### Project link: 
 - [Youtrack](https://redleader.myjetbrains.com/youtrack/dashboard?id=bce3112d-bda1-425c-8628-802a047be4d3) dashboard
 - [SNOW-AutoRally](https://github.com/RedLeader962/autorally)
 
+#### Images:
 - Base image: `nvcr.io/nvidia/l4t-base:r32.5.0`
 - Latest images: 
    - `ros-melodic-auto-rally-dependencies`
