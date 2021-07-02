@@ -33,15 +33,8 @@ diagram )
    - `ros-melodic-snow-autorally-dependencies`
    - `snow-autorally-deploy`
    - `snow-autorally-develop`
-   
-#### _nvidia-docker_ references:
-- [nvidia-docker: Build and run Docker containers leveraging NVIDIA GPUs](https://github.com/NVIDIA/nvidia-docker) 
-  - [NVIDIA Container Runtime on _Jetson_](https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson)
-  - [Driver containers](https://github.com/NVIDIA/nvidia-docker/wiki/Driver-containers)
-- [NVIDIA Cloud Native Technologies](https://docs.nvidia.com/datacenter/cloud-native/#)
-
----
-# Usage
+  
+## Usage
 
 ##### Workflow option:
 
@@ -54,6 +47,14 @@ diagram )
 - [Test AutoRally Configuration (**Revised instruction**)](https://github.com/RedLeader962/SNOW-AutoRally#test-autorally-configuration-in-gazebo-revised-instruction)
 
 ---
+###### _NVIDIA-docker_ references:
+- [nvidia-docker: Build and run Docker containers leveraging NVIDIA GPUs](https://github.com/NVIDIA/nvidia-docker) 
+  - [NVIDIA Container Runtime on _Jetson_](https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson)
+  - [Driver containers](https://github.com/NVIDIA/nvidia-docker/wiki/Driver-containers)
+- [NVIDIA Cloud Native Technologies](https://docs.nvidia.com/datacenter/cloud-native/#)
+
+---
+
 
 
 
