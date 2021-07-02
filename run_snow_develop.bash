@@ -19,7 +19,7 @@ echo "starting ${CONTAINER_NAME}"
 
 CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
 #WS_DIR=$1
-WS_DIR="${HOST_SOURCE_CODE_PATH}"
+WS_DIR=$HOST_SOURCE_CODE_PATH
 WS_DIRNAME=$(basename $WS_DIR)
 #WS_DIRNAME=SNOW-AutoRally
 echo "Source code mapping from host to container: ${WS_DIR} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
