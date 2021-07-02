@@ -6,16 +6,16 @@ Containerized workflow for the NorLab _SNOW-AutoRally_ project leveraging [_nvid
 
 <br>
 <p>
-<a href="https://viewer.diagrams.net/?target=blank&highlight=0000ff&edit=_blank&layers=1&nav=1&title=dockerized_snow_plan.drawio#Uhttps%3A%2F%2Fraw.githubusercontent.com%2FRedLeader962%2FSNOW_AutoRally%2Fmaster%2Fdrawio%2Fdockerized_snow_plan.drawio">
+<a href="https://viewer.diagrams.net/?target=blank&highlight=0000ff&edit=_blank&layers=1&nav=1&title=dockerized_snow_plan.drawio#Uhttps%3A%2F%2Fraw.githubusercontent.com%2FRedLeader962%2FDockerized_SNOW%2Fmaster%2Fdrawio%2Fdockerized_snow_plan.drawio">
 <img src="drawio/dockerized_snow_plan.svg">
 </a>
 </p>
 <p>
 ( 
-<a href="https://viewer.diagrams.net/?target=blank&highlight=0000ff&edit=_blank&layers=1&nav=1&title=dockerized_snow_plan.drawio#Uhttps%3A%2F%2Fraw.githubusercontent.com%2FRedLeader962%2FSNOW_AutoRally%2Fmaster%2Fdrawio%2Fdockerized_snow_plan.drawio">
+<a href="https://viewer.diagrams.net/?target=blank&highlight=0000ff&edit=_blank&layers=1&nav=1&title=dockerized_snow_plan.drawio#Uhttps%3A%2F%2Fraw.githubusercontent.com%2FRedLeader962%2FDockerized_SNOW%2Fmaster%2Fdrawio%2Fdockerized_snow_plan.drawio">
 fullscreen
 </a>
-  |  <a href="https://app.diagrams.net/?mode=github#HRedLeader962%2FSNOW_AutoRally%2Fmaster%2Fdrawio%2Fdockerized_snow_plan.drawio" target="_blank" rel="noopener noreferrer">edit
+  |  <a href="https://app.diagrams.net/?mode=github#HRedLeader962%2FDockerized_SNOW%2Fmaster%2Fdrawio%2Fdockerized_snow_plan.drawio" target="_blank" rel="noopener noreferrer">edit
 </a>
 diagram )
 </p>
@@ -75,12 +75,12 @@ sudo docker exec -it thirsty_dirac bash
 3. Clone the repo in the jetson
    ```shell
    cd /opt
-   git clone https://github.com/RedLeader962/SNOW_AutoRally.git
-   cd /opt/SNOW_AutoRally 
+   git clone https://github.com/RedLeader962/Dockerized_SNOW.git
+   cd /opt/Dockerized_SNOW 
    ```
 4. Build the nvidia-docker image
     ```shell
-    sudo docker build -t snow-autorally-l4t-ros-melodic-full:<theLatestVersionTag> -f Dockerfile .
+    sudo docker build -t <theImageName>:<theLatestVersionTag> -f Dockerfile .
     ```
    Note:
     - The `.` is the context for the building step (It's the current directory);
