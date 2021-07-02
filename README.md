@@ -46,7 +46,7 @@ diagram )
 ---
 ## Workflow option:
 
-- [build the docker image from a Jetson device](#Build the docker image from a Jetson device);
+- [build the docker image from a Jetson device](#build-the-docker-image-from-ajetson-device);
 - build the docker image from an x86_64 host using qemu;
 - or pull the pre-builded docker image from DockerHub (TODO).
 
