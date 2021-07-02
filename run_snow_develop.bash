@@ -12,7 +12,7 @@ echo -n "Name that new container, the crazier the better: "
 read CONTAINER_NAME
 export LATEST_CONTAINER_USED="${CONTAINER_NAME}"
 
-echo -n "Source code directory from host to mount in the container (must be an absolute path): "
+echo -n "Enter the host source code directory to mount inside the container (must be an absolute path eg. /home/snowxavier/Repositories/SNOW-AutoRally): "
 read HOST_SOURCE_CODE_PATH
 
 echo "starting ${CONTAINER_NAME}"
