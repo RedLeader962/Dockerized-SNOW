@@ -31,3 +31,6 @@ git clone --branch ${DEV_BRANCH} https://github.com/RedLeader962/autorally.git
 
 
 sudo xhost +si:localuser:root
+
+
+#test
