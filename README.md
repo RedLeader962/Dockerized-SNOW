@@ -47,7 +47,7 @@ diagram )
 ## Workflow option:
 
 - [build the docker image from a Jetson device](#build-the-docker-image-from-ajetson-device);
-- [build the docker image from an x86_64 host using qemu](#build-the-docker-image-from-an x86_64-host-using-qemu);
+- [build the docker image from an x86_64 host using qemu](#build-the-docker-image-from-an x86-host-using-qemu);
 - or pull the pre-builded docker image from DockerHub (TODO).
 
 ### Build the docker image from a Jetson device
@@ -79,7 +79,7 @@ diagram )
     - The `.` is the context for the building step (It's the current directory);
     - Set the `<theLatestVersionTag>` following the pattern `rX.Y`
 
-### Build the docker image from an x86_64 host using qemu
+### Build the docker image from an x86 host using qemu
 
 Follow those [instruction](README_cross_compiler.md) 
 
