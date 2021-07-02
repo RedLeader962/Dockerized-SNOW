@@ -27,7 +27,7 @@ diagram )
 - [SNOW-AutoRally](https://github.com/RedLeader962/autorally)
 
 #### User guide:
-- [Setup for building Jetson Containers on an x86 host using qemu](README_cross_compiler.md)
+- [Setup for building _Jetson_ Containers on an x86 host using _qemu_](README_cross_compiler.md)
 
 
 #### Images:
@@ -39,7 +39,7 @@ diagram )
    
 #### _nvidia-docker_ references:
 - [nvidia-docker: Build and run Docker containers leveraging NVIDIA GPUs](https://github.com/NVIDIA/nvidia-docker) 
-  - [NVIDIA Container Runtime on Jetson](https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson)
+  - [NVIDIA Container Runtime on _Jetson_](https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson)
   - [Driver containers](https://github.com/NVIDIA/nvidia-docker/wiki/Driver-containers)
 - [NVIDIA Cloud Native Technologies](https://docs.nvidia.com/datacenter/cloud-native/#)
 
@@ -48,15 +48,15 @@ diagram )
 
 ## Workflow option:
 
-- [build the docker image from a Jetson device](#build-the-docker-image-from-a-jetson-device);
-- [build the docker image from an x86 host using qemu](#build-the-docker-image-from-an-x86-host-using-qemu);
-- or pull the pre-builded docker image from DockerHub (TODO).
+- [build the _docker_ image from a _Jetson_ device](#build-the-docker-image-from-a-jetson-device);
+- [build the _docker_ image from an x86 host using _qemu_](README_cross_compiler.md);
+- or pull the pre-builded _docker_ image from _DockerHub_ (TODO).
 
-### Build the docker image from a Jetson device
+### Build the _docker_ image from a _Jetson_ device
 
-Requirement: the latest Jetpack must be installed on the Jetson 
+Requirement: the latest _Jetpack_ must be installed on the _Jetson_ 
 
-1. Add "default-runtime": "nvidia" to your Jetson `/etc/docker/daemon.json` configuration file
+#### 1. Add "default-runtime": "nvidia" to your _Jetson_ `/etc/docker/daemon.json` configuration file
    ```shell
    {
      "runtimes": {
@@ -68,34 +68,36 @@ Requirement: the latest Jetpack must be installed on the Jetson
      "default-runtime": "nvidia"
    }
    ```
-2. Restart the Docker service or reboot your system
-3. Clone the repo in the jetson
-   ```shell
-   sudo git clone https://github.com/RedLeader962/Dockerized-SNOW.git && cd Dockerized-SNOW
-   ```
-4. Build the nvidia-docker image using the following script
-   ```shell
-   ./build_snow_dependencies.bash
-   ./build_snow_autorally_develop.bash
-   ./build_snow_autorally_deploy.bash
-   ```
+#### 2. Restart the _docker_ service or reboot your system
+#### 3. Clone the repo in the _Jetson_
+```shell
+sudo git clone https://github.com/RedLeader962/Dockerized-SNOW.git && cd Dockerized-SNOW
+```
 
-   or manualy
-   ```shell
-   cd Docker/ros-melodic-snow-autorally-dependencies
-   sudo docker build --tag ros-melodic-snow-autorally-dependencies:<theLatestVersionTag> -f Dockerfile .
-   ```
-   Note:
-    - The `.` is the context for the building step (It's the current directory);
-    - Set the `<theLatestVersionTag>` following the pattern `rX.Y` or use `latest`
+#### 7. Build the _nvidia-docker_ image using the following script
+```shell
+./build_snow_dependencies.bash
+./build_snow_autorally_develop.bash
+./build_snow_autorally_deploy.bash
+```
+or manualy
+```shell
+cd Docker/ros-melodic-snow-autorally-dependencies
+sudo docker build --tag ros-melodic-snow-autorally-dependencies:<theLatestVersionTag> -f Dockerfile .
+```
+Note:
+- The `.` is the context for the building step (It's the current directory);
+- Set the `<theLatestVersionTag>` following the pattern `rX.Y` or use `latest`
 
-### Build the docker image from an x86 host using qemu
+#### 8. Run the container using the following script
+```shell
+./run_snow_develop.bash
+./run_snow_deploy.bash
 
-Follow those [instruction](README_cross_compiler.md) 
+# To open additional terminal in a running container 
+./open_new_terminal.bash
+```
 
-### Pull the pre-build container from DockerHub
-
-(TODO)
 
 ---
 
