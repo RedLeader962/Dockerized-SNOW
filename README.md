@@ -4,10 +4,6 @@ Containerized workflow for the NorLab _SNOW-AutoRally_ project leveraging [_nvid
 
 <p> <img src="./images/norlab_logo_acronym_dark.png" width="200"> </p>
 
-#### Project link: 
-- [Youtrack](https://redleader.myjetbrains.com/youtrack/dashboard?id=bce3112d-bda1-425c-8628-802a047be4d3) dashboard
-- [SNOW-AutoRally](https://github.com/RedLeader962/autorally)
-
 <br>
 <p>
 <a href="https://viewer.diagrams.net/?target=blank&highlight=0000ff&edit=_blank&layers=1&nav=1&title=dockerized_snow_plan.drawio#Uhttps%3A%2F%2Fraw.githubusercontent.com%2FRedLeader962%2FSNOW_AutoRally%2Fmaster%2Fdrawio%2Fdockerized_snow_plan.drawio">
@@ -20,6 +16,15 @@ Containerized workflow for the NorLab _SNOW-AutoRally_ project leveraging [_nvid
 diagram)
 </p>
 <br>
+
+---
+#### Project link: 
+- [Youtrack](https://redleader.myjetbrains.com/youtrack/dashboard?id=bce3112d-bda1-425c-8628-802a047be4d3) dashboard
+- [SNOW-AutoRally](https://github.com/RedLeader962/autorally)
+
+#### User guide:
+- [Setup for building Jetson Containers on an x86 host using qemu](README_cross_compiler.md)
+
 
 #### Images:
 - Base image: `nvcr.io/nvidia/l4t-base:r32.5.0`
@@ -51,17 +56,17 @@ sudo docker exec -it thirsty_dirac bash
 ### Build the docker image from a Jetson device
 
 1. Add "default-runtime": "nvidia" to your Jetson `/etc/docker/daemon.json` configuration file
-    ```shell
-    {
-        "runtimes": {
-            "nvidia": {
-                "path": "nvidia-container-runtime",
-                "runtimeArgs": []
-            }
-        },
-        "default-runtime": "nvidia"
-    }
-    ```
+   ```shell
+   {
+     "runtimes": {
+         "nvidia": {
+             "path": "nvidia-container-runtime",
+             "runtimeArgs": []
+         }
+     },
+     "default-runtime": "nvidia"
+   }
+   ```
 2. Restart the Docker service or reboot your system
 3. Clone the repo in the jetson
    ```shell
