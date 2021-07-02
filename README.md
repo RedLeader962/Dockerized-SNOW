@@ -26,6 +26,18 @@ diagram )
 - [Youtrack](https://redleader.myjetbrains.com/youtrack/dashboard?id=bce3112d-bda1-425c-8628-802a047be4d3) dashboard
 - [**SNOW-AutoRally**](https://github.com/RedLeader962/autorally)
 
+## Usage
+
+#### Workflow option:
+
+- Instruction for [**building the _docker_ image from a _Jetson_ device**](README_Jetson_builded.md)
+- Instruction for [**building the _docker_ image from an x86 host using _qemu_**](README_cross_compiler.md)
+- Instruction for pulling the pre-builded _docker_ image from _DockerHub_ (TODO)
+
+#### How-to
+- [**How-to _nvidia-docker_ manualy (a quick start)**](README_docker_manualy_quickstart.md)
+- [**Test AutoRally Configuration (**Revised instruction**)**](https://github.com/RedLeader962/SNOW-AutoRally#test-autorally-configuration-in-gazebo-revised-instruction)
+
 
 #### Images:
 - Base image: `nvcr.io/nvidia/l4t-base:r32.5.0`
@@ -34,18 +46,6 @@ diagram )
    - `snow-autorally-deploy`
    - `snow-autorally-develop`
   
-## Usage
-
-##### Workflow option:
-
-- Instruction for [**building the _docker_ image from a _Jetson_ device**](README_Jetson_builded.md)
-- Instruction for [**building the _docker_ image from an x86 host using _qemu_**](README_cross_compiler.md)
-- Instruction for pulling the pre-builded _docker_ image from _DockerHub_ (TODO)
-
-##### How-to
-- [**How-to _nvidia-docker_ manualy (a quick start)**](README_docker_manualy_quickstart.md)
-- [**Test AutoRally Configuration (**Revised instruction**)**](https://github.com/RedLeader962/SNOW-AutoRally#test-autorally-configuration-in-gazebo-revised-instruction)
-
 ---
 ###### _NVIDIA-docker_ references:
 - [nvidia-docker: Build and run Docker containers leveraging NVIDIA GPUs](https://github.com/NVIDIA/nvidia-docker) 
