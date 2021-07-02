@@ -38,13 +38,13 @@ diagram )
 
 ##### Workflow option:
 
-- Instruction for [building the _docker_ image from a _Jetson_ device](README_Jetson_builded.md)
-- Instruction for [building the _docker_ image from an x86 host using _qemu_](README_cross_compiler.md)
+- Instruction for [**building the _docker_ image from a _Jetson_ device**](README_Jetson_builded.md)
+- Instruction for [**building the _docker_ image from an x86 host using _qemu_**](README_cross_compiler.md)
 - Instruction for pulling the pre-builded _docker_ image from _DockerHub_ (TODO)
 
 ##### How-to
-- [How-to _nvidia-docker_ manualy (a quick start)](README_docker_manualy_quickstart.md)
-- [Test AutoRally Configuration (**Revised instruction**)](https://github.com/RedLeader962/SNOW-AutoRally#test-autorally-configuration-in-gazebo-revised-instruction)
+- [**How-to _nvidia-docker_ manualy (a quick start)**](README_docker_manualy_quickstart.md)
+- [**Test AutoRally Configuration (**Revised instruction**)**](https://github.com/RedLeader962/SNOW-AutoRally#test-autorally-configuration-in-gazebo-revised-instruction)
 
 ---
 ###### _NVIDIA-docker_ references:
