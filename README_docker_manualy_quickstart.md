@@ -1,5 +1,5 @@
 [(return to main menu)](https://github.com/RedLeader962/Dockerized-SNOW)
-# _nvidia-docker_ quick start
+# How-to _nvidia-docker_ manualy (a quick start)
 
 ## Usage:
 
