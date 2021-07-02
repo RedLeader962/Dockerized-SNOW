@@ -4,7 +4,7 @@
 Requirement: the latest _Jetpack_ must be installed on the _Jetson_ 
 
 #### 1. Add "default-runtime": "nvidia" to your _Jetson_ `/etc/docker/daemon.json` configuration file
-```bash
+```
 {
  "runtimes": {
      "nvidia": {
