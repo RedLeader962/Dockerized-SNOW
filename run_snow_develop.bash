@@ -34,7 +34,6 @@ sudo docker run \
   --runtime nvidia \
   --interactive \
   --tty \
-#  --rm \
   --device=/dev/input/js0 \
   --network host \
   --env DISPLAY=$DISPLAY \
@@ -42,5 +41,5 @@ sudo docker run \
   --volume "/tmp/.X11-unix/:/tmp/.X11-unix" \
   --volume "/etc/localtime:/etc/localtime:ro" \
   --security-opt seccomp=unconfined \
-  --volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME} \
+  --volume "${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}" \
   snow-autorally-develop
