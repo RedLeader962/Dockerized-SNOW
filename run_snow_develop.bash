@@ -33,7 +33,7 @@ sudo docker run \
   --name "${CONTAINER_NAME}" \
   --runtime nvidia \
   --interactive \
-  --tty
+  --tty \
 #  --rm \
   --device=/dev/input/js0 \
   --network host \

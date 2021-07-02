@@ -38,7 +38,7 @@ diagram )
 
 ##### Workflow option:
 
-- [build the _docker_ image from a _Jetson_ device](README_Jetson_builded..md);
+- [build the _docker_ image from a _Jetson_ device](README_Jetson_builded.md);
 - [build the _docker_ image from an x86 host using _qemu_](README_cross_compiler.md);
 - or pull the pre-builded _docker_ image from _DockerHub_ (TODO).
 

@@ -42,7 +42,7 @@ Note:
 ./run_snow_deploy.bash
 
 # To open additional terminal in a running container 
-./open_new_terminal.bash
+./open_new_terminal.bash <container name to execute>
 ```
 
 
