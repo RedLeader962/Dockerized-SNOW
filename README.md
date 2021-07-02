@@ -33,9 +33,9 @@ diagram )
 #### Images:
 - Base image: `nvcr.io/nvidia/l4t-base:r32.5.0`
 - Latest images: 
-   - `ros-melodic-auto-rally-dependencies`
-   - `snow-auto-rally-deploy`
-   - `snow-auto-rally-dev`
+   - `ros-melodic-snow-autorally-dependencies`
+   - `snow-autorally-deploy`
+   - `snow-autorally-develop`
    
 #### _nvidia-docker_ references:
 - [nvidia-docker: Build and run Docker containers leveraging NVIDIA GPUs](https://github.com/NVIDIA/nvidia-docker) 
@@ -44,17 +44,10 @@ diagram )
 - [NVIDIA Cloud Native Technologies](https://docs.nvidia.com/datacenter/cloud-native/#)
 
 ---
-#### Remote development quick ref
+## Workflow option:
 
-```shell
-ssh snowxavier@10.0.1.103
-sudo docker exec -it thirsty_dirac bash
-```
-
-## Setup alternative:
-
-- build the docker image from a Jetson device;
-- build the docker image from an x86_64 host using qemu (TODO);
+- [build the docker image from a Jetson device](#Build the docker image from a Jetson device);
+- build the docker image from an x86_64 host using qemu;
 - or pull the pre-builded docker image from DockerHub (TODO).
 
 ### Build the docker image from a Jetson device
@@ -88,7 +81,7 @@ sudo docker exec -it thirsty_dirac bash
 
 ### Build the docker image from an x86_64 host using qemu
 
-(TODO)
+Follow those [instruction](README_cross_compiler.md) 
 
 ### Pull the pre-build container from DockerHub
 
