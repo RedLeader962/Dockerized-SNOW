@@ -1,6 +1,5 @@
+[(return to main menu)](https://github.com/RedLeader962/SNOW_AutoRally)
 # Setup for building Jetson Containers on an x86 host using qemu
-
-[(return to main menu)](README.md)
 
 ###### References
 - [Enabling Jetson Containers on an x86 workstation (using qemu) | NVIDIA/nvidia-docker Wiki](https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson#enabling-jetson-containers-on-an-x86-workstation-using-qemu)
