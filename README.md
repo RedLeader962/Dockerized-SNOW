@@ -24,7 +24,7 @@ diagram )
 ---
 #### Project link: 
 - [Youtrack](https://redleader.myjetbrains.com/youtrack/dashboard?id=bce3112d-bda1-425c-8628-802a047be4d3) dashboard
-- [SNOW-AutoRally](https://github.com/RedLeader962/autorally)
+- [**SNOW-AutoRally**](https://github.com/RedLeader962/autorally)
 
 
 #### Images:
