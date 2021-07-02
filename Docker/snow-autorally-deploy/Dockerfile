@@ -1,8 +1,8 @@
 
-# /// SNOW-AutoRally-deploy ////////////////////////////////////////////////////////////////////////////////////////////
+# /// snow-autorally-deploy ////////////////////////////////////////////////////////////////////////////////////////////
 
 ARG  CODE_VERSION=latest
-FROM ros-melodic-auto-rally-dependencies:${CODE_VERSION}
+FROM ros-melodic-snow-autorally-dependencies:${CODE_VERSION}
 
 
 # === Clone the SNOW-AutoRally fork of AutoRally repo and install ======================================================
@@ -16,36 +16,31 @@ FROM ros-melodic-auto-rally-dependencies:${CODE_VERSION}
 #       See pullrequest 243548 merge into `ros:master` on 3 Apr 2020: https://github.com/ros/rosdistro/pull/24348
 
 ARG DEV_BRANCH=SNOW-melodic-devel
+ARG src_code_repository=SNOW-AutoRally
+ENV SRC_CODE_REPOSITORY=${src_code_repository}
+
 
 WORKDIR ${DEV_WORKSPACE}/src
 RUN echo "Pull latest ${DEV_BRANCH} branch" \
-    && git clone --branch ${DEV_BRANCH} https://github.com/RedLeader962/autorally.git  \
-#    && git clone https://github.com/AutoRally/imu_3dm_gx4.git \
-#    && git clone https://github.com/ros-drivers/pointgrey_camera_driver.git \
+    && git clone --branch ${DEV_BRANCH} https://github.com/RedLeader962/${SRC_CODE_REPOSITORY}.git  \
     && cd ${DEV_WORKSPACE} \
     && apt-get update \
     && rosdep install --from-path src --ignore-src --default-yes \
     && rm -rf /var/lib/apt/lists/*
 
-# Build AutoRally
-#RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
-#        && cd ${DEV_WORKSPACE}/ \
-#        && catkin_make"
-#        && catkin_make \
-#        && source ${DEV_WORKSPACE}/devel/setup.bash"
 
 WORKDIR ${DEV_WORKSPACE}
 RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
         && catkin_make"
 
 # Environment setup
-RUN echo ". ${DEV_WORKSPACE}/src/autorally/autorally_util/setupEnvLocal.sh" >> ~/.bashrc
+RUN echo ". ${DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY}/autorally_util/setupEnvLocal.sh" >> ~/.bashrc
 
 
 ## ... Generate Documentation ..........................................................................................
 ## Run doxygen with the `-u` flag to remove obsolete configuration tag
 ## TODO: unmute
-#RUN cd ${DEV_WORKSPACE}/src/autorally/ \
+#RUN cd ${DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY}/ \
 #    && doxygen -u
 
 
@@ -61,7 +56,7 @@ CMD [ "bash" ]
 # like ROS_ROOT and ROS_PACKAGE_PATH are set:
 #   $ printenv | grep ROS
 
-# //////////////////////////////////////////////////////////////////////////////////////////// SNOW-AutoRally-deploy ///
+# //////////////////////////////////////////////////////////////////////////////////////////// snow-autorally-deploy ///
 
 
 

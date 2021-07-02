@@ -1,5 +1,5 @@
 
-# /// ROS-melodic-AutoRally-dependencies ///////////////////////////////////////////////////////////////////////////////
+# /// ros-melodic-snow-autorally-dependencies //////////////////////////////////////////////////////////////////////////
 # This container is the base image for all other imageS: dev, deploy, ...
 #
 # Usefull ref:
@@ -12,6 +12,9 @@
 #
 ARG BASE_IMAGE=nvcr.io/nvidia/l4t-base:r32.5.0
 FROM ${BASE_IMAGE}
+
+ENV LANG C.UTF-8
+ENV LC_ALL C.UTF-8
 
 ARG ROS_PKG=desktop-full
 ENV ROS_DISTRO=melodic
@@ -51,6 +54,7 @@ RUN apt-get update \
         texinfo \
         libboost-all-dev\
         libtbb-dev \
+        vim \
     && rm -rf /var/lib/apt/lists/*
 
 
@@ -174,9 +178,6 @@ RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
 
 # Clone AutoRally required driver
 WORKDIR "${DEV_WORKSPACE}/src"
-#RUN cd "${DEV_WORKSPACE}/src" \
-#    && git clone https://github.com/AutoRally/imu_3dm_gx4.git \
-#    && git clone https://github.com/ros-drivers/pointgrey_camera_driver.git
 RUN git clone https://github.com/AutoRally/imu_3dm_gx4.git \
     && git clone https://github.com/ros-drivers/pointgrey_camera_driver.git
 
@@ -188,7 +189,7 @@ WORKDIR "${DEV_WORKSPACE}"
 #   $ printenv | grep ROS
 CMD [ "bash" ]
 
-# /////////////////////////////////////////////////////////////////////////////// ROS-melodic-AutoRally-dependencies ///
+# ////////////////////////////////////////////////////////////////////////// ros-melodic-snow-autorally-dependencies ///
 
 
 
