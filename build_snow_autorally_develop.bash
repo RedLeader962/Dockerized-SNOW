@@ -3,4 +3,4 @@
 sudo docker build \
   -t snow-autorally-develop \
   -f ./Docker/snow-autorally-develop/Dockerfile \
-  ./Docker
+  ./Docker/snow-autorally-develop
