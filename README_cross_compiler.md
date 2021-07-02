@@ -1,4 +1,4 @@
-[(return to main menu)](https://github.com/RedLeader962/Dockerized_SNOW)
+[(return to main menu)](https://github.com/RedLeader962/Dockerized-SNOW)
 # Setup for building Jetson Containers on an x86 host using qemu
 
 ###### References
