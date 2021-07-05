@@ -6,6 +6,8 @@ Containerized workflow for the NorLab _SNOW-AutoRally_ project leveraging [_nvid
 
 <p> <img src="./images/norlab_logo_acronym_dark.png" width="200"> </p>
 
+<br>
+
 <div align="center">
 <p>
 <sup>
