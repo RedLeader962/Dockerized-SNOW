@@ -38,12 +38,12 @@ diagram )
 #### How-to
 - [**How-to _nvidia-docker_ manualy (a quick start)**](README_docker_manualy_quickstart.md)
 - [**Test AutoRally Configuration (**Revised instruction**)**](https://github.com/RedLeader962/SNOW-AutoRally#test-autorally-configuration-in-gazebo-revised-instruction)
-- [To push image to docker hub from command line](README_push_to_dockerhub.md)
+- [How-to push image localy builded image to docker hub from command line](README_push_to_dockerhub.md)
 
 
 #### Images:
 - Base image: `nvcr.io/nvidia/l4t-base:r32.5.0`
-- Latest images on _dockerhub_: 
+- Latest images on _docker hub_: 
    - `docker pull norlabsnow/snow-autorally-deploy`
    - `docker pull norlabsnow/snow-autorally-develop`
    - `docker pull norlabsnow/ros-melodic-snow-autorally-dependencies`
