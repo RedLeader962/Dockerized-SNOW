@@ -2,9 +2,10 @@
 
 Containerized workflow for the NorLab _SNOW-AutoRally_ project leveraging [_nvidia-docker_](https://github.com/NVIDIA/nvidia-docker) technology
 
-<div>
+<div align="center">
 <p> <img src="./images/norlab_logo_acronym_dark.png" width="200"> </p>
 
+<p>
 <sup>
 (&nbsp; 
 Youtrack: <a href="https://redleader.myjetbrains.com/youtrack/dashboard?id=bce3112d-bda1-425c-8628-802a047be4d3">NLSAR - NorLab SNOW AutoRally</a>
@@ -14,6 +15,7 @@ Youtrack: <a href="https://redleader.myjetbrains.com/youtrack/dashboard?id=bce31
 <a href="https://github.com/RedLeader962/autorally">SNOW-AutoRally</a>
 &nbsp;)
 </sup>
+</p>
 </div>
 
 <br>
