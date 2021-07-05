@@ -25,6 +25,7 @@ diagram )
 #### Project link: 
 - [Youtrack](https://redleader.myjetbrains.com/youtrack/dashboard?id=bce3112d-bda1-425c-8628-802a047be4d3) dashboard
 - [**SNOW-AutoRally**](https://github.com/RedLeader962/autorally)
+- [hub.docker.com/norlabsnow](https://hub.docker.com/u/norlabsnow)
 
 ## Usage
 
@@ -37,14 +38,15 @@ diagram )
 #### How-to
 - [**How-to _nvidia-docker_ manualy (a quick start)**](README_docker_manualy_quickstart.md)
 - [**Test AutoRally Configuration (**Revised instruction**)**](https://github.com/RedLeader962/SNOW-AutoRally#test-autorally-configuration-in-gazebo-revised-instruction)
+- [To push image to docker hub from command line](README_push_to_dockerhub.md)
 
 
 #### Images:
 - Base image: `nvcr.io/nvidia/l4t-base:r32.5.0`
-- Latest images: 
-   - `ros-melodic-snow-autorally-dependencies`
-   - `snow-autorally-deploy`
-   - `snow-autorally-develop`
+- Latest images on _dockerhub_: 
+   - `docker pull norlabsnow/snow-autorally-deploy`
+   - `docker pull norlabsnow/snow-autorally-develop`
+   - `docker pull norlabsnow/ros-melodic-snow-autorally-dependencies`
   
 ---
 ###### _NVIDIA-docker_ references:
