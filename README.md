@@ -4,6 +4,14 @@ Containerized workflow for the NorLab _SNOW-AutoRally_ project leveraging [_nvid
 
 <p> <img src="./images/norlab_logo_acronym_dark.png" width="200"> </p>
 
+<p style="font-size: smaller;">
+Youtrack: <a href="https://redleader.myjetbrains.com/youtrack/dashboard?id=bce3112d-bda1-425c-8628-802a047be4d3">NLSAR — NorLab SNOW AutoRally</a>
+&nbsp; | &nbsp; Docker Hub:
+<a href="https://hub.docker.com/u/norlabsnow">norlabsnow</a>
+&nbsp; | &nbsp; Related GitHub:
+<a href="https://github.com/RedLeader962/autorally">SNOW-AutoRally</a>
+</p>
+
 <br>
 <p>
 <a href="https://viewer.diagrams.net/?target=blank&highlight=0000ff&edit=_blank&layers=1&nav=1&title=dockerized_snow_plan.drawio#Uhttps%3A%2F%2Fraw.githubusercontent.com%2FRedLeader962%2FDockerized-SNOW%2Fmaster%2Fdrawio%2Fdockerized_snow_plan.drawio">
@@ -22,11 +30,6 @@ diagram )
 <br>
 
 ---
-#### Project link: 
-- [Youtrack](https://redleader.myjetbrains.com/youtrack/dashboard?id=bce3112d-bda1-425c-8628-802a047be4d3) dashboard
-- [**SNOW-AutoRally** | GitHub](https://github.com/RedLeader962/autorally)
-- [norlabsnow | docker hub](https://hub.docker.com/u/norlabsnow)
-
 ## Usage
 
 #### Workflow option:
