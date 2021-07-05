@@ -2,7 +2,7 @@
 # /// snow-autorally-develop ///////////////////////////////////////////////////////////////////////////////////////////
 
 ARG  CODE_VERSION=latest
-FROM ros-melodic-snow-autorally-dependencies:${CODE_VERSION}
+FROM norlabsnow/ros-melodic-snow-autorally-dependencies:${CODE_VERSION}
 
 ARG src_code_repository=SNOW-AutoRally
 ENV SRC_CODE_REPOSITORY=${src_code_repository}

@@ -2,7 +2,7 @@
 # /// snow-autorally-deploy ////////////////////////////////////////////////////////////////////////////////////////////
 
 ARG  CODE_VERSION=latest
-FROM ros-melodic-snow-autorally-dependencies:${CODE_VERSION}
+FROM norlabsnow/ros-melodic-snow-autorally-dependencies:${CODE_VERSION}
 
 
 # === Clone the SNOW-AutoRally fork of AutoRally repo and install ======================================================
