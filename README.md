@@ -13,6 +13,8 @@ Youtrack: <a href="https://redleader.myjetbrains.com/youtrack/dashboard?id=bce31
 </sub>
 
 <br>
+<br>
+
 <p>
 <a href="https://viewer.diagrams.net/?target=blank&highlight=0000ff&edit=_blank&layers=1&nav=1&title=dockerized_snow_plan.drawio#Uhttps%3A%2F%2Fraw.githubusercontent.com%2FRedLeader962%2FDockerized-SNOW%2Fmaster%2Fdrawio%2Fdockerized_snow_plan.drawio">
 <img src="drawio/dockerized_snow_plan.svg">
