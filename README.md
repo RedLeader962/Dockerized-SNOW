@@ -1,10 +1,13 @@
+<div align="center">
+<p> <img src="./images/norlab_logo_acronym_dark.png" width="200"> </p>
+</div>
+
 # _/// Dockerized SNOW //////////////////////////////////////////_
 
 Containerized workflow for the NorLab _SNOW-AutoRally_ project leveraging [_nvidia-docker_](https://github.com/NVIDIA/nvidia-docker) technology
 
-<div align="center">
-<p> <img src="./images/norlab_logo_acronym_dark.png" width="200"> </p>
 
+<div align="center">
 <p>
 <sup>
 (&nbsp; 
@@ -21,7 +24,7 @@ Youtrack: <a href="https://redleader.myjetbrains.com/youtrack/dashboard?id=bce31
 <br>
 <br>
 
-<div>
+<div align="center">
 <p>
 <a href="https://viewer.diagrams.net/?target=blank&highlight=0000ff&edit=_blank&layers=1&nav=1&title=dockerized_snow_plan.drawio#Uhttps%3A%2F%2Fraw.githubusercontent.com%2FRedLeader962%2FDockerized-SNOW%2Fmaster%2Fdrawio%2Fdockerized_snow_plan.drawio">
 <img src="drawio/dockerized_snow_plan.svg">
