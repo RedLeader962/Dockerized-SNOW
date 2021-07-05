@@ -24,8 +24,8 @@ diagram )
 ---
 #### Project link: 
 - [Youtrack](https://redleader.myjetbrains.com/youtrack/dashboard?id=bce3112d-bda1-425c-8628-802a047be4d3) dashboard
-- [**SNOW-AutoRally**](https://github.com/RedLeader962/autorally)
-- [hub.docker.com/norlabsnow](https://hub.docker.com/u/norlabsnow)
+- [**SNOW-AutoRally** | GitHub](https://github.com/RedLeader962/autorally)
+- [norlabsnow | docker hub](https://hub.docker.com/u/norlabsnow)
 
 ## Usage
 
