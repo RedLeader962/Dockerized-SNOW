@@ -2,12 +2,6 @@
 <a href="https://norlab.ulaval.ca/research/">
 <img src="./images/norlab_logo_acronym_dark.png" width="200">
 </a>
-</div>
-
-# _/// Dockerized SNOW //////////////////////////////////////////_
-Containerized workflow for the NorLab _SNOW-AutoRally_ project leveraging [_nvidia-docker_](https://github.com/NVIDIA/nvidia-docker) technology
-
-<div align="center">
 <p>
 <sup>
 (&nbsp; 
@@ -19,6 +13,13 @@ Youtrack: <a href="https://redleader.myjetbrains.com/youtrack/dashboard?id=bce31
 &nbsp;)
 </sup>
 </p>
+<br>
+</div>
+
+# _/// Dockerized SNOW //////////////////////////////////////////_
+Containerized workflow for the NorLab _SNOW-AutoRally_ project leveraging [_nvidia-docker_](https://github.com/NVIDIA/nvidia-docker) technology
+
+<div align="center">
 </div>
 <div align="center">
 <p>
