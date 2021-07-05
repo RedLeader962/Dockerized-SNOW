@@ -1,20 +1,19 @@
-<div align="center">
-<p> <img src="./images/norlab_logo_acronym_dark.png" width="200"> </p>
-</div>
-
 # _/// Dockerized SNOW //////////////////////////////////////////_
+
+
 
 Containerized workflow for the NorLab _SNOW-AutoRally_ project leveraging [_nvidia-docker_](https://github.com/NVIDIA/nvidia-docker) technology
 
+<p> <img src="./images/norlab_logo_acronym_dark.png" width="200"> </p>
 
 <div align="center">
 <p>
 <sup>
 (&nbsp; 
 Youtrack: <a href="https://redleader.myjetbrains.com/youtrack/dashboard?id=bce3112d-bda1-425c-8628-802a047be4d3">NLSAR - NorLab SNOW AutoRally</a>
-&nbsp; | &nbsp; Docker Hub:
+&nbsp; • &nbsp; Docker Hub:
 <a href="https://hub.docker.com/u/norlabsnow">norlabsnow</a>
-&nbsp; | &nbsp; Related GitHub:
+&nbsp; • &nbsp; Related GitHub:
 <a href="https://github.com/RedLeader962/autorally">SNOW-AutoRally</a>
 &nbsp;)
 </sup>
@@ -35,7 +34,7 @@ Youtrack: <a href="https://redleader.myjetbrains.com/youtrack/dashboard?id=bce31
 <a href="https://viewer.diagrams.net/?target=blank&highlight=0000ff&edit=_blank&layers=1&nav=1&title=dockerized_snow_plan.drawio#Uhttps%3A%2F%2Fraw.githubusercontent.com%2FRedLeader962%2FDockerized-SNOW%2Fmaster%2Fdrawio%2Fdockerized_snow_plan.drawio">
 fullscreen
 </a>
-&nbsp; | &nbsp;
+&nbsp; • &nbsp;
 <a href="https://app.diagrams.net/?mode=github#HRedLeader962%2FDockerized-SNOW%2Fmaster%2Fdrawio%2Fdockerized_snow_plan.drawio" target="_blank" rel="noopener noreferrer">edit
 </a>
 diagram &nbsp;)
@@ -67,11 +66,16 @@ diagram &nbsp;)
    - `docker pull norlabsnow/ros-melodic-snow-autorally-dependencies`
   
 ---
-###### _NVIDIA-docker_ references:
+
+<details>
+<summary>NVIDIA-docker references:</summary>
+
 - [nvidia-docker: Build and run Docker containers leveraging NVIDIA GPUs](https://github.com/NVIDIA/nvidia-docker) 
   - [NVIDIA Container Runtime on _Jetson_](https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson)
   - [Driver containers](https://github.com/NVIDIA/nvidia-docker/wiki/Driver-containers)
 - [NVIDIA Cloud Native Technologies](https://docs.nvidia.com/datacenter/cloud-native/#)
+
+</details>
 
 ---
 
