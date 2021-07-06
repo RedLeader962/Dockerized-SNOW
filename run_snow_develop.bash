@@ -66,7 +66,7 @@ for arg in "$@"; do
     shift # Remove --name= from processing
     ;;
   *)
-#    USER_ARG="${USER_ARG} ${1}"
+    USER_ARG="${USER_ARG} ${1}"
     shift # Remove generic argument from processing
     ;;
   esac

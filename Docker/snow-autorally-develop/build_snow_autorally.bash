@@ -27,12 +27,12 @@ JOYSTICK_ZERO="/dev/input/js0"
 if [[ -c "$JOYSTICK_ZERO" ]]; then
   chmod a+rw /dev/input/js0
 else
-  echo "> SNOW-AutoRally: No input device js0 detected"
+  echo "  >>> No input device js0 detected!"
 fi
 
 echo
-echo "Make sure your workspace is properly overlayed by the setup script by checking the ROS_PACKAGE_PATH environment variable. "
-echo "It should include the directory you're in: /home/<youruser>/catkin_ws/src:/opt/ros/melodic/share"
+echo "  Make sure your workspace is properly overlayed by the setup script by checking the ROS_PACKAGE_PATH environment variable. "
+echo "  It should include the directory you're in: /home/<youruser>/catkin_ws/src:/opt/ros/melodic/share"
 echo
 printenv | grep ROS
 echo
@@ -44,11 +44,12 @@ cd /
 #printenv | grep AR_
 #echo
 
-echo "Finished building AutoRally, just run"
-echo "    source ~/.bashrc"
-echo "then run"
-echo "    printenv | grep AR_"
-echo "to check if AutoRally was properly sourced or open a new terminal"
+echo "  Finished building AutoRally, just run"
+echo "      source ~/.bashrc"
+echo "  then run"
+echo "      printenv | grep AR_"
+echo "  to check if AutoRally was properly sourced or open a new terminal"
+echo
 
 ## # (ICEBOXED) todo:assessment >> exec bash does not behave like expected!
 #exec bash -i
