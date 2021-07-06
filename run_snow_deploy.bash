@@ -33,9 +33,9 @@ function print_help_in_terminal () {
   run_snow_deploy.bash [<optional argument>]
 
     optional argument:
-      -h, --help      Get help
-      --x86           Get the image version compiled for x86 workstation
-      --name          Name that new container, the crazier the better
+      -h, --help                Get help
+      --x86                     Get the image version compiled for x86 workstation
+      --name <myCoolContainer>  Name that new container, the crazier the better
 
   "
 }
