@@ -1,11 +1,12 @@
 
 # /// snow-autorally-develop ///////////////////////////////////////////////////////////////////////////////////////////
 
-ARG  CODE_VERSION=arm64-l4t
-FROM norlabsnow/ros-melodic-snow-autorally-dependencies:${CODE_VERSION}
+ARG  BASE_IMG_TAG=arm64-l4t
+FROM norlabsnow/ros-melodic-snow-autorally-dependencies:${BASE_IMG_TAG}
 
-ARG src_code_repository=SNOW-AutoRally
-ENV SRC_CODE_REPOSITORY=${src_code_repository}
+ARG SRC_CODE_REPOSITORY_NAME=SNOW-AutoRally
+# Note: `SRC_CODE_REPOSITORY_NAME` is required by the build_snow_autorally.bash script
+ENV SRC_CODE_REPOSITORY_NAME=${SRC_CODE_REPOSITORY_NAME}
 
 # ... Finish container setup ...........................................................................................
 WORKDIR /

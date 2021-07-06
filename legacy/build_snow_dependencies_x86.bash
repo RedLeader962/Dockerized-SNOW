@@ -1,7 +1,5 @@
 #!/bin/bash
 
-
-
 sudo docker build \
   -t norlabsnow/ros-melodic-snow-autorally-dependencies:x86 \
   -f ./Docker/ros-melodic-snow-autorally-dependencies/Dockerfile \

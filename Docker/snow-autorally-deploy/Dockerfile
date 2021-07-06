@@ -1,8 +1,8 @@
 
 # /// snow-autorally-deploy ////////////////////////////////////////////////////////////////////////////////////////////
 
-ARG  CODE_VERSION=arm64-l4t
-FROM norlabsnow/ros-melodic-snow-autorally-dependencies:${CODE_VERSION}
+ARG  BASE_IMG_TAG=arm64-l4t
+FROM norlabsnow/ros-melodic-snow-autorally-dependencies:${BASE_IMG_TAG}
 
 
 # === Clone the SNOW-AutoRally fork of AutoRally repo and install ======================================================
@@ -16,13 +16,13 @@ FROM norlabsnow/ros-melodic-snow-autorally-dependencies:${CODE_VERSION}
 #       See pullrequest 243548 merge into `ros:master` on 3 Apr 2020: https://github.com/ros/rosdistro/pull/24348
 
 ARG DEV_BRANCH=SNOW-melodic-devel
-ARG src_code_repository=SNOW-AutoRally
-ENV SRC_CODE_REPOSITORY=${src_code_repository}
+ARG SRC_CODE_REPOSITORY_NAME=SNOW-AutoRally
+ENV SRC_CODE_REPOSITORY_NAME=${SRC_CODE_REPOSITORY_NAME}
 
 
 WORKDIR ${DEV_WORKSPACE}/src
 RUN echo "Pull latest ${DEV_BRANCH} branch" \
-    && git clone --branch ${DEV_BRANCH} https://github.com/RedLeader962/${SRC_CODE_REPOSITORY}.git  \
+    && git clone --branch ${DEV_BRANCH} https://github.com/RedLeader962/${SRC_CODE_REPOSITORY_NAME}.git  \
     && cd ${DEV_WORKSPACE} \
     && apt-get update \
     && rosdep install --from-path src --ignore-src --default-yes \
@@ -34,13 +34,13 @@ RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
         && catkin_make"
 
 # Environment setup
-RUN echo ". ${DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY}/autorally_util/setupEnvLocal.sh" >> ~/.bashrc
+RUN echo ". ${DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/autorally_util/setupEnvLocal.sh" >> ~/.bashrc
 
 
 ## ... Generate Documentation ..........................................................................................
 ## Run doxygen with the `-u` flag to remove obsolete configuration tag
 ## TODO: unmute
-#RUN cd ${DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY}/ \
+#RUN cd ${DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/ \
 #    && doxygen -u
 
 

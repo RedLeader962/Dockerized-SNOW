@@ -158,8 +158,8 @@ Note: To change directory ownership `sudo chown -R $USER ~/<myPathTo>/Dockerized
 
 ```shell
 bash ./build_snow_dependencies.bash
-bash ./build_snow_autorally_develop_l4t.bash
-bash ./build_snow_autorally_deploy_l4t.bash
+bash ./build_snow_develop.bash
+bash ./build_snow_deploy.bash
 ```
 
 or manualy

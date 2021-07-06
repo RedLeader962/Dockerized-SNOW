@@ -17,7 +17,7 @@ catkin_make
 source "${DEV_WORKSPACE}/devel/setup.bash"
 
 # AutoRally environment setup
-autorally_env_setup="${DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY}/autorally_util/setupEnvLocal.sh"
+autorally_env_setup="${DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/autorally_util/setupEnvLocal.sh"
 #source "${autorally_env_setup}"
 echo "source ${autorally_env_setup}" >> ~/.bashrc
 
