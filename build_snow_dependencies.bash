@@ -35,16 +35,26 @@ function print_help_in_terminal() {
       --build-arg=\"ROS_PKG=desktop-full\"
       --build-arg=\"BASE_IMAGE=nvcr.io/nvidia/l4t-base:r32.5.0\"
 
-      ref:
-       - https://docs.docker.com/engine/reference/commandline/build/
+    Ref. docker build command:
+      - https://docs.docker.com/engine/reference/commandline/build/
+    Ref. nvidia-docker base image for jetson:
+      - https://ngc.nvidia.com/catalog/containers/nvidia:l4t-base
+      - https://developer.nvidia.com/embedded/jetson-cloud-native
+    Ref. nvidia-docker base image with CUDA and OpenGL support:
+      - https://hub.docker.com/r/nvidia/cudagl/
+      - https://github.com/NVIDIA/nvidia-docker/wiki/CUDA
+      - https://ngc.nvidia.com/catalog/containers/nvidia:cudagl
   "
 }
 
 # Note:
-#   NVIDIA base image with CUDA and OpenGL support
-#   - https://hub.docker.com/r/nvidia/cudagl/
-#   - https://github.com/NVIDIA/nvidia-docker/wiki/CUDA
-#   - https://ngc.nvidia.com/catalog/containers/nvidia:cudagl
+#   nvidia-docker base image for jetson
+#     - https://ngc.nvidia.com/catalog/containers/nvidia:l4t-base
+#     - https://developer.nvidia.com/embedded/jetson-cloud-native
+#   nvidia-docker base image with CUDA and OpenGL support
+#     - https://hub.docker.com/r/nvidia/cudagl/
+#     - https://github.com/NVIDIA/nvidia-docker/wiki/CUDA
+#     - https://ngc.nvidia.com/catalog/containers/nvidia:cudagl
 
 USER_ARG=""
 IMAGE_TAG="arm64-l4t"
