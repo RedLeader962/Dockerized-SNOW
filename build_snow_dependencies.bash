@@ -64,7 +64,7 @@ for arg in "$@"; do
     ;;
   --x86)
     IMAGE_TAG="x86"
-    BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/cudagl:11.3.1-devel-ubuntu18.04"
+    BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvidia/cudagl:11.3.1-devel-ubuntu18.04"
     shift # Remove --x86 from processing
     ;;
   --)
