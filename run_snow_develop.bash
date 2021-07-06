@@ -34,7 +34,7 @@ function print_help_in_terminal() {
 
     Note: you can pass any docker run flag as additional argument eg:
       --rm
-      --volume=/my/host/path/data:/my/container/path/data
+      --volume=\"/my/host/path/data:/my/container/path/data\"
 
       ref: https://docs.docker.com/engine/reference/commandline/run/
   "
