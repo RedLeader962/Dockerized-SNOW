@@ -9,7 +9,23 @@
 
 
 
-exec ./print_ds_header.bash
+
+echo -e "
+\033[1;90m
+
+
+                                      '||''|.
+                                       ||   ||
+                                       ||    ||
+                                       ||    ||
+                                      .||...|'
+
+                                  (Dockerized-SNOW)
+
+                              https://norlab.ulaval.ca
+
+\033[0m
+"
 
 function print_help_in_terminal () {
 
