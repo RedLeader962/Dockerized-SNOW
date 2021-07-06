@@ -52,7 +52,6 @@ for arg in "$@"; do
   --name=*)
     CONTAINER_NAME="${arg#*=}" # Remove every character up to the '=' and assign the remainder
     USER_ARG="${USER_ARG} --name ${CONTAINER_NAME}"
-    shift # Remove --name= from processing
     ;;
   --src=*)
     WS_DIR="${arg#*=}"                                    # Remove every character up to the '=' and assign the remainder
@@ -60,7 +59,6 @@ for arg in "$@"; do
     WS_DIRNAME=$(basename $WS_DIR)
     HOST_SOURCE_CODE_PATH=" --volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
     echo "Source code mapping from host to container: ${WS_DIR} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
-    shift # Remove --name= from processing
     ;;
   --)
     shift
