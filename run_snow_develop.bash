@@ -28,7 +28,7 @@ function print_help_in_terminal() {
       -h, --help                      Get help
       --x86                           Get the image version compiled for x86 workstation
       --name <myCoolContainer>        Name that new container, the crazier the better
-      --src_code_path <myCoolSrcCode> Host source code directory to mount inside the container.
+      --srcCodePath <myCoolSrcCode> Host source code directory to mount inside the container.
                                       Must be an absolute path eg.:
                                           /home/snowxavier/Repositories/SNOW-AutoRally
 
@@ -55,7 +55,7 @@ for arg in "$@"; do
     USER_ARG="${USER_ARG} --name ${CONTAINER_NAME}"
     shift # Remove --name= from processing
     ;;
-  --src_code_path=*)
+  --srcCodePath=*)
     WS_DIR="${arg#*=}" # Remove every character up to the '=' and assign the remainder
     CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
     WS_DIRNAME=$(basename $WS_DIR)
