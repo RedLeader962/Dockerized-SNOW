@@ -44,7 +44,7 @@ USER_ARG=""
 HOST_SOURCE_CODE_PATH=""
 IMAGE_TAG="arm64-l4t"
 
-## todo:on task end >> next bloc ↓↓
+# todo:on task end >> delete next bloc ↓↓
 #echo "
 #${0}: all arg >> ${@}
 #"
@@ -74,7 +74,7 @@ for arg in "$@"; do
     USER_ARG="${USER_ARG} --name ${CONTAINER_NAME}"
     ;;
   --src=?*)
-    WS_DIR="${arg#*=}"                                    # Remove every character up to the '=' and assign the remainder
+    WS_DIR="${arg#*=}"         # Remove every character up to the '=' and assign the remainder
     CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
     WS_DIRNAME=$(basename $WS_DIR)
     HOST_SOURCE_CODE_PATH=" --volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
@@ -97,7 +97,7 @@ for arg in "$@"; do
   shift
 done
 
-# todo:on task end >> next bloc ↓↓
+# todo:on task end >> delete next bloc ↓↓
 echo "
 ${0}:
   USER_ARG >> ${USER_ARG}

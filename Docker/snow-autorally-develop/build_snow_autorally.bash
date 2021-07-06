@@ -27,7 +27,7 @@ JOYSTICK_ZERO="/dev/input/js0"
 if [[ -c "$JOYSTICK_ZERO" ]]; then
   chmod a+rw /dev/input/js0
 else
-  echo "  >>> No input device js0 detected!"
+  echo "${0}  >>> No input device js0 detected!" >&2
 fi
 
 echo
