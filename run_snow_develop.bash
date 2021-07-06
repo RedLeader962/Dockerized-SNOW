@@ -59,7 +59,7 @@ for arg in "$@"; do
     exit
     ;;
   --src)
-    echo $0: use --src=<myCoolSrcCode> >&2  # Note: '>&2' = print to stderr
+    echo $0: use --src=${2} >&2  # Note: '>&2' = print to stderr
     exit
     ;;
   --name=?*)
