@@ -49,11 +49,11 @@ for arg in "$@"; do
     IMAGE_TAG="x86"
     shift # Remove --x86 from processing
     ;;
-  --name=*)
+  --name=?*)
     CONTAINER_NAME="${arg#*=}" # Remove every character up to the '=' and assign the remainder
     USER_ARG="${USER_ARG} --name ${CONTAINER_NAME}"
     ;;
-  --src=*)
+  --src=?*)
     WS_DIR="${arg#*=}"                                    # Remove every character up to the '=' and assign the remainder
     CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
     WS_DIRNAME=$(basename $WS_DIR)
@@ -64,7 +64,7 @@ for arg in "$@"; do
     shift
     break
     ;;
-  -*)
+  -?*)
     echo $0: $1: unrecognized option >&2  # Note: '>&2' = print to stderr
     ;;
   *)
