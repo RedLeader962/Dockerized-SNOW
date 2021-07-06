@@ -27,13 +27,19 @@ function print_help_in_terminal() {
     optional argument:
       -h, --help                Get help
       --x86                     Get the image version compiled for x86 workstation
-      --name <myCoolContainer>  Name that new container, the crazier the better
+      --name=<myCoolContainer>  Name that new container, the crazier the better
 
   "
 }
 
 USER_ARG=""
 IMAGE_TAG="arm64-l4t"
+
+# todo:on task end >> next bloc ↓↓
+echo "
+${0}: all arg >> ${@}
+"
+
 
 for arg in "$@"; do
   case $arg in
@@ -45,17 +51,38 @@ for arg in "$@"; do
     IMAGE_TAG="x86"
     shift # Remove --x86 from processing
     ;;
-  --name=*)
+  --name)
+    echo "${0} >> pass argument with the equal sign: --name=${2}" >&2 # Note: '>&2' = print to stderr
+    echo
+    exit
+    ;;
+  --name=?*)
     CONTAINER_NAME="${arg#*=}" # Remove every character up to the '=' and assign the remainder
     USER_ARG="${USER_ARG} --name ${CONTAINER_NAME}"
-    shift # Remove --name= from processing
     ;;
-  *)
-    USER_ARG="${USER_ARG} ${1}"
+  --)
+    shift
+    break
+    ;;
+  -?*|--?*)
+#    echo $0: $1: unrecognized option >&2 # Note: '>&2' = print to stderr
+    USER_ARG="${USER_ARG} ${arg}"
     shift # Remove generic argument from processing
     ;;
+  *)
+    break
+    ;;
   esac
+
+  shift
 done
+
+# todo:on task end >> next bloc ↓↓
+echo "
+${0}:
+  USER_ARG >> ${USER_ARG}
+  IMAGE_TAG >> ${IMAGE_TAG}
+"
 
 sudo xhost +si:localuser:root
 
