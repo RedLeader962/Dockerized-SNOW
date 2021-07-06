@@ -58,6 +58,10 @@ for arg in "$@"; do
     USER_ARG="${USER_ARG} --name ${CONTAINER_NAME}"
     shift # Remove --name= from processing
     ;;
+  --name=)
+    echo "--name require a non empty argument"
+    exit
+    ;;
   *)
     OTHER_ARGUMENTS+=("$1")
     shift # Remove generic argument from processing
