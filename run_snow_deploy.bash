@@ -58,15 +58,21 @@ for arg in "$@"; do
     USER_ARG="${USER_ARG} --name ${CONTAINER_NAME}"
     shift # Remove --name= from processing
     ;;
-  --name=)
+  --name= )
     echo "--name require a non empty argument"
     exit
+    ;;
+  --)   # No more options
+    shift
+    break
     ;;
   *)
     OTHER_ARGUMENTS+=("$1")
     shift # Remove generic argument from processing
     ;;
   esac
+
+  echo "${arg}"
 done
 
 #echo -n "which image tag? arm64-l4t or x86"
