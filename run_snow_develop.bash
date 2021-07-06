@@ -41,7 +41,7 @@ IMAGE_TAG="arm64-l4t"
 
 # todo:on task end >> next bloc ↓↓
 echo "
-${0} | all arg >> ${@}
+${0}: all arg >> ${@}
 "
 
 for arg in "$@"; do
@@ -55,11 +55,11 @@ for arg in "$@"; do
     shift # Remove --x86 from processing
     ;;
   --name)
-    echo $0: use --name=${2} instead of --name ${2} >&2  # Note: '>&2' = print to stderr
+    echo "${0} >> pass argument with the equal sign: --name=${2}" >&2 # Note: '>&2' = print to stderr
     exit
     ;;
   --src)
-    echo $0: use --src=${2} >&2  # Note: '>&2' = print to stderr
+    echo "${0} >> pass argument with the equal sign: --src=${2}" >&2 # Note: '>&2' = print to stderr
     exit
     ;;
   --name=?*)
@@ -77,8 +77,10 @@ for arg in "$@"; do
     shift
     break
     ;;
-  -?*)
-    echo $0: $1: unrecognized option >&2  # Note: '>&2' = print to stderr
+  -?*|--?*)
+#    echo $0: $1: unrecognized option >&2 # Note: '>&2' = print to stderr
+    USER_ARG="${USER_ARG} ${arg}"
+    shift # Remove generic argument from processing
     ;;
   *)
     break
@@ -90,7 +92,7 @@ done
 
 # todo:on task end >> next bloc ↓↓
 echo "
-${0} |
+${0}:
   USER_ARG >> ${USER_ARG}
   HOST_SOURCE_CODE_PATH >> ${HOST_SOURCE_CODE_PATH}
 "
