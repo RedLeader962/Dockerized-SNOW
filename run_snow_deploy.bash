@@ -66,10 +66,10 @@ for arg in "$@"; do
     shift
     break
     ;;
-  *)
-    OTHER_ARGUMENTS+=("$1")
-    shift # Remove generic argument from processing
-    ;;
+#  *)
+#    OTHER_ARGUMENTS+=("$1")
+#    shift # Remove generic argument from processing
+#    ;;
   esac
 
   echo "${arg}"
