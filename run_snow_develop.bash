@@ -22,7 +22,7 @@ echo -e "
 function print_help_in_terminal() {
 
   echo -e "
-  run_snow_develop.bash [<optional argument>]
+  ${0} [<optional argument>]
 
     optional argument:
       -h, --help                    Get help
@@ -34,7 +34,6 @@ function print_help_in_terminal() {
 
   "
 }
-
 
 USER_ARG=""
 HOST_SOURCE_CODE_PATH=""
@@ -56,7 +55,7 @@ for arg in "$@"; do
     shift # Remove --name= from processing
     ;;
   --src=?*)
-    WS_DIR="${arg#*=}" # Remove every character up to the '=' and assign the remainder
+    WS_DIR="${arg#*=}"                                    # Remove every character up to the '=' and assign the remainder
     CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
     WS_DIRNAME=$(basename $WS_DIR)
     HOST_SOURCE_CODE_PATH=" --volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
@@ -82,8 +81,7 @@ for arg in "$@"; do
   esac
 done
 
-echo "${USER_ARG}"  # todo:on task end >> delete this line ←
-
+echo "${USER_ARG}" # todo:on task end >> delete this line ←
 
 sudo xhost +si:localuser:root
 
