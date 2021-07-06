@@ -50,12 +50,12 @@ for arg in "$@"; do
     IMAGE_TAG="x86"
     shift # Remove --x86 from processing
     ;;
-  --name=*)
+  --name=?*)
     CONTAINER_NAME="${arg#*=}" # Remove every character up to the '=' and assign the remainder
     USER_ARG="${USER_ARG} --name ${CONTAINER_NAME}"
     shift # Remove --name= from processing
     ;;
-  --src=*)
+  --src=?*)
     WS_DIR="${arg#*=}" # Remove every character up to the '=' and assign the remainder
     CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
     WS_DIRNAME=$(basename $WS_DIR)
@@ -66,7 +66,7 @@ for arg in "$@"; do
     shift # Remove --name= from processing
     ;;
   *)
-    USER_ARG="${USER_ARG} ${1}"
+#    USER_ARG="${USER_ARG} ${1}"
     shift # Remove generic argument from processing
     ;;
   esac
