@@ -32,6 +32,11 @@ function print_help_in_terminal() {
                                     Must be an absolute path eg.:
                                         /home/snowxavier/Repositories/SNOW-AutoRally
 
+    Note: you can pass any docker run flag as additional argument eg:
+      --rm
+      --volume=/my/host/path/data:/my/container/path/data
+
+      ref: https://docs.docker.com/engine/reference/commandline/run/
   "
 }
 

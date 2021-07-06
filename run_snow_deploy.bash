@@ -29,6 +29,11 @@ function print_help_in_terminal() {
       --x86                     Get the image version compiled for x86 workstation
       --name=<myCoolContainer>  Name that new container, the crazier the better
 
+    Note: you can pass any docker run flag as additional argument eg:
+      --rm
+      --volume=/my/host/path/data:/my/container/path/data
+
+      ref: https://docs.docker.com/engine/reference/commandline/run/
   "
 }
 
@@ -90,7 +95,6 @@ sudo docker run \
   --runtime nvidia \
   --interactive \
   --tty \
-  --rm \
   --device=/dev/input/js0 \
   --network host \
   --env DISPLAY=$DISPLAY \
