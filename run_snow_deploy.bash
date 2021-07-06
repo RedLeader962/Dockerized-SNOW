@@ -53,7 +53,7 @@ for arg in "$@"; do
     IMAGE_TAG="x86"
     shift # Remove --x86 from processing
     ;;
-  --name=*)
+  --name=?*)
     CONTAINER_NAME="${arg#*=}"  # Remove every character up to the '=' and assign the remainder
     USER_ARG="${USER_ARG} --name ${CONTAINER_NAME}"
     shift # Remove --name= from processing
