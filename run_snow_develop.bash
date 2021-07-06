@@ -72,6 +72,8 @@ for arg in "$@"; do
   esac
 done
 
+echo "${USER_ARG}"  # todo:on task end >> delete this line ←
+
 
 sudo xhost +si:localuser:root
 
