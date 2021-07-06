@@ -12,7 +12,8 @@ WORKDIR /
 COPY build_snow_autorally.bash /
 RUN /bin/bash -c "chmod +x /build_snow_autorally.bash"
 
-#CMD [ "bash" ]
+ENTRYPOINT [ "/ros_entrypoint.bash" ]
+CMD [ "bash" ]
 # /////////////////////////////////////////////////////////////////////////////////////////// snow-autorally-develop ///
 
 
