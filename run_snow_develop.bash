@@ -39,6 +39,11 @@ USER_ARG=""
 HOST_SOURCE_CODE_PATH=""
 IMAGE_TAG="arm64-l4t"
 
+# todo:on task end >> next bloc ↓↓
+echo "
+${0} | all arg >> ${@}
+"
+
 for arg in "$@"; do
   case $arg in
   -h | --help)
@@ -48,6 +53,10 @@ for arg in "$@"; do
   --x86)
     IMAGE_TAG="x86"
     shift # Remove --x86 from processing
+    ;;
+  --name)
+    CONTAINER_NAME="${2}"
+    USER_ARG="${USER_ARG} --name ${CONTAINER_NAME}"
     ;;
   --name=?*)
     CONTAINER_NAME="${arg#*=}" # Remove every character up to the '=' and assign the remainder
@@ -71,11 +80,15 @@ for arg in "$@"; do
     break
     ;;
   esac
+
+  shift
 done
 
 # todo:on task end >> next bloc ↓↓
 echo "
-${0} | USER_ARG >> ${USER_ARG}
+${0} |
+  USER_ARG >> ${USER_ARG}
+  HOST_SOURCE_CODE_PATH >> ${HOST_SOURCE_CODE_PATH}
 "
 
 ## todo:assessment (ref task NLSAR-159 Fix the execute permission of source code mounted volume)
