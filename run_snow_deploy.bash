@@ -22,7 +22,7 @@ echo -e "
 function print_help_in_terminal() {
 
   echo -e "
-  run_snow_deploy.bash [<optional argument>]
+  ${0}  [<optional argument>]
 
     optional argument:
       -h, --help                Get help

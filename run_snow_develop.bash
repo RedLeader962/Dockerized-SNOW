@@ -64,10 +64,6 @@ for arg in "$@"; do
     #sudo chmod --recursive +x "${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
     shift # Remove --name= from processing
     ;;
-  --?*)
-    USER_ARG="${USER_ARG} ${arg}"
-    shift # Remove generic argument from processing
-    ;;
   --)
     shift
     break
