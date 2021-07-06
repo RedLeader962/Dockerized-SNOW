@@ -43,4 +43,4 @@ sudo docker run \
   --privileged \
   --volume "/tmp/.X11-unix/:/tmp/.X11-unix" \
   --volume "/etc/localtime:/etc/localtime:ro" \
-  snow-autorally-deploy
+  norlabsnow/snow-autorally-deploy

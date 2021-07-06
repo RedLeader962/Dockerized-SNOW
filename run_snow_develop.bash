@@ -43,4 +43,4 @@ sudo docker run \
   --volume "/etc/localtime:/etc/localtime:ro" \
   --security-opt seccomp=unconfined \
   --volume "${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}" \
-  snow-autorally-develop
+  norlabsnow/snow-autorally-develop
