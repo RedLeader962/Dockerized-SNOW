@@ -1,9 +1,6 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-# NVIDIA base image with CUDA and OpenGL support
-# - https://hub.docker.com/r/nvidia/cudagl/
-# - https://github.com/NVIDIA/nvidia-docker/wiki/CUDA
-# - https://ngc.nvidia.com/catalog/containers/nvidia:cudagl
+
 
 sudo docker build \
   -t norlabsnow/ros-melodic-snow-autorally-dependencies:x86 \

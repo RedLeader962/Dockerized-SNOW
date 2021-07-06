@@ -23,7 +23,7 @@ sudo git clone https://github.com/RedLeader962/Dockerized-SNOW.git && cd Dockeri
 
 #### 4. Build the _nvidia-docker_ image using the following script
 ```shell
-bash ./build_snow_dependencies_l4t.bash
+bash ./build_snow_dependencies.bash
 bash ./build_snow_autorally_develop_l4t.bash
 bash ./build_snow_autorally_deploy_l4t.bash
 ```
