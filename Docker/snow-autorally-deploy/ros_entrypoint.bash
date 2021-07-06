@@ -18,19 +18,10 @@ printenv | grep ROS
 echo
 
 JOYSTICK_ZERO="/dev/input/js0"
-# The '-c' flag is a character device file test operator
-if [[ -c "$JOYSTICK_ZERO" ]]; then
+if [[ -c "$JOYSTICK_ZERO" ]]; then  # Note: The '-c' flag is a character device file test operator
   chmod a+rw /dev/input/js0
 else
   echo "> SNOW-AutoRally: No input device js0 detected"
 fi
-
-#autorally_env_setup="${DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY}/autorally_util/setupEnvLocal.sh"
-#echo "sourcing   $autorally_env_setup"
-#. "$autorally_env_setup"
-
-#echo "AR_MPPI_PARAMS_PATH $AR_MPPI_PARAMS_PATH"
-#echo "AR_CONFIG_PATH $AR_CONFIG_PATH"
-#echo "AR_JOYSTICK $AR_JOYSTICK"
 
 exec "$@"
