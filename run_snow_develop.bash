@@ -49,27 +49,25 @@ for arg in "$@"; do
     IMAGE_TAG="x86"
     shift # Remove --x86 from processing
     ;;
-  --name=?*)
+  --name=*)
     CONTAINER_NAME="${arg#*=}" # Remove every character up to the '=' and assign the remainder
     USER_ARG="${USER_ARG} --name ${CONTAINER_NAME}"
     shift # Remove --name= from processing
     ;;
-  --src=?*)
+  --src=*)
     WS_DIR="${arg#*=}"                                    # Remove every character up to the '=' and assign the remainder
     CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
     WS_DIRNAME=$(basename $WS_DIR)
     HOST_SOURCE_CODE_PATH=" --volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
     echo "Source code mapping from host to container: ${WS_DIR} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
-    ## todo:assessment (ref task NLSAR-159 Fix the execute permission of source code mounted volume)
-    #sudo chmod --recursive +x "${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
     shift # Remove --name= from processing
     ;;
   --)
     shift
     break
     ;;
-  -?*)
-    echo $0: $1: unrecognized option >&2
+  -*)
+    echo $0: $1: unrecognized option >&2  # Note: '>&2' = print to stderr
     ;;
   *)
     break
@@ -77,7 +75,13 @@ for arg in "$@"; do
   esac
 done
 
-echo "${USER_ARG}" # todo:on task end >> delete this line ←
+# todo:on task end >> next bloc ↓↓
+echo "
+${0} | USER_ARG >> ${USER_ARG}
+"
+
+## todo:assessment (ref task NLSAR-159 Fix the execute permission of source code mounted volume)
+#sudo chmod --recursive +x "${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
 
 sudo xhost +si:localuser:root
 
