@@ -40,10 +40,10 @@ function print_help_in_terminal() {
 USER_ARG=""
 IMAGE_TAG="arm64-l4t"
 
-# todo:on task end >> next bloc ↓↓
-echo "
-${0}: all arg >> ${@}
-"
+## todo:on task end >> delete next bloc ↓↓
+#echo "
+#${0}: all arg >> ${@}
+#"
 
 
 for arg in "$@"; do
@@ -82,12 +82,12 @@ for arg in "$@"; do
   shift
 done
 
-# todo:on task end >> next bloc ↓↓
-echo "
-${0}:
-  USER_ARG >> ${USER_ARG}
-  IMAGE_TAG >> ${IMAGE_TAG}
-"
+## todo:on task end >> delete next bloc ↓↓
+#echo "
+#${0}:
+#  USER_ARG >> ${USER_ARG}
+#  IMAGE_TAG >> ${IMAGE_TAG}
+#"
 
 sudo xhost +si:localuser:root
 
