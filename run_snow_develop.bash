@@ -25,12 +25,12 @@ function print_help_in_terminal() {
   run_snow_develop.bash [<optional argument>]
 
     optional argument:
-      -h, --help                      Get help
-      --x86                           Get the image version compiled for x86 workstation
-      --name <myCoolContainer>        Name that new container, the crazier the better
-      --srcCodePath <myCoolSrcCode> Host source code directory to mount inside the container.
-                                      Must be an absolute path eg.:
-                                          /home/snowxavier/Repositories/SNOW-AutoRally
+      -h, --help                    Get help
+      --x86                         Get the image version compiled for x86 workstation
+      --name <myCoolContainer>      Name that new container, the crazier the better
+      --src <myCoolSrcCode>         Host source code directory to mount inside the container.
+                                    Must be an absolute path eg.:
+                                        /home/snowxavier/Repositories/SNOW-AutoRally
 
   "
 }
@@ -55,7 +55,7 @@ for arg in "$@"; do
     USER_ARG="${USER_ARG} --name ${CONTAINER_NAME}"
     shift # Remove --name= from processing
     ;;
-  --srcCodePath=*)
+  --src=*)
     WS_DIR="${arg#*=}" # Remove every character up to the '=' and assign the remainder
     CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
     WS_DIRNAME=$(basename $WS_DIR)
@@ -66,7 +66,7 @@ for arg in "$@"; do
     shift # Remove --name= from processing
     ;;
   *)
-    USER_ARG="${USER_ARG} ${arg}"
+    USER_ARG="${USER_ARG} ${1}"
     shift # Remove generic argument from processing
     ;;
   esac
