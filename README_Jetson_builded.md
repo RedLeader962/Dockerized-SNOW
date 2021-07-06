@@ -23,9 +23,9 @@ sudo git clone https://github.com/RedLeader962/Dockerized-SNOW.git && cd Dockeri
 
 #### 4. Build the _nvidia-docker_ image using the following script
 ```shell
-./build_snow_dependencies.bash
-./build_snow_autorally_develop.bash
-./build_snow_autorally_deploy.bash
+bash ./build_snow_dependencies_l4t.bash
+bash ./build_snow_autorally_develop_l4t.bash
+bash ./build_snow_autorally_deploy_l4t.bash
 ```
 or manualy
 ```shell
@@ -38,11 +38,11 @@ Note:
 
 #### 5. Run the container using the following script
 ```shell
-./run_snow_develop.bash
-./run_snow_deploy.bash
+bash ./run_snow_develop.bash
+bash ./run_snow_deploy.bash
 
 # To open additional terminal in a running container 
-./open_new_terminal.bash <container name to execute>
+bash ./open_new_terminal.bash <container name to execute>
 ```
 
 

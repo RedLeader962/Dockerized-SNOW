@@ -8,6 +8,9 @@
 #  exit 1
 #fi
 
+echo -n "which image tag? arm64-l4t or x86"
+read IMAGE_TAG
+
 echo -n "Name that new container, the crazier the better: "
 read CONTAINER_NAME
 export LATEST_CONTAINER_USED="${CONTAINER_NAME}"
@@ -43,4 +46,4 @@ sudo docker run \
   --volume "/etc/localtime:/etc/localtime:ro" \
   --security-opt seccomp=unconfined \
   --volume "${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}" \
-  norlabsnow/snow-autorally-develop
+  norlabsnow/snow-autorally-develop:${IMAGE_TAG}

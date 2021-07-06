@@ -1,7 +1,7 @@
 
 # /// snow-autorally-deploy ////////////////////////////////////////////////////////////////////////////////////////////
 
-ARG  CODE_VERSION=latest
+ARG  CODE_VERSION=arm64-l4t
 FROM norlabsnow/ros-melodic-snow-autorally-dependencies:${CODE_VERSION}
 
 

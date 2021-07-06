@@ -1,14 +1,11 @@
 #!/bin/bash
 
-
 #set -e  # exit script if any statement returns a non-true return value
-
 
 #if [ $# -ne 1 ]; then
 #  echo "SNOW-AutoRally | missing argument: $0 <name that container>"
 #  exit 1
 #fi
-
 
 #for arg in "$@"; do
 #  case $arg in
@@ -22,6 +19,9 @@
 #    ;;
 #  esac
 #done
+
+echo -n "which image tag? arm64-l4t or x86"
+read IMAGE_TAG
 
 echo -n "Name that new container, the crazier the better: "
 read CONTAINER_NAME
@@ -43,4 +43,4 @@ sudo docker run \
   --privileged \
   --volume "/tmp/.X11-unix/:/tmp/.X11-unix" \
   --volume "/etc/localtime:/etc/localtime:ro" \
-  norlabsnow/snow-autorally-deploy
+  norlabsnow/snow-autorally-deploy:${IMAGE_TAG}
