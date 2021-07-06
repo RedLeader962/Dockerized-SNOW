@@ -2,11 +2,6 @@
 
 #set -e  # exit script if any statement returns a non-true return value
 
-#if [ $# -ne 1 ]; then
-#  echo "SNOW-AutoRally | missing argument: $0 <name that container>"
-#  exit 1
-#fi
-
 echo -e "
 \033[1;90m
 
@@ -61,15 +56,6 @@ for arg in "$@"; do
     ;;
   esac
 done
-
-#echo -n "which image tag? arm64-l4t or x86"
-#read IMAGE_TAG
-#
-#echo -n "Name that new container, the crazier the better: "
-#read CONTAINER_NAME
-#echo "starting ${CONTAINER_NAME}"
-#
-#export LATEST_CONTAINER_USED="${CONTAINER_NAME}"
 
 sudo xhost +si:localuser:root
 

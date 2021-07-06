@@ -2,39 +2,79 @@
 
 #set -e  # exit script if any statement returns a non-true return value
 
-#
-#if [ $# -ne 1 ]; then
-#  echo "SNOW-AutoRally | missing argument: $0 <dir with workspace>"
-#  exit 1
-#fi
+echo -e "
+\033[1;90m
 
-echo -n "which image tag? arm64-l4t or x86"
-read IMAGE_TAG
 
-echo -n "Name that new container, the crazier the better: "
-read CONTAINER_NAME
-export LATEST_CONTAINER_USED="${CONTAINER_NAME}"
+                                      '||''|.
+                                       ||   ||
+                                       ||    ||
+                                       ||    ||
+                                      .||...|'
 
-echo "Enter the host source code directory to mount inside the container "
-echo -n "(must be an absolute path eg. /home/snowxavier/Repositories/SNOW-AutoRally): "
-read HOST_SOURCE_CODE_PATH
+                                  (Dockerized-SNOW)
 
-echo "starting ${CONTAINER_NAME}"
+                              https://norlab.ulaval.ca
 
-CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
-#WS_DIR=$1
-WS_DIR=$HOST_SOURCE_CODE_PATH
-WS_DIRNAME=$(basename $WS_DIR)
-#WS_DIRNAME=SNOW-AutoRally
-echo "Source code mapping from host to container: ${WS_DIR} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+\033[0m
+"
 
-## # todo:assessment (ref task NLSAR-159 Fix the execute permission of source code mounted volume)
-#sudo chmod --recursive +x "${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+function print_help_in_terminal() {
+
+  echo -e "
+  run_snow_develop.bash [<optional argument>]
+
+    optional argument:
+      -h, --help                      Get help
+      --x86                           Get the image version compiled for x86 workstation
+      --name <myCoolContainer>        Name that new container, the crazier the better
+      --src_code_path <myCoolSrcCode> Enter the host source code directory to mount inside the container.
+                                      (must be an absolute path eg. /home/snowxavier/Repositories/SNOW-AutoRally)
+
+  "
+}
+
+
+USER_ARG=""
+HOST_SOURCE_CODE_PATH=""
+IMAGE_TAG="arm64-l4t"
+
+for arg in "$@"; do
+  case $arg in
+  -h | --help)
+    print_help_in_terminal
+    exit
+    ;;
+  --x86)
+    IMAGE_TAG="x86"
+    shift # Remove --x86 from processing
+    ;;
+  --name=*)
+    CONTAINER_NAME="${arg#*=}" # Remove every character up to the '=' and assign the remainder
+    USER_ARG="${USER_ARG} --name ${CONTAINER_NAME}"
+    shift # Remove --name= from processing
+    ;;
+  --src_code_path=*)
+    WS_DIR="${arg#*=}" # Remove every character up to the '=' and assign the remainder
+    CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
+    WS_DIRNAME=$(basename $WS_DIR)
+    HOST_SOURCE_CODE_PATH="--volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+    echo "Source code mapping from host to container: ${WS_DIR} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+    ## todo:assessment (ref task NLSAR-159 Fix the execute permission of source code mounted volume)
+    #sudo chmod --recursive +x "${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+    shift # Remove --name= from processing
+    ;;
+  *)
+    USER_ARG="${USER_ARG} ${1}"
+    shift # Remove generic argument from processing
+    ;;
+  esac
+done
+
 
 sudo xhost +si:localuser:root
 
 sudo docker run \
-  --name "${CONTAINER_NAME}" \
   --runtime nvidia \
   --interactive \
   --tty \
@@ -44,6 +84,7 @@ sudo docker run \
   --privileged \
   --volume "/tmp/.X11-unix/:/tmp/.X11-unix" \
   --volume "/etc/localtime:/etc/localtime:ro" \
+  ${HOST_SOURCE_CODE_PATH} \
   --security-opt seccomp=unconfined \
-  --volume "${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}" \
+  ${USER_ARG} \
   norlabsnow/snow-autorally-develop:${IMAGE_TAG}
