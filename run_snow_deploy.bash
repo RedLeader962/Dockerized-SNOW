@@ -40,7 +40,7 @@ function print_help_in_terminal () {
   "
 }
 
-USER_ARG=""
+USER_ARG=()
 IMAGE_TAG="arm64-l4t"
 
 for arg in "$@"; do
@@ -59,7 +59,7 @@ for arg in "$@"; do
     shift # Remove --name= from processing
     ;;
   *)
-    OTHER_ARGUMENTS+=("$1")
+    USER_ARG+=("$1")
     shift # Remove generic argument from processing
     ;;
   esac
@@ -88,5 +88,4 @@ sudo docker run \
   --volume "/tmp/.X11-unix/:/tmp/.X11-unix" \
   --volume "/etc/localtime:/etc/localtime:ro" \
   ${USER_ARG} \
-  norlabsnow/snow-autorally-deploy:${IMAGE_TAG} \
-  ${OTHER_ARGUMENTS}
+  norlabsnow/snow-autorally-deploy:${IMAGE_TAG}
