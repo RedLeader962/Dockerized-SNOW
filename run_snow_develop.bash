@@ -27,8 +27,8 @@ function print_help_in_terminal() {
     optional argument:
       -h, --help                    Get help
       --x86                         Get the image version compiled for x86 workstation
-      --name <myCoolContainer>      Name that new container, the crazier the better
-      --src <myCoolSrcCode>         Host source code directory to mount inside the container.
+      --name=<myCoolContainer>      Name that new container, the crazier the better
+      --src=<myCoolSrcCode>         Host source code directory to mount inside the container.
                                     Must be an absolute path eg.:
                                         /home/snowxavier/Repositories/SNOW-AutoRally
 
@@ -55,8 +55,12 @@ for arg in "$@"; do
     shift # Remove --x86 from processing
     ;;
   --name)
-    CONTAINER_NAME="${2}"
-    USER_ARG="${USER_ARG} --name ${CONTAINER_NAME}"
+    echo $0: use --name=${2} instead of --name ${2} >&2  # Note: '>&2' = print to stderr
+    exit
+    ;;
+  --src)
+    echo $0: use --src=<myCoolSrcCode> >&2  # Note: '>&2' = print to stderr
+    exit
     ;;
   --name=?*)
     CONTAINER_NAME="${arg#*=}" # Remove every character up to the '=' and assign the remainder
