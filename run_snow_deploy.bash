@@ -40,7 +40,7 @@ function print_help_in_terminal () {
   "
 }
 
-USER_ARG=()
+USER_ARG=""
 IMAGE_TAG="arm64-l4t"
 
 for arg in "$@"; do
@@ -59,7 +59,7 @@ for arg in "$@"; do
     shift # Remove --name= from processing
     ;;
   *)
-    USER_ARG+=("$1")
+    USER_ARG="${USER_ARG} $1"
     shift # Remove generic argument from processing
     ;;
   esac
