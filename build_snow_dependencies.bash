@@ -48,6 +48,7 @@ function print_help_in_terminal() {
 
 USER_ARG=""
 IMAGE_TAG="arm64-l4t"
+BASE_IMG_ARG=""
 
 # todo:on task end >> delete next bloc ↓↓
 echo "
@@ -88,6 +89,7 @@ echo "
 ${0}:
   USER_ARG >> ${USER_ARG}
   IMAGE_TAG >> ${IMAGE_TAG}
+  BASE_IMG_ARG >> ${BASE_IMG_ARG}
 "
 
 sudo docker build \
