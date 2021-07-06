@@ -7,7 +7,7 @@
 #  exit 1
 #fi
 
-exec ./print_ds_header.bash
+sudo exec ./print_ds_header.bash
 
 function print_help_in_terminal () {
 
