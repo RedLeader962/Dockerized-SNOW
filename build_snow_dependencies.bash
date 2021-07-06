@@ -32,8 +32,8 @@ function print_help_in_terminal() {
       --x86                     Get the image version compiled for x86 workstation
 
     Note: you can pass any docker build flag as additional argument eg:
-      --build-arg ROS_PKG=desktop-full
-      --build-arg BASE_IMAGE=nvcr.io/nvidia/l4t-base:r32.5.0
+      --build-arg=\"ROS_PKG=desktop-full\"
+      --build-arg=\"BASE_IMAGE=nvcr.io/nvidia/l4t-base:r32.5.0\"
 
       ref:
        - https://docs.docker.com/engine/reference/commandline/build/
