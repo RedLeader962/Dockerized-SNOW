@@ -56,10 +56,12 @@ for arg in "$@"; do
     ;;
   --name)
     echo "${0} >> pass argument with the equal sign: --name=${2}" >&2 # Note: '>&2' = print to stderr
+    echo
     exit
     ;;
   --src)
     echo "${0} >> pass argument with the equal sign: --src=${2}" >&2 # Note: '>&2' = print to stderr
+    echo
     exit
     ;;
   --name=?*)
