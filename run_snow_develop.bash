@@ -28,8 +28,9 @@ function print_help_in_terminal() {
       -h, --help                      Get help
       --x86                           Get the image version compiled for x86 workstation
       --name <myCoolContainer>        Name that new container, the crazier the better
-      --src_code_path <myCoolSrcCode> Enter the host source code directory to mount inside the container.
-                                      (must be an absolute path eg. /home/snowxavier/Repositories/SNOW-AutoRally)
+      --src_code_path <myCoolSrcCode> Host source code directory to mount inside the container.
+                                      Must be an absolute path eg.:
+                                          /home/snowxavier/Repositories/SNOW-AutoRally
 
   "
 }
