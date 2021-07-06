@@ -1,5 +1,5 @@
 <div align="center">
-<a href="https://norlab.ulaval.ca/research/">
+<a href="https://norlab.ulaval.ca">
 <img src="./images/norlab_logo_acronym_dark.png" width="200">
 </a>
 <br>
@@ -47,14 +47,14 @@ diagram &nbsp;)
 
 #### Workflow option:
 
-- Instruction for [**building the _docker_ image from a _Jetson_ device**](README_Jetson_builded.md)
-- Instruction for [**building the _docker_ image from an x86 host using _qemu_**](README_cross_compiler.md)
+- Instruction for [**building the _docker_ image from a _Jetson_ device**](how_to_readme/README_Jetson_builded.md)
+- Instruction for [**building the _docker_ image from an x86 host using _qemu_**](how_to_readme/README_cross_compiler.md)
 - Instruction for pulling the pre-builded _docker_ image from _DockerHub_ (TODO)
 
 #### How-to
-- [**How-to _nvidia-docker_ manualy (a quick start)**](README_docker_manualy_quickstart.md)
+- [**How-to _nvidia-docker_ manualy (a quick start)**](how_to_readme/README_docker_manualy_quickstart.md)
 - [**Test AutoRally Configuration (**Revised instruction**)**](https://github.com/RedLeader962/SNOW-AutoRally#test-autorally-configuration-in-gazebo-revised-instruction)
-- [How-to push image localy builded image to docker hub from command line](README_push_to_dockerhub.md)
+- [How-to push image localy builded image to docker hub from command line](how_to_readme/README_push_to_dockerhub.md)
 
 
 #### Images:
