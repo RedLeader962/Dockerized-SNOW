@@ -37,6 +37,12 @@ function print_help_in_terminal() {
   "
 }
 
+# todo:on task end >> delete next bloc ↓↓
+echo "
+${0}: all arg >> ${@}
+"
+
+
 if [ $# -ne 1 ]; then
   echo "  @{0} >> missing argument: $0 <CONTAINER_NAMES>"
   echo "  If your not sure, run in terminal"
@@ -81,6 +87,14 @@ for arg in "$@"; do
 
   shift
 done
+
+# todo:on task end >> delete next bloc ↓↓
+echo "
+${0}:
+  USER_ARG >> ${USER_ARG}
+  IMAGE_TAG >> ${IMAGE_TAG}
+  BASE_IMG_ARG >> ${BASE_IMG_ARG}
+"
 
 sudo docker exec \
   ${USER_ARG} \
