@@ -20,16 +20,14 @@ echo -e "
 function print_help_in_terminal() {
 
   echo -e "
-    ${0} [<optional argument>] <CONTAINER_NAMES>
+    ${0} [<optional argument>] <CONTAINER_NAMES> [<COMMAND>]
 
     <optional argument>:
       -h, --help                Get help
-      --nonIt                   Non interactive (overide default -it flag)
-      --cmd=\"<theCommand>\"    Default: bash
-                                eg.: --cmd=\"touch /tmp/myNewFile.md \"
+
+    Open a new interactive terminal with pseudo-TTY
 
     Note: you can pass any docker build flag as additional argument eg:
-      --detach          (to run the command in backgroud)
       --env=\"VAR=1\"        (to set environment variables)
 
     Ref. docker exec command:
@@ -42,7 +40,6 @@ echo "
 ${0}: all arg >> ${@}
 "
 
-
 if [ $# -ne 1 ]; then
   echo "  >> missing argument: $0 <CONTAINER_NAMES>"
   echo "  If your not sure, run in terminal"
@@ -52,9 +49,7 @@ if [ $# -ne 1 ]; then
 fi
 
 CONTAINER_NAMES=""
-COMMAND="bash"
 USER_ARG=""
-INTERACTIVE=" -it"
 
 for arg in "$@"; do
   case $arg in
@@ -62,21 +57,8 @@ for arg in "$@"; do
     print_help_in_terminal
     exit
     ;;
-  --nonIt)
-    INTERACTIVE=" "
-    shift # Remove --nonIt from processing
-    ;;
-  --cmd)
-    echo "${0} >> pass argument with the equal sign: --cmd=${2}" >&2 # Note: '>&2' = print to stderr
-    echo
-    exit
-    ;;
-  --cmd=?*)
-    COMMAND="$(arg#*=)" # Remove every character up to the '=' and assign the remainder
-    ;;
   --)
     shift
-    break
     ;;
   -?* | --?*)
     #    echo $0: $1: unrecognized option >&2 # Note: '>&2' = print to stderr
@@ -97,11 +79,9 @@ echo "
 ${0}:
   USER_ARG >> ${USER_ARG}
   CONTAINER_NAMES >> ${CONTAINER_NAMES}
-  COMMAND >> ${COMMAND}
 "
 
 sudo docker exec \
-  ${INTERACTIVE} \
   ${USER_ARG} \
   ${CONTAINER_NAMES} \
-  ${COMMAND}
+  bash

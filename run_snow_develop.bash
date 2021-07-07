@@ -108,6 +108,9 @@ done
 ## todo:assessment (ref task NLSAR-159 Fix the execute permission of source code mounted volume)
 #sudo chmod --recursive +x "${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
 
+export DISPLAY=:0
+echo "export DISPLAY=:0" >> ~/.bashrc
+
 sudo xhost +si:localuser:root
 
 sudo docker run \

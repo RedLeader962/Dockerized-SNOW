@@ -90,7 +90,7 @@ done
 #"
 
 export DISPLAY=:0
-echo "export DISPLAY=:0" >> ~/.bashrc  # (Priority) todo:on task end >> add this line ← to run_snow_develop.bash
+echo "export DISPLAY=:0" >> ~/.bashrc
 
 sudo xhost +si:localuser:root
 
