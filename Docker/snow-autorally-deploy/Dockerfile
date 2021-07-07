@@ -15,14 +15,16 @@ FROM norlabsnow/ros-melodic-snow-autorally-dependencies:${BASE_IMG_TAG}
 #   - No need to build Pointgrey Camera driver from source anymore (apparently).
 #       See pullrequest 243548 merge into `ros:master` on 3 Apr 2020: https://github.com/ros/rosdistro/pull/24348
 
-ARG DEV_BRANCH=SNOW-melodic-devel
 ARG SRC_CODE_REPOSITORY_NAME=SNOW-AutoRally
 ENV SRC_CODE_REPOSITORY_NAME=${SRC_CODE_REPOSITORY_NAME}
+ARG SRC_CODE_DOMAIN_NAME=RedLeader962
+ENV SRC_CODE_DOMAIN_NAME=${SRC_CODE_DOMAIN_NAME}
+ARG DEV_BRANCH=SNOW-melodic-devel
 
 
 WORKDIR ${DEV_WORKSPACE}/src
 RUN echo "Pull latest ${DEV_BRANCH} branch" \
-    && git clone --branch ${DEV_BRANCH} https://github.com/RedLeader962/${SRC_CODE_REPOSITORY_NAME}.git  \
+    && git clone --branch ${DEV_BRANCH} https://github.com/${SRC_CODE_DOMAIN_NAME}/${SRC_CODE_REPOSITORY_NAME}.git  \
     && cd ${DEV_WORKSPACE} \
     && apt-get update \
     && rosdep install --from-path src --ignore-src --default-yes \

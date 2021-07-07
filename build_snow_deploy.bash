@@ -29,6 +29,7 @@ function print_help_in_terminal() {
       --x86                     Get the image version compiled for x86 workstation
 
     Note: you can pass any docker build flag as additional argument eg:
+      --build-arg=\"SRC_CODE_DOMAIN_NAME=RedLeader962\"
       --build-arg=\"SRC_CODE_REPOSITORY_NAME=SNOW-AutoRally\"
       --build-arg=\"DEV_BRANCH=SNOW-melodic-devel\"
 
