@@ -90,7 +90,7 @@ done
 #"
 
 export DISPLAY=:0
-echo "export DISPLAY=:0" >> ~/.bashrc
+#echo "export DISPLAY=:0" >> ~/.bashrc
 
 sudo xhost +si:localuser:root
 

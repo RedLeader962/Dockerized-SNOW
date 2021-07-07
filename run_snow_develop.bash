@@ -109,7 +109,7 @@ done
 #sudo chmod --recursive +x "${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
 
 export DISPLAY=:0
-echo "export DISPLAY=:0" >> ~/.bashrc
+#echo "export DISPLAY=:0" >> ~/.bashrc
 
 sudo xhost +si:localuser:root
 
