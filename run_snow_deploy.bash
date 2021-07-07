@@ -92,8 +92,7 @@ done
 export DISPLAY=:0
 #echo "export DISPLAY=:0" >> ~/.bashrc
 
-#sudo xhost +si:localuser:root
-sudo xhost +
+sudo xhost +si:localuser:root
 
 sudo docker run \
   --runtime nvidia \
