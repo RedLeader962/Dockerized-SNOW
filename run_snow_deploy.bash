@@ -89,6 +89,7 @@ done
 #  IMAGE_TAG >> ${IMAGE_TAG}
 #"
 
+export DISPLAY=:0
 echo "export DISPLAY=:0" >> ~/.bashrc  # (Priority) todo:on task end >> add this line ← to run_snow_develop.bash
 
 sudo xhost +si:localuser:root
