@@ -82,6 +82,7 @@ ${0}:
 "
 
 sudo docker exec \
+  -it \
   ${USER_ARG} \
   ${CONTAINER_NAMES} \
   bash
