@@ -46,8 +46,9 @@ diagram &nbsp;)
 ## Usage
 
 ### Quick start for x86 workstation
+Requirement: docker and nvidia container toolkit must be installed ([follow install step 1 and 2](how_to_readme/README_x86_architecture.md))
+
 ```shell
-docker pull norlabsnow/ros-melodic-snow-autorally-dependencies:x86
 docker pull norlabsnow/snow-autorally-deploy:x86
 
 sudo git clone https://github.com/RedLeader962/Dockerized-SNOW.git && cd Dockerized-SNOW
