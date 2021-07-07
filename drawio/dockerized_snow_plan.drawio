@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-07-07T05:38:23.746Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15" etag="oJx2DyvT41-27_FhLFqn" version="14.8.2" type="github">
+<mxfile host="app.diagrams.net" modified="2021-07-07T05:40:28.757Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15" etag="VQtIMvESpLO4TQUvVQMl" version="14.8.2" type="github">
   <diagram id="bTZJt1o0T5sxhTdyZIyC" name="Page-1">
     <mxGraphModel dx="2946" dy="1557" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1920" pageHeight="1200" math="0" shadow="0">
       <root>
@@ -22,7 +22,7 @@
         <mxCell id="xUTtplGJXiZXMpH6DIID-23" value="Nvidia Container Runtime for arm64 architecture" style="text;strokeColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=1;fillColor=#FFFFFF;" parent="xUTtplGJXiZXMpH6DIID-22" vertex="1">
           <mxGeometry y="26" width="358.69" height="26" as="geometry" />
         </mxCell>
-        <UserObject label="cudagl:11.3.1-devel-ubuntu18.04" link="https://ngc.nvidia.com/catalog/containers/nvidia:l4t-base" id="fzb1g41TZssLjQYJbnJr-1">
+        <UserObject label="cudagl:11.3.1-devel-ubuntu18.04" link="https://ngc.nvidia.com/catalog/containers/nvidia:cudagl" id="fzb1g41TZssLjQYJbnJr-1">
           <mxCell style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fillColor=#1ba1e2;fontColor=#ffffff;strokeWidth=4;sketch=0;shadow=0;fontSize=13;swimlaneFillColor=none;rounded=0;strokeColor=#007BC4;" vertex="1" parent="xUTtplGJXiZXMpH6DIID-1">
             <mxGeometry x="461.31" y="81" width="358.69" height="52" as="geometry" />
           </mxCell>
