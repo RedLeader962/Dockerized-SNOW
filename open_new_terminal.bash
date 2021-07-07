@@ -53,6 +53,7 @@ fi
 
 CONTAINER_NAMES=""
 COMMAND="bash"
+USER_ARG=""
 
 for arg in "$@"; do
   case $arg in
@@ -60,9 +61,9 @@ for arg in "$@"; do
     print_help_in_terminal
     exit
     ;;
-  *)
-    CONTAINER_NAMES="${arg}"
-    ;;
+#  *)
+#    CONTAINER_NAMES="${arg}"
+#    ;;
   --cmd)
     echo "${0} >> pass argument with the equal sign: --cmd=${2}" >&2 # Note: '>&2' = print to stderr
     echo
@@ -81,6 +82,7 @@ for arg in "$@"; do
     shift # Remove generic argument from processing
     ;;
   *)
+    CONTAINER_NAMES="${arg}"
     break
     ;;
   esac
@@ -92,8 +94,8 @@ done
 echo "
 ${0}:
   USER_ARG >> ${USER_ARG}
-  IMAGE_TAG >> ${IMAGE_TAG}
-  BASE_IMG_ARG >> ${BASE_IMG_ARG}
+  CONTAINER_NAMES >> ${CONTAINER_NAMES}
+  COMMAND >> ${COMMAND}
 "
 
 sudo docker exec \
