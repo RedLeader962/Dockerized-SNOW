@@ -4,15 +4,16 @@ echo -e "
 \033[1;90m
 
 
-                                      '||''|.
-                                       ||   ||
-                                       ||    ||
-                                       ||    ||
-                                      .||...|'
+                   .|'''.|  '|.   '|'  ..|''||   '|| '||'  '|'
+                   ||..  '   |'|   |  .|'    ||   '|. '|.  .'
+                    ''|||.   | '|. |  ||      ||   ||  ||  |
+                  .     '||  |   |||  '|.     ||    ||| |||
+                  |'....|'  .|.   '|   ''|...|'      |   |
 
-                                  (Dockerized-SNOW)
+                               (Dockerized-SNOW)
 
-                              https://norlab.ulaval.ca
+                https://github.com/RedLeader962/Dockerized-SNOW
+                           https://norlab.ulaval.ca
 
 \033[0m
 "
