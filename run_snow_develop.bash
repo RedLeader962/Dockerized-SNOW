@@ -24,7 +24,7 @@ function print_help_in_terminal() {
   echo -e "
   ${0} [<optional argument>]
 
-    optional argument:
+    <optional argument>:
       -h, --help                    Get help
       --x86                         Get the image version compiled for x86 workstation
       --name=<myCoolContainer>      Name that new container, the crazier the better

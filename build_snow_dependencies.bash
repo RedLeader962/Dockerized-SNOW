@@ -26,7 +26,7 @@ function print_help_in_terminal() {
 
     Default compilation: arm64 with Linux for Tegra (L4T) os
 
-    optional argument:
+    <optional argument>:
       -h, --help                Get help
       --x86                     Get the image version compiled for x86 workstation
 

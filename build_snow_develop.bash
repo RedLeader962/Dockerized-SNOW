@@ -21,13 +21,13 @@ echo -e "
 function print_help_in_terminal() {
 
   echo -e "
-  ${0}  [<optional argument>]
+    ${0}  [<optional argument>]
 
-    Default compilation: arm64 with Linux for Tegra (L4T) os
-
-    optional argument:
+    <optional argument>:
       -h, --help                Get help
       --x86                     Get the image version compiled for x86 workstation
+
+    Default compilation: arm64 with Linux for Tegra (L4T) os
 
     Note: you can pass any docker build flag as additional argument eg:
       --build-arg=\"SRC_CODE_REPOSITORY_NAME=SNOW-AutoRally\"
