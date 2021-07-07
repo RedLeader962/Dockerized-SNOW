@@ -44,7 +44,7 @@ ${0}: all arg >> ${@}
 
 
 if [ $# -ne 1 ]; then
-  echo "  @{0} >> missing argument: $0 <CONTAINER_NAMES>"
+  echo "  >> missing argument: $0 <CONTAINER_NAMES>"
   echo "  If your not sure, run in terminal"
   echo "         docker ps -a"
   echo "  and check the STATUS column to see running container"
@@ -72,7 +72,7 @@ for arg in "$@"; do
     exit
     ;;
   --cmd=?*)
-    COMMAND="${arg#*=}" # Remove every character up to the '=' and assign the remainder
+    COMMAND="$(arg#*=)" # Remove every character up to the '=' and assign the remainder
     ;;
   --)
     shift
