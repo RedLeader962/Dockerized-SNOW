@@ -24,11 +24,11 @@ function print_help_in_terminal() {
 
     <optional argument>:
       -h, --help                Get help
+      --nonIt                   Non interactive (overide default -it flag)
       --cmd=\"<theCommand>\"    Default: bash
                                 eg.: --cmd=\"touch /tmp/myNewFile.md \"
 
     Note: you can pass any docker build flag as additional argument eg:
-      -it               (interactive and allocate tty)
       --detach          (to run the command in backgroud)
       --env=\"VAR=1\"        (to set environment variables)
 
@@ -54,6 +54,7 @@ fi
 CONTAINER_NAMES=""
 COMMAND="bash"
 USER_ARG=""
+INTERACTIVE=" -it"
 
 for arg in "$@"; do
   case $arg in
@@ -61,9 +62,10 @@ for arg in "$@"; do
     print_help_in_terminal
     exit
     ;;
-#  *)
-#    CONTAINER_NAMES="${arg}"
-#    ;;
+  --nonIt)
+    INTERACTIVE=" "
+    shift # Remove --nonIt from processing
+    ;;
   --cmd)
     echo "${0} >> pass argument with the equal sign: --cmd=${2}" >&2 # Note: '>&2' = print to stderr
     echo
@@ -99,6 +101,7 @@ ${0}:
 "
 
 sudo docker exec \
+  ${INTERACTIVE} \
   ${USER_ARG} \
   ${CONTAINER_NAMES} \
   ${COMMAND}
