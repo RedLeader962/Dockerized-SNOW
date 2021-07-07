@@ -20,14 +20,14 @@ echo -e "
 function print_help_in_terminal() {
 
   echo -e "
-    ${0} [<optional argument>] <CONTAINER_NAMES> [<COMMAND>]
+    ${0} [<optional argument>] <CONTAINER_NAMES>
+
+    Open a new interactive terminal with pseudo-TTY
 
     <optional argument>:
       -h, --help                Get help
 
-    Open a new interactive terminal with pseudo-TTY
-
-    Note: you can pass any docker build flag as additional argument eg:
+    Note: you can pass any docker build flag in <optional argument> eg.:
       --env=\"VAR=1\"        (to set environment variables)
 
     Ref. docker exec command:
@@ -35,10 +35,10 @@ function print_help_in_terminal() {
   "
 }
 
-# todo:on task end >> delete next bloc ↓↓
-echo "
-${0}: all arg >> ${@}
-"
+## todo:on task end >> delete next bloc ↓↓
+#echo "
+#${0}: all arg >> ${@}
+#"
 
 if [ $# -ne 1 ]; then
   echo "  >> missing argument: $0 <CONTAINER_NAMES>"
@@ -74,12 +74,12 @@ for arg in "$@"; do
   shift
 done
 
-# todo:on task end >> delete next bloc ↓↓
-echo "
-${0}:
-  USER_ARG >> ${USER_ARG}
-  CONTAINER_NAMES >> ${CONTAINER_NAMES}
-"
+## todo:on task end >> delete next bloc ↓↓
+#echo "
+#${0}:
+#  USER_ARG >> ${USER_ARG}
+#  CONTAINER_NAMES >> ${CONTAINER_NAMES}
+#"
 
 sudo docker exec \
   -it \
