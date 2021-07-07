@@ -18,6 +18,7 @@ RUN /bin/bash -c "chmod +x /ros_entrypoint.bash" \
 
 ENTRYPOINT [ "/ros_entrypoint.bash" ]
 CMD [ "bash" ]
+
 # /////////////////////////////////////////////////////////////////////////////////////////// snow-autorally-develop ///
 
 
