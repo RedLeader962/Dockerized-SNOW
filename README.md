@@ -49,13 +49,14 @@ diagram &nbsp;)
 ```shell
 docker pull norlabsnow/ros-melodic-snow-autorally-dependencies:x86
 docker pull norlabsnow/snow-autorally-deploy:x86
+
 sudo git clone https://github.com/RedLeader962/Dockerized-SNOW.git && cd Dockerized-SNOW
 bash ./run_snow_deploy.bash --x86 --name=MyCrazyContainer
 
 # Open a new interactive terminal with pseudo-TTY inside MyCrazyContainer 
 bash ./open_new_terminal.bash MyCrazyContainer
 ```
-You can use the `--help` flag to usage instruction on every bash script.
+You can use the `--help` flag for usage instruction on any bash script.
 
 
 ### Workflow option:
@@ -96,7 +97,7 @@ Base image:
 ### References:
 
 <details>
-<summary>NVIDIA-docker Documentation:</summary>
+<summary>nvidia-docker Documentation:</summary>
 
 - [nvidia-docker: Build and run Docker containers leveraging NVIDIA GPUs](https://github.com/NVIDIA/nvidia-docker) 
   - [NVIDIA Container Runtime on _Jetson_](https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson)
