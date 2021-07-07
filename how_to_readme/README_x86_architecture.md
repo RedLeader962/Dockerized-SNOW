@@ -1,9 +1,5 @@
 [(return to main menu)](https://github.com/RedLeader962/Dockerized-SNOW)
-# Building the `arm64-l4t` nvidia-docker image on a `x86` host using _qemu_ virtualization
-
-###### References
-- [Enabling _Jetson_ Containers on an x86 workstation (using _qemu_) | NVIDIA/nvidia-docker Wiki](https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson#enabling-jetson-containers-on-an-x86-workstation-using-qemu)
-- [Running and Building ARM Docker Containers on x86 | Stereolabs](https://www.stereolabs.com/docs/docker/building-arm-container-on-x86/)
+# Using the _nvidia-docker_ image on a `x86` host
 
 ### 1. Install Docker
 
@@ -85,87 +81,25 @@ sudo docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
 - https://developer.nvidia.com/cuda-downloads
 - [Installation (Native GPU Support) · NVIDIA/_nvidia-docker_ Wiki](https://github.com/NVIDIA/nvidia-docker/wiki/Installation-(Native-GPU-Support))
 
-### 4. Setup _qemu_ virtualization on x86 workstation
-##### References:
-- [Enabling Jetson Containers on an x86 workstation (using _qemu_) | NVIDIA/nvidia-docker Wiki](https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson#enabling-jetson-containers-on-an-x86-workstation-using-qemu)
-- [multiarch/qemu-user-static](https://github.com/multiarch/qemu-user-static)
 
-#### 4.1 Install _qemu_
-```shell
-uname -m
-# x86_64
-
-sudo apt-get update && sudo apt-get install -y --no-install-recommends qemu qemu-user-static binfmt-support
-
-# Check if the entries look good.
-sudo cat /proc/sys/fs/binfmt_misc/status
-# >>> enabled
-
-# See if /usr/bin/qemu-aarch64-static exists as one of the interpreters.
-cat /proc/sys/fs/binfmt_misc/qemu-aarch64
-# enabled
-# interpreter /usr/bin/qemu-aarch64-static
-# flags: OCF
-# offset 0
-# magic 7f454c460201010000000000000000000200b700
-# mask ffffffffffffff00fffffffffffffffffeffffff
-``` 
-
-#### 4.2 Fix the `F` flag
-> If the flags does not include ‘F’ then the kernel is loading the interpreter lazily. The easiest fix is to have the binfmt-support package version >= 2.1.7, which automatically includes the --fix-binary (F) option. 
->
-> With this in place, simply run the following command to update your flags:
-
-```shell
-sudo docker run --rm --privileged multiarch/qemu-user-static --reset -p yes -c yes
-```
-Source: [Running or building a container on x86 (using qemu+binfmt_misc) is failing · NVIDIA/nvidia-docker Wiki](https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson#enabling-jetson-containers-on-an-x86-workstation-using-qemu)
-
-#### 4.3 Test the _arm64_ emulation environment
-```shell
-sudo docker run --rm -t arm64v8/ubuntu uname -m
-# aarch64
-```
-Ref: [multiarch/qemu-user-static](https://github.com/multiarch/qemu-user-static)
-
-**Congrats!!! arm64 virtualization is working on your x86 machine**
-
-### 5. (Optional Step) Building _Jetson nvidia-docker_ containers on your _x86_ workstation 
-
-Assuming the cuda samples are installed on the x86 workstation at `/usr/local/cuda/samples`.
-
-```shell
-sudo docker run -it --name x86host -v /usr/local/cuda:/usr/local/cuda nvcr.io/nvidia/l4t-base:r32.5.0
-
-# The container is now running
-root@x86host:/# apt-get update && apt-get install -y --no-install-recommends make g++
-root@x86host:/# cp -r /usr/local/cuda/samples /tmp
-root@x86host:/# cd /tmp/samples/5_Simulations/nbody
-root@x86host:/# make
-
-# Exit the container when your done
-root@x86host:/# exit
-```
- 
-
-### 6. Clone the repo on your x86 workstation
+### 3. Clone the repo on your x86 workstation
 ```shell
 sudo git clone https://github.com/RedLeader962/Dockerized-SNOW.git && cd Dockerized-SNOW
 ```
 Note: To change directory ownership `sudo chown -R $USER ~/<myPathTo>/Dockerized-SNOW`
 
-### 7. Build the _nvidia-docker_ image using the following script
+### 4. Build the _nvidia-docker_ image using the following script
 Use the `--help` flag for instruction
 ```shell
-bash ./build_snow_dependencies.bash
-bash ./build_snow_develop.bash
-bash ./build_snow_deploy.bash
+bash ./build_snow_dependencies.bash --x86
+bash ./build_snow_develop.bash --x86
+bash ./build_snow_deploy.bash --x86
 ```
 
-### 8. Run the container using the following script
+### 5. Run the container using the following script
 ```shell
-bash ./run_snow_develop.bash
-bash ./run_snow_deploy.bash
+bash ./run_snow_develop.bash --x86
+bash ./run_snow_deploy.bash --x86
 
 # To open additional terminal in a running container 
 bash ./open_new_terminal.bash <container name to execute>

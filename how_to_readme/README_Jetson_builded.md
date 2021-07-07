@@ -1,9 +1,9 @@
 [(return to main menu)](https://github.com/RedLeader962/Dockerized-SNOW)
-## Build the _docker_ image from a _Jetson_ device
+## Using the _nvidia-docker_ image on a _Jetson_ device (`arm64-l4t`)
 
 Requirement: the latest _Jetpack_ must be installed on the _Jetson_ 
 
-#### 1. Add "default-runtime": "nvidia" to your _Jetson_ `/etc/docker/daemon.json` configuration file
+### 1. Add "default-runtime": "nvidia" to your _Jetson_ `/etc/docker/daemon.json` configuration file
 ```shell
 {
  "runtimes": {
@@ -15,28 +15,23 @@ Requirement: the latest _Jetpack_ must be installed on the _Jetson_
  "default-runtime": "nvidia"
 }
 ```
-#### 2. Restart the _docker_ service or reboot your system
-#### 3. Clone the repo in the _Jetson_
+### 2. Restart the _docker_ service or reboot your system
+### 3. Clone the repo in the _Jetson_
 ```shell
 sudo git clone https://github.com/RedLeader962/Dockerized-SNOW.git && cd Dockerized-SNOW
 ```
 
-#### 4. Build the _nvidia-docker_ image using the following script
+### 4. Build the _nvidia-docker_ image using the following script
+Use the `--help` flag for instruction
+
 ```shell
 bash ./build_snow_dependencies.bash
 bash ./build_snow_develop.bash
 bash ./build_snow_deploy.bash
 ```
-or manualy
-```shell
-cd Docker/ros-melodic-snow-autorally-dependencies
-sudo docker build --tag ros-melodic-snow-autorally-dependencies:<theLatestVersionTag> -f Dockerfile .
-```
-Note:
-- The `.` is the context for the building step (It's the current directory);
-- Set the `<theLatestVersionTag>` following the pattern `rX.Y` or use `latest`
 
-#### 5. Run the container using the following script
+
+### 5. Run the container using the following script
 ```shell
 bash ./run_snow_develop.bash
 bash ./run_snow_deploy.bash
@@ -44,6 +39,7 @@ bash ./run_snow_deploy.bash
 # To open additional terminal in a running container 
 bash ./open_new_terminal.bash <container name to execute>
 ```
+
 
 
 ---

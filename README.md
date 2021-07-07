@@ -45,34 +45,78 @@ diagram &nbsp;)
 ---
 ## Usage
 
-#### Workflow option:
+### Quick start for x86 workstation
+```shell
+docker pull norlabsnow/ros-melodic-snow-autorally-dependencies:x86
+docker pull norlabsnow/snow-autorally-deploy:x86
+sudo git clone https://github.com/RedLeader962/Dockerized-SNOW.git && cd Dockerized-SNOW
+bash ./run_snow_deploy.bash --x86 --name=MyCrazyContainer
 
-- Instruction for [**building the _docker_ image from a _Jetson_ device**](how_to_readme/README_Jetson_builded.md)
-- Instruction for [**building the _docker_ image from an x86 host using _qemu_**](how_to_readme/README_cross_compiler.md)
-- Instruction for pulling the pre-builded _docker_ image from _DockerHub_ (TODO)
+# Open a new interactive terminal with pseudo-TTY inside MyCrazyContainer 
+bash ./open_new_terminal.bash MyCrazyContainer
+```
+You can use the `--help` flag to usage instruction on every bash script.
 
-#### How-to
+
+### Workflow option:
+
+- Instruction for [**using the _nvidia-docker_ image on a _Jetson_ device (`arm64-l4t`)**](how_to_readme/README_Jetson_builded.md)
+- Instruction for [**using the _nvidia-docker_ image on a `x86` host**](how_to_readme/README_x86_architecture.md)
+- Instruction for [**building the `arm64-l4t` nvidia-docker image on a `x86` host using _qemu_ virtualization**](how_to_readme/README_cross_compiler.md)
+
+### How-to
 - [**How-to _nvidia-docker_ manualy (a quick start)**](how_to_readme/README_docker_manualy_quickstart.md)
 - [**Test AutoRally Configuration (**Revised instruction**)**](https://github.com/RedLeader962/SNOW-AutoRally#test-autorally-configuration-in-gazebo-revised-instruction)
 - [How-to push image localy builded image to docker hub from command line](how_to_readme/README_push_to_dockerhub.md)
 
 
-#### Images:
-- Base image: `nvcr.io/nvidia/l4t-base:r32.5.0`
-- Latest images on _docker hub_: 
-   - `docker pull norlabsnow/snow-autorally-deploy`
-   - `docker pull norlabsnow/snow-autorally-develop`
-   - `docker pull norlabsnow/ros-melodic-snow-autorally-dependencies`
-  
+### Images:
+To pull the latest image from _docker hub_, execute the following in terminal: 
+```shell
+sudo docker pull <container name>:<tag>
+```
+with `<container name>`= _theImageName_ and `<tag>`= _theHostArchitecture_  
+
+Latest images for _Jetson_: 
+  - `norlabsnow/snow-autorally-deploy:arm64-l4t`
+  - `norlabsnow/snow-autorally-develop:arm64-l4t`
+  - `norlabsnow/ros-melodic-snow-autorally-dependencies:arm64-l4t`
+
+Latest images for _x86_64_ workstion: 
+  - `norlabsnow/snow-autorally-deploy:x86`
+  - `norlabsnow/snow-autorally-develop:x86`
+  - `norlabsnow/ros-melodic-snow-autorally-dependencies:x86`
+
+Base image: 
+  - `nvcr.io/nvidia/l4t-base:r32.5.0`
+  - `nvcr.io/nvidia/cudagl:11.3.1-devel-ubuntu18.04`
+
+
 ---
+### References:
 
 <details>
-<summary>NVIDIA-docker references:</summary>
+<summary>NVIDIA-docker Documentation:</summary>
 
 - [nvidia-docker: Build and run Docker containers leveraging NVIDIA GPUs](https://github.com/NVIDIA/nvidia-docker) 
   - [NVIDIA Container Runtime on _Jetson_](https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson)
   - [Driver containers](https://github.com/NVIDIA/nvidia-docker/wiki/Driver-containers)
 - [NVIDIA Cloud Native Technologies](https://docs.nvidia.com/datacenter/cloud-native/#)
+- Base image for _jetson_:
+  - https://ngc.nvidia.com/catalog/containers/nvidia:l4t-base
+  - https://developer.nvidia.com/embedded/jetson-cloud-native
+- Base image with _CUDA_ and _OpenGL_ support:
+  - https://hub.docker.com/r/nvidia/cudagl/
+  - https://github.com/NVIDIA/nvidia-docker/wiki/CUDA
+  - https://ngc.nvidia.com/catalog/containers/nvidia:cudagl
+
+</details>
+
+<details>
+<summary>Docker Documentation:</summary>
+
+- [Use the Docker command line | Docker Documentation](https://docs.docker.com/engine/reference/commandline/cli/)
+- [Dockerfile reference | Docker Documentation](https://docs.docker.com/engine/reference/builder/)
 
 </details>
 
