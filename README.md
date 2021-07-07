@@ -46,7 +46,8 @@ diagram &nbsp;)
 ## Usage
 
 ### Quick start for x86 workstation
-Requirement: docker and nvidia container toolkit must be installed ([follow install step 1 and 2](how_to_readme/README_x86_architecture.md))
+- **Requirement:** docker and nvidia container toolkit must be installed ([follow install step 1 and 2](how_to_readme/README_x86_architecture.md))
+- **Tips:** You can use the `--help` flag for usage instruction on any dockerized-snow bash script
 
 ```shell
 docker pull norlabsnow/snow-autorally-deploy:x86
@@ -57,14 +58,21 @@ bash ./run_snow_deploy.bash --x86 --name=MyCrazyContainer
 # Open a new interactive terminal with pseudo-TTY inside MyCrazyContainer 
 bash ./open_new_terminal.bash MyCrazyContainer
 ```
-You can use the `--help` flag for usage instruction on any bash script.
 
 
-### Workflow option:
+Then follow the step at [SNOW-AutoRally: Autonomous Driving in Simulation using MPPI](https://github.com/RedLeader962/SNOW-AutoRally#autonomous-driving-in-simulation-using-mppi)
+```shell
+roslaunch autorally_gazebo autoRallyTrackGazeboSim.launch
 
-- Instruction for [**using the _nvidia-docker_ image on a _Jetson_ device (`arm64-l4t`)**](how_to_readme/README_Jetson_builded.md)
-- Instruction for [**using the _nvidia-docker_ image on a `x86` host**](how_to_readme/README_x86_architecture.md)
-- Instruction for [**building the `arm64-l4t` nvidia-docker image on a `x86` host using _qemu_ virtualization**](how_to_readme/README_cross_compiler.md)
+...
+```
+
+
+### Instruction:
+
+- [**Using the _nvidia-docker_ image on a _Jetson_ device (`arm64-l4t`)**](how_to_readme/README_Jetson_builded.md)
+- [**Using the _nvidia-docker_ image on a `x86` host**](how_to_readme/README_x86_architecture.md)
+- [**Building the `arm64-l4t` nvidia-docker image on a `x86` host using _qemu_ virtualization**](how_to_readme/README_cross_compiler.md)
 
 ### How-to
 - [**How-to _nvidia-docker_ manualy (a quick start)**](how_to_readme/README_docker_manualy_quickstart.md)
