@@ -46,22 +46,45 @@ diagram &nbsp;)
 ## Usage
 
 ### Quick start for x86 workstation
-- **Requirement:** docker and nvidia container toolkit must be installed ([follow install step 1 and 2](how_to_readme/README_x86_architecture.md))
+- **Requirement:** _docker_ and _nvidia container toolkit_ must be installed ([follow install step 1 and 2](how_to_readme/README_x86_architecture.md))
 - **Tips:** You can use the `--help` flag for usage instruction on any dockerized-snow bash script
 
 ```shell
-docker pull norlabsnow/snow-autorally-deploy:x86
+cd /path/to/source/code/dir
 
+# Clone both repositories 
+sudo git clone https://github.com/RedLeader962/SNOW-AutoRally.git
 sudo git clone https://github.com/RedLeader962/Dockerized-SNOW.git && cd Dockerized-SNOW
-bash ./run_snow_deploy.bash --x86 --name=MyCrazyContainer
 
-# Open a new interactive terminal with pseudo-TTY inside MyCrazyContainer 
-bash ./open_new_terminal.bash MyCrazyContainer
+# Pull the develop image with x86 tag
+sudo docker pull norlabsnow/snow-autorally-develop:x86
+
+bash run_snow_develop.bash --x86 --name=MyCrazyContainer --src=/absolute/path/to/source/code/dir/SNOW-AutoRally
+#
+#
+#                   .|'''.|  '|.   '|'  ..|''||   '|| '||'  '|'
+#                   ||..  '   |'|   |  .|'    ||   '|. '|.  .'
+#                    ''|||.   | '|. |  ||      ||   ||  ||  |
+#                  .     '||  |   |||  '|.     ||    ||| |||
+#                  |'....|'  .|.   '|   ''|...|'      |   |
+#
+#                               (Dockerized-SNOW)
+#
+#                https://github.com/RedLeader962/Dockerized-SNOW
+#                           https://norlab.ulaval.ca
+#
+#
+# root@snowxavier-desktop:/#
+```
+To open a new interactive terminal with pseudo-TTY inside `MyCrazyContainer`
+```shell 
+bash open_new_terminal.bash MyCrazyContainer
+# root@snowxavier-desktop:/#
 ```
 
 
 Then follow the step at [SNOW-AutoRally: Autonomous Driving in Simulation using MPPI](https://github.com/RedLeader962/SNOW-AutoRally#autonomous-driving-in-simulation-using-mppi)
-```shell
+```docker
 roslaunch autorally_gazebo autoRallyTrackGazeboSim.launch
 
 ...

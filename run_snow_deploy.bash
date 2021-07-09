@@ -3,7 +3,7 @@
 #set -e  # exit script if any statement returns a non-true return value
 
 echo -e "
-\033[1;90m
+\033[1;37m
 
 
                    .|'''.|  '|.   '|'  ..|''||   '|| '||'  '|'
