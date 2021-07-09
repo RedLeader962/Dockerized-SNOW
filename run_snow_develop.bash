@@ -41,9 +41,9 @@ function print_help_in_terminal() {
       ref: https://docs.docker.com/engine/reference/commandline/run/
 
     Recommandation:
-      $ cd my/source/code/dir/
+      $ cd ~/my/source/code/dir/
       $ sudo git clone https://github.com/RedLeader962/SNOW-AutoRally.git
-      $ cd my/source/code/dir/Dockerized-SNOW
+      $ cd ~/my/source/code/dir/Dockerized-SNOW
       $ bash run_snow_develop.bash --name=MyCrazyContainer --src=/absolute/path/to/source/code/dir/SNOW-AutoRally
   "
 }

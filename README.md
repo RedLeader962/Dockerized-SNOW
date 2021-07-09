@@ -50,7 +50,7 @@ diagram &nbsp;)
 - **Tips:** You can use the `--help` flag for usage instruction on any dockerized-snow bash script
 
 ```shell
-cd /path/to/source/code/dir
+cd ~/path/to/source/code/dir
 
 # Clone both repositories 
 sudo git clone https://github.com/RedLeader962/SNOW-AutoRally.git
