@@ -134,4 +134,8 @@ sudo docker run \
   ${HOST_SOURCE_CODE_PATH} \
   --security-opt seccomp=unconfined \
   ${USER_ARG} \
+  --cap-add sys_ptrace \
+  -p10.0.1.7:2222:22 \
   norlabsnow/snow-autorally-develop:${IMAGE_TAG}
+
+# Change -p10.0.1.7:<host port>:<container port> to your host ip adress
