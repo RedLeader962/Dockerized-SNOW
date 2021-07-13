@@ -20,7 +20,6 @@ echo -e "
 \033[0m
 "
 
-
 function print_help_in_terminal() {
 
   echo -e "
@@ -82,7 +81,7 @@ for arg in "$@"; do
     USER_ARG="${USER_ARG} --name ${CONTAINER_NAME}"
     ;;
   --src=?*)
-    WS_DIR="${arg#*=}"         # Remove every character up to the '=' and assign the remainder
+    WS_DIR="${arg#*=}"                                    # Remove every character up to the '=' and assign the remainder
     CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
     WS_DIRNAME=$(basename $WS_DIR)
     HOST_SOURCE_CODE_PATH=" --volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
@@ -92,8 +91,8 @@ for arg in "$@"; do
     shift
     break
     ;;
-  -?*|--?*)
-#    echo $0: $1: unrecognized option >&2 # Note: '>&2' = print to stderr
+  -?* | --?*)
+    #    echo $0: $1: unrecognized option >&2 # Note: '>&2' = print to stderr
     USER_ARG="${USER_ARG} ${arg}"
     shift # Remove generic argument from processing
     ;;
@@ -119,7 +118,16 @@ done
 export DISPLAY=:0
 #echo "export DISPLAY=:0" >> ~/.bashrc
 
+# Note on xhost usage:
+#           $ xhost [[+-][family:]name]
+#
+#   familly:
+#     - local:      contains only one name, the empty string
+#     - inet:       Internet host (IPv4)
+#     - inet6:      Internet host (IPv6)
+#     - si:         Server Interpreted : si:<type>:<value>
 sudo xhost +si:localuser:root
+sudo xhost +si:10.0.1.7:redleader
 
 sudo docker run \
   --runtime nvidia \
