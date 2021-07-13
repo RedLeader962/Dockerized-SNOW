@@ -126,7 +126,6 @@ sudo docker run \
   --interactive \
   --tty \
   --device=/dev/input/js0 \
-#  --network host \
   --env DISPLAY=$DISPLAY \
   --privileged \
   --volume "/tmp/.X11-unix/:/tmp/.X11-unix" \
@@ -138,4 +137,5 @@ sudo docker run \
   ${USER_ARG} \
   norlabsnow/snow-autorally-develop:${IMAGE_TAG}
 
+#  --network host \
 # Change -p10.0.1.7:<host port>:<container port> to your host ip adress
