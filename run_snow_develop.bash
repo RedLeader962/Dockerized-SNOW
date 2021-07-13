@@ -133,7 +133,7 @@ sudo docker run \
   ${HOST_SOURCE_CODE_PATH} \
   --security-opt seccomp=unconfined \
   --cap-add sys_ptrace \
-  -p 2222:22 \
+  -p10.0.1.103:2222:22 \
   ${USER_ARG} \
   norlabsnow/snow-autorally-develop:${IMAGE_TAG}
 
