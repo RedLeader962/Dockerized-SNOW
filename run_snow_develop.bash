@@ -126,7 +126,7 @@ sudo docker run \
   --interactive \
   --tty \
   --device=/dev/input/js0 \
-  --network host \
+#  --network host \
   --env DISPLAY=$DISPLAY \
   --privileged \
   --volume "/tmp/.X11-unix/:/tmp/.X11-unix" \
@@ -135,6 +135,7 @@ sudo docker run \
   --security-opt seccomp=unconfined \
   ${USER_ARG} \
   --cap-add sys_ptrace \
+  -p 2020:20 \
   norlabsnow/snow-autorally-develop:${IMAGE_TAG}
 
 # Change -p10.0.1.7:<host port>:<container port> to your host ip adress
