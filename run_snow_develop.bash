@@ -127,7 +127,6 @@ export DISPLAY=:0
 #     - inet6:      Internet host (IPv6)
 #     - si:         Server Interpreted : si:<type>:<value>
 sudo xhost +si:localuser:root
-sudo xhost +si:10.0.1.7:redleader
 
 sudo docker run \
   --runtime nvidia \
@@ -148,3 +147,4 @@ sudo docker run \
 
 #  -p10.0.1.103:2222:22 \
 # Change -p10.0.1.7:<host port>:<container port> to your host ip adress
+
