@@ -133,6 +133,7 @@ sudo docker run \
   --runtime nvidia \
   --interactive \
   --tty \
+  --network host \
   --device=/dev/input/js0 \
   --env DISPLAY=$DISPLAY \
   --privileged \
@@ -140,10 +141,10 @@ sudo docker run \
   --volume "/etc/localtime:/etc/localtime:ro" \
   ${HOST_SOURCE_CODE_PATH} \
   --security-opt seccomp=unconfined \
+  --security-opt apparmor=unconfined \
   --cap-add sys_ptrace \
-  -p10.0.1.103:2222:22 \
   ${USER_ARG} \
   norlabsnow/snow-autorally-develop:${IMAGE_TAG}
 
-#  --network host \
+#  -p10.0.1.103:2222:22 \
 # Change -p10.0.1.7:<host port>:<container port> to your host ip adress
