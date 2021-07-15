@@ -121,9 +121,15 @@ RUN useradd -m ${NEW_USER} \
 # (Optional) Change default shell for new user
 RUN usermod -s /bin/bash ${NEW_USER}
 
+COPY ros_entrypoint.bash /
+# set read/write permission to entrypoint file and joystick dir js0
+RUN /bin/bash -c "chmod +x /ros_entrypoint.bash"
+
 # The ssh server is started by the entrypoint
 ENTRYPOINT [ "/ros_entrypoint.bash" ]
 CMD [ "bash" ]
+
+#CMD ["/usr/sbin/sshd", "-D", "-e", "-f", "/etc/ssh/sshd_config_test_clion"]
 
 # ///////////////////////////////////////////////////////////////////////////////////// snow-autorally-clion-develop ///
 

@@ -32,6 +32,8 @@ function print_help_in_terminal() {
       --src=<myCoolSrcCode>         Host source code directory to mount inside the container.
                                     Must be an absolute path eg.:
                                         /home/snowxavier/Repositories/SNOW-AutoRally
+      --src=xsa                     Shortcut: ---src=/home/snowxavier/Repositories/SNOW-AutoRally
+      --clion                       Run the version to use with CLion IDE
 
     Note: you can pass any docker run flag as additional argument eg:
       --rm
