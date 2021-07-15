@@ -50,6 +50,7 @@ function print_help_in_terminal() {
 USER_ARG=""
 HOST_SOURCE_CODE_PATH=""
 IMAGE_TAG="arm64-l4t"
+IDE="develop"
 
 # todo:on task end >> delete next bloc ↓↓
 #echo "
@@ -66,6 +67,10 @@ for arg in "$@"; do
     IMAGE_TAG="x86"
     shift # Remove --x86 from processing
     ;;
+  --clion)
+    IDE="clion-develop"
+    shift # Remove --clion from processing
+    ;;
   --name)
     echo "${0} >> pass argument with the equal sign: --name=${2}" >&2 # Note: '>&2' = print to stderr
     echo
@@ -79,6 +84,13 @@ for arg in "$@"; do
   --name=?*)
     CONTAINER_NAME="${arg#*=}" # Remove every character up to the '=' and assign the remainder
     USER_ARG="${USER_ARG} --name ${CONTAINER_NAME}"
+    ;;
+  --src=xsa)
+    WS_DIR="/home/snowxavier/Repositories/SNOW-AutoRally"
+    CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
+    WS_DIRNAME=$(basename $WS_DIR)
+    HOST_SOURCE_CODE_PATH=" --volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+    echo "Source code mapping from host to container: ${WS_DIR} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
     ;;
   --src=?*)
     WS_DIR="${arg#*=}"                                    # Remove every character up to the '=' and assign the remainder
@@ -143,8 +155,9 @@ sudo docker run \
   --security-opt apparmor=unconfined \
   --cap-add sys_ptrace \
   ${USER_ARG} \
-  norlabsnow/snow-autorally-develop:${IMAGE_TAG}
+  norlabsnow/snow-autorally--${IDE}:${IMAGE_TAG}
 
-#  -p10.0.1.103:2222:22 \
+# -td
+# -p10.0.1.103:2222:22 \
 # Change -p10.0.1.7:<host port>:<container port> to your host ip adress
 

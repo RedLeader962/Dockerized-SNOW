@@ -118,6 +118,7 @@ ARG PASSWORD=lasagne
 RUN useradd -m ${NEW_USER} \
   && yes ${PASSWORD} | passwd ${NEW_USER}
 
+# (Optional) Change default shell for new user
 RUN usermod -s /bin/bash ${NEW_USER}
 
 # The ssh server is started by the entrypoint
