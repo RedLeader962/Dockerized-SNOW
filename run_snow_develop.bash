@@ -144,7 +144,7 @@ sudo xhost +si:localuser:root
 
 sudo docker run \
   --runtime nvidia \
-  --hostname snowxavier-dev-container \
+  --hostname snowX-dev-dock \
   --interactive \
   --tty \
   --network host \
