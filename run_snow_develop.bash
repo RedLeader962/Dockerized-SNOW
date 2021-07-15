@@ -155,7 +155,7 @@ sudo docker run \
   --security-opt apparmor=unconfined \
   --cap-add sys_ptrace \
   ${USER_ARG} \
-  norlabsnow/snow-autorally--${IDE}:${IMAGE_TAG}
+  norlabsnow/snow-autorally-${IDE}:${IMAGE_TAG}
 
 # -td
 # -p10.0.1.103:2222:22 \
