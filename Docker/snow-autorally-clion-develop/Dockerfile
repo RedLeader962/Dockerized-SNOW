@@ -113,7 +113,7 @@ EXPOSE ${CLION_DEV_SERVER_PORT}
 EXPOSE 7777
 
 # ...Add new user.......................................................................................................
-ARG NEW_USER=snow-dev
+ARG NEW_USER=snow-clion
 ARG PASSWORD=lasagne
 
 RUN useradd -m ${NEW_USER} \
@@ -128,6 +128,7 @@ COPY /clion_dev_entrypoint.bash /
 # set read/write permission to entrypoint file and joystick dir js0
 RUN /bin/bash -c "chmod +x /clion_dev_entrypoint.bash"
 
+# The ssh server is started by the entrypoint
 ENTRYPOINT [ "/clion_dev_entrypoint.bash" ]
 #CMD ["/usr/sbin/sshd", "-D", "-e", "-f", "/etc/ssh/sshd_config_test_clion"]
 CMD [ "bash" ]
