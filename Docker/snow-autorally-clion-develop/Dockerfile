@@ -126,7 +126,8 @@ RUN usermod -s /bin/bash ${NEW_USER}
 
 # ... Finish container setup ...........................................................................................
 WORKDIR /
-COPY /clion_dev_entrypoint.bash /
+COPY clion_dev_entrypoint.bash /
+COPY fetch_ros_env.bash /
 # set read/write permission to entrypoint file and joystick dir js0
 RUN /bin/bash -c "chmod +x /clion_dev_entrypoint.bash"
 

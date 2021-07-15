@@ -13,23 +13,23 @@ echo "Starting container ssh server on port ${CLION_DEV_SERVER_PORT}"
 
 echo "
     To connect remotely to the container:
-      Default user: ${CLION_DEV_USER}  pass: lasagne
+        Default user: ${CLION_DEV_USER}  pass: lasagne
 
-       $ ssh -p ${CLION_DEV_SERVER_PORT} ${CLION_DEV_USER}@$(hostname -I | awk '{print $1}')
-       $ sftp -P ${CLION_DEV_SERVER_PORT} openssh-$(hostname -I | awk '{print $1}')
-       $ scp -P ${CLION_DEV_SERVER_PORT} source target
-       $ scp -P ${CLION_DEV_SERVER_PORT} /path/to/foo ${CLION_DEV_USER}@$(hostname -I | awk '{print $1}'):/dest/
+        $ ssh -p ${CLION_DEV_SERVER_PORT} ${CLION_DEV_USER}@$(hostname -I | awk '{print $1}')
+        $ sftp -P ${CLION_DEV_SERVER_PORT} openssh-$(hostname -I | awk '{print $1}')
+        $ scp -P ${CLION_DEV_SERVER_PORT} source target
+        $ scp -P ${CLION_DEV_SERVER_PORT} /path/to/foo ${CLION_DEV_USER}@$(hostname -I | awk '{print $1}'):/dest/
 "
 echo "
 
     Use the SNOW-AutoRally build script to compile your code
     and source your ROS environment:
 
-          # bash /build_snow_autorally.bash
+        # bash /build_snow_autorally.bash
 
     When it's done, fecth your environnement variable for CLion using
 
-          # bash /fetch_ros_env.bash
+        # bash /fetch_ros_env.bash
 
 "
 
