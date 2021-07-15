@@ -62,26 +62,26 @@ cd /
 #printenv | grep AR_
 #echo
 
-echo "  Finished building AutoRally, just run"
-echo "      source ~/.bashrc"
-echo "  then run"
-echo "      printenv | grep AR_"
-echo "  to check if AutoRally was properly sourced or open a new terminal"
-echo
-
-
 echo "
-  Done building SNOW-AutoRally.
-  Finale step:
-    1. source your SNOW-AutoRally environment
+  Done building SNOW-AutoRally. Finale step:
+    1. Source your SNOW-AutoRally environment
       # source ~/.bashrc
-    2. check if SNOW-AutoRally was properly sourced
+    2. Check if SNOW-AutoRally was properly sourced
       # printenv | grep AR_
-  or open a new terminal in the container
-    $ bash /open_new_terminal.bash <container name>
+    3. Collect the ROS and SNOW-AutoRally environement variable
+      # bash /fetch_ros_env.bash
+    3. Setup CLion:
+      a. Go to Preference > Build,Execution,Deployment > CMake
+      b. Set CMake > Build directory: <WORKSPACE_DIRECTORY>/build
+          In our case: catkin_ws/build
+      c. Copy/pass the fetch_ros_env.bash output to CMake > Environment
+
+      Note:
+      - DO NOT add -DCATKIN_DEVEL_PREFIX:PATH=<WORKSPACE_DIRECTORY>/devel to CMake > CMake options
+          (Contrary to CLion doc instruction)
+      - No need to  use the start CLion from the same shell procedure from CLion doc
 
 "
-
 
 ## # (ICEBOXED) todo:assessment >> exec bash does not behave like expected!
 #exec bash -i

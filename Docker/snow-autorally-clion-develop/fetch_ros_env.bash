@@ -22,5 +22,12 @@ env_string=""
 for e in ${ros_env}; do
   env_string+="$e=${!e};"
 done
-echo "Copy the following in Clion > Preference > Build,Execution,Deployment > CMake > Environnement"
-echo "$env_string"
+echo "
+  Copy the following in Clion > Preference > Build,Execution,Deployment > CMake > Environment
+
+  $env_string
+
+  Finaly reload the CMake project and start using CLion auto-completion, code hint
+  and debuging tools remotely ... like there is no tomorow!
+
+"

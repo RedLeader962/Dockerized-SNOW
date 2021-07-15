@@ -127,9 +127,12 @@ RUN usermod -s /bin/bash ${NEW_USER}
 # ... Finish container setup ...........................................................................................
 WORKDIR /
 COPY clion_dev_entrypoint.bash /
+COPY build_snow_autorally.bash /
 COPY fetch_ros_env.bash /
 # set read/write permission to entrypoint file and joystick dir js0
-RUN /bin/bash -c "chmod +x /clion_dev_entrypoint.bash"
+RUN /bin/bash -c "chmod +x /clion_dev_entrypoint.bash" \
+    && /bin/bash -c "chmod +x /build_snow_autorally.bash" \
+    && /bin/bash -c "chmod +x /fetch_ros_env.bash"
 
 # The ssh server is started by the entrypoint
 ENTRYPOINT [ "/clion_dev_entrypoint.bash" ]
