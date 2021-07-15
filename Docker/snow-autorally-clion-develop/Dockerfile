@@ -114,6 +114,7 @@ EXPOSE 7777
 
 # ...Add new user.......................................................................................................
 ARG NEW_USER=snow-clion
+ENV CLION_DEV_USER=${NEW_USER}
 ARG PASSWORD=lasagne
 
 RUN useradd -m ${NEW_USER} \
