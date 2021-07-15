@@ -3,7 +3,7 @@
 #set -e  # exit script if any statement returns a non-true return value
 
 # Start ssh server
-bash /usr/sbin/sshd -D -e -f /etc/ssh/sshd_config_clion_snow_dev
+/usr/sbin/sshd -D -e -f /etc/ssh/sshd_config_clion_snow_dev
 
 echo "
 
