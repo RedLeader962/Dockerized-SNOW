@@ -24,7 +24,8 @@ echo "
 
     Use the SNOW-AutoRally build script to compile your code
     and source your ROS environment:
-          \# bash /build_snow_autorally.bash
+
+          # bash /build_snow_autorally.bash
 
 "
 

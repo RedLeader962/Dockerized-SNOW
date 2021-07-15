@@ -97,7 +97,7 @@ sudo xhost +si:localuser:root
 
 sudo docker run \
   --runtime nvidia \
-  --hostname snowX-deploy-dock \
+  --hostname snowxavier-deploy \
   --interactive \
   --tty \
   --device=/dev/input/js0 \

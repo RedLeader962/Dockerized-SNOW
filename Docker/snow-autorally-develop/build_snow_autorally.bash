@@ -50,6 +50,7 @@ echo "  then run"
 echo "      printenv | grep AR_"
 echo "  to check if AutoRally was properly sourced or open a new terminal"
 echo
+echo "  Note for CLion: # bash /fetch_ros_env.bash"
 
 ## # (ICEBOXED) todo:assessment >> exec bash does not behave like expected!
 #exec bash -i
