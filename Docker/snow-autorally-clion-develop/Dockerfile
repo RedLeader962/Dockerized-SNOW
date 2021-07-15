@@ -107,7 +107,8 @@ RUN ( \
   && mkdir /run/sshd
 
 # ssh port, remaped from default 22 to 2222
-EXPOSE 2222
+ENV CLION_DEV_SERVER_PORT=2222
+EXPOSE ${CLION_DEV_SERVER_PORT}
 # gdbserver port
 EXPOSE 7777
 
