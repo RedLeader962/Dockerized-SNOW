@@ -22,6 +22,24 @@ autorally_env_setup="${DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/autorally_
 echo "source ${autorally_env_setup}" >> ~/.bashrc
 
 
+echo -e "
+\033[1;2m
+
+
+                   .|'''.|  '|.   '|'  ..|''||   '|| '||'  '|'
+                   ||..  '   |'|   |  .|'    ||   '|. '|.  .'
+                    ''|||.   | '|. |  ||      ||   ||  ||  |
+                  .     '||  |   |||  '|.     ||    ||| |||
+                  |'....|'  .|.   '|   ''|...|'      |   |
+
+                               (Dockerized-SNOW)
+
+                https://github.com/RedLeader962/Dockerized-SNOW
+                           https://norlab.ulaval.ca
+
+\033[0m
+"
+
 JOYSTICK_ZERO="/dev/input/js0"
 # The '-c' flag is a character device file test operator
 if [[ -c "$JOYSTICK_ZERO" ]]; then
