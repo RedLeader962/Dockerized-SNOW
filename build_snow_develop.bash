@@ -42,6 +42,7 @@ function print_help_in_terminal() {
 USER_ARG=""
 IMAGE_TAG="arm64-l4t"
 BASE_IMG_ARG=""
+IDE="develop"
 
 ## todo:on task end >> delete next bloc ↓↓
 #echo "
@@ -59,6 +60,10 @@ for arg in "$@"; do
     IMAGE_TAG="x86"
     BASE_IMG_ARG=" --build-arg BASE_IMG_TAG=x86"
     shift # Remove --x86 from processing
+    ;;
+  --clion)
+    IDE="clion-develop"
+    shift # Remove --clion from processing
     ;;
   --)
     shift
@@ -86,8 +91,8 @@ done
 #"
 
 sudo docker build \
-  -t norlabsnow/snow-autorally-develop:${IMAGE_TAG} \
-  -f ./Docker/snow-autorally-develop/Dockerfile \
+  -t norlabsnow/snow-autorally-${IDE}:${IMAGE_TAG} \
+  -f ./Docker/snow-autorally-${IDE}/Dockerfile \
   ${BASE_IMG_ARG} \
   ${USER_ARG} \
-  ./Docker/snow-autorally-develop
+  ./Docker/snow-autorally-${IDE}
