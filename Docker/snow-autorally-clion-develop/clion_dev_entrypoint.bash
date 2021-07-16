@@ -27,10 +27,12 @@ echo "
 
         # bash /build_snow_autorally.bash
 
-    When it's done, fecth your environnement variable for CLion using
-
-        # bash /fetch_ros_env.bash
-
 "
+
+#echo "    When it's done, fecth your environnement variable for CLion using
+#
+#        # bash /fetch_ros_env.bash
+#
+#"
 
 exec "$@"

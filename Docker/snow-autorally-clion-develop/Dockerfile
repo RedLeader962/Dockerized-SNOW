@@ -23,6 +23,10 @@
 
 # /// snow-autorally-clion-develop /////////////////////////////////////////////////////////////////////////////////////
 #
+# Purpose:
+#   - build source file remotly
+#   - use remote GDB debugging tools
+#
 # Usage:
 #
 #   $ docker run -td \
@@ -44,6 +48,8 @@
 #       Ref: https://austinmorlan.com/posts/docker_clion_development/
 #
 # Connecting to the container:
+#   Running sshd inside a container is not recommended normaly but it's a requirement in our case
+#       https://docs.docker.com/samples/running_ssh_service/
 #
 #   ssh in the container using:
 #      $ ssh <user>@<remote host ip> -p2222

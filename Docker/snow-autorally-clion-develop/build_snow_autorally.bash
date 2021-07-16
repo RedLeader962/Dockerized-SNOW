@@ -74,12 +74,9 @@ echo "
       a. Go to Preference > Build,Execution,Deployment > CMake
       b. Set CMake > Build directory: <WORKSPACE_DIRECTORY>/build
           In our case: catkin_ws/build
-      c. Copy/pass the fetch_ros_env.bash output to CMake > Environment
-
-      Note:
-      - DO NOT add -DCATKIN_DEVEL_PREFIX:PATH=<WORKSPACE_DIRECTORY>/devel to CMake > CMake options
-          (Contrary to CLion doc instruction)
-      - No need to  use the start CLion from the same shell procedure from CLion doc
+      c. Set CMake > CMake options: --trace -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=../install -DCATKIN_DEVEL_PREFIX=../devel
+      d. Copy/pass the fetch_ros_env.bash output to CMake > Environment
+          It's a workaround to the «start CLion from the same shell» procedure of the CLion doc
 
 "
 

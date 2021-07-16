@@ -28,6 +28,6 @@ echo "
   $env_string
 
   Finaly reload the CMake project and start using CLion auto-completion, code hint
-  and debuging tools remotely ... like there is no tomorow!
+  and remote GDB debuging tools ... like there is no tomorow!
 
 "
