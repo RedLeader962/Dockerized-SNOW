@@ -99,6 +99,7 @@ RUN apt-get update \
         tar \
 #        python \
         gdbserver \
+        tree \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -120,15 +121,16 @@ EXPOSE ${CLION_DEV_SERVER_PORT}
 EXPOSE 7777
 
 # ...Add new user.......................................................................................................
-ARG NEW_USER=snow-clion
+ARG NEW_USER=clion-debugger
 ENV CLION_DEV_USER=${NEW_USER}
 ARG PASSWORD=lasagne
 
+RUN echo 'root:SNOW' | chpasswd
 RUN useradd -m ${NEW_USER} \
   && yes ${PASSWORD} | passwd ${NEW_USER}
 
 # (Optional) Change default shell for new user
-RUN usermod -s /bin/bash ${NEW_USER}
+#RUN usermod -s /bin/bash ${NEW_USER}
 
 # ... Finish container setup ...........................................................................................
 WORKDIR /
