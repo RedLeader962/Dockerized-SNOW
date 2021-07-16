@@ -144,7 +144,6 @@ sudo xhost +si:localuser:root
 
 sudo docker run \
   --runtime nvidia \
-  --hostname snowxavier-dev \
   --interactive \
   --tty \
   --network host \
@@ -160,6 +159,7 @@ sudo docker run \
   ${USER_ARG} \
   norlabsnow/snow-autorally-${IDE}:${IMAGE_TAG}
 
+#  --hostname snowxavier-dev \
 # -td
 # -p10.0.1.103:2222:22 \
 # Change -p10.0.1.7:<host port>:<container port> to your host ip adress

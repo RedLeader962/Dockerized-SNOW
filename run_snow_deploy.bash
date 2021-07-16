@@ -97,7 +97,6 @@ sudo xhost +si:localuser:root
 
 sudo docker run \
   --runtime nvidia \
-  --hostname snowxavier-deploy \
   --interactive \
   --tty \
   --device=/dev/input/js0 \
@@ -108,3 +107,5 @@ sudo docker run \
   --volume "/etc/localtime:/etc/localtime:ro" \
   ${USER_ARG} \
   norlabsnow/snow-autorally-deploy:${IMAGE_TAG}
+
+#  --hostname snowxavier-deploy \
