@@ -1,28 +1,5 @@
-# Ref:
-#   - https://github.com/JetBrains/clion-remote/blob/master/Dockerfile.remote-cpp-env
-#   - https://blog.jetbrains.com/clion/2020/01/using-docker-with-clion/
-
-# ❯❯❯ Original comment ❯❯❯ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-# CLion remote docker environment (How to build docker container, run and stop it)
-#
-# Build and run:
-#   docker build -t clion/remote-cpp-env:0.5 -f Dockerfile.remote-cpp-env .
-#   docker run -d --cap-add sys_ptrace -p127.0.0.1:2222:22 --name clion_remote_env clion/remote-cpp-env:0.5
-#   ssh-keygen -f "$HOME/.ssh/known_hosts" -R "[localhost]:2222"
-#
-# stop:
-#   docker stop clion_remote_env
-#
-# ssh credentials (test user):
-#   user@password
-#  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .❮❮❮ Original comment ❮❮❮
-
-#FROM ubuntu:20.04
-#
-#RUN DEBIAN_FRONTEND="noninteractive" apt-get update && apt-get -y install tzdata
 
 # /// snow-autorally-clion-develop /////////////////////////////////////////////////////////////////////////////////////
-#
 # Purpose:
 #   - build source file remotly
 #   - use remote GDB debugging tools
@@ -67,18 +44,10 @@
 #       $ scp -P {port} source target
 #       $ scp -P {port} /path/to/foo user@<remote host ip>>:/dest/
 #
-# Fetching the ROS environent variable
-#   1. source/build your ROS distro or run:
-#           $ bash build_snow_autorally.bash
-#   2. Collect the environment variable with this script:
-#       ros_env="AMENT_PREFIX_PATH CMAKE_PREFIX_PATH COLCON_PREFIX_PATH PKG_CONFIG_PATH PYTHONPATH LD_LIBRARY_PATH PATH ROS_DISTRO ROS_PYTHON_VERSION ROS_LOCALHOST_ONLY ROS_VERSION"
-#       env_string=""
-#       for e in ${ros_env}; do
-#           env_string+="$e=${!e};"
-#       done
-#       echo "$env_string"
 #
-# Credit: https://www.allaban.me/posts/2020/08/ros2-setup-ide-docker/
+# Ref:
+#   - https://github.com/JetBrains/clion-remote/blob/master/Dockerfile.remote-cpp-env
+#   - https://blog.jetbrains.com/clion/2020/01/using-docker-with-clion/
 
 ARG  BASE_IMG_TAG=arm64-l4t
 FROM norlabsnow/snow-autorally-develop:${BASE_IMG_TAG}
