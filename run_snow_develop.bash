@@ -28,12 +28,13 @@ function print_help_in_terminal() {
     <optional argument>:
       -h, --help                    Get help
       --x86                         Get the image version compiled for x86 workstation
+      --clion                       Run the version to use with CLion IDE
       --name=<myCoolContainer>      Name that new container, the crazier the better
+      --name=xc                     Shortcut: ---name=xavier_red_clion
       --src=<myCoolSrcCode>         Host source code directory to mount inside the container.
                                     Must be an absolute path eg.:
                                         /home/snowxavier/Repositories/SNOW_AutoRally
       --src=xsa                     Shortcut: ---src=/home/snowxavier/Repositories/SNOW_AutoRally
-      --clion                       Run the version to use with CLion IDE
 
     Note: you can pass any docker run flag as additional argument eg:
       --rm
