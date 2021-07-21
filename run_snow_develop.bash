@@ -157,6 +157,7 @@ sudo docker run \
   --privileged \
   --volume "/tmp/.X11-unix/:/tmp/.X11-unix" \
   --volume "/etc/localtime:/etc/localtime:ro" \
+  --volume "/home/snowxavier/Repositories/wt_data:/mnt/wt_data:ro" \
   ${HOST_SOURCE_CODE_PATH} \
   --security-opt seccomp=unconfined \
   --security-opt apparmor=unconfined \
