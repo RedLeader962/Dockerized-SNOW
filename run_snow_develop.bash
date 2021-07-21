@@ -87,6 +87,10 @@ for arg in "$@"; do
     CONTAINER_NAME="${arg#*=}" # Remove every character up to the '=' and assign the remainder
     USER_ARG="${USER_ARG} --name ${CONTAINER_NAME}"
     ;;
+  --name=xc)
+    CONTAINER_NAME="xavier_red_clion" # Remove every character up to the '=' and assign the remainder
+    USER_ARG="${USER_ARG} --name ${CONTAINER_NAME}"
+    ;;
   --src=xsa)
     WS_DIR="/home/snowxavier/Repositories/SNOW_AutoRally"
     CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
