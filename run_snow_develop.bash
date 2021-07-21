@@ -84,12 +84,12 @@ for arg in "$@"; do
     echo
     exit
     ;;
-  --name=?*)
-    CONTAINER_NAME="${arg#*=}" # Remove every character up to the '=' and assign the remainder
-    USER_ARG="${USER_ARG} --name ${CONTAINER_NAME}"
-    ;;
   --name=xc)
     CONTAINER_NAME="xavier_red_clion" # Remove every character up to the '=' and assign the remainder
+    USER_ARG="${USER_ARG} --name ${CONTAINER_NAME}"
+    ;;
+  --name=?*)
+    CONTAINER_NAME="${arg#*=}" # Remove every character up to the '=' and assign the remainder
     USER_ARG="${USER_ARG} --name ${CONTAINER_NAME}"
     ;;
   --src=xsa)
