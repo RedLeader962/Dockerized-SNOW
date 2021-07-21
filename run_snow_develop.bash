@@ -31,8 +31,8 @@ function print_help_in_terminal() {
       --name=<myCoolContainer>      Name that new container, the crazier the better
       --src=<myCoolSrcCode>         Host source code directory to mount inside the container.
                                     Must be an absolute path eg.:
-                                        /home/snowxavier/Repositories/SNOW-AutoRally
-      --src=xsa                     Shortcut: ---src=/home/snowxavier/Repositories/SNOW-AutoRally
+                                        /home/snowxavier/Repositories/SNOW_AutoRally
+      --src=xsa                     Shortcut: ---src=/home/snowxavier/Repositories/SNOW_AutoRally
       --clion                       Run the version to use with CLion IDE
 
     Note: you can pass any docker run flag as additional argument eg:
@@ -43,9 +43,9 @@ function print_help_in_terminal() {
 
     Recommandation:
       $ cd ~/my/source/code/dir/
-      $ sudo git clone https://github.com/RedLeader962/SNOW-AutoRally.git
+      $ sudo git clone https://github.com/RedLeader962/SNOW_AutoRally.git
       $ cd ~/my/source/code/dir/Dockerized-SNOW
-      $ bash run_snow_develop.bash --name=MyCrazyContainer --src=/absolute/path/to/source/code/dir/SNOW-AutoRally
+      $ bash run_snow_develop.bash --name=MyCrazyContainer --src=/absolute/path/to/source/code/dir/SNOW_AutoRally
   "
 }
 
@@ -88,7 +88,7 @@ for arg in "$@"; do
     USER_ARG="${USER_ARG} --name ${CONTAINER_NAME}"
     ;;
   --src=xsa)
-    WS_DIR="/home/snowxavier/Repositories/SNOW-AutoRally"
+    WS_DIR="/home/snowxavier/Repositories/SNOW_AutoRally"
     CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
     WS_DIRNAME=$(basename $WS_DIR)
     HOST_SOURCE_CODE_PATH=" --volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"

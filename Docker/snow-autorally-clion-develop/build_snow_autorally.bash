@@ -63,12 +63,12 @@ cd /
 #echo
 
 echo "
-  Done building SNOW-AutoRally. Finale step:
-    1. Source your SNOW-AutoRally environment
+  Done building SNOW_AutoRally. Finale step:
+    1. Source your SNOW_AutoRally environment
       # source ~/.bashrc
-    2. Check if SNOW-AutoRally was properly sourced
+    2. Check if SNOW_AutoRally was properly sourced
       # printenv | grep AR_
-    3. Collect the ROS and SNOW-AutoRally environement variable
+    3. Collect the ROS and SNOW_AutoRally environement variable
       # bash /fetch_ros_env.bash
     3. Setup CLion:
       a. Go to Preference > Build,Execution,Deployment > CMake

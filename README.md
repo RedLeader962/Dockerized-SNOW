@@ -6,7 +6,7 @@
 </div>
 
 # _/// Dockerized SNOW //////////////////////////////////////////_
-Containerized workflow for the NorLab _SNOW-AutoRally_ project leveraging [_nvidia-docker_](https://github.com/NVIDIA/nvidia-docker) technology
+Containerized workflow for the NorLab _SNOW_AutoRally_ project leveraging [_nvidia-docker_](https://github.com/NVIDIA/nvidia-docker) technology
 
 <div align="left">
 <p>
@@ -16,7 +16,7 @@ Containerized workflow for the NorLab _SNOW-AutoRally_ project leveraging [_nvid
 (Youtrack) &nbsp; • &nbsp;  
 <a href="https://hub.docker.com/u/norlabsnow">norlabsnow</a>
 (Docker Hub) &nbsp; • &nbsp; 
-<a href="https://github.com/RedLeader962/autorally">SNOW-AutoRally</a>
+<a href="https://github.com/RedLeader962/SNOW_AutoRally">SNOW_AutoRally</a>
 (GitHub)
 &nbsp;
 </sup>
@@ -53,13 +53,13 @@ diagram &nbsp;)
 cd ~/path/to/source/code/dir
 
 # Clone both repositories 
-sudo git clone https://github.com/RedLeader962/SNOW-AutoRally.git
+sudo git clone https://github.com/RedLeader962/SNOW_AutoRally.git
 sudo git clone https://github.com/RedLeader962/Dockerized-SNOW.git && cd Dockerized-SNOW
 
 # Pull the develop image with x86 tag
 sudo docker pull norlabsnow/snow-autorally-develop:x86
 
-bash run_snow_develop.bash --x86 --name=MyCrazyContainer --src=/absolute/path/to/source/code/dir/SNOW-AutoRally
+bash run_snow_develop.bash --x86 --name=MyCrazyContainer --src=/absolute/path/to/source/code/dir/SNOW_AutoRally
 #
 #
 #                   .|'''.|  '|.   '|'  ..|''||   '|| '||'  '|'
@@ -83,7 +83,7 @@ bash open_new_terminal.bash MyCrazyContainer
 ```
 
 
-Then follow the step at [SNOW-AutoRally: Autonomous Driving in Simulation using MPPI](https://github.com/RedLeader962/SNOW-AutoRally#autonomous-driving-in-simulation-using-mppi)
+Then follow the step at [SNOW_AutoRally: Autonomous Driving in Simulation using MPPI](https://github.com/RedLeader962/SNOW_AutoRally#autonomous-driving-in-simulation-using-mppi)
 ```docker
 roslaunch autorally_gazebo autoRallyTrackGazeboSim.launch
 
@@ -99,7 +99,7 @@ roslaunch autorally_gazebo autoRallyTrackGazeboSim.launch
 
 ### How-to
 - [**How-to _nvidia-docker_ manualy (a quick start)**](how_to_readme/README_docker_manualy_quickstart.md)
-- [**Test AutoRally Configuration (**Revised instruction**)**](https://github.com/RedLeader962/SNOW-AutoRally#test-autorally-configuration-in-gazebo-revised-instruction)
+- [**Test AutoRally Configuration (**Revised instruction**)**](https://github.com/RedLeader962/SNOW_AutoRally#test-autorally-configuration-in-gazebo-revised-instruction)
 - [How-to push image localy builded image to docker hub from command line](how_to_readme/README_push_to_dockerhub.md)
 
 

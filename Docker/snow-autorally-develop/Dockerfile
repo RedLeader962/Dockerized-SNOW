@@ -4,7 +4,7 @@
 ARG  BASE_IMG_TAG=arm64-l4t
 FROM norlabsnow/ros-melodic-snow-autorally-dependencies:${BASE_IMG_TAG}
 
-ARG SRC_CODE_REPOSITORY_NAME=SNOW-AutoRally
+ARG SRC_CODE_REPOSITORY_NAME=SNOW_AutoRally
 # Note: `SRC_CODE_REPOSITORY_NAME` is required by the build_snow_autorally.bash script
 ENV SRC_CODE_REPOSITORY_NAME=${SRC_CODE_REPOSITORY_NAME}
 

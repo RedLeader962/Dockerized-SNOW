@@ -71,11 +71,11 @@ echo
 
 
 echo "
-  Done building SNOW-AutoRally.
+  Done building SNOW_AutoRally.
   Finale step:
-    1. source your SNOW-AutoRally environment
+    1. source your SNOW_AutoRally environment
       # source ~/.bashrc
-    2. check if SNOW-AutoRally was properly sourced
+    2. check if SNOW_AutoRally was properly sourced
       # printenv | grep AR_
   or open a new terminal in the container
     $ bash /open_new_terminal.bash <container name>

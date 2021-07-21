@@ -32,7 +32,7 @@ function print_help_in_terminal() {
     Default compilation: arm64 with Linux for Tegra (L4T) os
 
     Note: you can pass any docker build flag as additional argument eg:
-      --build-arg=\"SRC_CODE_REPOSITORY_NAME=SNOW-AutoRally\"
+      --build-arg=\"SRC_CODE_REPOSITORY_NAME=SNOW_AutoRally\"
 
     Ref. docker build command:
       - https://docs.docker.com/engine/reference/commandline/build/
