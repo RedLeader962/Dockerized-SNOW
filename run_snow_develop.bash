@@ -157,7 +157,6 @@ sudo docker run \
   --runtime nvidia \
   --interactive \
   --tty \
-  --detach \
   --network host \
   --device=/dev/input/js0 \
   --env DISPLAY=$DISPLAY \
