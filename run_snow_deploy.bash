@@ -65,6 +65,7 @@ for arg in "$@"; do
   --name=?*)
     CONTAINER_NAME="${arg#*=}" # Remove every character up to the '=' and assign the remainder
     USER_ARG="${USER_ARG} --name ${CONTAINER_NAME}"
+    echo "\nnew container name: ${CONTAINER_NAME}\n"
     ;;
   --)
     shift

@@ -87,10 +87,12 @@ for arg in "$@"; do
   --name=xc)
     CONTAINER_NAME="xavier_red_clion" # Remove every character up to the '=' and assign the remainder
     USER_ARG="${USER_ARG} --name ${CONTAINER_NAME}"
+    echo "\nnew container name: ${CONTAINER_NAME}\n"
     ;;
   --name=?*)
     CONTAINER_NAME="${arg#*=}" # Remove every character up to the '=' and assign the remainder
     USER_ARG="${USER_ARG} --name ${CONTAINER_NAME}"
+    echo "\nnew container name: ${CONTAINER_NAME}\n"
     ;;
   --src=xsa)
     WS_DIR="/home/snowxavier/Repositories/SNOW_AutoRally"
