@@ -72,6 +72,19 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+# ...development tools & libraries......................................................................................
+RUN apt-get update \
+    && apt-get upgrade --assume-yes \
+    && apt-get install --assume-yes --no-install-recommends \
+        python-pip \
+        python-wheel \
+        python-virtualenv \
+        python-pytest \
+        python-setuptools \
+        python-termcolor \
+        python-frozendict \
+    && rm -rf /var/lib/apt/lists/*
+
 # ...Setup ssh server...................................................................................................
 RUN ( \
     echo 'LogLevel DEBUG2'; \
