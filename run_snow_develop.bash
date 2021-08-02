@@ -72,7 +72,7 @@ for arg in "$@"; do
     shift # Remove --x86 from processing
     ;;
   --XavierWarthog)
-    IMAGE_TAG="${IMAGE_TAG}-XavierWarthog"
+    USER_ARG="${USER_ARG} -e HOST_TYPE=XavierWarthog"
     shift # Remove --XavierWarthog from processing
     ;;
   --clion)

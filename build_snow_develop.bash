@@ -27,7 +27,6 @@ function print_help_in_terminal() {
       -h, --help                Get help
       --x86                     Get the image version compiled for x86 workstation
       --clion                   Build the version to use with CLion IDE
-      --XavierWarthog           Use it for container deployed on the Warthog
 
     Default compilation: arm64 with Linux for Tegra (L4T) os
 
@@ -59,11 +58,6 @@ for arg in "$@"; do
     IMAGE_TAG="x86"
     BASE_IMG_ARG=" --build-arg BASE_IMG_TAG=x86"
     shift # Remove --x86 from processing
-    ;;
-  --XavierWarthog)
-    IMAGE_TAG="${IMAGE_TAG}-XavierWarthog"
-    USER_ARG="${USER_ARG} --build-arg HOST_TYPE=XavierWarthog"
-    shift # Remove --XavierWarthog from processing
     ;;
   --clion)
     IDE="clion-develop"
