@@ -21,6 +21,8 @@ ARG SRC_CODE_DOMAIN_NAME=RedLeader962
 ENV SRC_CODE_DOMAIN_NAME=${SRC_CODE_DOMAIN_NAME}
 ARG DEV_BRANCH=SNOW-melodic-devel
 
+ARG HOST_TYPE=Local # or XavierWarthog
+ENV HOST_TYPE=${HOST_TYPE}
 
 WORKDIR ${DEV_WORKSPACE}/src
 RUN echo "Pull latest ${DEV_BRANCH} branch" \
@@ -36,7 +38,8 @@ RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
         && catkin_make"
 
 # Environment setup
-RUN echo ". ${DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/autorally_util/setupEnvLocal.sh" >> ~/.bashrc
+#RUN echo ". ${DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/autorally_util/setupEnvLocal.sh" >> ~/.bashrc
+RUN echo ". ${DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/autorally_util/setupEnv${HOST_TYPE}.sh" >> ~/.bashrc
 
 
 ## ... Generate Documentation ..........................................................................................

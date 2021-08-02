@@ -28,6 +28,7 @@ function print_help_in_terminal() {
     <optional argument>:
       -h, --help                Get help
       --x86                     Get the image version compiled for x86 workstation
+      --XavierWarthog           Use it for container deployed on the Warthog
       --name=<myCoolContainer>  Name that new container, the crazier the better
 
     Note: you can pass any docker run flag as additional argument eg:
@@ -56,6 +57,10 @@ for arg in "$@"; do
   --x86)
     IMAGE_TAG="x86"
     shift # Remove --x86 from processing
+    ;;
+  --XavierWarthog)
+    IMAGE_TAG="${IMAGE_TAG}-XavierWarthog"
+    shift # Remove --XavierWarthog from processing
     ;;
   --name)
     echo "${0} >> pass argument with the equal sign: --name=${2}" >&2 # Note: '>&2' = print to stderr

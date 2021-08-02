@@ -8,6 +8,9 @@ ARG SRC_CODE_REPOSITORY_NAME=SNOW_AutoRally
 # Note: `SRC_CODE_REPOSITORY_NAME` is required by the build_snow_autorally.bash script
 ENV SRC_CODE_REPOSITORY_NAME=${SRC_CODE_REPOSITORY_NAME}
 
+ARG HOST_TYPE=Local # or XavierWarthog
+ENV HOST_TYPE=${HOST_TYPE}
+
 # ... Finish container setup ...........................................................................................
 WORKDIR /
 COPY build_snow_autorally.bash /

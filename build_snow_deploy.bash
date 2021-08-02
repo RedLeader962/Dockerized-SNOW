@@ -26,6 +26,7 @@ function print_help_in_terminal() {
     <optional argument>:
       -h, --help                Get help
       --x86                     Get the image version compiled for x86 workstation
+      --XavierWarthog           Use it for container deployed on the Warthog
 
     Default compilation: arm64 with Linux for Tegra (L4T) os
 
@@ -39,7 +40,6 @@ function print_help_in_terminal() {
   "
 }
 
-
 USER_ARG=""
 IMAGE_TAG="arm64-l4t"
 BASE_IMG_ARG=""
@@ -48,7 +48,6 @@ BASE_IMG_ARG=""
 #echo "
 #${0}: all arg >> ${@}
 #"
-
 
 for arg in "$@"; do
   case $arg in
@@ -61,12 +60,17 @@ for arg in "$@"; do
     BASE_IMG_ARG=" --build-arg BASE_IMG_TAG=x86"
     shift # Remove --x86 from processing
     ;;
+  --XavierWarthog)
+    IMAGE_TAG="${IMAGE_TAG}-XavierWarthog"
+    USER_ARG="${USER_ARG} --build-arg HOST_TYPE=XavierWarthog"
+    shift # Remove --XavierWarthog from processing
+    ;;
   --)
     shift
     break
     ;;
-  -?*|--?*)
-#    echo $0: $1: unrecognized option >&2 # Note: '>&2' = print to stderr
+  -?* | --?*)
+    #    echo $0: $1: unrecognized option >&2 # Note: '>&2' = print to stderr
     USER_ARG="${USER_ARG} ${arg}"
     shift # Remove generic argument from processing
     ;;

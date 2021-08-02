@@ -29,6 +29,7 @@ function print_help_in_terminal() {
       -h, --help                    Get help
       --x86                         Get the image version compiled for x86 workstation
       --clion                       Run the version to use with CLion IDE
+      --XavierWarthog               Use it for container deployed on the Warthog
       --name=<myCoolContainer>      Name that new container, the crazier the better
       --name=xc                     Shortcut: ---name=xavier_red_clion
       --src=<myCoolSrcCode>         Host source code directory to mount inside the container.
@@ -69,6 +70,10 @@ for arg in "$@"; do
   --x86)
     IMAGE_TAG="x86"
     shift # Remove --x86 from processing
+    ;;
+  --XavierWarthog)
+    IMAGE_TAG="${IMAGE_TAG}-XavierWarthog"
+    shift # Remove --XavierWarthog from processing
     ;;
   --clion)
     IDE="clion-develop"
@@ -177,4 +182,3 @@ sudo docker run \
 # -td
 # -p10.0.1.103:2222:22 \
 # Change -p10.0.1.7:<host port>:<container port> to your host ip adress
-
