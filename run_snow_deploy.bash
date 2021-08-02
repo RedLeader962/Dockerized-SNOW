@@ -96,7 +96,17 @@ done
 export DISPLAY=:0
 #echo "export DISPLAY=:0" >> ~/.bashrc
 
-sudo xhost +si:localuser:root
+# Note on xhost usage:
+#           $ xhost [[+-][family:]name]
+#
+#   familly:
+#     - local:      contains only one name, the empty string
+#     - inet:       Internet host (IPv4)
+#     - inet6:      Internet host (IPv6)
+#     - si:         Server Interpreted : si:<type>:<value>
+
+#sudo xhost +si:localuser:root
+sudo xhost + # (Priority) todo:fixme!! (ref task NLSAR-189)
 
 sudo docker run \
   --runtime nvidia \

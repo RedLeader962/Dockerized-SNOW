@@ -151,7 +151,9 @@ export DISPLAY=:0
 #     - inet:       Internet host (IPv4)
 #     - inet6:      Internet host (IPv6)
 #     - si:         Server Interpreted : si:<type>:<value>
-sudo xhost +si:localuser:root
+
+#sudo xhost +si:localuser:root
+sudo xhost + # (Priority) todo:fixme!! (ref task NLSAR-189)
 
 sudo docker run \
   --runtime nvidia \
