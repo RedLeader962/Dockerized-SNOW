@@ -180,7 +180,7 @@ RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
 WORKDIR "${DEV_WORKSPACE}/src"
 RUN git clone https://github.com/AutoRally/imu_3dm_gx4.git \
     && git clone https://github.com/ros-drivers/pointgrey_camera_driver.git \
-    && git clone https://github.com/norlab-ulaval/icp_odom_with_twist
+    && git clone https://github.com/norlab-ulaval/icp_odom_with_twist.git
 
 
 WORKDIR "${DEV_WORKSPACE}"
