@@ -5,7 +5,7 @@
 <br>
 </div>
 
-# _/// Dockerized SNOW //////////////////////////////////////////_
+# _/// Dockerized SNOW ////////////////////////////////////////_
 Containerized workflow for the NorLab _SNOW_AutoRally_ project leveraging [_nvidia-docker_](https://github.com/NVIDIA/nvidia-docker) technology
 
 <div align="left">
