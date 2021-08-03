@@ -160,6 +160,9 @@ export DISPLAY=:0
 #sudo xhost +si:localuser:root
 sudo xhost + # (Priority) todo:fixme!! (ref task NLSAR-189)
 
+# (CRITICAL) todo:on task end >> delete line ↓↓
+echo ${USER_ARG}
+
 sudo docker run \
   --runtime nvidia \
   --interactive \
