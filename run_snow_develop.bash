@@ -134,13 +134,13 @@ for arg in "$@"; do
   shift
 done
 
-## todo:on task end >> delete next bloc ↓↓
-#echo "
-#${0}:
-#  USER_ARG >> ${USER_ARG}
-#  HOST_SOURCE_CODE_PATH >> ${HOST_SOURCE_CODE_PATH}
-#  IMAGE_TAG >> ${IMAGE_TAG}
-#"
+## todo:on task end >> mute next bloc ↓↓
+echo "
+${0}:
+  USER_ARG >> ${USER_ARG}
+  HOST_SOURCE_CODE_PATH >> ${HOST_SOURCE_CODE_PATH}
+  IMAGE_TAG >> ${IMAGE_TAG}
+"
 
 ## todo:assessment (ref task NLSAR-159 Fix the execute permission of source code mounted volume)
 #sudo chmod --recursive +x "${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
@@ -160,8 +160,6 @@ export DISPLAY=:0
 #sudo xhost +si:localuser:root
 sudo xhost + # (Priority) todo:fixme!! (ref task NLSAR-189)
 
-# (CRITICAL) todo:on task end >> delete line ↓↓
-echo ${USER_ARG}
 
 sudo docker run \
   --runtime nvidia \
