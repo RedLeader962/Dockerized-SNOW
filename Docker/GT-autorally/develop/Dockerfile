@@ -1,11 +1,11 @@
 
-# /// snow-autorally-develop ///////////////////////////////////////////////////////////////////////////////////////////
+# /// GT-autorally/develop ///////////////////////////////////////////////////////////////////////////////////////////
 
 ARG  BASE_IMG_TAG=arm64-l4t
-FROM norlabsnow/ros-melodic-snow-autorally-dependencies:${BASE_IMG_TAG}
+FROM norlabsnow/GT-autorally/dependencies:${BASE_IMG_TAG}
 
 ARG SRC_CODE_REPOSITORY_NAME=SNOW_AutoRally
-# Note: `SRC_CODE_REPOSITORY_NAME` is required by the build_snow_autorally.bash script
+# Note: `SRC_CODE_REPOSITORY_NAME` is required by the build_gt_autorally.bash script
 ENV SRC_CODE_REPOSITORY_NAME=${SRC_CODE_REPOSITORY_NAME}
 
 ARG HOST_TYPE=Local # or XavierWarthog
@@ -13,16 +13,16 @@ ENV HOST_TYPE=${HOST_TYPE}
 
 # ... Finish container setup ...........................................................................................
 WORKDIR /
-COPY build_snow_autorally.bash /
+COPY build_gt_autorally.bash /
 COPY ros_entrypoint.bash /
 # set read/write permission to entrypoint file and joystick dir js0
 RUN /bin/bash -c "chmod +x /ros_entrypoint.bash" \
-    && /bin/bash -c "chmod +x /build_snow_autorally.bash"
+    && /bin/bash -c "chmod +x /build_gt_autorally.bash"
 
 ENTRYPOINT [ "/ros_entrypoint.bash" ]
 CMD [ "bash" ]
 
-# /////////////////////////////////////////////////////////////////////////////////////////// snow-autorally-develop ///
+# /////////////////////////////////////////////////////////////////////////////////////////// GT-autorally/develop ///
 
 
 

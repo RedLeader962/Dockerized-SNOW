@@ -1,5 +1,5 @@
 
-# /// snow-autorally-clion-develop /////////////////////////////////////////////////////////////////////////////////////
+# /// GT-autorally/clion-develop /////////////////////////////////////////////////////////////////////////////////////
 # Purpose:
 #   - build source file remotly
 #   - use remote GDB debugging tools
@@ -12,7 +12,7 @@
 #                --cap-add sys_ptrace \
 #                --security-opt seccomp=unconfined \
 #                --security-opt apparmor=unconfined \
-#                norlabsnow:snow-autorally-clion-develop:arm64-l4t
+#                norlabsnow:GT-autorally/clion-develop:arm64-l4t
 #
 #   Note:
 #       The -d runs the container as a daemon, so control returns back to you.
@@ -50,7 +50,7 @@
 #   - https://blog.jetbrains.com/clion/2020/01/using-docker-with-clion/
 
 ARG  BASE_IMG_TAG=arm64-l4t
-FROM norlabsnow/snow-autorally-develop:${BASE_IMG_TAG}
+FROM norlabsnow/GT-autorally/develop:${BASE_IMG_TAG}
 
 # ...install remote dev/debug utilities.................................................................................
 RUN apt-get update \
@@ -117,11 +117,11 @@ RUN useradd -m ${NEW_USER} \
 # ... Finish container setup ...........................................................................................
 WORKDIR /
 COPY clion_dev_entrypoint.bash /
-COPY build_snow_autorally.bash /
+COPY build_gt_autorally.bash /
 COPY fetch_ros_env.bash /
 # set read/write permission to entrypoint file and joystick dir js0
 RUN /bin/bash -c "chmod +x /clion_dev_entrypoint.bash" \
-    && /bin/bash -c "chmod +x /build_snow_autorally.bash" \
+    && /bin/bash -c "chmod +x /build_gt_autorally.bash" \
     && /bin/bash -c "chmod +x /fetch_ros_env.bash"
 
 # The ssh server is started by the entrypoint
@@ -129,6 +129,6 @@ ENTRYPOINT [ "/clion_dev_entrypoint.bash" ]
 #CMD ["/usr/sbin/sshd", "-D", "-e", "-f", "/etc/ssh/sshd_config_test_clion"]
 CMD [ "bash" ]
 
-# ///////////////////////////////////////////////////////////////////////////////////// snow-autorally-clion-develop ///
+# ///////////////////////////////////////////////////////////////////////////////////// GT-autorally/clion-develop ///
 
 

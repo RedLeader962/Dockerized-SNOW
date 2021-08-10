@@ -104,8 +104,8 @@ done
 #"
 
 sudo docker build \
-  -t norlabsnow/ros-melodic-snow-autorally-dependencies:${IMAGE_TAG} \
-  -f ./Docker/ros-melodic-snow-autorally-dependencies/Dockerfile \
+  -t norlabsnow/GT-autorally/dependencies:${IMAGE_TAG} \
+  -f ./Docker/GT-autorally/dependencies/Dockerfile \
   ${BASE_IMG_ARG} \
   ${USER_ARG} \
   ./Docker

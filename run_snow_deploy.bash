@@ -124,6 +124,6 @@ sudo docker run \
   --volume "/tmp/.X11-unix/:/tmp/.X11-unix" \
   --volume "/etc/localtime:/etc/localtime:ro" \
   ${USER_ARG} \
-  norlabsnow/snow-autorally-deploy:${IMAGE_TAG}
+  norlabsnow/GT-autorally/snow-autorally-deploy:${IMAGE_TAG}
 
 #  --hostname snowxavier-deploy \
