@@ -49,7 +49,7 @@ function print_help_in_terminal() {
 
 USER_ARG=""
 DS_IMAGE_TAG="arm64-l4t"
-BASE_IMG_VERSION="r32.6.1"
+BASE_IMG_VERSION=""
 BASE_IMG_ARG=""
 DS_SUB_PROJECT="norlab-mppi"
 ADD_TO_TAG=""
@@ -123,7 +123,9 @@ done
 if [[ "$DS_SUB_PROJECT" == "norlab-mppi" ]]; then
 
   if [[ "$DS_IMAGE_TAG" == "arm64-l4t" ]]; then
-    continue
+    if [[ "$BASE_IMG_VERSION" == "" ]]; then
+      BASE_IMG_VERSION="r32.6.1"
+    fi
   elif [[ "$DS_IMAGE_TAG" == "x86" ]]; then
     BASE_IMG_VERSION="ubuntu20.04"
   fi
@@ -136,7 +138,9 @@ if [[ "$DS_SUB_PROJECT" == "norlab-mppi" ]]; then
 elif [[ "$DS_SUB_PROJECT" == "gt-autorally" ]]; then
 
   if [[ "$DS_IMAGE_TAG" == "arm64-l4t" ]]; then
-    BASE_IMG_VERSION="r32.5.0"
+    if [[ "$BASE_IMG_VERSION" == "" ]]; then
+      BASE_IMG_VERSION="r32.5.0"
+    fi
   elif [[ "$DS_IMAGE_TAG" == "x86" ]]; then
     BASE_IMG_VERSION="ubuntu18.04"
   fi
