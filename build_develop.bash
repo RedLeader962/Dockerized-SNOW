@@ -104,7 +104,7 @@ for arg in "$@"; do
       USER_ARG="${USER_ARG} --build-arg HOST_TYPE=${HOST_TYPE}"
       echo "Host type: ${HOST_TYPE}"
     else
-      echo "Host type ${HOST_TYPE} is not currently supported"
+      echo "Host type ${HOST_TYPE} is not currently supported. Choose between: (default) local, XavierStandAlone or XavierWarthog"
       exit
     fi
     ;;
