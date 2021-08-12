@@ -113,7 +113,7 @@ WORKDIR "${DEV_WORKSPACE}"
 
 
 # This RUN step is from dusty-nv/jetson-containers: https://github.com/dusty-nv/jetson-containers/blob/master/Dockerfile.ros.noetic
-RUN rosinstall_generator ${ROS_PKG} vision_msgs --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall \
+RUN rosinstall_generator `echo "${ROS_PKG}" | tr '_' '-'` vision_msgs --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall \
     && vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src \
     && apt-get update \
     && rosdep install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} --skip-keys python3-pykdl -y \
