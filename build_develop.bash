@@ -31,7 +31,7 @@ function print_help_in_terminal() {
       -h, --help                Get help
       --x86                     Build the image version compiled for x86 workstation instead of arm64-l4t
       --l4t-version=<version>   Build arm64-l4t using an other release version (default: r32.6.1)
-      --host-type=<type>        Specified the container host type: (default) XavierStandAlone, XavierWarthog, local
+      --host-type=<type>        Specified the container host type: XavierStandAlone, XavierWarthog, local
       --GT-AR                   Project version: Georgia Tech AutoRally refactoring
       --clion                   Build the version to use with CLion IDE (use with the --GT-AR flag)
       --appendToTag=<detail>    Add supplemental details to the built image tag eg.: --appendToTag=test
@@ -54,7 +54,7 @@ BASE_IMG_ARG=""
 DS_SUB_PROJECT="norlab-mppi"
 ADD_TO_TAG=""
 IDE="develop"
-DS_HOST_TYPE="XavierStandAlone"
+DS_HOST_TYPE=""
 
 ## todo:on task end >> delete next bloc ↓↓
 #echo "
@@ -152,7 +152,13 @@ else
 fi
 
 # ---Check legal combinaison: DS_HOST_TYPE vs DS_IMAGE_TAG--------------------------------------------------------------
-if [[ "$DS_HOST_TYPE" == "local" ]]; then
+if [[ "$DS_HOST_TYPE" == "" ]]; then
+  if [[ "$DS_IMAGE_TAG" == "arm64-l4t" ]]; then
+    DS_HOST_TYPE="XavierStandAlone"
+  elif [[ "$DS_IMAGE_TAG" == "x86" ]]; then
+    DS_HOST_TYPE="local"
+  fi
+elif [[ "$DS_HOST_TYPE" == "local" ]]; then
   if [[ "$DS_IMAGE_TAG" == "x86" ]]; then
     USER_ARG="${USER_ARG} --build-arg DS_HOST_TYPE=${DS_HOST_TYPE}"
     echo "Host type: ${DS_HOST_TYPE}"
