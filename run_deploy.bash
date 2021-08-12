@@ -27,9 +27,13 @@ function print_help_in_terminal() {
 
     <optional argument>:
       -h, --help                Get help
-      --x86                     Get the image version compiled for x86 workstation
+      --baseImgTag=<theMarvelousTag>  The base image tag to use eg.: arm64-l4t-r32.5.0, x86-ubuntu20.04
+      --GT-AR                         Build version: Georgia Tech AutoRally refactoring project (default: NorLab-MPPI)
       --XavierWarthog           Use it for container deployed on the Warthog
       --name=<myCoolContainer>  Name that new container, the crazier the better
+      --data==<myCrazyDataDir>        Host data directory to mount inside the container.
+                                      Must be an absolute path eg.: /home/snowxavier/Repositories/wt_data
+      --data=jetson                   Shortcut: --volume \"\$HOME/Repositories/wt_data:/mnt/wt_data:ro\"
 
     Note: you can pass any docker run flag as additional argument eg:
       --rm
@@ -39,8 +43,11 @@ function print_help_in_terminal() {
   "
 }
 
+# --x86                     Get the image version compiled for x86 workstation
+
 USER_ARG=""
-IMAGE_TAG="arm64-l4t"
+IMAGE_TAG="arm64-l4t-r32.6.1"
+DS_PROJECT_REPO="NorLab-MPPI"
 
 ## todo:on task end >> delete next bloc ↓↓
 #echo "
@@ -54,16 +61,25 @@ for arg in "$@"; do
     print_help_in_terminal
     exit
     ;;
-  --x86)
-    IMAGE_TAG="x86"
-    shift # Remove --x86 from processing
-    ;;
+#  --x86)
+#    IMAGE_TAG="x86"
+#    shift # Remove --x86 from processing
+#    ;;
   --XavierWarthog)
-    IMAGE_TAG="${IMAGE_TAG}-XavierWarthog"
+    USER_ARG="${USER_ARG} -e HOST_TYPE=XavierWarthog"
     shift # Remove --XavierWarthog from processing
+    ;;
+  --GT-AR)
+    DS_PROJECT_REPO="GT-autorally"
+    shift # Remove --GT-AR from processing
     ;;
   --name)
     echo "${0} >> pass argument with the equal sign: --name=${2}" >&2 # Note: '>&2' = print to stderr
+    echo
+    exit
+    ;;
+  --data)
+    echo "${0} >> pass argument with the equal sign: --data=${2}" >&2 # Note: '>&2' = print to stderr
     echo
     exit
     ;;
@@ -74,6 +90,25 @@ for arg in "$@"; do
     echo "new container name: ${CONTAINER_NAME}"
     echo
     ;;
+  --baseImgTag)
+    echo "${0} >> pass argument with the equal sign: --baseImgTag=${2}" >&2 # Note: '>&2' = print to stderr
+    echo
+    exit
+    ;;
+  --baseImgTag=?*)
+    IMAGE_TAG="${arg#*=}" # Remove every character up to the '=' and assign the remainder
+    echo "Base image tag: ${IMAGE_TAG}"
+    ;;
+  --data=jetson)
+    WS_DIR="${HOME}/Repositories/wt_data"
+    WS_DIRNAME=$(basename $WS_DIR)
+    HOST_DATA_DIR_FLAG=" --volume ${WS_DIR}:/mnt/${WS_DIRNAME}:ro"
+    echo "Data directory mapping from host to container: ${WS_DIR} >>> /mnt/${WS_DIRNAME}"
+  --data=?*)
+    WS_DIR="${arg#*=}"                                  # Remove every character up to the '=' and assign the remainder
+    WS_DIRNAME=$(basename $WS_DIR)
+    HOST_DATA_DIR_FLAG=" --volume ${WS_DIR}:/mnt/${WS_DIRNAME}:ro"
+    echo "Data directory mapping from host to container: ${WS_DIR} >>> /mnt/${WS_DIRNAME}"
   --)
     shift
     break
@@ -91,12 +126,13 @@ for arg in "$@"; do
   shift
 done
 
-## todo:on task end >> delete next bloc ↓↓
-#echo "
-#${0}:
-#  USER_ARG >> ${USER_ARG}
-#  IMAGE_TAG >> ${IMAGE_TAG}
-#"
+# todo:on task end >> delete next bloc ↓↓
+echo "
+${0}:
+  USER_ARG >> ${USER_ARG}
+  IMAGE_TAG >> ${IMAGE_TAG}
+  DS_PROJECT_REPO >> ${DS_PROJECT_REPO}
+"
 
 export DISPLAY=:0
 #echo "export DISPLAY=:0" >> ~/.bashrc
@@ -123,7 +159,7 @@ sudo docker run \
   --privileged \
   --volume "/tmp/.X11-unix/:/tmp/.X11-unix" \
   --volume "/etc/localtime:/etc/localtime:ro" \
+  ${HOST_DATA_DIR_FLAG} \
   ${USER_ARG} \
-  norlabsnow/GT-autorally/deploy:${IMAGE_TAG}
+  norlabsnow/${DS_PROJECT_REPO}/deploy:${IMAGE_TAG}
 
-#  --hostname snowxavier-deploy \

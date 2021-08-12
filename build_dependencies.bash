@@ -101,13 +101,15 @@ for arg in "$@"; do
   shift
 done
 
-## todo:on task end >> delete next bloc ↓↓
-#echo "
-#${0}:
-#  USER_ARG >> ${USER_ARG}
-#  IMAGE_TAG >> ${IMAGE_TAG}
-#  BASE_IMG_ARG >> ${BASE_IMG_ARG}
-#"
+# todo:on task end >> delete next bloc ↓↓
+echo "
+${0}:
+  USER_ARG >> ${USER_ARG}
+  IMAGE_TAG >> ${IMAGE_TAG}
+  BASE_IMG_ARG >> ${BASE_IMG_ARG}
+  BASE_IMG_VERSION >> ${BASE_IMG_VERSION}
+  DS_PROJECT_REPO >> ${DS_PROJECT_REPO}
+"
 
 if [[ "$IMAGE_TAG" == "arm64-l4t" ]] && [[ "$DS_PROJECT_REPO" == "NorLab-MPPI" ]]; then
   IMAGE_TAG = "${IMAGE_TAG}-${BASE_IMG_VERSION}"

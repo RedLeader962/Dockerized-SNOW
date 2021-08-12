@@ -1,7 +1,7 @@
 
 # /// GT-autorally/develop ///////////////////////////////////////////////////////////////////////////////////////////
 
-ARG  BASE_IMG_TAG=arm64-l4t
+ARG  BASE_IMG_TAG=arm64-l4t-r32.5.0
 FROM norlabsnow/GT-autorally-dependencies:${BASE_IMG_TAG}
 
 ARG SRC_CODE_REPOSITORY_NAME=SNOW_AutoRally

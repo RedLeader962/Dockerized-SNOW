@@ -49,7 +49,7 @@
 #   - https://github.com/JetBrains/clion-remote/blob/master/Dockerfile.remote-cpp-env
 #   - https://blog.jetbrains.com/clion/2020/01/using-docker-with-clion/
 
-ARG  BASE_IMG_TAG=arm64-l4t
+ARG  BASE_IMG_TAG=arm64-l4t-r32.5.0
 FROM norlabsnow/GT-autorally-develop:${BASE_IMG_TAG}
 
 # ...install remote dev/debug utilities.................................................................................

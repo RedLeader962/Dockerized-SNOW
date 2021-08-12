@@ -1,7 +1,7 @@
 
 # /// GT-autorally/deploy ////////////////////////////////////////////////////////////////////////////////////////////
 
-ARG  BASE_IMG_TAG=arm64-l4t
+ARG  BASE_IMG_TAG=arm64-l4t-r32.5.0
 FROM norlabsnow/GT-autorally-dependencies:${BASE_IMG_TAG}
 
 
@@ -24,7 +24,8 @@ ENV SRC_CODE_DOMAIN_NAME=${SRC_CODE_DOMAIN_NAME}
 ARG DEV_BRANCH=AutoRally-Clean
 #ARG DEV_BRANCH=SNOW-melodic-devel
 
-ARG HOST_TYPE=Local # or XavierWarthog
+# Default: Local , Option: XavierWarthog
+ARG HOST_TYPE=Local
 ENV HOST_TYPE=${HOST_TYPE}
 
 WORKDIR ${DEV_WORKSPACE}/src

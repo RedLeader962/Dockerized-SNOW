@@ -1,7 +1,7 @@
 
 # /// NorLab-MPPI/deploy ///////////////////////////////////////////////////////////////////////////////////////////////
 
-ARG  BASE_IMG_TAG=arm64-l4t
+ARG  BASE_IMG_TAG=arm64-l4t-r32.6.1
 FROM norlabsnow/NorLab-MPPI-dependencies:${BASE_IMG_TAG}
 
 

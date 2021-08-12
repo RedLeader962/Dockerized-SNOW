@@ -24,9 +24,11 @@ function print_help_in_terminal() {
     ${0}  [<optional argument>]
 
     <optional argument>:
-      -h, --help                Get help
-      --x86                     Get the image version compiled for x86 workstation
-      --clion                   Build the version to use with CLion IDE
+      -h, --help                      Get help
+      --baseImgTag=<theMarvelousTag>  The base image tag to use eg.: arm64-l4t-r32.5.0, x86-ubuntu20.04
+      --GT-AR                         Build version: Georgia Tech AutoRally refactoring project (default: NorLab-MPPI)
+      --XavierWarthog                 Use it for container deployed on the Warthog
+      --clion                         Build the version to use with CLion IDE (use with the --GT-AR flag)
 
     Default compilation: arm64 with Linux for Tegra (L4T) os
 
@@ -38,9 +40,12 @@ function print_help_in_terminal() {
   "
 }
 
+# --x86                     Get the image version compiled for x86 workstation
+
 USER_ARG=""
-IMAGE_TAG="arm64-l4t"
+IMAGE_TAG="arm64-l4t-r32.6.1"
 BASE_IMG_ARG=""
+DS_PROJECT_REPO="NorLab-MPPI"
 IDE="develop"
 
 ## todo:on task end >> delete next bloc ↓↓
@@ -54,14 +59,32 @@ for arg in "$@"; do
     print_help_in_terminal
     exit
     ;;
-  --x86)
-    IMAGE_TAG="x86"
-    BASE_IMG_ARG=" --build-arg BASE_IMG_TAG=x86"
-    shift # Remove --x86 from processing
+#  --x86)
+#    IMAGE_TAG="x86"
+##    BASE_IMG_ARG=" --build-arg BASE_IMG_TAG=x86"
+#    shift # Remove --x86 from processing
+#    ;;
+  --XavierWarthog)
+    IMAGE_TAG="${IMAGE_TAG}-XavierWarthog"
+    USER_ARG="${USER_ARG} --build-arg HOST_TYPE=XavierWarthog"
+    shift # Remove --XavierWarthog from processing
+    ;;
+  --GT-AR)
+    DS_PROJECT_REPO="GT-autorally"
+    shift # Remove --GT-AR from processing
     ;;
   --clion)
     IDE="clion-develop"
     shift # Remove --clion from processing
+    ;;
+  --baseImgTag)
+    echo "${0} >> pass argument with the equal sign: --baseImgTag=${2}" >&2 # Note: '>&2' = print to stderr
+    echo
+    exit
+    ;;
+  --baseImgTag=?*)
+    IMAGE_TAG="${arg#*=}" # Remove every character up to the '=' and assign the remainder
+    echo "Base image tag: ${IMAGE_TAG}"
     ;;
   --)
     shift
@@ -80,17 +103,19 @@ for arg in "$@"; do
   shift
 done
 
-## todo:on task end >> delete next bloc ↓↓
-#echo "
-#${0}:
-#  USER_ARG >> ${USER_ARG}
-#  IMAGE_TAG >> ${IMAGE_TAG}
-#  BASE_IMG_ARG >> ${BASE_IMG_ARG}
-#"
+# todo:on task end >> delete next bloc ↓↓
+echo "
+${0}:
+  USER_ARG >> ${USER_ARG}
+  IMAGE_TAG >> ${IMAGE_TAG}
+  BASE_IMG_ARG >> ${BASE_IMG_ARG}
+  DS_PROJECT_REPO >> ${DS_PROJECT_REPO}
+"
+
 
 sudo docker build \
-  -t norlabsnow/snow-autorally-${IDE}:${IMAGE_TAG} \
-  -f ./Docker/snow-autorally-${IDE}/Dockerfile \
+  -t norlabsnow/${DS_PROJECT_REPO}-${IDE}:${IMAGE_TAG} \
+  -f ./Docker/${DS_PROJECT_REPO}/${IDE}/Dockerfile \
   ${BASE_IMG_ARG} \
   ${USER_ARG} \
-  ./Docker/snow-autorally-${IDE}
+  ./Docker/${DS_PROJECT_REPO}-${IDE}

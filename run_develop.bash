@@ -26,16 +26,21 @@ function print_help_in_terminal() {
   ${0} [<optional argument>]
 
     <optional argument>:
-      -h, --help                    Get help
-      --x86                         Get the image version compiled for x86 workstation
-      --clion                       Run the version to use with CLion IDE
-      --XavierWarthog               Use it for container deployed on the Warthog
-      --name=<myCoolContainer>      Name that new container, the crazier the better
-      --name=xc                     Shortcut: ---name=xavier_red_clion
-      --src=<myCoolSrcCode>         Host source code directory to mount inside the container.
-                                    Must be an absolute path eg.:
-                                        /home/snowxavier/Repositories/SNOW_AutoRally
-      --src=xsa                     Shortcut: ---src=/home/snowxavier/Repositories/SNOW_AutoRally
+      -h, --help                      Get help
+      --baseImgTag=<theMarvelousTag>  The base image tag to use eg.: arm64-l4t-r32.5.0, x86-ubuntu20.04
+      --GT-AR                         Build version: Georgia Tech AutoRally refactoring project (default: NorLab-MPPI)
+      --clion                         Run the version to use with CLion IDE
+      --XavierWarthog                 Use it for container deployed on the Warthog
+      --name=<myCoolContainer>        Name that new container, the crazier the better
+      --name=xc                       Shortcut: ---name=xavier_red_clion
+      --src=<myCoolSrcCode>           Host source code directory to mount inside the container.
+                                      Must be an absolute path eg.: /home/snowxavier/Repositories/SNOW_AutoRally
+      --data==<myCrazyDataDir>        Host data directory to mount inside the container.
+                                      Must be an absolute path eg.: /home/snowxavier/Repositories/wt_data
+
+      --src=gtar                      Shortcut: ---src=\$HOME/Repositories/SNOW_AutoRally
+      --src=nlmppi                    Shortcut: ---src=\$HOME/Repositories/NorLab_MPPI
+      --data=jetson                   Shortcut: --volume \"\$HOME/Repositories/wt_data:/mnt/wt_data:ro\"
 
     Note: you can pass any docker run flag as additional argument eg:
       --rm
@@ -51,10 +56,14 @@ function print_help_in_terminal() {
   "
 }
 
+# --x86                         Get the image version compiled for x86 workstation
+# --host-home=<absPathToHome>   Host home absolute path eg.: /home/snowxavier
+
 USER_ARG=""
-HOST_SOURCE_CODE_PATH=""
-IMAGE_TAG="arm64-l4t"
+HOST_SOURCE_CODE_FLAG=""
+IMAGE_TAG="arm64-l4t-r32.6.1"
 IDE="develop"
+DS_PROJECT_REPO="NorLab-MPPI"
 
 # todo:on task end >> delete next bloc ↓↓
 #echo "
@@ -67,13 +76,17 @@ for arg in "$@"; do
     print_help_in_terminal
     exit
     ;;
-  --x86)
-    IMAGE_TAG="x86"
-    shift # Remove --x86 from processing
-    ;;
+#  --x86)
+#    IMAGE_TAG="x86"
+#    shift # Remove --x86 from processing
+#    ;;
   --XavierWarthog)
     USER_ARG="${USER_ARG} -e HOST_TYPE=XavierWarthog"
     shift # Remove --XavierWarthog from processing
+    ;;
+  --GT-AR)
+    DS_PROJECT_REPO="GT-autorally"
+    shift # Remove --GT-AR from processing
     ;;
   --clion)
     IDE="clion-develop"
@@ -86,6 +99,11 @@ for arg in "$@"; do
     ;;
   --src)
     echo "${0} >> pass argument with the equal sign: --src=${2}" >&2 # Note: '>&2' = print to stderr
+    echo
+    exit
+    ;;
+  --data)
+    echo "${0} >> pass argument with the equal sign: --data=${2}" >&2 # Note: '>&2' = print to stderr
     echo
     exit
     ;;
@@ -103,20 +121,48 @@ for arg in "$@"; do
     echo "new container name: ${CONTAINER_NAME}"
     echo
     ;;
-  --src=xsa)
-    WS_DIR="/home/snowxavier/Repositories/SNOW_AutoRally"
+  --baseImgTag)
+    echo "${0} >> pass argument with the equal sign: --baseImgTag=${2}" >&2 # Note: '>&2' = print to stderr
+    echo
+    exit
+    ;;
+  --baseImgTag=?*)
+    IMAGE_TAG="${arg#*=}" # Remove every character up to the '=' and assign the remainder
+    echo "Base image tag: ${IMAGE_TAG}"
+    ;;
+  --src=gtar)
+#    WS_DIR="/home/snowxavier/Repositories/SNOW_AutoRally"
+    WS_DIR="${HOME}/Repositories/SNOW_AutoRally"
     CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
     WS_DIRNAME=$(basename $WS_DIR)
-    HOST_SOURCE_CODE_PATH=" --volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+    HOST_SOURCE_CODE_FLAG=" --volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+    echo "Source code mapping from host to container: ${WS_DIR} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+    ;;
+  --src=nlmppi)
+#    WS_DIR="/home/snowxavier/Repositories/NorLab_MPPI"
+    WS_DIR="${HOME}/Repositories/NorLab_MPPI"
+    CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
+    WS_DIRNAME=$(basename $WS_DIR)
+    HOST_SOURCE_CODE_FLAG=" --volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
     echo "Source code mapping from host to container: ${WS_DIR} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
     ;;
   --src=?*)
-    WS_DIR="${arg#*=}"                                    # Remove every character up to the '=' and assign the remainder
+    WS_DIR="${arg#*=}"                                  # Remove every character up to the '=' and assign the remainder
     CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
     WS_DIRNAME=$(basename $WS_DIR)
-    HOST_SOURCE_CODE_PATH=" --volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+    HOST_SOURCE_CODE_FLAG=" --volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
     echo "Source code mapping from host to container: ${WS_DIR} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
     ;;
+  --data=jetson)
+    WS_DIR="${HOME}/Repositories/wt_data"
+    WS_DIRNAME=$(basename $WS_DIR)
+    HOST_DATA_DIR_FLAG=" --volume ${WS_DIR}:/mnt/${WS_DIRNAME}:ro"
+    echo "Data directory mapping from host to container: ${WS_DIR} >>> /mnt/${WS_DIRNAME}"
+  --data=?*)
+    WS_DIR="${arg#*=}"                                  # Remove every character up to the '=' and assign the remainder
+    WS_DIRNAME=$(basename $WS_DIR)
+    HOST_DATA_DIR_FLAG=" --volume ${WS_DIR}:/mnt/${WS_DIRNAME}:ro"
+    echo "Data directory mapping from host to container: ${WS_DIR} >>> /mnt/${WS_DIRNAME}"
   --)
     shift
     break
@@ -138,8 +184,9 @@ done
 echo "
 ${0}:
   USER_ARG >> ${USER_ARG}
-  HOST_SOURCE_CODE_PATH >> ${HOST_SOURCE_CODE_PATH}
+  HOST_SOURCE_CODE_FLAG >> ${HOST_SOURCE_CODE_FLAG}
   IMAGE_TAG >> ${IMAGE_TAG}
+  DS_PROJECT_REPO >> ${DS_PROJECT_REPO}
 "
 
 ## todo:assessment (ref task NLSAR-159 Fix the execute permission of source code mounted volume)
@@ -171,13 +218,13 @@ sudo docker run \
   --privileged \
   --volume "/tmp/.X11-unix/:/tmp/.X11-unix" \
   --volume "/etc/localtime:/etc/localtime:ro" \
-  --volume "/home/snowxavier/Repositories/wt_data:/mnt/wt_data:ro" \
-  ${HOST_SOURCE_CODE_PATH} \
+  ${HOST_DATA_DIR_FLAG} \
+  ${HOST_SOURCE_CODE_FLAG} \
   --security-opt seccomp=unconfined \
   --security-opt apparmor=unconfined \
   --cap-add sys_ptrace \
   ${USER_ARG} \
-  norlabsnow/snow-autorally-${IDE}:${IMAGE_TAG}
+  norlabsnow/${DS_PROJECT_REPO}/${IDE}:${IMAGE_TAG}
 
 #  --hostname snowxavier-dev \
 # -td
