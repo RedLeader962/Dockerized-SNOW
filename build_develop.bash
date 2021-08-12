@@ -152,13 +152,17 @@ else
 fi
 
 # ---Check legal combinaison: DS_HOST_TYPE vs DS_IMAGE_TAG--------------------------------------------------------------
+
+# Case flag --host-type=* empty
 if [[ "$DS_HOST_TYPE" == "" ]]; then
   if [[ "$DS_IMAGE_TAG" == "arm64-l4t" ]]; then
     DS_HOST_TYPE="XavierStandAlone"
   elif [[ "$DS_IMAGE_TAG" == "x86" ]]; then
     DS_HOST_TYPE="local"
   fi
-elif [[ "$DS_HOST_TYPE" == "local" ]]; then
+fi
+
+if [[ "$DS_HOST_TYPE" == "local" ]]; then
   if [[ "$DS_IMAGE_TAG" == "x86" ]]; then
     USER_ARG="${USER_ARG} --build-arg DS_HOST_TYPE=${DS_HOST_TYPE}"
     echo "Host type: ${DS_HOST_TYPE}"
