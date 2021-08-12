@@ -33,6 +33,7 @@ function print_help_in_terminal() {
       --x86                     Get the image version compiled for x86 workstation (default: arm64-l4t)
       --jetpack=<version>       The Jetpack version (default: r32.6.1)
       --GT-AR                   Build version: Georgia Tech AutoRally refactoring project (default: norlab-mppi)
+      --addToTag=<detail>
 
     Note: you can pass any docker build flag as additional argument eg:
       --build-arg=\"ROS_PKG=desktop-full\"
@@ -64,6 +65,7 @@ IMAGE_TAG="arm64-l4t"
 BASE_IMG_VERSION="r32.6.1"
 BASE_IMG_ARG=""
 DS_PROJECT_REPO="norlab-mppi"
+ADD_TO_TAG=""
 
 ## todo:on task end >> delete next bloc ↓↓
 #echo "
@@ -93,6 +95,15 @@ for arg in "$@"; do
   --jetpack=?*)
     BASE_IMG_VERSION="${arg#*=}" # Remove every character up to the '=' and assign the remainder
     echo "Base image tag: ${BASE_IMG_VERSION}"
+    ;;
+  --addToTag)
+    echo "${0} >> pass argument with the equal sign: --addToTag=${2}" >&2 # Note: '>&2' = print to stderr
+    echo
+    exit
+    ;;
+  --addToTag=?*)
+    ADD_TO_TAG="${arg#*=}" # Remove every character up to the '=' and assign the remainder
+    echo
     ;;
   --)
     shift
@@ -127,6 +138,8 @@ elif [[ "$IMAGE_TAG" == "x86" ]] && [[ "$DS_PROJECT_REPO" == "gt-autorally" ]]; 
   IMAGE_TAG="${IMAGE_TAG}-${BASE_IMG_VERSION}"
   BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/cudagl:11.3.1-devel-ubuntu18.04"
 fi
+
+IMAGE_TAG="${IMAGE_TAG}-${ADD_TO_TAG}"
 
 # todo:on task end >> delete next bloc ↓↓
 echo "
