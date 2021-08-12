@@ -165,20 +165,27 @@ RUN mkdir ${DEV_WORKSPACE} && \
     python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${ROS_ROOT} -DCMAKE_BUILD_TYPE=Release && \
     rm -rf /var/lib/apt/lists/*
 
-
-#  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .❮❮❮ test ❮❮❮
-
 WORKDIR "${DEV_WORKSPACE}"
 
 RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
-    && catkin_make \
     && source ${DEV_WORKSPACE}/devel/setup.bash" \
     && echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc \
     && echo "source ${DEV_WORKSPACE}/devel/setup.bash" >> ~/.bashrc
-# Make sure your workspace is properly overlayed by the setup script by checking the ROS_PACKAGE_PATH environment
-# variable. It should include the directory you're in:
-#   $ echo $ROS_PACKAGE_PATH
-#   > /home/youruser/catkin_ws/src:/opt/ros/melodic/share
+
+
+#  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .❮❮❮ test ❮❮❮
+
+#WORKDIR "${DEV_WORKSPACE}"
+#
+#RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
+#    && catkin_make \
+#    && source ${DEV_WORKSPACE}/devel/setup.bash" \
+#    && echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc \
+#    && echo "source ${DEV_WORKSPACE}/devel/setup.bash" >> ~/.bashrc
+## Make sure your workspace is properly overlayed by the setup script by checking the ROS_PACKAGE_PATH environment
+## variable. It should include the directory you're in:
+##   $ echo $ROS_PACKAGE_PATH
+##   > /home/youruser/catkin_ws/src:/opt/ros/melodic/share
 
 ## ... Install Gazebo ...................................................................................................
 ## Note:
