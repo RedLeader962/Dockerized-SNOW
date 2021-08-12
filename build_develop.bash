@@ -158,6 +158,8 @@ if [[ "$DS_HOST_TYPE" == "local" ]]; then
     echo "Host type: ${DS_HOST_TYPE}"
   else
     echo "Host type ${DS_HOST_TYPE} is for x86 build only"
+    echo
+    exit
   fi
 elif [[ "$DS_HOST_TYPE" == "XavierStandAlone" || "$DS_HOST_TYPE" == "XavierWarthog" ]]; then
   if [[ "$DS_IMAGE_TAG" == "arm64-l4t" ]]; then
@@ -165,6 +167,8 @@ elif [[ "$DS_HOST_TYPE" == "XavierStandAlone" || "$DS_HOST_TYPE" == "XavierWarth
     echo "Host type: ${DS_HOST_TYPE}"
   else
     echo "Host type ${DS_HOST_TYPE} is for arm64-l4t build only"
+    echo
+    exit
   fi
 else
   echo "Host type ${DS_HOST_TYPE} is not currently supported. Choose between: (default) local, XavierStandAlone or XavierWarthog"
