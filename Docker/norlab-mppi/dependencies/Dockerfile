@@ -167,7 +167,7 @@ RUN mkdir ${DEV_WORKSPACE} && \
 
 WORKDIR "${DEV_WORKSPACE}"
 
-RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
+RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash" \
     && echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc
 
 
