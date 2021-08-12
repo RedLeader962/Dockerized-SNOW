@@ -142,8 +142,8 @@ if [[ "$DS_SUB_PROJECT" == "norlab-mppi" ]]; then
   fi
 
   if [[ "$IDE" == "clion-develop" ]]; then
-    echo "Warning: clion-develop image is currently only implemented for the GT-autorally refactoring project."
-    echo "Build ${DS_SUB_PROJECT}-develop image instead"
+    echo "Warning: Containers for clion development are currently only implemented for the GT-autorally refactoring project."
+    echo "         Build ${DS_SUB_PROJECT}-develop image instead"
     IDE="develop"
   fi
 
