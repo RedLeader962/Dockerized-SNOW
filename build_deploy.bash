@@ -91,8 +91,8 @@ done
 #"
 
 sudo docker build \
-  -t norlabsnow/GT-autorally/snow-autorally-deploy:${IMAGE_TAG} \
-  -f ./Docker/GT-autorally/snow-autorally-deploy/Dockerfile \
+  -t norlabsnow/GT-autorally/deploy:${IMAGE_TAG} \
+  -f ./Docker/GT-autorally/deploy/Dockerfile \
   ${BASE_IMG_ARG} \
   ${USER_ARG} \
-  ./Docker/GT-autorally/snow-autorally-deploy
+  ./Docker/GT-autorally/deploy
