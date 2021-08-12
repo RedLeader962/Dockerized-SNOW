@@ -151,7 +151,7 @@ else
   exit
 fi
 
-# ---Check legal host type vs image tag combinaison---------------------------------------------------------------------
+# ---Check legal combinaison: DS_HOST_TYPE vs DS_IMAGE_TAG--------------------------------------------------------------
 if [[ "$DS_HOST_TYPE" == "local" ]]; then
   if [[ "$DS_IMAGE_TAG" == "x86" ]]; then
     USER_ARG="${USER_ARG} --build-arg DS_HOST_TYPE=${DS_HOST_TYPE}"
