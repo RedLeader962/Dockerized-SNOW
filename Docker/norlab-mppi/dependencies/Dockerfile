@@ -96,12 +96,12 @@ RUN apt-get update \
 
 # ❯❯❯ standard ROS install method ❯❯❯ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ..
 
-## Install ROS
-#RUN apt-get update \
-#    && cd ${ROS_ROOT} \
-#    && apt-get install --assume-yes --no-install-recommends \
-#      ros-${ROS_DISTRO}-`echo "${ROS_PKG}" | tr '_' '-'` \
-#    && rm -rf /var/lib/apt/lists/*
+# Install ROS
+RUN apt-get update \
+    && cd ${ROS_ROOT} \
+    && apt-get install --assume-yes --no-install-recommends \
+      ros-${ROS_DISTRO}-`echo "${ROS_PKG}" | tr '_' '-'` \
+    && rm -rf /var/lib/apt/lists/*
 
 # . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .❮❮❮ standard ROS install method ❮❮❮
 
@@ -112,13 +112,13 @@ RUN mkdir -p ${DEV_WORKSPACE}/src
 WORKDIR "${DEV_WORKSPACE}"
 
 
-# This RUN step is from dusty-nv/jetson-containers: https://github.com/dusty-nv/jetson-containers/blob/master/Dockerfile.ros.noetic
-RUN rosinstall_generator `echo "${ROS_PKG}" | tr '-' '_'` vision_msgs --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall \
-    && vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src \
-    && apt-get update \
-    && rosdep install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} --skip-keys python3-pykdl -y \
-#    && python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
-    && rm -rf /var/lib/apt/lists/*
+## This RUN step is from dusty-nv/jetson-containers: https://github.com/dusty-nv/jetson-containers/blob/master/Dockerfile.ros.noetic
+#RUN rosinstall_generator `echo "${ROS_PKG}" | tr '-' '_'` vision_msgs --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall \
+#    && vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src \
+#    && apt-get update \
+#    && rosdep install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} --skip-keys python3-pykdl -y \
+##    && python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
+#    && rm -rf /var/lib/apt/lists/*
 # Mote: `catkin_make_isolated` treats each package as a separate cmake project, and builds and installs each separately, \
 #       in dependency order. This is why it's able to build plain cmake packages.
 # ref: https://answers.ros.org/question/320613/catkin_make-vs-catkin_make_isolated-which-is-preferred/
