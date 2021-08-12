@@ -165,6 +165,14 @@ fi
 DS_IMAGE_TAG="${DS_IMAGE_TAG}-${BASE_IMG_VERSION}"
 BASE_IMG_ARG=" --build-arg BASE_IMG_TAG=${DS_IMAGE_TAG}"
 
+if [[ "$DS_HOST_TYPE" == "local" ]]; then
+  DS_IMAGE_TAG="${DS_IMAGE_TAG}-local"
+elif [[ "$DS_HOST_TYPE" == "XavierStandAlone" ]]; then
+  DS_IMAGE_TAG="${DS_IMAGE_TAG}-XavierSA"
+elif [[ "$DS_HOST_TYPE" == "XavierWarthog" ]]; then
+  DS_IMAGE_TAG="${DS_IMAGE_TAG}-XavierWT"
+fi
+
 if [[ "$ADD_TO_TAG" != "" ]]; then
   DS_IMAGE_TAG="${DS_IMAGE_TAG}-${ADD_TO_TAG}"
 fi
