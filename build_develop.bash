@@ -105,6 +105,7 @@ for arg in "$@"; do
       echo "Host type: ${HOST_TYPE}"
     else
       echo "Host type ${HOST_TYPE} is not currently supported. Choose between: (default) local, XavierStandAlone or XavierWarthog"
+      echo
       exit
     fi
     ;;
@@ -141,7 +142,8 @@ if [[ "$DS_SUB_PROJECT" == "norlab-mppi" ]]; then
   fi
 
   if [[ "$IDE" == "clion-develop" ]]; then
-    echo "Warning: clion-develop image is currently only implemented for the GT-autorally refactoring project"
+    echo "Warning: clion-develop image is currently only implemented for the GT-autorally refactoring project."
+    echo "Build ${DS_SUB_PROJECT}-develop image instead"
     IDE="develop"
   fi
 
