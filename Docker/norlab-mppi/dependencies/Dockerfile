@@ -156,7 +156,7 @@ RUN apt-get update && \
 
 # download/build the ROS source
 RUN mkdir ${DEV_WORKSPACE} && \
-    cd ros_catkin_ws && \
+    cd ${DEV_WORKSPACE} && \
     rosinstall_generator ${ROS_PKG} vision_msgs --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall && \
     mkdir src && \
     vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src && \
