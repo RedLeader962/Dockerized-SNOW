@@ -179,9 +179,9 @@ ${0}:
   ADD_TO_TAG >> ${ADD_TO_TAG}
 "
 
-sudo docker build \
-  -t norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG} \
-  -f ./Docker/${DS_SUB_PROJECT}/${IDE}/Dockerfile \
-  ${BASE_IMG_ARG} \
-  ${USER_ARG} \
-  ./Docker/${DS_SUB_PROJECT}-${IDE}
+#sudo docker build \
+#  -t norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG} \
+#  -f ./Docker/${DS_SUB_PROJECT}/${IDE}/Dockerfile \
+#  ${BASE_IMG_ARG} \
+#  ${USER_ARG} \
+#  ./Docker/${DS_SUB_PROJECT}-${IDE}
