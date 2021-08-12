@@ -31,6 +31,7 @@ function print_help_in_terminal() {
     <optional argument>:
       -h, --help                Get help
       --x86                     Get the image version compiled for x86 workstation (default: arm64-l4t)
+      --jetpack=<version>       The Jetpack version (default: r32.6.1)
       --GT-AR                   Build version: Georgia Tech AutoRally refactoring project (default: NorLab-MPPI)
 
     Note: you can pass any docker build flag as additional argument eg:
@@ -83,6 +84,15 @@ for arg in "$@"; do
   --GT-AR)
     DS_PROJECT_REPO="GT-autorally"
     shift # Remove --GT-AR from processing
+    ;;
+  --jetpack)
+    echo "${0} >> pass argument with the equal sign: --jetpack=${2}" >&2 # Note: '>&2' = print to stderr
+    echo
+    exit
+    ;;
+  --jetpack=?*)
+    BASE_IMG_VERSION="${arg#*=}" # Remove every character up to the '=' and assign the remainder
+    echo "Base image tag: ${BASE_IMG_VERSION}"
     ;;
   --)
     shift

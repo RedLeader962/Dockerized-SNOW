@@ -24,10 +24,10 @@ function print_help_in_terminal() {
     ${0}  [<optional argument>]
 
     <optional argument>:
-      -h, --help                Get help
+      -h, --help                      Get help
       --baseImgTag=<theMarvelousTag>  The base image tag to use eg.: arm64-l4t-r32.5.0, x86-ubuntu20.04
       --GT-AR                         Build version: Georgia Tech AutoRally refactoring project (default: NorLab-MPPI)
-      --XavierWarthog           Use it for container deployed on the Warthog
+      --XavierWarthog                 Use it for container deployed on the Warthog
 
     Default compilation: arm64 with Linux for Tegra (L4T) os
 
