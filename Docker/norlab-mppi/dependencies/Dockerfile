@@ -16,7 +16,8 @@ FROM ${BASE_IMAGE}
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
-ARG ROS_PKG=desktop-full
+#ARG ROS_PKG=desktop_full
+ARG ROS_PKG=ros_base
 ENV ROS_DISTRO=noetic
 ENV ROS_ROOT=/opt/ros/${ROS_DISTRO}
 ENV ROS_PYTHON_VERSION=3
@@ -72,39 +73,33 @@ RUN apt-get update \
 RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 
 # Setup your keys (from https://github.com/dusty-nv/jetson-containers/blob/master/Dockerfile.ros.melodic)
-# $ curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
+RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
 # or this alternative from wiki.ROS.org
-RUN curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xC1CF6E31E6BADE8868B172B4F42ED6FBAB17C654' | apt-key add -
-
-# install ROS packages
-RUN apt-get update \
-    && apt-get install --assume-yes --no-install-recommends \
-        python3-rosdep \
-        python3-rosinstall \
-        python3-rosinstall-generator \
-        python3-wstool \
-        python3-vcstools \
-#    && rosdep init \
-#    && rosdep update \
-#    && rosdep fix-permissions \
-    && rm -rf /var/lib/apt/lists/*
-
-
-
+#RUN curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xC1CF6E31E6BADE8868B172B4F42ED6FBAB17C654' | apt-key add -
 
 # ... Install ROS, create and build catkin workspace ..............................................................................
 
 # ❯❯❯ standard ROS install method ❯❯❯ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ..
 
-# Install ROS
-RUN apt-get update \
-    && apt-get install --assume-yes --no-install-recommends \
-      ros-${ROS_DISTRO}-`echo "${ROS_PKG}" | tr '_' '-'` \
-    && cd ${ROS_ROOT} \
-    && rosdep init \
-    && rosdep update \
-    && rosdep fix-permissions \
-    && rm -rf /var/lib/apt/lists/*
+## install ROS packages
+#RUN apt-get update \
+#    && apt-get install --assume-yes --no-install-recommends \
+#      ros-${ROS_DISTRO}-`echo "${ROS_PKG}" | tr '-' '_'` \
+#      libpython3-dev \
+#      python3-rosdep \
+#      python3-rosinstall \
+#      python3-rosinstall-generator \
+#      python3-wstool \
+#      python3-vcstools \
+#    && rm -rf /var/lib/apt/lists/*
+#
+## Install ROS
+#RUN apt-get update \
+#    && cd ${ROS_ROOT} \
+#    && rosdep init \
+#    && rosdep update \
+#    && rosdep fix-permissions \
+#    && rm -rf /var/lib/apt/lists/*
 
 # . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .❮❮❮ standard ROS install method ❮❮❮
 
@@ -114,14 +109,28 @@ ENV DEV_WORKSPACE=$HOME/catkin_ws
 RUN mkdir -p ${DEV_WORKSPACE}/src
 WORKDIR "${DEV_WORKSPACE}"
 
+# install ROS packages
+RUN apt-get update \
+    && apt-get install --assume-yes --no-install-recommends \
+      libpython3-dev \
+      python3-rosdep \
+      python3-rosinstall \
+      python3-rosinstall-generator \
+      python3-wstool \
+      python3-vcstools \
+    && rosdep init \
+    && rosdep update \
+    && rosdep fix-permissions \
+    && rm -rf /var/lib/apt/lists/*
 
-## This RUN step is from dusty-nv/jetson-containers: https://github.com/dusty-nv/jetson-containers/blob/master/Dockerfile.ros.noetic
-#RUN rosinstall_generator `echo "${ROS_PKG}" | tr '-' '_'` vision_msgs --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall \
-#    && vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src \
-#    && apt-get update \
-#    && rosdep install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} --skip-keys python3-pykdl -y \
-##    && python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
-#    && rm -rf /var/lib/apt/lists/*
+
+# This RUN step is from dusty-nv/jetson-containers: https://github.com/dusty-nv/jetson-containers/blob/master/Dockerfile.ros.noetic
+RUN rosinstall_generator ${ROS_PKG} vision_msgs --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall \
+    && vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src \
+    && apt-get update \
+    && rosdep install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} --skip-keys python3-pykdl -y \
+#    && python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
+    && rm -rf /var/lib/apt/lists/*
 # Mote: `catkin_make_isolated` treats each package as a separate cmake project, and builds and installs each separately, \
 #       in dependency order. This is why it's able to build plain cmake packages.
 # ref: https://answers.ros.org/question/320613/catkin_make-vs-catkin_make_isolated-which-is-preferred/
