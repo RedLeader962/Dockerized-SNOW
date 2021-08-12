@@ -177,7 +177,7 @@ DS_IMAGE_TAG="${DS_IMAGE_TAG}-${BASE_IMG_VERSION}"
 BASE_IMG_ARG=" --build-arg BASE_IMG_TAG=${DS_IMAGE_TAG}"
 
 if [[ "$DS_HOST_TYPE" == "local" ]]; then
-  continue
+  :
 elif [[ "$DS_HOST_TYPE" == "XavierStandAlone" ]]; then
   DS_IMAGE_TAG="${DS_IMAGE_TAG}-XavierSA"
 elif [[ "$DS_HOST_TYPE" == "XavierWarthog" ]]; then
