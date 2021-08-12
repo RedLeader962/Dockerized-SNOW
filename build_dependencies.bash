@@ -139,7 +139,9 @@ elif [[ "$IMAGE_TAG" == "x86" ]] && [[ "$DS_PROJECT_REPO" == "gt-autorally" ]]; 
   BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/cudagl:11.3.1-devel-ubuntu18.04"
 fi
 
-IMAGE_TAG="${IMAGE_TAG}-${ADD_TO_TAG}"
+if [[ "$ADD_TO_TAG" != "" ]]; then
+  IMAGE_TAG="${IMAGE_TAG}-${ADD_TO_TAG}"
+fi
 
 # todo:on task end >> delete next bloc ↓↓
 echo "
