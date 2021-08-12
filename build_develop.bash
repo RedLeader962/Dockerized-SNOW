@@ -31,8 +31,8 @@ function print_help_in_terminal() {
       -h, --help                Get help
       --x86                     Build the image version compiled for x86 workstation instead of arm64-l4t
       --l4t-version=<version>   Build arm64-l4t using an other release version (default: r32.6.1)
+      --host-type=<type>        Specified the container host type: (default) local, XavierStandAlone, XavierWarthog
       --GT-AR                   Project version: Georgia Tech AutoRally refactoring
-      --host-type=<type>        Specified the container host type: (default) XavierStandAlone, XavierWarthog, local
       --clion                   Build the version to use with CLion IDE (use with the --GT-AR flag)
       --appendToTag=<detail>    Add supplemental details to the built image tag eg.: --appendToTag=test
 
@@ -54,7 +54,7 @@ BASE_IMG_ARG=""
 DS_SUB_PROJECT="norlab-mppi"
 ADD_TO_TAG=""
 IDE="develop"
-HOST_TYPE=""
+HOST_TYPE="local"
 
 ## todo:on task end >> delete next bloc ↓↓
 #echo "
@@ -94,9 +94,19 @@ for arg in "$@"; do
     echo
     ;;
   --host-type)
-    HOST_TYPE="XavierWarthog"
-    USER_ARG="${USER_ARG} --build-arg HOST_TYPE=XavierWarthog"
-    shift # Remove --host-type from processing
+    echo "${0} >> pass argument with the equal sign: --host-type=${2}" >&2 # Note: '>&2' = print to stderr
+    echo
+    exit
+    ;;
+  --host-type=?*)
+    HOST_TYPE="${arg#*=}" # Remove every character up to the '=' and assign the remainder
+    if [[ "$HOST_TYPE" == "local" || "$HOST_TYPE" == "XavierStandAlone" || "$HOST_TYPE" == "XavierWarthog" ]]; then
+      USER_ARG="${USER_ARG} --build-arg HOST_TYPE=${HOST_TYPE}"
+      echo "Host type: ${HOST_TYPE}"
+    else
+      echo "Host type ${HOST_TYPE} is not currently supported"
+      exit
+    fi
     ;;
   --clion)
     IDE="clion-develop"
@@ -169,10 +179,9 @@ ${0}:
   ADD_TO_TAG >> ${ADD_TO_TAG}
 "
 
-# (CRITICAL) todo:on task end >> unmute next bloc ↓↓
-#sudo docker build \
-#  -t norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG} \
-#  -f ./Docker/${DS_SUB_PROJECT}/${IDE}/Dockerfile \
-#  ${BASE_IMG_ARG} \
-#  ${USER_ARG} \
-#  ./Docker/${DS_SUB_PROJECT}-${IDE}
+sudo docker build \
+  -t norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG} \
+  -f ./Docker/${DS_SUB_PROJECT}/${IDE}/Dockerfile \
+  ${BASE_IMG_ARG} \
+  ${USER_ARG} \
+  ./Docker/${DS_SUB_PROJECT}-${IDE}
