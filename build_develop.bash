@@ -100,14 +100,7 @@ for arg in "$@"; do
     ;;
   --host-type=?*)
     DS_HOST_TYPE="${arg#*=}" # Remove every character up to the '=' and assign the remainder
-    if [[ "$DS_HOST_TYPE" == "local" || "$DS_HOST_TYPE" == "XavierStandAlone" || "$DS_HOST_TYPE" == "XavierWarthog" ]]; then
-      USER_ARG="${USER_ARG} --build-arg DS_HOST_TYPE=${DS_HOST_TYPE}"
-      echo "Host type: ${DS_HOST_TYPE}"
-    else
-      echo "Host type ${DS_HOST_TYPE} is not currently supported. Choose between: (default) local, XavierStandAlone or XavierWarthog"
-      echo
-      exit
-    fi
+    echo
     ;;
   --clion)
     IDE="clion-develop"
@@ -130,9 +123,8 @@ for arg in "$@"; do
   shift
 done
 
-
+# ---Compose image------------------------------------------------------------------------------------------------------
 if [[ "$DS_SUB_PROJECT" == "norlab-mppi" ]]; then
-
   if [[ "$DS_IMAGE_TAG" == "arm64-l4t" ]]; then
     if [[ "$BASE_IMG_VERSION" == "" ]]; then
       BASE_IMG_VERSION="r32.6.1"
@@ -146,9 +138,7 @@ if [[ "$DS_SUB_PROJECT" == "norlab-mppi" ]]; then
     echo "         Build ${DS_SUB_PROJECT}-develop image instead"
     IDE="develop"
   fi
-
 elif [[ "$DS_SUB_PROJECT" == "gt-autorally" ]]; then
-
   if [[ "$DS_IMAGE_TAG" == "arm64-l4t" ]]; then
     if [[ "$BASE_IMG_VERSION" == "" ]]; then
       BASE_IMG_VERSION="r32.5.0"
@@ -156,12 +146,27 @@ elif [[ "$DS_SUB_PROJECT" == "gt-autorally" ]]; then
   elif [[ "$DS_IMAGE_TAG" == "x86" ]]; then
     BASE_IMG_VERSION="ubuntu18.04"
   fi
-
 else
   echo  "$DS_SUB_PROJECT is not currently supported"
   exit
 fi
 
+# ---Check legal host type vs image tag combinaison---------------------------------------------------------------------
+if [[ "$DS_HOST_TYPE" == "local" && "$DS_IMAGE_TAG" == "x86" ]]; then
+  USER_ARG="${USER_ARG} --build-arg DS_HOST_TYPE=${DS_HOST_TYPE}"
+  echo "Host type: ${DS_HOST_TYPE}"
+elif [[ "$DS_IMAGE_TAG" == "arm64-l4t"  ]]; then
+  if [[ "$DS_HOST_TYPE" == "XavierStandAlone" || "$DS_HOST_TYPE" == "XavierWarthog" ]]; then
+    USER_ARG="${USER_ARG} --build-arg DS_HOST_TYPE=${DS_HOST_TYPE}"
+    echo "Host type: ${DS_HOST_TYPE}"
+  fi
+else
+  echo "Host type ${DS_HOST_TYPE} is not currently supported. Choose between: (default) local, XavierStandAlone or XavierWarthog"
+  echo
+  exit
+fi
+
+# ---Construct image tag------------------------------------------------------------------------------------------------
 DS_IMAGE_TAG="${DS_IMAGE_TAG}-${BASE_IMG_VERSION}"
 BASE_IMG_ARG=" --build-arg BASE_IMG_TAG=${DS_IMAGE_TAG}"
 
@@ -189,6 +194,8 @@ ${0}:
   ADD_TO_TAG >> ${ADD_TO_TAG}
   DS_HOST_TYPE >> ${DS_HOST_TYPE}
 "
+
+# ---Build docker image-------------------------------------------------------------------------------------------------
 
 #sudo docker build \
 #  -t norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG} \

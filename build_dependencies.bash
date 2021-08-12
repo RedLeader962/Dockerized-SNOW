@@ -122,6 +122,7 @@ for arg in "$@"; do
   shift
 done
 
+# ---Compose image------------------------------------------------------------------------------------------------------
 if [[ "$DS_IMAGE_TAG" == "arm64-l4t" ]] && [[ "$DS_SUB_PROJECT" == "norlab-mppi" ]]; then
   if [[ "$BASE_IMG_VERSION" == "" ]]; then
     BASE_IMG_VERSION="r32.6.1"
@@ -143,6 +144,7 @@ else
   exit
 fi
 
+# ---Construct image tag------------------------------------------------------------------------------------------------
 DS_IMAGE_TAG="${DS_IMAGE_TAG}-${BASE_IMG_VERSION}"
 
 if [[ "$ADD_TO_TAG" != "" ]]; then
@@ -158,6 +160,8 @@ ${0}:
   BASE_IMG_VERSION >> ${BASE_IMG_VERSION}
   DS_SUB_PROJECT >> ${DS_SUB_PROJECT}
 "
+
+# ---Build docker image-------------------------------------------------------------------------------------------------
 
 #sudo docker build \
 #  -t norlabsnow/${DS_SUB_PROJECT}-dependencies:${DS_IMAGE_TAG} \
