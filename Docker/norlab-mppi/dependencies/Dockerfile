@@ -84,9 +84,9 @@ RUN apt-get update \
         python3-rosinstall-generator \
         python3-wstool \
         python3-vcstools \
-    && rosdep init \
-    && rosdep update \
-    && rosdep fix-permissions \
+#    && rosdep init \
+#    && rosdep update \
+#    && rosdep fix-permissions \
     && rm -rf /var/lib/apt/lists/*
 
 
@@ -98,9 +98,12 @@ RUN apt-get update \
 
 # Install ROS
 RUN apt-get update \
-    && cd ${ROS_ROOT} \
     && apt-get install --assume-yes --no-install-recommends \
       ros-${ROS_DISTRO}-`echo "${ROS_PKG}" | tr '_' '-'` \
+    && cd ${ROS_ROOT} \
+    && rosdep init \
+    && rosdep update \
+    && rosdep fix-permissions \
     && rm -rf /var/lib/apt/lists/*
 
 # . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .❮❮❮ standard ROS install method ❮❮❮
