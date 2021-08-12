@@ -91,15 +91,15 @@ Note: To change directory ownership `sudo chown -R $USER ~/<myPathTo>/Dockerized
 ### 4. Build the _nvidia-docker_ image using the following script
 Use the `--help` flag for instruction
 ```shell
-bash ./build_snow_dependencies.bash --x86
-bash ./build_snow_develop.bash --x86
-bash ./build_snow_deploy.bash --x86
+bash ./build_dependencies.bash --x86
+bash ./build_develop.bash --x86
+bash ./build_deploy.bash --x86
 ```
 
 ### 5. Run the container using the following script
 ```shell
-bash ./run_snow_develop.bash --x86
-bash ./run_snow_deploy.bash --x86
+bash ./run_develop.bash --x86
+bash ./run_deploy.bash --x86
 
 # To open additional terminal in a running container 
 bash ./open_new_terminal.bash <container name to execute>
