@@ -30,8 +30,8 @@ function print_help_in_terminal() {
 
     <optional argument>:
       -h, --help                Get help
-      --x86                     Get the image version compiled for x86 workstation
-      --GT-AR                   Build version: GeogiaTech AutoRally refactoring project
+      --x86                     Get the image version compiled for x86 workstation (default: arm64-l4t)
+      --GT-AR                   Build version: Georgia Tech AutoRally refactoring project (default: NorLab-MPPI)
 
     Note: you can pass any docker build flag as additional argument eg:
       --build-arg=\"ROS_PKG=desktop-full\"
