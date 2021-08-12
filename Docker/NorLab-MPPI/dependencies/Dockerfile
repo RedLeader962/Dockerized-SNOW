@@ -7,7 +7,7 @@
 # - dusty-nv/jetson-containers: https://github.com/dusty-nv/jetson-containers/blob/master/Dockerfile.ros.noetic
 
 
-# Base image: nvidia linux 4 tegra (l 4 t) nvidia docker container official image
+# Base image: nvidia linux 4 tegra (L4T) nvidia docker container official image
 #   https://ngc.nvidia.com/catalog/containers/nvidia:l4t-base
 #
 ARG BASE_IMAGE=nvcr.io/nvidia/l4t-base:r32.6.1

@@ -60,6 +60,7 @@ function print_help_in_terminal() {
 
 USER_ARG=""
 IMAGE_TAG="arm64-l4t"
+BASE_IMG_VERSION="r32.6.1"
 BASE_IMG_ARG=""
 DS_PROJECT_REPO="NorLab-MPPI"
 
@@ -77,12 +78,11 @@ for arg in "$@"; do
     ;;
   --x86)
     IMAGE_TAG="x86"
-    BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/cudagl:11.3.1-devel-ubuntu18.04"
     shift # Remove --x86 from processing
     ;;
   --GT-AR)
     DS_PROJECT_REPO="GT-autorally"
-    shift # Remove --x86 from processing
+    shift # Remove --GT-AR from processing
     ;;
   --)
     shift
@@ -108,6 +108,22 @@ done
 #  IMAGE_TAG >> ${IMAGE_TAG}
 #  BASE_IMG_ARG >> ${BASE_IMG_ARG}
 #"
+
+if [[ "$IMAGE_TAG" == "arm64-l4t" ]] && [[ "$DS_PROJECT_REPO" == "NorLab-MPPI" ]]; then
+  IMAGE_TAG = "${IMAGE_TAG}-${BASE_IMG_VERSION}"
+  BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/l4t-base:${BASE_IMG_VERSION}"
+elif [[ "$IMAGE_TAG" == "x86" ]] && [[ "$DS_PROJECT_REPO" == "NorLab-MPPI" ]]; then
+  BASE_IMG_VERSION="ubuntu20.04"
+  IMAGE_TAG = "${IMAGE_TAG}-${BASE_IMG_VERSION}"
+  BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/cudagl:11.4.0-devel-ubuntu20.04"
+elif [[ "$IMAGE_TAG" == "arm64-l4t" ]] && [[ "$DS_PROJECT_REPO" == "GT-autorally" ]]; then
+  IMAGE_TAG = "${IMAGE_TAG}-${BASE_IMG_VERSION}"
+  BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/l4t-base:${BASE_IMG_VERSION}"
+elif [[ "$IMAGE_TAG" == "x86" ]] && [[ "$DS_PROJECT_REPO" == "GT-autorally" ]]; then
+  BASE_IMG_VERSION="ubuntu18.04"
+  IMAGE_TAG = "${IMAGE_TAG}-${BASE_IMG_VERSION}"
+  BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/cudagl:11.3.1-devel-ubuntu18.04"
+fi
 
 sudo docker build \
   -t norlabsnow/${DS_PROJECT_REPO}-dependencies:${IMAGE_TAG} \
