@@ -152,13 +152,19 @@ else
 fi
 
 # ---Check legal host type vs image tag combinaison---------------------------------------------------------------------
-if [[ "$DS_HOST_TYPE" == "local" && "$DS_IMAGE_TAG" == "x86" ]]; then
-  USER_ARG="${USER_ARG} --build-arg DS_HOST_TYPE=${DS_HOST_TYPE}"
-  echo "Host type: ${DS_HOST_TYPE}"
-elif [[ "$DS_IMAGE_TAG" == "arm64-l4t"  ]]; then
-  if [[ "$DS_HOST_TYPE" == "XavierStandAlone" || "$DS_HOST_TYPE" == "XavierWarthog" ]]; then
+if [[ "$DS_HOST_TYPE" == "local" ]]; then
+  if [[ "$DS_IMAGE_TAG" == "x86" ]]; then
     USER_ARG="${USER_ARG} --build-arg DS_HOST_TYPE=${DS_HOST_TYPE}"
     echo "Host type: ${DS_HOST_TYPE}"
+  else
+    echo "Host type ${DS_HOST_TYPE} is for x86 build only"
+  fi
+elif [[ "$DS_HOST_TYPE" == "XavierStandAlone" || "$DS_HOST_TYPE" == "XavierWarthog" ]]; then
+  if [[ "$DS_IMAGE_TAG" == "arm64-l4t" ]]; then
+    USER_ARG="${USER_ARG} --build-arg DS_HOST_TYPE=${DS_HOST_TYPE}"
+    echo "Host type: ${DS_HOST_TYPE}"
+  else
+    echo "Host type ${DS_HOST_TYPE} is for arm64-l4t build only"
   fi
 else
   echo "Host type ${DS_HOST_TYPE} is not currently supported. Choose between: (default) local, XavierStandAlone or XavierWarthog"
@@ -171,7 +177,7 @@ DS_IMAGE_TAG="${DS_IMAGE_TAG}-${BASE_IMG_VERSION}"
 BASE_IMG_ARG=" --build-arg BASE_IMG_TAG=${DS_IMAGE_TAG}"
 
 if [[ "$DS_HOST_TYPE" == "local" ]]; then
-  DS_IMAGE_TAG="${DS_IMAGE_TAG}-local"
+  continue
 elif [[ "$DS_HOST_TYPE" == "XavierStandAlone" ]]; then
   DS_IMAGE_TAG="${DS_IMAGE_TAG}-XavierSA"
 elif [[ "$DS_HOST_TYPE" == "XavierWarthog" ]]; then
