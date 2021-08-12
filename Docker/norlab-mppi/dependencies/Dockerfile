@@ -168,9 +168,7 @@ RUN mkdir ${DEV_WORKSPACE} && \
 WORKDIR "${DEV_WORKSPACE}"
 
 RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
-    && source ${DEV_WORKSPACE}/devel/setup.bash" \
-    && echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc \
-    && echo "source ${DEV_WORKSPACE}/devel/setup.bash" >> ~/.bashrc
+    && echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc
 
 
 #  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .❮❮❮ test ❮❮❮
