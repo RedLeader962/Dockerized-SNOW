@@ -177,6 +177,7 @@ ${0}:
   BASE_IMG_VERSION >> ${BASE_IMG_VERSION}
   IDE >> ${IDE}
   ADD_TO_TAG >> ${ADD_TO_TAG}
+  HOST_TYPE >> ${HOST_TYPE}
 "
 
 #sudo docker build \
