@@ -111,6 +111,23 @@ for arg in "$@"; do
   shift
 done
 
+
+if [[ "$IMAGE_TAG" == "arm64-l4t" ]] && [[ "$DS_PROJECT_REPO" == "norlab-mppi" ]]; then
+  IMAGE_TAG="${IMAGE_TAG}-${BASE_IMG_VERSION}"
+  BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/l4t-base:${BASE_IMG_VERSION}"
+elif [[ "$IMAGE_TAG" == "x86" ]] && [[ "$DS_PROJECT_REPO" == "norlab-mppi" ]]; then
+  BASE_IMG_VERSION="ubuntu20.04"
+  IMAGE_TAG="${IMAGE_TAG}-${BASE_IMG_VERSION}"
+  BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/cudagl:11.4.0-devel-ubuntu20.04"
+elif [[ "$IMAGE_TAG" == "arm64-l4t" ]] && [[ "$DS_PROJECT_REPO" == "gt-autorally" ]]; then
+  IMAGE_TAG="${IMAGE_TAG}-${BASE_IMG_VERSION}"
+  BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/l4t-base:${BASE_IMG_VERSION}"
+elif [[ "$IMAGE_TAG" == "x86" ]] && [[ "$DS_PROJECT_REPO" == "gt-autorally" ]]; then
+  BASE_IMG_VERSION="ubuntu18.04"
+  IMAGE_TAG="${IMAGE_TAG}-${BASE_IMG_VERSION}"
+  BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/cudagl:11.3.1-devel-ubuntu18.04"
+fi
+
 # todo:on task end >> delete next bloc ↓↓
 echo "
 ${0}:
@@ -121,25 +138,9 @@ ${0}:
   DS_PROJECT_REPO >> ${DS_PROJECT_REPO}
 "
 
-if [[ "$IMAGE_TAG" == "arm64-l4t" ]] && [[ "$DS_PROJECT_REPO" == "norlab-mppi" ]]; then
-  IMAGE_TAG = "${IMAGE_TAG}-${BASE_IMG_VERSION}"
-  BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/l4t-base:${BASE_IMG_VERSION}"
-elif [[ "$IMAGE_TAG" == "x86" ]] && [[ "$DS_PROJECT_REPO" == "norlab-mppi" ]]; then
-  BASE_IMG_VERSION="ubuntu20.04"
-  IMAGE_TAG = "${IMAGE_TAG}-${BASE_IMG_VERSION}"
-  BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/cudagl:11.4.0-devel-ubuntu20.04"
-elif [[ "$IMAGE_TAG" == "arm64-l4t" ]] && [[ "$DS_PROJECT_REPO" == "gt-autorally" ]]; then
-  IMAGE_TAG = "${IMAGE_TAG}-${BASE_IMG_VERSION}"
-  BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/l4t-base:${BASE_IMG_VERSION}"
-elif [[ "$IMAGE_TAG" == "x86" ]] && [[ "$DS_PROJECT_REPO" == "gt-autorally" ]]; then
-  BASE_IMG_VERSION="ubuntu18.04"
-  IMAGE_TAG = "${IMAGE_TAG}-${BASE_IMG_VERSION}"
-  BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/cudagl:11.3.1-devel-ubuntu18.04"
-fi
-
-sudo docker build \
-  -t norlabsnow/${DS_PROJECT_REPO}-dependencies:${IMAGE_TAG} \
-  -f ./Docker/${DS_PROJECT_REPO}/dependencies/Dockerfile \
-  ${BASE_IMG_ARG} \
-  ${USER_ARG} \
-  ./Docker
+#sudo docker build \
+#  -t norlabsnow/${DS_PROJECT_REPO}-dependencies:${IMAGE_TAG} \
+#  -f ./Docker/${DS_PROJECT_REPO}/dependencies/Dockerfile \
+#  ${BASE_IMG_ARG} \
+#  ${USER_ARG} \
+#  ./Docker
