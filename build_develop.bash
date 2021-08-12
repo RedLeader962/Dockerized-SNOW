@@ -54,7 +54,7 @@ BASE_IMG_ARG=""
 DS_SUB_PROJECT="norlab-mppi"
 ADD_TO_TAG=""
 IDE="develop"
-HOST_TYPE="local"
+DS_HOST_TYPE="local"
 
 ## todo:on task end >> delete next bloc ↓↓
 #echo "
@@ -99,12 +99,12 @@ for arg in "$@"; do
     exit
     ;;
   --host-type=?*)
-    HOST_TYPE="${arg#*=}" # Remove every character up to the '=' and assign the remainder
-    if [[ "$HOST_TYPE" == "local" || "$HOST_TYPE" == "XavierStandAlone" || "$HOST_TYPE" == "XavierWarthog" ]]; then
-      USER_ARG="${USER_ARG} --build-arg HOST_TYPE=${HOST_TYPE}"
-      echo "Host type: ${HOST_TYPE}"
+    DS_HOST_TYPE="${arg#*=}" # Remove every character up to the '=' and assign the remainder
+    if [[ "$DS_HOST_TYPE" == "local" || "$DS_HOST_TYPE" == "XavierStandAlone" || "$DS_HOST_TYPE" == "XavierWarthog" ]]; then
+      USER_ARG="${USER_ARG} --build-arg DS_HOST_TYPE=${DS_HOST_TYPE}"
+      echo "Host type: ${DS_HOST_TYPE}"
     else
-      echo "Host type ${HOST_TYPE} is not currently supported. Choose between: (default) local, XavierStandAlone or XavierWarthog"
+      echo "Host type ${DS_HOST_TYPE} is not currently supported. Choose between: (default) local, XavierStandAlone or XavierWarthog"
       echo
       exit
     fi
@@ -179,7 +179,7 @@ ${0}:
   BASE_IMG_VERSION >> ${BASE_IMG_VERSION}
   IDE >> ${IDE}
   ADD_TO_TAG >> ${ADD_TO_TAG}
-  HOST_TYPE >> ${HOST_TYPE}
+  DS_HOST_TYPE >> ${DS_HOST_TYPE}
 "
 
 #sudo docker build \

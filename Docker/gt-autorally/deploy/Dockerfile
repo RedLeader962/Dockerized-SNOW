@@ -25,8 +25,8 @@ ARG DEV_BRANCH=AutoRally-Clean
 #ARG DEV_BRANCH=SNOW-melodic-devel
 
 # Default: Local , Option: XavierWarthog
-ARG HOST_TYPE=Local
-ENV HOST_TYPE=${HOST_TYPE}
+ARG DS_HOST_TYPE=Local
+ENV DS_HOST_TYPE=${DS_HOST_TYPE}
 
 WORKDIR ${DEV_WORKSPACE}/src
 RUN echo "Pull latest ${DEV_BRANCH} branch" \
@@ -43,7 +43,7 @@ RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
 
 # Environment setup
 #RUN echo ". ${DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/autorally_util/setupEnvLocal.sh" >> ~/.bashrc
-RUN echo ". ${DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/autorally_util/setupEnv${HOST_TYPE}.sh" >> ~/.bashrc
+RUN echo ". ${DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/autorally_util/setupEnv${DS_HOST_TYPE}.sh" >> ~/.bashrc
 
 
 ## ... Generate Documentation ..........................................................................................

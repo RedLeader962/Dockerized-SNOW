@@ -17,7 +17,7 @@ source "${DEV_WORKSPACE}/devel/setup.bash"
 
 # (Priority) todo:refactor (ref task NLSAR-222 🛠→ setupEnv*.sh scripts for deployement case)
 ## Environment setup
-#norlab_mppi_env_setup="${DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/mppi_util/setupEnv${HOST_TYPE}.sh"
+#norlab_mppi_env_setup="${DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/mppi_util/setupEnv${DS_HOST_TYPE}.sh"
 #echo "source ${norlab_mppi_env_setup}" >> ~/.bashrc
 
 

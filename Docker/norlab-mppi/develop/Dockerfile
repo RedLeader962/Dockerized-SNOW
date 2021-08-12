@@ -9,8 +9,8 @@ ARG SRC_CODE_REPOSITORY_NAME=NorLab_MPPI
 ENV SRC_CODE_REPOSITORY_NAME=${SRC_CODE_REPOSITORY_NAME}
 
 # Default: Local , Option: XavierWarthog
-ARG HOST_TYPE=Local
-ENV HOST_TYPE=${HOST_TYPE}
+ARG DS_HOST_TYPE=Local
+ENV DS_HOST_TYPE=${DS_HOST_TYPE}
 
 # ... Finish container setup ...........................................................................................
 WORKDIR /

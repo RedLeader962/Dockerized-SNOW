@@ -67,7 +67,7 @@ for arg in "$@"; do
 #    ;;
   --host-type)
     DS_IMAGE_TAG="${DS_IMAGE_TAG}-XavierWarthog"
-    USER_ARG="${USER_ARG} --build-arg HOST_TYPE=XavierWarthog"
+    USER_ARG="${USER_ARG} --build-arg DS_HOST_TYPE=XavierWarthog"
     shift # Remove --host-type from processing
     ;;
   --GT-AR)

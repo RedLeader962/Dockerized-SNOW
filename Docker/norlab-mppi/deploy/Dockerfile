@@ -20,8 +20,8 @@ ENV SRC_CODE_DOMAIN_NAME=${SRC_CODE_DOMAIN_NAME}
 ARG DEV_BRANCH=master
 
 # Default: Local , Option: XavierWarthog
-ARG HOST_TYPE=Local
-ENV HOST_TYPE=${HOST_TYPE}
+ARG DS_HOST_TYPE=Local
+ENV DS_HOST_TYPE=${DS_HOST_TYPE}
 
 WORKDIR ${DEV_WORKSPACE}/src
 RUN echo "Pull latest ${DEV_BRANCH} branch" \
@@ -38,7 +38,7 @@ RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
 
 # (Priority) todo:refactor (ref task NLSAR-222 🛠→ setupEnv*.sh scripts for deployement case)
 ## Environment setup
-#RUN echo ". ${DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/mppi_util/setupEnv${HOST_TYPE}.sh" >> ~/.bashrc
+#RUN echo ". ${DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/mppi_util/setupEnv${DS_HOST_TYPE}.sh" >> ~/.bashrc
 
 
 # ... Finish container setup ...........................................................................................
