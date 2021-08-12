@@ -20,20 +20,21 @@ echo -e "
 \033[0m
 "
 
-
 function print_help_in_terminal() {
 
   echo -e "
-  ${0}  [<optional argument>]
+    ${0}  [<optional argument>]
 
-    Default compilation: arm64 with Linux for Tegra (L4T) os
+    Default compilation:
+    - norlab-mppi project
+    - arm64 with Linux for Tegra (L4T) os version 32.6.1 (tag: arm64-l4t-r32.6.1)
 
     <optional argument>:
       -h, --help                Get help
-      --x86                     Get the image version compiled for x86 workstation (default: arm64-l4t)
-      --jetpack=<version>       The Jetpack version (default: r32.6.1)
-      --GT-AR                   Build version: Georgia Tech AutoRally refactoring project (default: norlab-mppi)
-      --addToTag=<detail>
+      --x86                     Build the image version compiled for x86 workstation instead of arm64-l4t
+      --l4t-version=<version>   Build arm64-l4t using an other release version (default: r32.6.1)
+      --GT-AR                   Project version: Georgia Tech AutoRally refactoring
+      --appendToTag=<detail>    Add suplemental details to the builded image tag eg.: --appendToTag=test
 
     Note: you can pass any docker build flag as additional argument eg:
       --build-arg=\"ROS_PKG=desktop-full\"
@@ -61,17 +62,16 @@ function print_help_in_terminal() {
 #     - https://ngc.nvidia.com/catalog/containers/nvidia:cudagl
 
 USER_ARG=""
-IMAGE_TAG="arm64-l4t"
+DS_IMAGE_TAG="arm64-l4t"
 BASE_IMG_VERSION="r32.6.1"
 BASE_IMG_ARG=""
-DS_PROJECT_REPO="norlab-mppi"
+DS_SUB_PROJECT="norlab-mppi"
 ADD_TO_TAG=""
 
 ## todo:on task end >> delete next bloc ↓↓
 #echo "
 #${0}: all arg >> ${@}
 #"
-
 
 for arg in "$@"; do
   case $arg in
@@ -80,37 +80,37 @@ for arg in "$@"; do
     exit
     ;;
   --x86)
-    IMAGE_TAG="x86"
+    DS_IMAGE_TAG="x86"
     shift # Remove --x86 from processing
     ;;
   --GT-AR)
-    DS_PROJECT_REPO="gt-autorally"
+    DS_SUB_PROJECT="gt-autorally"
     shift # Remove --GT-AR from processing
     ;;
-  --jetpack)
-    echo "${0} >> pass argument with the equal sign: --jetpack=${2}" >&2 # Note: '>&2' = print to stderr
+  --l4t-version)
+    echo "${0} >> pass argument with the equal sign: --l4t-version=${2}" >&2 # Note: '>&2' = print to stderr
     echo
     exit
     ;;
-  --jetpack=?*)
+  --l4t-version=?*)
     BASE_IMG_VERSION="${arg#*=}" # Remove every character up to the '=' and assign the remainder
     echo "Base image tag: ${BASE_IMG_VERSION}"
     ;;
-  --addToTag)
-    echo "${0} >> pass argument with the equal sign: --addToTag=${2}" >&2 # Note: '>&2' = print to stderr
+  --appendToTag)
+    echo "${0} >> pass argument with the equal sign: --appendToTag=${2}" >&2 # Note: '>&2' = print to stderr
     echo
     exit
     ;;
-  --addToTag=?*)
-    ADD_TO_TAG="${arg#*=}" # Remove every character up to the '=' and assign the remainder
+  --appendToTag=?*)
+    ADD_TO_TAG="${ADD_TO_TAG}${arg#*=}" # Remove every character up to the '=' and assign the remainder
     echo
     ;;
   --)
     shift
     break
     ;;
-  -?*|--?*)
-#    echo $0: $1: unrecognized option >&2 # Note: '>&2' = print to stderr
+  -?* | --?*)
+    #    echo $0: $1: unrecognized option >&2 # Note: '>&2' = print to stderr
     USER_ARG="${USER_ARG} ${arg}"
     shift # Remove generic argument from processing
     ;;
@@ -122,40 +122,39 @@ for arg in "$@"; do
   shift
 done
 
-
-if [[ "$IMAGE_TAG" == "arm64-l4t" ]] && [[ "$DS_PROJECT_REPO" == "norlab-mppi" ]]; then
-  IMAGE_TAG="${IMAGE_TAG}-${BASE_IMG_VERSION}"
+if [[ "$DS_IMAGE_TAG" == "arm64-l4t" ]] && [[ "$DS_SUB_PROJECT" == "norlab-mppi" ]]; then
   BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/l4t-base:${BASE_IMG_VERSION}"
-elif [[ "$IMAGE_TAG" == "x86" ]] && [[ "$DS_PROJECT_REPO" == "norlab-mppi" ]]; then
+elif [[ "$DS_IMAGE_TAG" == "x86" ]] && [[ "$DS_SUB_PROJECT" == "norlab-mppi" ]]; then
   BASE_IMG_VERSION="ubuntu20.04"
-  IMAGE_TAG="${IMAGE_TAG}-${BASE_IMG_VERSION}"
-  BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/cudagl:11.4.0-devel-ubuntu20.04"
-elif [[ "$IMAGE_TAG" == "arm64-l4t" ]] && [[ "$DS_PROJECT_REPO" == "gt-autorally" ]]; then
-  IMAGE_TAG="${IMAGE_TAG}-${BASE_IMG_VERSION}"
+  BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/cudagl:11.4.0-devel-${BASE_IMG_VERSION}"
+elif [[ "$DS_IMAGE_TAG" == "arm64-l4t" ]] && [[ "$DS_SUB_PROJECT" == "gt-autorally" ]]; then
+  BASE_IMG_VERSION="r32.5.0"
   BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/l4t-base:${BASE_IMG_VERSION}"
-elif [[ "$IMAGE_TAG" == "x86" ]] && [[ "$DS_PROJECT_REPO" == "gt-autorally" ]]; then
+elif [[ "$DS_IMAGE_TAG" == "x86" ]] && [[ "$DS_SUB_PROJECT" == "gt-autorally" ]]; then
   BASE_IMG_VERSION="ubuntu18.04"
-  IMAGE_TAG="${IMAGE_TAG}-${BASE_IMG_VERSION}"
-  BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/cudagl:11.3.1-devel-ubuntu18.04"
+  BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/cudagl:11.3.1-devel-${BASE_IMG_VERSION}"
 fi
 
+DS_IMAGE_TAG="${DS_IMAGE_TAG}-${BASE_IMG_VERSION}"
+
 if [[ "$ADD_TO_TAG" != "" ]]; then
-  IMAGE_TAG="${IMAGE_TAG}-${ADD_TO_TAG}"
+  DS_IMAGE_TAG="${DS_IMAGE_TAG}-${ADD_TO_TAG}"
 fi
 
 # todo:on task end >> delete next bloc ↓↓
 echo "
 ${0}:
   USER_ARG >> ${USER_ARG}
-  IMAGE_TAG >> ${IMAGE_TAG}
+  DS_IMAGE_TAG >> ${DS_IMAGE_TAG}
   BASE_IMG_ARG >> ${BASE_IMG_ARG}
   BASE_IMG_VERSION >> ${BASE_IMG_VERSION}
-  DS_PROJECT_REPO >> ${DS_PROJECT_REPO}
+  DS_SUB_PROJECT >> ${DS_SUB_PROJECT}
 "
 
+# (CRITICAL) todo:on task end >> unmute next bloc ↓↓
 #sudo docker build \
-#  -t norlabsnow/${DS_PROJECT_REPO}-dependencies:${IMAGE_TAG} \
-#  -f ./Docker/${DS_PROJECT_REPO}/dependencies/Dockerfile \
+#  -t norlabsnow/${DS_SUB_PROJECT}-dependencies:${DS_IMAGE_TAG} \
+#  -f ./Docker/${DS_SUB_PROJECT}/dependencies/Dockerfile \
 #  ${BASE_IMG_ARG} \
 #  ${USER_ARG} \
-#  ./Docker
+#  ./Docker/${DS_SUB_PROJECT}

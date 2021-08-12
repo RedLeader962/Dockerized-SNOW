@@ -27,9 +27,9 @@ function print_help_in_terminal() {
 
     <optional argument>:
       -h, --help                Get help
-      --baseImgTag=<theMarvelousTag>  The base image tag to use eg.: arm64-l4t-r32.5.0, x86-ubuntu20.04
+      --baseImgTagOW=<thatTag>        Overwrite base image tag  eg.: arm64-l4t-r32.5.0, x86-ubuntu20.04
       --GT-AR                         Build version: Georgia Tech AutoRally refactoring project (default: norlab-mppi)
-      --XavierWarthog           Use it for container deployed on the Warthog
+      --host-type           Use it for container deployed on the Warthog
       --name=<myCoolContainer>  Name that new container, the crazier the better
       --data==<myCrazyDataDir>        Host data directory to mount inside the container.
                                       Must be an absolute path eg.: /home/snowxavier/Repositories/wt_data
@@ -46,8 +46,8 @@ function print_help_in_terminal() {
 # --x86                     Get the image version compiled for x86 workstation
 
 USER_ARG=""
-IMAGE_TAG="arm64-l4t-r32.6.1"
-DS_PROJECT_REPO="norlab-mppi"
+DS_IMAGE_TAG="arm64-l4t-r32.6.1"
+DS_SUB_PROJECT="norlab-mppi"
 
 ## todo:on task end >> delete next bloc ↓↓
 #echo "
@@ -62,15 +62,15 @@ for arg in "$@"; do
     exit
     ;;
 #  --x86)
-#    IMAGE_TAG="x86"
+#    DS_IMAGE_TAG="x86"
 #    shift # Remove --x86 from processing
 #    ;;
-  --XavierWarthog)
+  --host-type)
     USER_ARG="${USER_ARG} -e HOST_TYPE=XavierWarthog"
-    shift # Remove --XavierWarthog from processing
+    shift # Remove --host-type from processing
     ;;
   --GT-AR)
-    DS_PROJECT_REPO="gt-autorally"
+    DS_SUB_PROJECT="gt-autorally"
     shift # Remove --GT-AR from processing
     ;;
   --name)
@@ -90,14 +90,14 @@ for arg in "$@"; do
     echo "new container name: ${CONTAINER_NAME}"
     echo
     ;;
-  --baseImgTag)
-    echo "${0} >> pass argument with the equal sign: --baseImgTag=${2}" >&2 # Note: '>&2' = print to stderr
+  --baseImgTagOW)
+    echo "${0} >> pass argument with the equal sign: --baseImgTagOW=${2}" >&2 # Note: '>&2' = print to stderr
     echo
     exit
     ;;
-  --baseImgTag=?*)
-    IMAGE_TAG="${arg#*=}" # Remove every character up to the '=' and assign the remainder
-    echo "Base image tag: ${IMAGE_TAG}"
+  --baseImgTagOW=?*)
+    DS_IMAGE_TAG="${arg#*=}" # Remove every character up to the '=' and assign the remainder
+    echo "Base image tag: ${DS_IMAGE_TAG}"
     ;;
   --data=jetson)
     WS_DIR="${HOME}/Repositories/wt_data"
@@ -130,8 +130,8 @@ done
 echo "
 ${0}:
   USER_ARG >> ${USER_ARG}
-  IMAGE_TAG >> ${IMAGE_TAG}
-  DS_PROJECT_REPO >> ${DS_PROJECT_REPO}
+  DS_IMAGE_TAG >> ${DS_IMAGE_TAG}
+  DS_SUB_PROJECT >> ${DS_SUB_PROJECT}
 "
 
 export DISPLAY=:0
@@ -161,6 +161,6 @@ sudo docker run \
   --volume "/etc/localtime:/etc/localtime:ro" \
   ${HOST_DATA_DIR_FLAG} \
   ${USER_ARG} \
-  norlabsnow/${DS_PROJECT_REPO}/deploy:${IMAGE_TAG}
+  norlabsnow/${DS_SUB_PROJECT}/deploy:${DS_IMAGE_TAG}
 
 

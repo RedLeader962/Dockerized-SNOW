@@ -27,10 +27,11 @@ function print_help_in_terminal() {
 
     <optional argument>:
       -h, --help                      Get help
-      --baseImgTag=<theMarvelousTag>  The base image tag to use eg.: arm64-l4t-r32.5.0, x86-ubuntu20.04
+      --x86                           Get the image version compiled for x86 workstation
       --GT-AR                         Build version: Georgia Tech AutoRally refactoring project (default: norlab-mppi)
       --clion                         Run the version to use with CLion IDE
-      --XavierWarthog                 Use it for container deployed on the Warthog
+      --baseImgTagOW=<thatTag>        Overwrite base image tag  eg.: arm64-l4t-r32.5.0, x86-ubuntu20.04
+      --host-type=<type>              Specified the container host type: (default) XavierStandAlone, XavierWarthog, local
       --name=<myCoolContainer>        Name that new container, the crazier the better
       --name=xc                       Shortcut: ---name=xavier_red_clion
       --src=<myCoolSrcCode>           Host source code directory to mount inside the container.
@@ -56,14 +57,15 @@ function print_help_in_terminal() {
   "
 }
 
-# --x86                         Get the image version compiled for x86 workstation
+
 # --host-home=<absPathToHome>   Host home absolute path eg.: /home/snowxavier
 
 USER_ARG=""
 HOST_SOURCE_CODE_FLAG=""
-IMAGE_TAG="arm64-l4t-r32.6.1"
+DS_IMAGE_TAG="arm64-l4t"
+BASE_IMG_VERSION="r32.6.1"
 IDE="develop"
-DS_PROJECT_REPO="norlab-mppi"
+DS_SUB_PROJECT="norlab-mppi"
 
 # todo:on task end >> delete next bloc ↓↓
 #echo "
@@ -76,16 +78,16 @@ for arg in "$@"; do
     print_help_in_terminal
     exit
     ;;
-#  --x86)
-#    IMAGE_TAG="x86"
-#    shift # Remove --x86 from processing
-#    ;;
-  --XavierWarthog)
+  --x86)
+    DS_IMAGE_TAG="x86"
+    shift # Remove --x86 from processing
+    ;;
+  --host-type)
     USER_ARG="${USER_ARG} -e HOST_TYPE=XavierWarthog"
-    shift # Remove --XavierWarthog from processing
+    shift # Remove --host-type from processing
     ;;
   --GT-AR)
-    DS_PROJECT_REPO="gt-autorally"
+    DS_SUB_PROJECT="gt-autorally"
     shift # Remove --GT-AR from processing
     ;;
   --clion)
@@ -121,14 +123,14 @@ for arg in "$@"; do
     echo "new container name: ${CONTAINER_NAME}"
     echo
     ;;
-  --baseImgTag)
-    echo "${0} >> pass argument with the equal sign: --baseImgTag=${2}" >&2 # Note: '>&2' = print to stderr
+  --baseImgTagOW)
+    echo "${0} >> pass argument with the equal sign: --baseImgTagOW=${2}" >&2 # Note: '>&2' = print to stderr
     echo
     exit
     ;;
-  --baseImgTag=?*)
-    IMAGE_TAG="${arg#*=}" # Remove every character up to the '=' and assign the remainder
-    echo "Base image tag: ${IMAGE_TAG}"
+  --baseImgTagOW=?*)
+    DS_IMAGE_TAG="${arg#*=}" # Remove every character up to the '=' and assign the remainder
+    echo "Base image tag: ${DS_IMAGE_TAG}"
     ;;
   --src=gtar)
 #    WS_DIR="/home/snowxavier/Repositories/SNOW_AutoRally"
@@ -185,8 +187,8 @@ echo "
 ${0}:
   USER_ARG >> ${USER_ARG}
   HOST_SOURCE_CODE_FLAG >> ${HOST_SOURCE_CODE_FLAG}
-  IMAGE_TAG >> ${IMAGE_TAG}
-  DS_PROJECT_REPO >> ${DS_PROJECT_REPO}
+  DS_IMAGE_TAG >> ${DS_IMAGE_TAG}
+  DS_SUB_PROJECT >> ${DS_SUB_PROJECT}
 "
 
 ## todo:assessment (ref task NLSAR-159 Fix the execute permission of source code mounted volume)
@@ -224,7 +226,7 @@ sudo docker run \
   --security-opt apparmor=unconfined \
   --cap-add sys_ptrace \
   ${USER_ARG} \
-  norlabsnow/${DS_PROJECT_REPO}/${IDE}:${IMAGE_TAG}
+  norlabsnow/${DS_SUB_PROJECT}/${IDE}:${DS_IMAGE_TAG}
 
 #  --hostname snowxavier-dev \
 # -td
