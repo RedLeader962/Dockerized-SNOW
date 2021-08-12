@@ -50,11 +50,11 @@ cd /
 
 # (Priority) todo:refactor (ref task NLSAR-222 🛠→ setupEnv*.sh scripts for deployement case)
 #echo "
-#  Done building NorLab-MPPI.
+#  Done building norlab-mppi.
 #  Finale step:
-#    1. source your NorLab-MPPI environment
+#    1. source your norlab-mppi environment
 #      # source ~/.bashrc
-#    2. check if NorLab-MPPI was properly sourced
+#    2. check if norlab-mppi was properly sourced
 #      # printenv | grep AR_
 #  or open a new terminal in the container
 #    $ bash /open_new_terminal.bash <container name>

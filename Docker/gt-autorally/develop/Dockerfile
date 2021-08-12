@@ -1,8 +1,8 @@
 
-# /// GT-autorally/develop ///////////////////////////////////////////////////////////////////////////////////////////
+# /// gt-autorally/develop ///////////////////////////////////////////////////////////////////////////////////////////
 
 ARG  BASE_IMG_TAG=arm64-l4t-r32.5.0
-FROM norlabsnow/GT-autorally-dependencies:${BASE_IMG_TAG}
+FROM norlabsnow/gt-autorally-dependencies:${BASE_IMG_TAG}
 
 ARG SRC_CODE_REPOSITORY_NAME=SNOW_AutoRally
 # Note: `SRC_CODE_REPOSITORY_NAME` is required by the build_gt_autorally.bash script
@@ -23,7 +23,7 @@ RUN /bin/bash -c "chmod +x /ros_entrypoint.bash" \
 ENTRYPOINT [ "/ros_entrypoint.bash" ]
 CMD [ "bash" ]
 
-# /////////////////////////////////////////////////////////////////////////////////////////// GT-autorally/develop ///
+# /////////////////////////////////////////////////////////////////////////////////////////// gt-autorally/develop ///
 
 
 

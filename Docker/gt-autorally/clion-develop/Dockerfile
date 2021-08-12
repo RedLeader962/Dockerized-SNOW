@@ -1,5 +1,5 @@
 
-# /// GT-autorally/clion-develop /////////////////////////////////////////////////////////////////////////////////////
+# /// gt-autorally/clion-develop /////////////////////////////////////////////////////////////////////////////////////
 # Purpose:
 #   - build source file remotly
 #   - use remote GDB debugging tools
@@ -12,7 +12,7 @@
 #                --cap-add sys_ptrace \
 #                --security-opt seccomp=unconfined \
 #                --security-opt apparmor=unconfined \
-#                norlabsnow:GT-autorally/clion-develop:arm64-l4t
+#                norlabsnow:gt-autorally/clion-develop:arm64-l4t
 #
 #   Note:
 #       The -d runs the container as a daemon, so control returns back to you.
@@ -50,7 +50,7 @@
 #   - https://blog.jetbrains.com/clion/2020/01/using-docker-with-clion/
 
 ARG  BASE_IMG_TAG=arm64-l4t-r32.5.0
-FROM norlabsnow/GT-autorally-develop:${BASE_IMG_TAG}
+FROM norlabsnow/gt-autorally-develop:${BASE_IMG_TAG}
 
 # ...install remote dev/debug utilities.................................................................................
 RUN apt-get update \
@@ -129,6 +129,6 @@ ENTRYPOINT [ "/clion_dev_entrypoint.bash" ]
 #CMD ["/usr/sbin/sshd", "-D", "-e", "-f", "/etc/ssh/sshd_config_test_clion"]
 CMD [ "bash" ]
 
-# ///////////////////////////////////////////////////////////////////////////////////// GT-autorally/clion-develop ///
+# ///////////////////////////////////////////////////////////////////////////////////// gt-autorally/clion-develop ///
 
 

@@ -57,7 +57,7 @@ sudo git clone https://github.com/RedLeader962/SNOW_AutoRally.git
 sudo git clone https://github.com/RedLeader962/Dockerized-SNOW.git && cd Dockerized-SNOW
 
 # Pull the develop image with x86 tag
-sudo docker pull norlabsnow/GT-autorally/develop:x86
+sudo docker pull norlabsnow/gt-autorally/develop:x86
 
 bash run_develop.bash --x86 --name=MyCrazyContainer --src=/absolute/path/to/source/code/dir/SNOW_AutoRally
 #
@@ -111,14 +111,14 @@ sudo docker pull <container name>:<tag>
 with `<container name>`= _theImageName_ and `<tag>`= _theHostArchitecture_  
 
 Latest images for _Jetson_: 
-  - `norlabsnow/GT-autorally/deploy:arm64-l4t`
-  - `norlabsnow/GT-autorally/develop:arm64-l4t`
-  - `norlabsnow/GT-autorally/dependencies:arm64-l4t`
+  - `norlabsnow/gt-autorally/deploy:arm64-l4t`
+  - `norlabsnow/gt-autorally/develop:arm64-l4t`
+  - `norlabsnow/gt-autorally/dependencies:arm64-l4t`
 
 Latest images for _x86_64_ workstion: 
-  - `norlabsnow/GT-autorally/deploy:x86`
-  - `norlabsnow/GT-autorally/develop:x86`
-  - `norlabsnow/GT-autorally/dependencies:x86`
+  - `norlabsnow/gt-autorally/deploy:x86`
+  - `norlabsnow/gt-autorally/develop:x86`
+  - `norlabsnow/gt-autorally/dependencies:x86`
 
 Base image: 
   - `nvcr.io/nvidia/l4t-base:r32.5.0`

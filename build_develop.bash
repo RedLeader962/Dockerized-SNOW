@@ -26,7 +26,7 @@ function print_help_in_terminal() {
     <optional argument>:
       -h, --help                      Get help
       --baseImgTag=<theMarvelousTag>  The base image tag to use eg.: arm64-l4t-r32.5.0, x86-ubuntu20.04
-      --GT-AR                         Build version: Georgia Tech AutoRally refactoring project (default: NorLab-MPPI)
+      --GT-AR                         Build version: Georgia Tech AutoRally refactoring project (default: norlab-mppi)
       --XavierWarthog                 Use it for container deployed on the Warthog
       --clion                         Build the version to use with CLion IDE (use with the --GT-AR flag)
 
@@ -45,7 +45,7 @@ function print_help_in_terminal() {
 USER_ARG=""
 IMAGE_TAG="arm64-l4t-r32.6.1"
 BASE_IMG_ARG=""
-DS_PROJECT_REPO="NorLab-MPPI"
+DS_PROJECT_REPO="norlab-mppi"
 IDE="develop"
 
 ## todo:on task end >> delete next bloc ↓↓
@@ -70,7 +70,7 @@ for arg in "$@"; do
     shift # Remove --XavierWarthog from processing
     ;;
   --GT-AR)
-    DS_PROJECT_REPO="GT-autorally"
+    DS_PROJECT_REPO="gt-autorally"
     shift # Remove --GT-AR from processing
     ;;
   --clion)

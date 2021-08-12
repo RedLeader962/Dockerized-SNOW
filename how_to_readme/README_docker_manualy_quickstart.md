@@ -22,7 +22,7 @@ sudo docker run
     --tty 
     --env DISPLAY=$DISPLAY 
     --volume /tmp/.X11-unix/:/tmp/.X11-unix 
-    GT-autorally/deploy:<theArchTag>
+    gt-autorally/deploy:<theArchTag>
 ```
 
 **Flags explanation:**
