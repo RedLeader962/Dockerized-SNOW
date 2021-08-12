@@ -162,12 +162,13 @@ RUN mkdir ${DEV_WORKSPACE} && \
     vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src && \
     apt-get update && \
     rosdep install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} -y && \
+    python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${ROS_ROOT} -DCMAKE_BUILD_TYPE=Release && \
     rm -rf /var/lib/apt/lists/*
 
-#    python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${ROS_ROOT} -DCMAKE_BUILD_TYPE=Release && \
 
 #  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .❮❮❮ test ❮❮❮
 
+WORKDIR "${DEV_WORKSPACE}"
 
 RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
     && catkin_make \
