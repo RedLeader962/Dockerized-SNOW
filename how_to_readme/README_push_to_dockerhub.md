@@ -11,5 +11,5 @@ docker tag <existing-image>[:<tag>] norlabsnow/<repo-name>[:<tag>]
 
 sudo docker push norlabsnow/<repo-name>[:<optionalTagname>]
 ```
-with e.g. `<repo-name>` = `GT-autorally/snow-autorally-deploy`
+with e.g. `<repo-name>` = `GT-autorally/deploy`
 

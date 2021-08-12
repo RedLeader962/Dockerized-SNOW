@@ -63,12 +63,12 @@ cd /
 #printenv | grep AR_
 #echo
 
-echo "  Finished building AutoRally, just run"
-echo "      source ~/.bashrc"
-echo "  then run"
-echo "      printenv | grep AR_"
-echo "  to check if AutoRally was properly sourced or open a new terminal"
-echo
+#echo "  Finished building AutoRally, just run"
+#echo "      source ~/.bashrc"
+#echo "  then run"
+#echo "      printenv | grep AR_"
+#echo "  to check if AutoRally was properly sourced or open a new terminal"
+#echo
 
 
 echo "

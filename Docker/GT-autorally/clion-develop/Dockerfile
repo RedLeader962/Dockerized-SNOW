@@ -50,7 +50,7 @@
 #   - https://blog.jetbrains.com/clion/2020/01/using-docker-with-clion/
 
 ARG  BASE_IMG_TAG=arm64-l4t
-FROM norlabsnow/GT-autorally/develop:${BASE_IMG_TAG}
+FROM norlabsnow/GT-autorally-develop:${BASE_IMG_TAG}
 
 # ...install remote dev/debug utilities.................................................................................
 RUN apt-get update \

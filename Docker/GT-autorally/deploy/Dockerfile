@@ -1,8 +1,8 @@
 
-# /// GT-autorally/snow-autorally-deploy ////////////////////////////////////////////////////////////////////////////////////////////
+# /// GT-autorally/deploy ////////////////////////////////////////////////////////////////////////////////////////////
 
 ARG  BASE_IMG_TAG=arm64-l4t
-FROM norlabsnow/GT-autorally/dependencies:${BASE_IMG_TAG}
+FROM norlabsnow/GT-autorally-dependencies:${BASE_IMG_TAG}
 
 
 # === Clone the SNOW-AutoRally fork of AutoRally repo and install ======================================================
@@ -19,7 +19,10 @@ ARG SRC_CODE_REPOSITORY_NAME=SNOW_AutoRally
 ENV SRC_CODE_REPOSITORY_NAME=${SRC_CODE_REPOSITORY_NAME}
 ARG SRC_CODE_DOMAIN_NAME=RedLeader962
 ENV SRC_CODE_DOMAIN_NAME=${SRC_CODE_DOMAIN_NAME}
-ARG DEV_BRANCH=SNOW-melodic-devel
+
+# Clone branch at tag AutoRally-Clean (it's after correction but prior to refactoring)
+ARG DEV_BRANCH=AutoRally-Clean
+#ARG DEV_BRANCH=SNOW-melodic-devel
 
 ARG HOST_TYPE=Local # or XavierWarthog
 ENV HOST_TYPE=${HOST_TYPE}
@@ -61,7 +64,7 @@ CMD [ "bash" ]
 # like ROS_ROOT and ROS_PACKAGE_PATH are set:
 #   $ printenv | grep ROS
 
-# //////////////////////////////////////////////////////////////////////////////////////////// GT-autorally/snow-autorally-deploy ///
+# //////////////////////////////////////////////////////////////////////////////////////////// GT-autorally/deploy ///
 
 
 

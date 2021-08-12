@@ -2,13 +2,14 @@
 # /// GT-autorally/develop ///////////////////////////////////////////////////////////////////////////////////////////
 
 ARG  BASE_IMG_TAG=arm64-l4t
-FROM norlabsnow/GT-autorally/dependencies:${BASE_IMG_TAG}
+FROM norlabsnow/GT-autorally-dependencies:${BASE_IMG_TAG}
 
 ARG SRC_CODE_REPOSITORY_NAME=SNOW_AutoRally
 # Note: `SRC_CODE_REPOSITORY_NAME` is required by the build_gt_autorally.bash script
 ENV SRC_CODE_REPOSITORY_NAME=${SRC_CODE_REPOSITORY_NAME}
 
-ARG HOST_TYPE=Local # or XavierWarthog
+# Default: Local , Option: XavierWarthog
+ARG HOST_TYPE=Local
 ENV HOST_TYPE=${HOST_TYPE}
 
 # ... Finish container setup ...........................................................................................
