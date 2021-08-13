@@ -25,14 +25,16 @@ echo -e "
 \033[1;2m
 
 
-             .|'''.|
-             ||..  '
-              ''|||.
-            .     '||
-            |'....|'
-
-        (Dockerized-SNOW)
-     https://norlab.ulaval.ca
+               .|'''.|
+               ||..  '
+               ''|||.            \033[0m \033[1;37m
+•••·· ·· · Dockerized-SNOW ··· ·••$(printf '·%.s' {1..$(( $(tput cols) - 41 ))}) ·· ·\033[0m\033[1;2m
+                NorLab
+              .     '||
+              |'....|'
+\n\033[0m \033[2;37m
+       https://norlab.ulaval.ca
+    https://redleader962.github.io
 
 
 \033[0m

@@ -6,14 +6,16 @@ echo -e "
 \033[1;2m
 
 
-             .|'''.|
-             ||..  '
-              ''|||.
-            .     '||
-            |'....|'
-
-        (Dockerized-SNOW)
-     https://norlab.ulaval.ca
+               .|'''.|
+               ||..  '
+               ''|||.            \033[0m \033[1;37m
+•••·· ·· · Dockerized-SNOW ··· ·••$(printf '·%.s' {1..$(( $(tput cols) - 41 ))}) ·· ·\033[0m\033[1;2m
+                NorLab
+              .     '||
+              |'....|'
+\n\033[0m \033[2;37m
+       https://norlab.ulaval.ca
+    https://redleader962.github.io
 
 
 \033[0m
@@ -22,6 +24,14 @@ echo -e "
 function print_help_in_terminal() {
 
   echo -e "
+  \033[2;37m \n
+                                  (remote dev)
+                             ˛.••·Jetson arm64
+             ROS··••NVIDIA-docker
+                                ˙'··••x86
+                                   (local dev)
+  \n\033[0m
+
   ${0}  [<optional argument>]
 
     <optional argument>:

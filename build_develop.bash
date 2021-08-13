@@ -6,11 +6,11 @@ echo -e "
 
              .|'''.|
              ||..  '
-              ''|||.
+             ''|||.
+         Dockerized-SNOW
             .     '||
             |'....|'
 
-        (Dockerized-SNOW)
      https://norlab.ulaval.ca
 
 
@@ -20,6 +20,14 @@ echo -e "
 function print_help_in_terminal() {
 
   echo -e "
+  \033[2;37m \n
+                                  (remote dev)
+                             ˛.••·Jetson arm64
+             ROS··••NVIDIA-docker
+                                ˙'··••x86
+                                   (local dev)
+  \n\033[0m
+
     ${0}  [<optional argument>]
 
     Default compilation:
