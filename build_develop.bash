@@ -24,8 +24,9 @@ function print_help_in_terminal() {
     ${0}  [<optional argument>]
 
     Default compilation:
-    - norlab-mppi project
-    - arm64 with Linux for Tegra (L4T) os version 32.6.1 (tag: arm64-l4t-r32.6.1)
+    - Project: norlab-mppi
+    - Architecture & OS: arm64 with Linux for Tegra (L4T) os version 32.6.1 (tag: arm64-l4t-r32.6.1)
+    - Host type: XavierStandAlone compute box
 
     <optional argument>:
       -h, --help                Get help
@@ -217,9 +218,9 @@ ${0}:
 
 # ---Build docker image-------------------------------------------------------------------------------------------------
 
-#sudo docker build \
-#  -t norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG} \
-#  -f ./Docker/${DS_SUB_PROJECT}/${IDE}/Dockerfile \
-#  ${BASE_IMG_ARG} \
-#  ${USER_ARG} \
-#  ./Docker/${DS_SUB_PROJECT}-${IDE}
+sudo docker build \
+  -t norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG} \
+  -f ./Docker/${DS_SUB_PROJECT}/${IDE}/Dockerfile \
+  ${BASE_IMG_ARG} \
+  ${USER_ARG} \
+  ./Docker/${DS_SUB_PROJECT}/${IDE}
