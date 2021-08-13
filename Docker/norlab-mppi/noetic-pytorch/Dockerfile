@@ -149,7 +149,9 @@ RUN apt-get update && \
 #
 # install OpenCV (with GStreamer support)
 #
-COPY jetson-ota-public.asc /etc/apt/trusted.gpg.d/jetson-ota-public.asc
+#COPY jetson-ota-public.asc /etc/apt/trusted.gpg.d/jetson-ota-public.asc
+RUN apt-key adv --fetch-key https://repo.download.nvidia.com/jetson/jetson-ota-public.asc
+# Source: https://github.com/dusty-nv/jetson-containers/issues/5#issuecomment-673458718
 
 RUN echo "deb https://repo.download.nvidia.com/jetson/common r32.4 main" > /etc/apt/sources.list.d/nvidia-l4t-apt-source.list && \
     apt-get update && \
