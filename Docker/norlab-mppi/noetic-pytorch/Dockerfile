@@ -196,12 +196,12 @@ RUN pip3 install numpy --verbose
 # ===Install PyCUDA=====================================================================================================
 #   - pycuda 2021.1 documentation: https://documen.tician.de/pycuda/index.html
 #
-ENV PATH="/usr/local/cuda/bin:${PATH}"
-ENV LD_LIBRARY_PATH="/usr/local/cuda/lib64:${LD_LIBRARY_PATH}"
-RUN echo "$PATH" && echo "$LD_LIBRARY_PATH"
-
-RUN apt-get update && apt-get install -y python3 python3-pip
-#RUN pip3 install pycuda --verbose
+#ENV PATH="/usr/local/cuda/bin:${PATH}"
+#ENV LD_LIBRARY_PATH="/usr/local/cuda/lib64:${LD_LIBRARY_PATH}"
+#RUN echo "$PATH" && echo "$LD_LIBRARY_PATH"
+#
+#RUN apt-get update && apt-get install -y python3 python3-pip
+##RUN pip3 install pycuda --verbose
 
 ## Ref pycuda doc install instruction: https://wiki.tiker.net/PyCuda/Installation/Linux/#installing-pycuda-on-linux
 #RUN tar xfz pycuda-VERSION.tar.gz \
@@ -216,16 +216,16 @@ RUN apt-get update && apt-get install -y python3 python3-pip
 #    && cd pycuda-VERSION/test \
 #    && python test_driver.py
 
-RUN apt-get update \
-    && apt-get install --assume-yes --no-install-recommends \
-        build-essential \
-        python3-dev \
-        python3-setuptools \
-        libboost-python-dev \
-        libboost-thread-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN pip3 install pycuda --verbose
+#RUN apt-get update \
+#    && apt-get install --assume-yes --no-install-recommends \
+#        build-essential \
+#        python3-dev \
+#        python3-setuptools \
+#        libboost-python-dev \
+#        libboost-thread-dev \
+#    && rm -rf /var/lib/apt/lists/*
+#
+#RUN pip3 install pycuda --verbose
 
 
 
@@ -238,12 +238,15 @@ RUN pip3 install pycuda --verbose
 #  PyTorch v1.4.0 https://nvidia.box.com/shared/static/c3d7vm4gcs9m728j6o5vjay2jdedqb55.whl (torch-1.4.0-cp36-cp36m-linux_aarch64.whl)
 #  PyTorch v1.5.0 https://nvidia.box.com/shared/static/3ibazbiwtkl181n95n9em3wtrca7tdzp.whl (torch-1.5.0-cp36-cp36m-linux_aarch64.whl)
 #
-ARG PYTORCH_URL=https://nvidia.box.com/shared/static/cs3xn3td6sfgtene6jdvsxlr366m2dhq.whl
-ARG PYTORCH_WHL=torch-1.7.0-cp36-cp36m-linux_aarch64.whl
+#ARG PYTORCH_URL=https://nvidia.box.com/shared/static/cs3xn3td6sfgtene6jdvsxlr366m2dhq.whl
+#ARG PYTORCH_WHL=torch-1.7.0-cp36-cp36m-linux_aarch64.whl
+#
+#RUN wget --quiet --show-progress --progress=bar:force:noscroll --no-check-certificate ${PYTORCH_URL} -O ${PYTORCH_WHL} && \
+#    pip3 install ${PYTORCH_WHL} --verbose && \
+#    rm ${PYTORCH_WHL}
 
-RUN wget --quiet --show-progress --progress=bar:force:noscroll --no-check-certificate ${PYTORCH_URL} -O ${PYTORCH_WHL} && \
-    pip3 install ${PYTORCH_WHL} --verbose && \
-    rm ${PYTORCH_WHL}
+RUN python3 -m pip --no-cache-dir install \
+    torch==1.7.0+cu110
 
 ## ------------------------
 ## torchvision 0.4
