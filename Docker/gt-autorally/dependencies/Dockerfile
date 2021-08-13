@@ -158,32 +158,32 @@ RUN apt-get update \
 
 
 # ... Create and build a catkin workspace ..............................................................................
-ENV DEV_WORKSPACE=$HOME/catkin_ws
+ENV DS_DEV_WORKSPACE=$HOME/ros_catkin_ws
 
-#WORKDIR "${DEV_WORKSPACE}/src"
-RUN mkdir -p ${DEV_WORKSPACE}/src
-WORKDIR "${DEV_WORKSPACE}"
+#WORKDIR "${DS_DEV_WORKSPACE}/src"
+RUN mkdir -p ${DS_DEV_WORKSPACE}/src
+WORKDIR "${DS_DEV_WORKSPACE}"
 
-#    && mkdir -p ${DEV_WORKSPACE}/src \
-#    && cd ${DEV_WORKSPACE}/ \
+#    && mkdir -p ${DS_DEV_WORKSPACE}/src \
+#    && cd ${DS_DEV_WORKSPACE}/ \
 RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
     && catkin_make \
-    && source ${DEV_WORKSPACE}/devel/setup.bash" \
+    && source ${DS_DEV_WORKSPACE}/devel/setup.bash" \
     && echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc \
-    && echo "source ${DEV_WORKSPACE}/devel/setup.bash" >> ~/.bashrc
+    && echo "source ${DS_DEV_WORKSPACE}/devel/setup.bash" >> ~/.bashrc
 # Make sure your workspace is properly overlayed by the setup script by checking the ROS_PACKAGE_PATH environment
 # variable. It should include the directory you're in:
 #   $ echo $ROS_PACKAGE_PATH
-#   > /home/youruser/catkin_ws/src:/opt/ros/melodic/share
+#   > /home/youruser/ros_catkin_ws/src:/opt/ros/melodic/share
 
 # Clone AutoRally required driver
-WORKDIR "${DEV_WORKSPACE}/src"
+WORKDIR "${DS_DEV_WORKSPACE}/src"
 RUN git clone https://github.com/AutoRally/imu_3dm_gx4.git \
     && git clone https://github.com/ros-drivers/pointgrey_camera_driver.git \
     && git clone https://github.com/norlab-ulaval/icp_odom_with_twist.git
 
 
-WORKDIR "${DEV_WORKSPACE}"
+WORKDIR "${DS_DEV_WORKSPACE}"
 
 # Make sure that you have your environment properly setup. A good way to check is to ensure that environment variables
 # like ROS_ROOT and ROS_PACKAGE_PATH are set:

@@ -18,6 +18,7 @@ https://norlab.ulaval.ca
 \033[0m
 "
 
+
 function print_help_in_terminal() {
 
   echo -e "
@@ -31,7 +32,6 @@ function print_help_in_terminal() {
       -h, --help                Get help
       --x86                     Build the image version compiled for x86 workstation instead of arm64-l4t
       --l4t-version=<version>   Build arm64-l4t using an other release version (default: r32.6.1)
-      --GT-AR                   Project version: Georgia Tech AutoRally refactoring
       --appendToTag=<detail>    Add suplemental details to the builded image tag eg.: --appendToTag=test
 
     Note: you can pass any docker build flag as additional argument eg:
@@ -81,10 +81,6 @@ for arg in "$@"; do
     DS_IMAGE_TAG="x86"
     shift # Remove --x86 from processing
     ;;
-  --GT-AR)
-    DS_SUB_PROJECT="gt-autorally"
-    shift # Remove --GT-AR from processing
-    ;;
   --l4t-version)
     echo "${0} >> pass argument with the equal sign: --l4t-version=${2}" >&2 # Note: '>&2' = print to stderr
     echo
@@ -125,20 +121,10 @@ if [[ "$DS_IMAGE_TAG" == "arm64-l4t" ]] && [[ "$DS_SUB_PROJECT" == "norlab-mppi"
   if [[ "$BASE_IMG_VERSION" == "" ]]; then
     BASE_IMG_VERSION="r32.6.1"
   fi
-#  BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/l4t-base:${BASE_IMG_VERSION}"
-  BASE_IMG_ARG=" --build-arg BASE_IMAGE=norlabsnow/noetic-pytorch:${BASE_IMG_VERSION}"
+  BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/l4t-base:${BASE_IMG_VERSION}"
 elif [[ "$DS_IMAGE_TAG" == "x86" ]] && [[ "$DS_SUB_PROJECT" == "norlab-mppi" ]]; then
   BASE_IMG_VERSION="ubuntu20.04"
-#  BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/cudagl:11.4.0-devel-${BASE_IMG_VERSION}"
-  BASE_IMG_ARG=" --build-arg BASE_IMAGE=norlabsnow/noetic-pytorch:x86-${BASE_IMG_VERSION}"
-elif [[ "$DS_IMAGE_TAG" == "arm64-l4t" ]] && [[ "$DS_SUB_PROJECT" == "gt-autorally" ]]; then
-  if [[ "$BASE_IMG_VERSION" == "" ]]; then
-    BASE_IMG_VERSION="r32.5.0"
-  fi
-  BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/l4t-base:${BASE_IMG_VERSION}"
-elif [[ "$DS_IMAGE_TAG" == "x86" ]] && [[ "$DS_SUB_PROJECT" == "gt-autorally" ]]; then
-  BASE_IMG_VERSION="ubuntu18.04"
-  BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/cudagl:11.3.1-devel-${BASE_IMG_VERSION}"
+  BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/cudagl:11.4.0-devel-${BASE_IMG_VERSION}"
 else
   echo  "$DS_SUB_PROJECT is not currently supported"
   exit
@@ -164,8 +150,8 @@ ${0}:
 # ---Build docker image-------------------------------------------------------------------------------------------------
 
 sudo docker build \
-  -t norlabsnow/${DS_SUB_PROJECT}-dependencies:${DS_IMAGE_TAG} \
-  -f ./Docker/${DS_SUB_PROJECT}/dependencies/Dockerfile \
+  -t norlabsnow/${DS_SUB_PROJECT}-noetic-pytorch:${DS_IMAGE_TAG} \
+  -f ./Docker/${DS_SUB_PROJECT}/noetic-pytorch/Dockerfile \
   ${BASE_IMG_ARG} \
   ${USER_ARG} \
-  ./Docker/${DS_SUB_PROJECT}/dependencies
+  ./Docker/${DS_SUB_PROJECT}/noetic-pytorch

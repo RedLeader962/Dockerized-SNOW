@@ -6,16 +6,14 @@ echo -e "
 \033[1;2m
 
 
-                   .|'''.|  '|.   '|'  ..|''||   '|| '||'  '|'
-                   ||..  '   |'|   |  .|'    ||   '|. '|.  .'
-                    ''|||.   | '|. |  ||      ||   ||  ||  |
-                  .     '||  |   |||  '|.     ||    ||| |||
-                  |'....|'  .|.   '|   ''|...|'      |   |
+        .|'''.|
+        ||..  '
+         ''|||.
+       .     '||
+       |'....|'
 
-                               (Dockerized-SNOW)
-
-                https://github.com/RedLeader962/Dockerized-SNOW
-                           https://norlab.ulaval.ca
+   (Dockerized-SNOW)
+https://norlab.ulaval.ca
 
 \033[0m
 "
@@ -26,14 +24,15 @@ function print_help_in_terminal() {
   ${0}  [<optional argument>]
 
     <optional argument>:
-      -h, --help                Get help
-      --baseImgTagOW=<thatTag>        Overwrite base image tag  eg.: arm64-l4t-r32.5.0, x86-ubuntu20.04
-      --GT-AR                         Build version: Georgia Tech AutoRally refactoring project (default: norlab-mppi)
-      --host-type           Use it for container deployed on the Warthog
-      --name=<myCoolContainer>  Name that new container, the crazier the better
+      -h, --help                      Get help
+      --runTag=<thatTag>     Overwrite image tag eg.: arm64-l4t-r32.6.1-XavierSA-test, x86-ubuntu20.04-gazebo-dart
+      --name=<myCoolContainer>        Name that new container, the crazier the better
+      --src=<myCoolSrcCode>           Host source code directory to mount inside the container.
+                                      Must be an absolute path eg.: /home/snowxavier/Repositories/SNOW_AutoRally
       --data==<myCrazyDataDir>        Host data directory to mount inside the container.
                                       Must be an absolute path eg.: /home/snowxavier/Repositories/wt_data
       --data=jetson                   Shortcut: --volume \"\$HOME/Repositories/wt_data:/mnt/wt_data:ro\"
+      --GT-AR                         Project version: Georgia Tech AutoRally refactoring
 
     Note: you can pass any docker run flag as additional argument eg:
       --rm
@@ -43,17 +42,18 @@ function print_help_in_terminal() {
   "
 }
 
-# --x86                     Get the image version compiled for x86 workstation
-
 USER_ARG=""
-DS_IMAGE_TAG="arm64-l4t-r32.6.1"
+HOST_DATA_DIR_FLAG=""
+DS_IMAGE_TAG="arm64-l4t-r32.6.1-XavierSA"
+IDE="develop"
 DS_SUB_PROJECT="norlab-mppi"
+DS_SUB_PROJECT_GIT="NorLab_MPPI"
 
-## todo:on task end >> delete next bloc ↓↓
+
+# todo:on task end >> delete next bloc ↓↓
 #echo "
 #${0}: all arg >> ${@}
 #"
-
 
 for arg in "$@"; do
   case $arg in
@@ -61,16 +61,9 @@ for arg in "$@"; do
     print_help_in_terminal
     exit
     ;;
-#  --x86)
-#    DS_IMAGE_TAG="x86"
-#    shift # Remove --x86 from processing
-#    ;;
-  --host-type)
-    USER_ARG="${USER_ARG} -e DS_HOST_TYPE=XavierWarthog"
-    shift # Remove --host-type from processing
-    ;;
   --GT-AR)
     DS_SUB_PROJECT="gt-autorally"
+    DS_SUB_PROJECT_GIT="SNOW_AutoRally"
     shift # Remove --GT-AR from processing
     ;;
   --name)
@@ -83,6 +76,13 @@ for arg in "$@"; do
     echo
     exit
     ;;
+  --name=xc)
+    CONTAINER_NAME="xavier_red_clion" # Remove every character up to the '=' and assign the remainder
+    USER_ARG="${USER_ARG} --name ${CONTAINER_NAME}"
+    echo
+    echo "new container name: ${CONTAINER_NAME}"
+    echo
+    ;;
   --name=?*)
     CONTAINER_NAME="${arg#*=}" # Remove every character up to the '=' and assign the remainder
     USER_ARG="${USER_ARG} --name ${CONTAINER_NAME}"
@@ -90,31 +90,30 @@ for arg in "$@"; do
     echo "new container name: ${CONTAINER_NAME}"
     echo
     ;;
-  --baseImgTagOW)
-    echo "${0} >> pass argument with the equal sign: --baseImgTagOW=${2}" >&2 # Note: '>&2' = print to stderr
+  --runTag)
+    echo "${0} >> pass argument with the equal sign: --runTag=${2}" >&2 # Note: '>&2' = print to stderr
     echo
     exit
     ;;
-  --baseImgTagOW=?*)
+  --runTag=?*)
     DS_IMAGE_TAG="${arg#*=}" # Remove every character up to the '=' and assign the remainder
-    echo "Base image tag: ${DS_IMAGE_TAG}"
     ;;
   --data=jetson)
     WS_DIR="${HOME}/Repositories/wt_data"
     WS_DIRNAME=$(basename $WS_DIR)
-    HOST_DATA_DIR_FLAG=" --volume ${WS_DIR}:/mnt/${WS_DIRNAME}:ro"
+    HOST_DATA_DIR_FLAG="${HOST_DATA_DIR_FLAG} --volume ${WS_DIR}:/mnt/${WS_DIRNAME}:ro"
     echo "Data directory mapping from host to container: ${WS_DIR} >>> /mnt/${WS_DIRNAME}"
   --data=?*)
     WS_DIR="${arg#*=}"                                  # Remove every character up to the '=' and assign the remainder
     WS_DIRNAME=$(basename $WS_DIR)
-    HOST_DATA_DIR_FLAG=" --volume ${WS_DIR}:/mnt/${WS_DIRNAME}:ro"
+    HOST_DATA_DIR_FLAG="${HOST_DATA_DIR_FLAG} --volume ${WS_DIR}:/mnt/${WS_DIRNAME}:ro"
     echo "Data directory mapping from host to container: ${WS_DIR} >>> /mnt/${WS_DIRNAME}"
   --)
     shift
     break
     ;;
-  -?*|--?*)
-#    echo $0: $1: unrecognized option >&2 # Note: '>&2' = print to stderr
+  -?* | --?*)
+    #    echo $0: $1: unrecognized option >&2 # Note: '>&2' = print to stderr
     USER_ARG="${USER_ARG} ${arg}"
     shift # Remove generic argument from processing
     ;;
@@ -126,14 +125,18 @@ for arg in "$@"; do
   shift
 done
 
-# todo:on task end >> delete next bloc ↓↓
 echo "
-${0}:
-  USER_ARG >> ${USER_ARG}
-  DS_IMAGE_TAG >> ${DS_IMAGE_TAG}
-  DS_SUB_PROJECT >> ${DS_SUB_PROJECT}
+Run container ${DS_SUB_PROJECT}/${IDE} with tag: ${DS_IMAGE_TAG}
 "
 
+## todo:on task end >> mute next bloc ↓↓
+echo "
+${0}:
+  DS_SUB_PROJECT >> ${DS_SUB_PROJECT}
+  DS_IMAGE_TAG >> ${DS_IMAGE_TAG}
+  HOST_DATA_DIR_FLAG >> ${HOST_DATA_DIR_FLAG}
+  USER_ARG >> ${USER_ARG}
+"
 export DISPLAY=:0
 #echo "export DISPLAY=:0" >> ~/.bashrc
 

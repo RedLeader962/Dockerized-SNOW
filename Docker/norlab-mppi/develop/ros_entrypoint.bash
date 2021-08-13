@@ -5,7 +5,7 @@
 echo "
 
     Use the norlab-mppi build script to compile your code and source your ROS environment:
-       $ bash /build_norlab_mppi.bash
+       $ bash /rebuild_norlab_mppi.bash
 
 "
 

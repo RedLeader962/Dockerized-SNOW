@@ -4,7 +4,7 @@
 #set -e # exit script if any statement returns a non-true return value
 #set -v
 
-cd "${DEV_WORKSPACE}"
+cd "${DS_DEV_WORKSPACE}"
 
 # Install AutoRally dependencies
 sudo apt-get update
@@ -14,12 +14,12 @@ rosdep install --from-path src --ignore-src -r --default-yes
 # Build AutoRally
 source "/opt/ros/${ROS_DISTRO}/setup.bash"
 catkin_make
-source "${DEV_WORKSPACE}/devel/setup.bash"
+source "${DS_DEV_WORKSPACE}/devel/setup.bash"
 
 # AutoRally environment setup
-#autorally_env_setup="${DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/autorally_util/setupEnvLocal.sh"
-#autorally_env_setup="${DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/autorally_util/setupEnvXavierWarthog.sh"
-autorally_env_setup="${DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/autorally_util/setupEnv${DS_HOST_TYPE}.sh"
+#autorally_env_setup="${DS_DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/autorally_util/setupEnvLocal.sh"
+#autorally_env_setup="${DS_DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/autorally_util/setupEnvXavierWarthog.sh"
+autorally_env_setup="${DS_DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/autorally_util/setupEnv${DS_HOST_TYPE}.sh"
 #source "${autorally_env_setup}"
 echo "source ${autorally_env_setup}" >> ~/.bashrc
 
@@ -28,16 +28,14 @@ echo -e "
 \033[1;2m
 
 
-                   .|'''.|  '|.   '|'  ..|''||   '|| '||'  '|'
-                   ||..  '   |'|   |  .|'    ||   '|. '|.  .'
-                    ''|||.   | '|. |  ||      ||   ||  ||  |
-                  .     '||  |   |||  '|.     ||    ||| |||
-                  |'....|'  .|.   '|   ''|...|'      |   |
+        .|'''.|
+        ||..  '
+         ''|||.
+       .     '||
+       |'....|'
 
-                               (Dockerized-SNOW)
-
-                https://github.com/RedLeader962/Dockerized-SNOW
-                           https://norlab.ulaval.ca
+   (Dockerized-SNOW)
+https://norlab.ulaval.ca
 
 \033[0m
 "
@@ -52,7 +50,7 @@ fi
 
 echo
 echo "  Make sure your workspace is properly overlayed by the setup script by checking the ROS_PACKAGE_PATH environment variable. "
-echo "  It should include the directory you're in: /home/<youruser>/catkin_ws/src:/opt/ros/melodic/share"
+echo "  It should include the directory you're in: /home/<youruser>/ros_catkin_ws/src:/opt/ros/melodic/share"
 echo
 printenv | grep ROS
 echo
@@ -75,7 +73,7 @@ echo "
     3. Setup CLion:
       a. Go to Preference > Build,Execution,Deployment > CMake
       b. Set CMake > Build directory: <WORKSPACE_DIRECTORY>/build
-          In our case: catkin_ws/build
+          In our case: ros_catkin_ws/build
       c. Set CMake > CMake options: --trace -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=../install -DCATKIN_DEVEL_PREFIX=../devel
       d. Copy/pass the fetch_ros_env.bash output to CMake > Environment
           It's a workaround to the «start CLion from the same shell» procedure of the CLion doc

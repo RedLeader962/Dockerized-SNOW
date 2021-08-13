@@ -28,28 +28,28 @@ ARG DEV_BRANCH=AutoRally-Clean
 ARG DS_HOST_TYPE=Local
 ENV DS_HOST_TYPE=${DS_HOST_TYPE}
 
-WORKDIR ${DEV_WORKSPACE}/src
+WORKDIR ${DS_DEV_WORKSPACE}/src
 RUN echo "Pull latest ${DEV_BRANCH} branch" \
     && git clone --branch ${DEV_BRANCH} https://github.com/${SRC_CODE_DOMAIN_NAME}/${SRC_CODE_REPOSITORY_NAME}.git  \
-    && cd ${DEV_WORKSPACE} \
+    && cd ${DS_DEV_WORKSPACE} \
     && apt-get update \
     && rosdep install --from-path src --ignore-src --default-yes \
     && rm -rf /var/lib/apt/lists/*
 
 
-WORKDIR ${DEV_WORKSPACE}
+WORKDIR ${DS_DEV_WORKSPACE}
 RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
         && catkin_make"
 
 # Environment setup
-#RUN echo ". ${DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/autorally_util/setupEnvLocal.sh" >> ~/.bashrc
-RUN echo ". ${DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/autorally_util/setupEnv${DS_HOST_TYPE}.sh" >> ~/.bashrc
+#RUN echo ". ${DS_DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/autorally_util/setupEnvLocal.sh" >> ~/.bashrc
+RUN echo ". ${DS_DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/autorally_util/setupEnv${DS_HOST_TYPE}.sh" >> ~/.bashrc
 
 
 ## ... Generate Documentation ..........................................................................................
 ## Run doxygen with the `-u` flag to remove obsolete configuration tag
 ## TODO: unmute
-#RUN cd ${DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/ \
+#RUN cd ${DS_DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/ \
 #    && doxygen -u
 
 

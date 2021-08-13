@@ -1,29 +1,28 @@
 
 # /// norlab-mppi/dependencies /////////////////////////////////////////////////////////////////////////////////////////
-# This container is the base image for all other imageS: dev, deploy, ...
+# This container is the base image for all other norlab-mppi images: dev, deploy, ...
 #
-# Usefull ref:
+# References:
 # - NVIDIA Container Runtime on Jetson: https://github.com/NVIDIA/nvidia-docker/wiki/NVIDIA-Container-Runtime-on-Jetson
 # - dusty-nv/jetson-containers: https://github.com/dusty-nv/jetson-containers/blob/master/Dockerfile.ros.noetic
+# - ROS noetic installation from source: http://wiki.ros.org/noetic/Installation/Source
 
 
 # Base image: nvidia linux 4 tegra (L4T) nvidia docker container official image
-#   https://ngc.nvidia.com/catalog/containers/nvidia:l4t-base
-#
-ARG BASE_IMAGE=nvcr.io/nvidia/l4t-base:r32.6.1
+#   l4t-base: https://ngc.nvidia.com/catalog/containers/nvidia:l4t-base
+#   l4t-ros-noetic-pytorch: https://github.com/NVIDIA-AI-IOT/ros2_jetson/blob/main/docker/DockerFile.l4tbase.ros.noetic
+
+#ARG BASE_IMAGE=norlabsnow/noetic-pytorch:arm64-l4t-r32.6.1
+#ARG BASE_IMAGE=norlabsnow/noetic-pytorch:x86-ubuntu20.04
+ARG BASE_IMAGE=nvidiajetson/l4t-ros-noetic-pytorch:r32.5
 FROM ${BASE_IMAGE}
 
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
-#ARG ROS_PKG=desktop_full
-ARG ROS_PKG=ros_base
 ENV ROS_DISTRO=noetic
 ENV ROS_ROOT=/opt/ros/${ROS_DISTRO}
 ENV ROS_PYTHON_VERSION=3
-
-# skip GUI dialog by setting everything to default
-ENV DEBIAN_FRONTEND=noninteractive
 
 WORKDIR /workspace
 
@@ -39,12 +38,6 @@ RUN echo 'Etc/UTC' > /etc/timezone && \
 # install development utilities
 RUN apt-get update \
     && apt-get install --assume-yes --no-install-recommends \
-        cmake \
-        build-essential \
-        curl \
-        wget \
-        gnupg2 \
-        lsb-release \
         ca-certificates \
         git \
         libusb-dev \
@@ -52,9 +45,7 @@ RUN apt-get update \
         vim \
         apt-utils \
         tree \
-#        apt-transport-https \
-#        gnupg-agent \
-#        software-properties-common \
+        python3-pip \
     && rm -rf /var/lib/apt/lists/*
 
 
@@ -70,152 +61,58 @@ RUN apt-get update \
 #    && rm -rf /var/lib/apt/lists/*
 
 
-# === Install ROS + GAZEBO =============================================================================================
-# ... register the ROS package source ..................................................................................
-# setup sources.list
-RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+# install additional ROS packages
+RUN apt-get update \
+    && apt-get install --assume-yes --no-install-recommends \
+      python3-rosinstall \
+      python3-wstool \
+      python3-vcstools \
+    && rm -rf /var/lib/apt/lists/*
 
-# Setup your keys (from https://github.com/dusty-nv/jetson-containers/blob/master/Dockerfile.ros.melodic)
-#RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
-# or this alternative from wiki.ROS.org
-#RUN curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xC1CF6E31E6BADE8868B172B4F42ED6FBAB17C654' | apt-key add -
-# or from https://github.com/NVIDIA-AI-IOT/ros2_jetson/blob/main/docker/DockerFile.l4tbase.ros.noetic
-RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+# install aditional python package
+RUN pip3 install \
+    pytest \
+    setuptools \
+    wheel \
+    Cython \
+    wheel \
+    matplotlib \
+    jetson-stats
 
-# ... Install ROS, create and build catkin workspace ..............................................................................
-
-# ❯❯❯ standard ROS install method ❯❯❯ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ..
-
-## install ROS packages
-#RUN apt-get update \
-#    && apt-get install --assume-yes --no-install-recommends \
-#      ros-${ROS_DISTRO}-`echo "${ROS_PKG}" | tr '_' '-'` \
-#      libpython3-dev \
-#      python3-rosdep \
-#      python3-rosinstall \
-#      python3-rosinstall-generator \
-#      python3-wstool \
-#      python3-vcstools \
-#    && rm -rf /var/lib/apt/lists/*
-#
-## Install ROS
-#RUN apt-get update \
-#    && cd ${ROS_ROOT} \
-#    && rosdep init \
-#    && rosdep update \
-#    && rosdep fix-permissions \
-#    && rm -rf /var/lib/apt/lists/*
-
-# . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .❮❮❮ standard ROS install method ❮❮❮
-
-
-ENV DEV_WORKSPACE=$HOME/catkin_ws
-
-#RUN mkdir -p ${DEV_WORKSPACE}/src
-#WORKDIR "${DEV_WORKSPACE}"
-#
-## install ROS packages
-#RUN apt-get update \
-#    && apt-get install --assume-yes --no-install-recommends \
-#      libpython3-dev \
-#      python3-rosdep \
-#      python3-rosinstall \
-#      python3-rosinstall-generator \
-#      python3-wstool \
-#      python3-vcstools \
-#    && rosdep init \
-#    && rosdep update \
-##    && rosdep fix-permissions \
-#    && rm -rf /var/lib/apt/lists/*
-#
-#
-## This RUN step is from dusty-nv/jetson-containers: https://github.com/dusty-nv/jetson-containers/blob/master/Dockerfile.ros.noetic
-#RUN rosinstall_generator ${ROS_PKG} vision_msgs --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall \
-#    && vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src \
-#    && apt-get update \
-#    && rosdep install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} --skip-keys python3-pykdl -y \
-##    && python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
-#    && rm -rf /var/lib/apt/lists/*
-## Mote: `catkin_make_isolated` treats each package as a separate cmake project, and builds and installs each separately, \
-##       in dependency order. This is why it's able to build plain cmake packages.
-## ref: https://answers.ros.org/question/320613/catkin_make-vs-catkin_make_isolated-which-is-preferred/
-
-# ❯❯❯ test ❯❯❯ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
-# install bootstrap dependencies
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-          libpython3-dev \
-          python3-rosdep \
-          python3-rosinstall-generator \
-          python3-vcstool \
-          build-essential && \
-    rosdep init && \
-    rosdep update && \
-    rm -rf /var/lib/apt/lists/*
-
-# download/build the ROS source
-RUN mkdir ${DEV_WORKSPACE} && \
-    cd ${DEV_WORKSPACE} && \
-    rosinstall_generator ${ROS_PKG} vision_msgs --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall && \
-    mkdir src && \
-    vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src && \
-    apt-get update && \
-    rosdep install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} -y && \
-    python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${ROS_ROOT} -DCMAKE_BUILD_TYPE=Release && \
-    rm -rf /var/lib/apt/lists/*
-
-WORKDIR "${DEV_WORKSPACE}"
-
-RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash" \
-    && echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc
-
-
-#  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .❮❮❮ test ❮❮❮
-
-#WORKDIR "${DEV_WORKSPACE}"
-#
-#RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
-#    && catkin_make \
-#    && source ${DEV_WORKSPACE}/devel/setup.bash" \
-#    && echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc \
-#    && echo "source ${DEV_WORKSPACE}/devel/setup.bash" >> ~/.bashrc
-## Make sure your workspace is properly overlayed by the setup script by checking the ROS_PACKAGE_PATH environment
-## variable. It should include the directory you're in:
-##   $ echo $ROS_PACKAGE_PATH
-##   > /home/youruser/catkin_ws/src:/opt/ros/melodic/share
-
-## ... Install Gazebo ...................................................................................................
-## Note:
-##   - AutoRally require Gazebo version 9.XX
-##   - Latest Gazebo 9.XX require an upgrade of `ignition-math`
-#RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
-## Setup keys
-#RUN wget https://packages.osrfoundation.org/gazebo.key -O - | apt-key add -
-#
-#RUN apt-get update \
-#    && apt-get install --assume-yes --no-install-recommends gazebo9 \
-#    && rm -rf /var/lib/apt/lists/*
-#
-#RUN apt-get update \
-#    && apt-get upgrade --assume-yes --no-install-recommends libignition-math2 \
-#    && rm -rf /var/lib/apt/lists/*
-#
-### TODO: To install DART to use with ROS, ROS must be install from source
-##RUN apt-get update \
-##    && apt-get install --assume-yes --no-install-recommends libdart-core5-dev \
-##    && rm -rf /var/lib/apt/lists/*
-
+ENV DS_DEV_WORKSPACE=$HOME/ros_catkin_ws
 
 # ... Clone required repo ..............................................................................................
-WORKDIR "${DEV_WORKSPACE}/src"
+WORKDIR "${DS_DEV_WORKSPACE}/src"
 RUN git clone https://github.com/norlab-ulaval/icp_odom_with_twist.git
 
-WORKDIR "${DEV_WORKSPACE}"
+# ---Build the ROS source-----------------------------------------------------------------------------------------------
+# Procedure ref: ROS noetic installation from source http://wiki.ros.org/noetic/Installation/Source
+
+RUN python3 catkin_make_isolated --install --install-space ${ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
+    &&  rm -rf /var/lib/apt/lists/*
+
+# Note on catkin_make_isolated:
+# - Flag `--install-space <path/to/somewhere/else>` overwrite the default `~/ros_catkin_ws/install_isolated` install dir.
+# - It treats each package as a separate cmake project, and builds and installs each separately in dependency order.
+#   This is why it's able to build plain cmake packages.
+#   ref: https://answers.ros.org/question/320613/catkin_make-vs-catkin_make_isolated-which-is-preferred/
+
+WORKDIR "${DS_DEV_WORKSPACE}"
+
+RUN /bin/bash -c "source ${ROS_ROOT}/setup.bash" \
+    && echo "source ${ROS_ROOT}/setup.bash" >> ~/.bashrc
+
+
+
+WORKDIR "${DS_DEV_WORKSPACE}"
 
 # Make sure that you have your environment properly setup. A good way to check is to ensure that environment variables
 # like ROS_ROOT and ROS_PACKAGE_PATH are set:
 #   $ printenv | grep ROS
+# Check the ROS_PACKAGE_PATH environment variable. It should include the directory you're in:
+#   $ echo $ROS_PACKAGE_PATH
+#   > /home/youruser/ros_catkin_ws/src:/opt/ros/melodic/share
+
 CMD [ "bash" ]
 
 # ///////////////////////////////////////////////////////////////////////////////////////// norlab-mppi/dependencies ///

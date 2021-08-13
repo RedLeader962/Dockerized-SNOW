@@ -117,11 +117,11 @@ RUN useradd -m ${NEW_USER} \
 # ... Finish container setup ...........................................................................................
 WORKDIR /
 COPY clion_dev_entrypoint.bash /
-COPY build_gt_autorally.bash /
+COPY rebuild_gt_autorally.bash /
 COPY fetch_ros_env.bash /
 # set read/write permission to entrypoint file and joystick dir js0
 RUN /bin/bash -c "chmod +x /clion_dev_entrypoint.bash" \
-    && /bin/bash -c "chmod +x /build_gt_autorally.bash" \
+    && /bin/bash -c "chmod +x /rebuild_gt_autorally.bash" \
     && /bin/bash -c "chmod +x /fetch_ros_env.bash"
 
 # The ssh server is started by the entrypoint

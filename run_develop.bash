@@ -6,16 +6,14 @@ echo -e "
 \033[1;2m
 
 
-                   .|'''.|  '|.   '|'  ..|''||   '|| '||'  '|'
-                   ||..  '   |'|   |  .|'    ||   '|. '|.  .'
-                    ''|||.   | '|. |  ||      ||   ||  ||  |
-                  .     '||  |   |||  '|.     ||    ||| |||
-                  |'....|'  .|.   '|   ''|...|'      |   |
+        .|'''.|
+        ||..  '
+         ''|||.
+       .     '||
+       |'....|'
 
-                               (Dockerized-SNOW)
-
-                https://github.com/RedLeader962/Dockerized-SNOW
-                           https://norlab.ulaval.ca
+   (Dockerized-SNOW)
+https://norlab.ulaval.ca
 
 \033[0m
 "
@@ -27,25 +25,23 @@ function print_help_in_terminal() {
 
     <optional argument>:
       -h, --help                      Get help
-      --x86                           Get the image version compiled for x86 workstation
-      --GT-AR                         Build version: Georgia Tech AutoRally refactoring project (default: norlab-mppi)
-      --clion                         Run the version to use with CLion IDE
-      --baseImgTagOW=<thatTag>        Overwrite base image tag  eg.: arm64-l4t-r32.5.0, x86-ubuntu20.04
-      --host-type=<type>              Specified the container host type: (default) XavierStandAlone, XavierWarthog, local
+      --runTag=<thatTag>     Overwrite image tag eg.: arm64-l4t-r32.6.1-XavierSA-test, x86-ubuntu20.04-gazebo-dart
       --name=<myCoolContainer>        Name that new container, the crazier the better
-      --name=xc                       Shortcut: ---name=xavier_red_clion
       --src=<myCoolSrcCode>           Host source code directory to mount inside the container.
                                       Must be an absolute path eg.: /home/snowxavier/Repositories/SNOW_AutoRally
       --data==<myCrazyDataDir>        Host data directory to mount inside the container.
                                       Must be an absolute path eg.: /home/snowxavier/Repositories/wt_data
 
-      --src=gtar                      Shortcut: ---src=\$HOME/Repositories/SNOW_AutoRally
-      --src=nlmppi                    Shortcut: ---src=\$HOME/Repositories/NorLab_MPPI
+      --GT-AR                         Project version: Georgia Tech AutoRally refactoring
+      --clion                         Build the version to use with CLion IDE (use with the --GT-AR flag)
+
+      --name=xc                       Shortcut: ---name=xavier_red_clion
       --data=jetson                   Shortcut: --volume \"\$HOME/Repositories/wt_data:/mnt/wt_data:ro\"
 
     Note: you can pass any docker run flag as additional argument eg:
       --rm
       --volume=\"/my/host/path/data:/my/container/path/data\"
+      -e DS_HOST_TYPE=XavierWarthog
 
       ref: https://docs.docker.com/engine/reference/commandline/run/
 
@@ -58,14 +54,15 @@ function print_help_in_terminal() {
 }
 
 
-# --host-home=<absPathToHome>   Host home absolute path eg.: /home/snowxavier
 
 USER_ARG=""
 HOST_SOURCE_CODE_FLAG=""
-DS_IMAGE_TAG="arm64-l4t"
-BASE_IMG_VERSION="r32.6.1"
+HOST_DATA_DIR_FLAG=""
+DS_IMAGE_TAG="arm64-l4t-r32.6.1-XavierSA"
 IDE="develop"
 DS_SUB_PROJECT="norlab-mppi"
+DS_SUB_PROJECT_GIT="NorLab_MPPI"
+
 
 # todo:on task end >> delete next bloc ↓↓
 #echo "
@@ -78,16 +75,9 @@ for arg in "$@"; do
     print_help_in_terminal
     exit
     ;;
-  --x86)
-    DS_IMAGE_TAG="x86"
-    shift # Remove --x86 from processing
-    ;;
-  --host-type)
-    USER_ARG="${USER_ARG} -e DS_HOST_TYPE=XavierWarthog"
-    shift # Remove --host-type from processing
-    ;;
   --GT-AR)
     DS_SUB_PROJECT="gt-autorally"
+    DS_SUB_PROJECT_GIT="SNOW_AutoRally"
     shift # Remove --GT-AR from processing
     ;;
   --clion)
@@ -123,47 +113,46 @@ for arg in "$@"; do
     echo "new container name: ${CONTAINER_NAME}"
     echo
     ;;
-  --baseImgTagOW)
-    echo "${0} >> pass argument with the equal sign: --baseImgTagOW=${2}" >&2 # Note: '>&2' = print to stderr
+  --runTag)
+    echo "${0} >> pass argument with the equal sign: --runTag=${2}" >&2 # Note: '>&2' = print to stderr
     echo
     exit
     ;;
-  --baseImgTagOW=?*)
+  --runTag=?*)
     DS_IMAGE_TAG="${arg#*=}" # Remove every character up to the '=' and assign the remainder
-    echo "Base image tag: ${DS_IMAGE_TAG}"
     ;;
-  --src=gtar)
-#    WS_DIR="/home/snowxavier/Repositories/SNOW_AutoRally"
-    WS_DIR="${HOME}/Repositories/SNOW_AutoRally"
-    CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
-    WS_DIRNAME=$(basename $WS_DIR)
-    HOST_SOURCE_CODE_FLAG=" --volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
-    echo "Source code mapping from host to container: ${WS_DIR} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
-    ;;
-  --src=nlmppi)
-#    WS_DIR="/home/snowxavier/Repositories/NorLab_MPPI"
-    WS_DIR="${HOME}/Repositories/NorLab_MPPI"
-    CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
-    WS_DIRNAME=$(basename $WS_DIR)
-    HOST_SOURCE_CODE_FLAG=" --volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
-    echo "Source code mapping from host to container: ${WS_DIR} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
-    ;;
+#  --src=gtar)
+##    WS_DIR="/home/snowxavier/Repositories/SNOW_AutoRally"
+#    WS_DIR="${HOME}/Repositories/SNOW_AutoRally"
+#    CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/ros_catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
+#    WS_DIRNAME=$(basename $WS_DIR)
+#    HOST_SOURCE_CODE_FLAG=" --volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+#    echo "Source code mapping from host to container: ${WS_DIR} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+#    ;;
+#  --src=nlmppi)
+##    WS_DIR="/home/snowxavier/Repositories/NorLab_MPPI"
+#    WS_DIR="${HOME}/Repositories/NorLab_MPPI"
+#    CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/ros_catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
+#    WS_DIRNAME=$(basename $WS_DIR)
+#    HOST_SOURCE_CODE_FLAG=" --volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+#    echo "Source code mapping from host to container: ${WS_DIR} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+#    ;;
   --src=?*)
     WS_DIR="${arg#*=}"                                  # Remove every character up to the '=' and assign the remainder
-    CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
+    CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/ros_catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
     WS_DIRNAME=$(basename $WS_DIR)
-    HOST_SOURCE_CODE_FLAG=" --volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+    HOST_SOURCE_CODE_FLAG="${HOST_SOURCE_CODE_FLAG} --volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
     echo "Source code mapping from host to container: ${WS_DIR} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
     ;;
   --data=jetson)
     WS_DIR="${HOME}/Repositories/wt_data"
     WS_DIRNAME=$(basename $WS_DIR)
-    HOST_DATA_DIR_FLAG=" --volume ${WS_DIR}:/mnt/${WS_DIRNAME}:ro"
+    HOST_DATA_DIR_FLAG="${HOST_DATA_DIR_FLAG} --volume ${WS_DIR}:/mnt/${WS_DIRNAME}:ro"
     echo "Data directory mapping from host to container: ${WS_DIR} >>> /mnt/${WS_DIRNAME}"
   --data=?*)
     WS_DIR="${arg#*=}"                                  # Remove every character up to the '=' and assign the remainder
     WS_DIRNAME=$(basename $WS_DIR)
-    HOST_DATA_DIR_FLAG=" --volume ${WS_DIR}:/mnt/${WS_DIRNAME}:ro"
+    HOST_DATA_DIR_FLAG="${HOST_DATA_DIR_FLAG} --volume ${WS_DIR}:/mnt/${WS_DIRNAME}:ro"
     echo "Data directory mapping from host to container: ${WS_DIR} >>> /mnt/${WS_DIRNAME}"
   --)
     shift
@@ -182,13 +171,30 @@ for arg in "$@"; do
   shift
 done
 
+
+if [[ -z $HOST_SOURCE_CODE_FLAG ]]; then
+  WS_DIR="${HOME}/Repositories/${DS_SUB_PROJECT_GIT}"
+  CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/ros_catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
+  WS_DIRNAME=$(basename $WS_DIR)
+  HOST_SOURCE_CODE_FLAG=" --volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+  echo "Use default source code mapping from host to container: ${WS_DIR} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+fi
+
+SRC_CODE_REPOSITORY_NAME
+
+echo "
+Run container ${DS_SUB_PROJECT}/${IDE} with tag: ${DS_IMAGE_TAG}
+"
+
+
 ## todo:on task end >> mute next bloc ↓↓
 echo "
 ${0}:
-  USER_ARG >> ${USER_ARG}
-  HOST_SOURCE_CODE_FLAG >> ${HOST_SOURCE_CODE_FLAG}
-  DS_IMAGE_TAG >> ${DS_IMAGE_TAG}
   DS_SUB_PROJECT >> ${DS_SUB_PROJECT}
+  DS_IMAGE_TAG >> ${DS_IMAGE_TAG}
+  HOST_SOURCE_CODE_FLAG >> ${HOST_SOURCE_CODE_FLAG}
+  HOST_DATA_DIR_FLAG >> ${HOST_DATA_DIR_FLAG}
+  USER_ARG >> ${USER_ARG}
 "
 
 ## todo:assessment (ref task NLSAR-159 Fix the execute permission of source code mounted volume)
@@ -210,6 +216,7 @@ export DISPLAY=:0
 sudo xhost + # (Priority) todo:fixme!! (ref task NLSAR-189)
 
 
+
 sudo docker run \
   --runtime nvidia \
   --interactive \
@@ -228,7 +235,5 @@ sudo docker run \
   ${USER_ARG} \
   norlabsnow/${DS_SUB_PROJECT}/${IDE}:${DS_IMAGE_TAG}
 
-#  --hostname snowxavier-dev \
-# -td
 # -p10.0.1.103:2222:22 \
 # Change -p10.0.1.7:<host port>:<container port> to your host ip adress
