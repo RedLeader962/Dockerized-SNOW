@@ -12,8 +12,8 @@
 #   l4t-base: https://ngc.nvidia.com/catalog/containers/nvidia:l4t-base
 #   l4t-ros-noetic-pytorch: https://github.com/NVIDIA-AI-IOT/ros2_jetson/blob/main/docker/DockerFile.l4tbase.ros.noetic
 
-#ARG BASE_IMAGE=norlabsnow/noetic-pytorch:arm64-l4t-r32.6.1
-#ARG BASE_IMAGE=norlabsnow/noetic-pytorch:x86-ubuntu20.04
+#ARG BASE_IMAGE=norlabsnow/norlab-mppi-noetic-pytorch:arm64-l4t-r32.6.1
+#ARG BASE_IMAGE=norlabsnow/norlab-mppi-noetic-pytorch:x86-ubuntu20.04
 ARG BASE_IMAGE=nvidiajetson/l4t-ros-noetic-pytorch:r32.5
 FROM ${BASE_IMAGE}
 
