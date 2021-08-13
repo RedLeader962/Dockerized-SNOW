@@ -174,8 +174,8 @@ ENV PATH="/usr/local/cuda-10.2/bin:${PATH}"
 ENV LD_LIBRARY_PATH="/usr/local/cuda-10.2/lib64:/usr/local/cuda-10.2/extras/CUPTI/lib64:${LD_LIBRARY_PATH}"
 
 
-RUN add-apt-repository universe \
-    && apt-get update \
+RUN apt-get update \
+    && apt-get install -y software-properties-common \
     && ldconfig \
     && apt-get install -y --no-install-recommends \
             python3-pip \
@@ -202,18 +202,26 @@ RUN echo "$PATH" && echo "$LD_LIBRARY_PATH"
 RUN apt-get update && apt-get install -y python3 python3-pip
 #RUN pip3 install pycuda --verbose
 
-# Ref pycuda doc install instruction: https://wiki.tiker.net/PyCuda/Installation/Linux/#installing-pycuda-on-linux
-RUN tar xfz pycuda-VERSION.tar.gz \
-    && cd pycuda-VERSION \
-    && python3 configure.py --cuda-root=/usr/local/cuda/bin \
-    && su -c "make install"
+## Ref pycuda doc install instruction: https://wiki.tiker.net/PyCuda/Installation/Linux/#installing-pycuda-on-linux
+#RUN tar xfz pycuda-VERSION.tar.gz \
+#    && cd pycuda-VERSION \
+#    && python3 configure.py --cuda-root=/usr/local/cuda/bin \
+#    && su -c "make install"
+#
+## Test PyCUDA
+#RUN echo " \
+#    Test PyCUDA \
+#    " \
+#    && cd pycuda-VERSION/test \
+#    && python test_driver.py
 
-# Test PyCUDA
-RUN echo " \
-    Test PyCUDA \
-    " \
-    && cd pycuda-VERSION/test \
-    && python test_driver.py
+RUN apt-get update \
+    && apt-get install --assume-yes --no-install-recommends \
+        build-essential python3-dev python3-setuptools libboost-python-dev libboost-thread-dev
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip3 install pycuda --verbose
+
 
 
 # ===PyTorch============================================================================================================
