@@ -147,6 +147,8 @@ RUN apt-get update && \
     apt-get install -y vim && \
     apt-get install -y rviz
 
+
+# (NICE TO HAVE) todo:fixme!! (ref task NLSAR-225)
 ##
 ## install OpenCV (with GStreamer support)
 ##
@@ -195,7 +197,8 @@ RUN pip3 install numpy --verbose
 
 # ===Install PyCUDA=====================================================================================================
 #   - pycuda 2021.1 documentation: https://documen.tician.de/pycuda/index.html
-#
+# (CRITICAL) todo:fixme!! (ref task NLSAR-225)
+
 #ENV PATH="/usr/local/cuda/bin:${PATH}"
 #ENV LD_LIBRARY_PATH="/usr/local/cuda/lib64:${LD_LIBRARY_PATH}"
 #RUN echo "$PATH" && echo "$LD_LIBRARY_PATH"
@@ -245,6 +248,7 @@ RUN pip3 install numpy --verbose
 #    pip3 install ${PYTORCH_WHL} --verbose && \
 #    rm ${PYTORCH_WHL}
 
+# (CRITICAL) todo:fixme!! (ref task NLSAR-225)
 RUN python3 -m pip --no-cache-dir install \
     torch==1.7.0
 
@@ -278,9 +282,10 @@ RUN python3 -m pip --no-cache-dir install \
 #   torch2trt is a PyTorch to TensorRT converter which utilizes the TensorRT Python API
 #   https://github.com/NVIDIA-AI-IOT/torch2trt
 # -------------------
-RUN git clone https://github.com/NVIDIA-AI-IOT/torch2trt && \
-    cd torch2trt && \
-    python3 setup.py install --plugins
+# (CRITICAL) todo:fixme!! (ref task NLSAR-225)
+#RUN git clone https://github.com/NVIDIA-AI-IOT/torch2trt && \
+#    cd torch2trt && \
+#    python3 setup.py install --plugins
 
 
 # ===Install rviz/OpenCV/PyTorch/PyCUDA step DONE=======================================================================
