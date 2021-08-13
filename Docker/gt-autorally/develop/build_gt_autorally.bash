@@ -27,14 +27,15 @@ echo -e "
 \033[1;2m
 
 
-        .|'''.|
-        ||..  '
-         ''|||.
-       .     '||
-       |'....|'
+             .|'''.|
+             ||..  '
+              ''|||.
+            .     '||
+            |'....|'
 
-   (Dockerized-SNOW)
-https://norlab.ulaval.ca
+        (Dockerized-SNOW)
+     https://norlab.ulaval.ca
+
 
 \033[0m
 "

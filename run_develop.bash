@@ -6,14 +6,14 @@ echo -e "
 \033[1;2m
 
 
-        .|'''.|
-        ||..  '
-         ''|||.
-       .     '||
-       |'....|'
+             .|'''.|
+             ||..  '
+              ''|||.
+            .     '||
+            |'....|'
 
-   (Dockerized-SNOW)
-https://norlab.ulaval.ca
+        (Dockerized-SNOW)
+     https://norlab.ulaval.ca
 
 \033[0m
 "
@@ -121,22 +121,6 @@ for arg in "$@"; do
   --runTag=?*)
     DS_IMAGE_TAG="${arg#*=}" # Remove every character up to the '=' and assign the remainder
     ;;
-#  --src=gtar)
-##    WS_DIR="/home/snowxavier/Repositories/SNOW_AutoRally"
-#    WS_DIR="${HOME}/Repositories/SNOW_AutoRally"
-#    CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/ros_catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
-#    WS_DIRNAME=$(basename $WS_DIR)
-#    HOST_SOURCE_CODE_FLAG=" --volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
-#    echo "Source code mapping from host to container: ${WS_DIR} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
-#    ;;
-#  --src=nlmppi)
-##    WS_DIR="/home/snowxavier/Repositories/NorLab_MPPI"
-#    WS_DIR="${HOME}/Repositories/NorLab_MPPI"
-#    CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/ros_catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
-#    WS_DIRNAME=$(basename $WS_DIR)
-#    HOST_SOURCE_CODE_FLAG=" --volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
-#    echo "Source code mapping from host to container: ${WS_DIR} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
-#    ;;
   --src=?*)
     WS_DIR="${arg#*=}"                                  # Remove every character up to the '=' and assign the remainder
     CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/ros_catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
