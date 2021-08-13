@@ -26,14 +26,15 @@ ENV ROS_PYTHON_VERSION=3
 
 WORKDIR /workspace
 
-# Setup timezone
-#   Source: OSRF docker_images
-#       https://github.com/osrf/docker_images/blob/master/ros/melodic/ubuntu/bionic/ros-core/Dockerfile
-RUN echo 'Etc/UTC' > /etc/timezone && \
-    ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime && \
-    apt-get update && \
-    apt-get install -q -y --no-install-recommends tzdata && \
-    rm -rf /var/lib/apt/lists/*
+## (NICE TO HAVE) todo:investigate?? >> ln: failed to create symbolic link '/etc/localtime': File exists
+## Setup timezone
+##   Source: OSRF docker_images
+##       https://github.com/osrf/docker_images/blob/master/ros/melodic/ubuntu/bionic/ros-core/Dockerfile
+#RUN echo 'Etc/UTC' > /etc/timezone && \
+#    ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime && \
+#    apt-get update && \
+#    apt-get install -q -y --no-install-recommends tzdata && \
+#    rm -rf /var/lib/apt/lists/*
 
 # install development utilities
 RUN apt-get update \
