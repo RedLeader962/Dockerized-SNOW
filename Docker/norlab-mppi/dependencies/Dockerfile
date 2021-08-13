@@ -26,7 +26,7 @@ ENV ROS_PYTHON_VERSION=3
 
 WORKDIR /workspace
 
-## (NICE TO HAVE) todo:investigate?? >> ln: failed to create symbolic link '/etc/localtime': File exists
+## (NICE TO HAVE) todo:investigate?? ( NLSAR-226 ) >> ln: failed to create symbolic link '/etc/localtime': File exists
 ## Setup timezone
 ##   Source: OSRF docker_images
 ##       https://github.com/osrf/docker_images/blob/master/ros/melodic/ubuntu/bionic/ros-core/Dockerfile
