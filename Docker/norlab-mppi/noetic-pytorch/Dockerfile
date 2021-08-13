@@ -182,11 +182,12 @@ RUN apt-get update \
             python3-dev \
             libopenblas-dev \
             libopenmpi-dev \
-            libopenmpi2 \
             openmpi-bin \
             openmpi-common \
             gfortran \
     && rm -rf /var/lib/apt/lists/*
+
+#            libopenmpi2 \
 
 RUN pip3 install setuptools Cython wheel
 RUN pip3 install numpy --verbose
