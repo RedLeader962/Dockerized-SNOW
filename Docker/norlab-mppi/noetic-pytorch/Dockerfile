@@ -174,12 +174,14 @@ ENV PATH="/usr/local/cuda-10.2/bin:${PATH}"
 ENV LD_LIBRARY_PATH="/usr/local/cuda-10.2/lib64:/usr/local/cuda-10.2/extras/CUPTI/lib64:${LD_LIBRARY_PATH}"
 
 
-RUN apt-get update && \
-    ldconfig && \
-    apt-get install -y --no-install-recommends \
+RUN add-apt-repository universe \
+    && apt-get update \
+    && ldconfig \
+    && apt-get install -y --no-install-recommends \
             python3-pip \
             python3-dev \
             libopenblas-dev \
+            libopenmpi-dev \
             libopenmpi2 \
             openmpi-bin \
             openmpi-common \
