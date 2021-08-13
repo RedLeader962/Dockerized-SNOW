@@ -89,7 +89,7 @@ RUN git clone https://github.com/norlab-ulaval/icp_odom_with_twist.git
 # ---Build the ROS source-----------------------------------------------------------------------------------------------
 # Procedure ref: ROS noetic installation from source http://wiki.ros.org/noetic/Installation/Source
 
-RUN python3 catkin_make_isolated --install --install-space ${ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
+RUN python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
     &&  rm -rf /var/lib/apt/lists/*
 
 # Note on catkin_make_isolated:
