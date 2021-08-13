@@ -246,7 +246,7 @@ RUN pip3 install numpy --verbose
 #    rm ${PYTORCH_WHL}
 
 RUN python3 -m pip --no-cache-dir install \
-    torch==1.7.0+cu110
+    torch==1.7.0
 
 ## ------------------------
 ## torchvision 0.4
