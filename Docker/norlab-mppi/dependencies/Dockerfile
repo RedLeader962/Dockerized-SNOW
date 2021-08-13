@@ -68,7 +68,7 @@ RUN apt-get update \
       python3-rosinstall \
       python3-wstool \
       python3-vcstools \
-      python-tf2-ros \
+      ros-noetic-tf2-tools \
     && rm -rf /var/lib/apt/lists/*
 
 # install aditional python package
