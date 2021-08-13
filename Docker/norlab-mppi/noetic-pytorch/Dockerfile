@@ -85,7 +85,7 @@ RUN apt-get update && \
 
 RUN mkdir ${DS_DEV_WORKSPACE} && \
     cd ${DS_DEV_WORKSPACE} && \
-    rosinstall_generator ${ROS_PKG} vision_msgs --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall && \
+    rosinstall_generator ${ROS_PKG} --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall && \
     mkdir src && \
     vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src && \
     apt-get update && \
@@ -93,6 +93,7 @@ RUN mkdir ${DS_DEV_WORKSPACE} && \
     python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${ROS_ROOT} -DCMAKE_BUILD_TYPE=Release && \
     rm -rf /var/lib/apt/lists/*
 
+#   rosinstall_generator ${ROS_PKG} vision_msgs --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall && \
 
 # Note on catkin_make_isolated:
 # - Flag `--install-space <path/to/somewhere/else>` overwrite the default `~/ros_catkin_ws/install_isolated` install dir.
@@ -146,42 +147,28 @@ RUN apt-get update && \
     apt-get install -y vim && \
     apt-get install -y rviz
 
+##
+## install OpenCV (with GStreamer support)
+##
+##COPY jetson-ota-public.asc /etc/apt/trusted.gpg.d/jetson-ota-public.asc
+#RUN apt-key adv --fetch-key https://repo.download.nvidia.com/jetson/jetson-ota-public.asc
+## Source: https://github.com/dusty-nv/jetson-containers/issues/5#issuecomment-673458718
 #
-# install OpenCV (with GStreamer support)
-#
-#COPY jetson-ota-public.asc /etc/apt/trusted.gpg.d/jetson-ota-public.asc
-RUN apt-key adv --fetch-key https://repo.download.nvidia.com/jetson/jetson-ota-public.asc
-# Source: https://github.com/dusty-nv/jetson-containers/issues/5#issuecomment-673458718
-
-RUN echo "deb https://repo.download.nvidia.com/jetson/common r32.4 main" > /etc/apt/sources.list.d/nvidia-l4t-apt-source.list && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends \
-            libopencv-python \
-    && rm /etc/apt/sources.list.d/nvidia-l4t-apt-source.list \
-    && rm -rf /var/lib/apt/lists/*
-
-#
-# PyCUDA
-#
-ENV PATH="/usr/local/cuda/bin:${PATH}"
-ENV LD_LIBRARY_PATH="/usr/local/cuda/lib64:${LD_LIBRARY_PATH}"
-RUN echo "$PATH" && echo "$LD_LIBRARY_PATH"
-
-RUN apt-get update && apt-get install -y python3 python3-pip
-RUN pip3 install pycuda --verbose
+#RUN echo "deb https://repo.download.nvidia.com/jetson/common r32.4 main" > /etc/apt/sources.list.d/nvidia-l4t-apt-source.list && \
+#    apt-get update && \
+#    apt-get install -y --no-install-recommends \
+#            libopencv-python \
+#    && rm /etc/apt/sources.list.d/nvidia-l4t-apt-source.list \
+#    && rm -rf /var/lib/apt/lists/*
 
 
-#
-# Gst Python
-#
-RUN apt update && apt install python3-gi python3-dev python3-gst-1.0 -y
 
 
-# -----------------------------
-# PyTorch Installations
-# ----------------------------
+
+
+# ===Install numpy + PyTorch prerequisite===============================================================================
 #
-# install prerequisites (many of these are for numpy)
+# install PyTorch prerequisites (many of these are for numpy)
 #
 ENV PATH="/usr/local/cuda-10.2/bin:${PATH}"
 ENV LD_LIBRARY_PATH="/usr/local/cuda-10.2/lib64:/usr/local/cuda-10.2/extras/CUPTI/lib64:${LD_LIBRARY_PATH}"
@@ -203,6 +190,31 @@ RUN pip3 install setuptools Cython wheel
 RUN pip3 install numpy --verbose
 
 
+# ===Install PyCUDA=====================================================================================================
+#   - pycuda 2021.1 documentation: https://documen.tician.de/pycuda/index.html
+#
+ENV PATH="/usr/local/cuda/bin:${PATH}"
+ENV LD_LIBRARY_PATH="/usr/local/cuda/lib64:${LD_LIBRARY_PATH}"
+RUN echo "$PATH" && echo "$LD_LIBRARY_PATH"
+
+RUN apt-get update && apt-get install -y python3 python3-pip
+#RUN pip3 install pycuda --verbose
+
+# Ref pycuda doc install instruction: https://wiki.tiker.net/PyCuda/Installation/Linux/#installing-pycuda-on-linux
+RUN tar xfz pycuda-VERSION.tar.gz \
+    && cd pycuda-VERSION \
+    && python3 configure.py --cuda-root=/usr/local/cuda/bin \
+    && su -c "make install"
+
+# Test PyCUDA
+RUN echo " \
+    Test PyCUDA \
+    " \
+    && cd pycuda-VERSION/test \
+    && python test_driver.py
+
+
+# ===PyTorch============================================================================================================
 #
 # PyTorch (for JetPack 4.4 DP)
 #
@@ -218,29 +230,29 @@ RUN wget --quiet --show-progress --progress=bar:force:noscroll --no-check-certif
     pip3 install ${PYTORCH_WHL} --verbose && \
     rm ${PYTORCH_WHL}
 
-# ------------------------
-# torchvision 0.4
-# ------------------------
-
-ARG TORCHVISION_VERSION=v0.7.0
-#ARG PILLOW_VERSION="pillow<7"
-ARG TORCH_CUDA_ARCH_LIST="7.2"
-
-RUN printenv && echo "torchvision version = $TORCHVISION_VERSION" && echo "pillow version = $PILLOW_VERSION" && echo "TORCH_CUDA_ARCH_LIST = $TORCH_CUDA_ARCH_LIST"
-
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-          git \
-          build-essential \
-          libjpeg-dev \
-          zlib1g-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN git clone -b ${TORCHVISION_VERSION} https://github.com/pytorch/vision torchvision && \
-    cd torchvision && \
-    python3 setup.py install && \
-    cd ../ && \
-    rm -rf torchvision
+## ------------------------
+## torchvision 0.4
+## ------------------------
+#
+#ARG TORCHVISION_VERSION=v0.7.0
+##ARG PILLOW_VERSION="pillow<7"
+#ARG TORCH_CUDA_ARCH_LIST="7.2"
+#
+#RUN printenv && echo "torchvision version = $TORCHVISION_VERSION" && echo "pillow version = $PILLOW_VERSION" && echo "TORCH_CUDA_ARCH_LIST = $TORCH_CUDA_ARCH_LIST"
+#
+#RUN apt-get update && \
+#    apt-get install -y --no-install-recommends \
+#          git \
+#          build-essential \
+#          libjpeg-dev \
+#          zlib1g-dev \
+#    && rm -rf /var/lib/apt/lists/*
+#
+#RUN git clone -b ${TORCHVISION_VERSION} https://github.com/pytorch/vision torchvision && \
+#    cd torchvision && \
+#    python3 setup.py install && \
+#    cd ../ && \
+#    rm -rf torchvision
 
 # -------------------
 # torch2trt installations
