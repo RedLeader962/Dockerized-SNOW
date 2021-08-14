@@ -1,7 +1,6 @@
 #!/bin/bash
 
-echo -e "
-\033[2;37m \n
+echo -e "\033[2;37m \n
                         (remote dev)
                    ˛.••·Jetson arm64
    ROS··••NVIDIA-docker
