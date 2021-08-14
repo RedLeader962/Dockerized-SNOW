@@ -1,21 +1,6 @@
 #!/bin/bash
 
-echo -e "
-\033[1;2m
-
-
-             .|'''.|
-             ||..  '
-             ''|||.
-         Dockerized-SNOW
-            .     '||
-            |'....|'
-
-     https://norlab.ulaval.ca
-
-
-\033[0m
-"
+bash ./visual/terminal_splash.bash
 
 function print_help_in_terminal() {
 

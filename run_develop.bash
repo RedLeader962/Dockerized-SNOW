@@ -2,23 +2,7 @@
 
 #set -e  # exit script if any statement returns a non-true return value
 
-echo -e "
-\033[1;2m
-
-
-               .|'''.|
-               ||..  '
-               ''|||.            \033[0m \033[1;37m
-•••·· ·· · Dockerized-SNOW ··· ·••$(printf '·%.s' {1..$(( $(tput cols) - 41 ))}) ·· ·\033[0m\033[1;2m
-                NorLab
-              .     '||
-              |'....|'
-\n\033[0m \033[2;37m
-       https://norlab.ulaval.ca
-    https://redleader962.github.io
-
-\033[0m
-"
+bash ./visual/terminal_splash.bash
 
 function print_help_in_terminal() {
 
