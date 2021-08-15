@@ -7,34 +7,33 @@ bash ./visual/terminal_splash.bash
 function print_help_in_terminal() {
 
   echo -e "
+$ ${0}  [<optional argument>]
 
-    ${0}  [<optional argument>]
+Default compilation:
+- Project: norlab-mppi
+- Architecture & OS: arm64 with Linux for Tegra (L4T) os version 32.6.1 (tag: arm64-l4t-r32.6.1)
 
-    Default compilation:
-    - Project: norlab-mppi
-    - Architecture & OS: arm64 with Linux for Tegra (L4T) os version 32.6.1 (tag: arm64-l4t-r32.6.1)
+<optional argument>:
+  -h, --help                Get help
+  --x86                     Build the image version compiled for x86 workstation instead of arm64-l4t
+  --l4t-version=<version>   Build arm64-l4t using an other release version (default: r32.6.1)
+  --GT-AR                   Project version: Georgia Tech AutoRally refactoring
+  --appendToTag=<detail>    Add suplemental details to the builded image tag eg.: --appendToTag=test
 
-    <optional argument>:
-      -h, --help                Get help
-      --x86                     Build the image version compiled for x86 workstation instead of arm64-l4t
-      --l4t-version=<version>   Build arm64-l4t using an other release version (default: r32.6.1)
-      --GT-AR                   Project version: Georgia Tech AutoRally refactoring
-      --appendToTag=<detail>    Add suplemental details to the builded image tag eg.: --appendToTag=test
+Note: you can pass any docker build flag as additional argument eg:
+  --build-arg=\"ROS_PKG=desktop-full\"
+  --build-arg=\"BASE_IMAGE=nvcr.io/nvidia/l4t-base:r32.5.0\"
 
-    Note: you can pass any docker build flag as additional argument eg:
-      --build-arg=\"ROS_PKG=desktop-full\"
-      --build-arg=\"BASE_IMAGE=nvcr.io/nvidia/l4t-base:r32.5.0\"
-
-    Ref. docker build command:
-      - https://docs.docker.com/engine/reference/commandline/build/
-    Ref. nvidia-docker base image for jetson:
-      - https://ngc.nvidia.com/catalog/containers/nvidia:l4t-base
-      - https://developer.nvidia.com/embedded/jetson-cloud-native
-    Ref. nvidia-docker base image with CUDA and OpenGL support:
-      - https://hub.docker.com/r/nvidia/cudagl/
-      - https://github.com/NVIDIA/nvidia-docker/wiki/CUDA
-      - https://ngc.nvidia.com/catalog/containers/nvidia:cudagl
-  "
+Ref. docker build command:
+  - https://docs.docker.com/engine/reference/commandline/build/
+Ref. nvidia-docker base image for jetson:
+  - https://ngc.nvidia.com/catalog/containers/nvidia:l4t-base
+  - https://developer.nvidia.com/embedded/jetson-cloud-native
+Ref. nvidia-docker base image with CUDA and OpenGL support:
+  - https://hub.docker.com/r/nvidia/cudagl/
+  - https://github.com/NVIDIA/nvidia-docker/wiki/CUDA
+  - https://ngc.nvidia.com/catalog/containers/nvidia:cudagl
+"
 }
 
 # Note:
