@@ -96,11 +96,11 @@ bash run_develop.bash --runTag=x86-ubuntu20.04 --name=4everSnow --src="$HOME/Rep
 
 root@norlab-og:/#
 ```
-To open a new interactive terminal with pseudo-TTY inside `MyCrazyContainer`
+To open a new interactive terminal with pseudo-TTY inside `4everSnow`
 ```shell 
-sudo docker exec -it MyCrazyContainer bash
+sudo docker exec -it 4everSnow bash
 # or use the following convenient script
-bash ~/Repositories/Dockerized-SNOW/open_new_terminal.bash MyCrazyContainer
+bash ~/Repositories/Dockerized-SNOW/open_new_terminal.bash 4everSnow
 # root@norlab-og:/#
 ```
 
