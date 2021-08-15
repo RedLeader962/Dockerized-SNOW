@@ -10,7 +10,7 @@
 # _Dockerized SNOW_
 Containerized workflow for the _NorLab_MPPI_ and _SNOW_AutoRally_ projects leveraging [_nvidia-docker_](https://github.com/NVIDIA/nvidia-docker) technology.
 
-by [Luc Coupal](https://redleader962.github.io) 
+Author: [Luc Coupal](https://redleader962.github.io) 
 
 ```shell
 
@@ -68,6 +68,7 @@ diagram &nbsp;)
 - **Tips:** You can use the `--help` flag for usage instruction on any dockerized-snow bash script
 
 ```shell
+# Create a directory for your development source code if you dont already have one
 mkdir -p ~/Repositories && cd ~/Repositories
 
 # Clone both repositories 
@@ -75,12 +76,14 @@ sudo git clone https://github.com/RedLeader962/Dockerized-SNOW.git
 sudo git clone https://github.com/norlab-ulaval/NorLab_MPPI.git
 cd ~/Repositories/Dockerized-SNOW
 
-# Pull the develop image with x86-ubuntu20.04 tag
+# Pull the norlab-mppi-develop image from norlabsnow Dockerhub with the x86-ubuntu20.04 tag
 sudo docker pull norlabsnow/norlab-mppi-develop:x86-ubuntu20.04 
 
-# create a new docker image instance for development on your machine and start working on the 
+# Create a new docker image instance for development on your machine and start working on the 
 # NorLab_MPPI project using ROS noetic, Python 3 and Pytorch right away
-bash run_develop.bash --runTag=x86-ubuntu20.04 --name=MyCrazyContainer --src=/absolute/path/to/source/code/dir/NorLab_MPPI
+bash run_develop.bash --runTag=x86-ubuntu20.04 \
+                      --name=MyCrazyContainer \ 
+                      --src=</absolute/path/to/your>/Repositories/NorLab_MPPI
 
                                           .|'''.|                                               
                                           ||..  '                                               
