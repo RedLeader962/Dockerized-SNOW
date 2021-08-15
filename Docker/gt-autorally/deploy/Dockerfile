@@ -15,8 +15,8 @@ FROM norlabsnow/gt-autorally-dependencies:${BASE_IMG_TAG}
 #   - No need to build Pointgrey Camera driver from source anymore (apparently).
 #       See pullrequest 243548 merge into `ros:master` on 3 Apr 2020: https://github.com/ros/rosdistro/pull/24348
 
-ARG SRC_CODE_REPOSITORY_NAME=SNOW_AutoRally
-ENV SRC_CODE_REPOSITORY_NAME=${SRC_CODE_REPOSITORY_NAME}
+ARG DS_TARGET_PROJECT_SRC_REPO=SNOW_AutoRally
+ENV DS_TARGET_PROJECT_SRC_REPO=${DS_TARGET_PROJECT_SRC_REPO}
 ARG SRC_CODE_DOMAIN_NAME=RedLeader962
 ENV SRC_CODE_DOMAIN_NAME=${SRC_CODE_DOMAIN_NAME}
 
@@ -30,7 +30,7 @@ ENV DS_HOST_TYPE=${DS_HOST_TYPE}
 
 WORKDIR ${DS_DEV_WORKSPACE}/src
 RUN echo "Pull latest ${DEV_BRANCH} branch" \
-    && git clone --branch ${DEV_BRANCH} https://github.com/${SRC_CODE_DOMAIN_NAME}/${SRC_CODE_REPOSITORY_NAME}.git  \
+    && git clone --branch ${DEV_BRANCH} https://github.com/${SRC_CODE_DOMAIN_NAME}/${DS_TARGET_PROJECT_SRC_REPO}.git  \
     && cd ${DS_DEV_WORKSPACE} \
     && apt-get update \
     && rosdep install --from-path src --ignore-src --default-yes \
@@ -42,14 +42,14 @@ RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
         && catkin_make"
 
 # Environment setup
-#RUN echo ". ${DS_DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/autorally_util/setupEnvLocal.sh" >> ~/.bashrc
-RUN echo ". ${DS_DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/autorally_util/setupEnv${DS_HOST_TYPE}.sh" >> ~/.bashrc
+#RUN echo ". ${DS_DEV_WORKSPACE}/src/${DS_TARGET_PROJECT_SRC_REPO}/autorally_util/setupEnvLocal.sh" >> ~/.bashrc
+RUN echo ". ${DS_DEV_WORKSPACE}/src/${DS_TARGET_PROJECT_SRC_REPO}/autorally_util/setupEnv${DS_HOST_TYPE}.sh" >> ~/.bashrc
 
 
 ## ... Generate Documentation ..........................................................................................
 ## Run doxygen with the `-u` flag to remove obsolete configuration tag
 ## TODO: unmute
-#RUN cd ${DS_DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/ \
+#RUN cd ${DS_DEV_WORKSPACE}/src/${DS_TARGET_PROJECT_SRC_REPO}/ \
 #    && doxygen -u
 
 

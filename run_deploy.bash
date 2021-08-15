@@ -36,7 +36,7 @@ HOST_DATA_DIR_FLAG=""
 DS_IMAGE_TAG="arm64-l4t-r32.6.1-XavierSA"
 IDE="develop"
 DS_SUB_PROJECT="norlab-mppi"
-DS_SUB_PROJECT_GIT="NorLab_MPPI"
+DS_TARGET_PROJECT_SRC_REPO="NorLab_MPPI"
 
 
 # todo:on task end >> delete next bloc ↓↓
@@ -52,7 +52,7 @@ for arg in "$@"; do
     ;;
   --GT-AR)
     DS_SUB_PROJECT="gt-autorally"
-    DS_SUB_PROJECT_GIT="SNOW_AutoRally"
+    DS_TARGET_PROJECT_SRC_REPO="SNOW_AutoRally"
     shift # Remove --GT-AR from processing
     ;;
   --name)

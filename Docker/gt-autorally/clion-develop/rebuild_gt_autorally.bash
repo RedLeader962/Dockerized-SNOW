@@ -17,9 +17,9 @@ catkin_make
 source "${DS_DEV_WORKSPACE}/devel/setup.bash"
 
 # AutoRally environment setup
-#autorally_env_setup="${DS_DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/autorally_util/setupEnvLocal.sh"
-#autorally_env_setup="${DS_DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/autorally_util/setupEnvXavierWarthog.sh"
-autorally_env_setup="${DS_DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/autorally_util/setupEnv${DS_HOST_TYPE}.sh"
+#autorally_env_setup="${DS_DEV_WORKSPACE}/src/${DS_TARGET_PROJECT_SRC_REPO}/autorally_util/setupEnvLocal.sh"
+#autorally_env_setup="${DS_DEV_WORKSPACE}/src/${DS_TARGET_PROJECT_SRC_REPO}/autorally_util/setupEnvXavierWarthog.sh"
+autorally_env_setup="${DS_DEV_WORKSPACE}/src/${DS_TARGET_PROJECT_SRC_REPO}/autorally_util/setupEnv${DS_HOST_TYPE}.sh"
 #source "${autorally_env_setup}"
 echo "source ${autorally_env_setup}" >> ~/.bashrc
 

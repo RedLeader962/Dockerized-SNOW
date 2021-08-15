@@ -4,9 +4,9 @@
 ARG  BASE_IMG_TAG=arm64-l4t-r32.6.1
 FROM norlabsnow/norlab-mppi-dependencies:${BASE_IMG_TAG}
 
-ARG SRC_CODE_REPOSITORY_NAME=NorLab_MPPI
-# Note: `SRC_CODE_REPOSITORY_NAME` is required by the rebuild_norlab_mppi.bash script
-ENV SRC_CODE_REPOSITORY_NAME=${SRC_CODE_REPOSITORY_NAME}
+ARG DS_TARGET_PROJECT_SRC_REPO=NorLab_MPPI
+# Note: `DS_TARGET_PROJECT_SRC_REPO` is required by the rebuild_norlab_mppi.bash script
+ENV DS_TARGET_PROJECT_SRC_REPO=${DS_TARGET_PROJECT_SRC_REPO}
 
 # Default: Local , Option: XavierWarthog
 ARG DS_HOST_TYPE=Local

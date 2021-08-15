@@ -4,9 +4,9 @@
 ARG  BASE_IMG_TAG=arm64-l4t-r32.5.0
 FROM norlabsnow/gt-autorally-dependencies:${BASE_IMG_TAG}
 
-ARG SRC_CODE_REPOSITORY_NAME=SNOW_AutoRally
-# Note: `SRC_CODE_REPOSITORY_NAME` is required by the rebuild_gt_autorally.bash script
-ENV SRC_CODE_REPOSITORY_NAME=${SRC_CODE_REPOSITORY_NAME}
+ARG DS_TARGET_PROJECT_SRC_REPO=SNOW_AutoRally
+# Note: `DS_TARGET_PROJECT_SRC_REPO` is required by the rebuild_gt_autorally.bash script
+ENV DS_TARGET_PROJECT_SRC_REPO=${DS_TARGET_PROJECT_SRC_REPO}
 
 # Default: Local , Option: XavierWarthog
 ARG DS_HOST_TYPE=Local

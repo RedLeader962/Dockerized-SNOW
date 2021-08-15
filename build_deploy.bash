@@ -21,7 +21,7 @@ function print_help_in_terminal() {
 
 \033[1mNote:\033[0m you can pass any docker build flag as additional argument eg:
   --build-arg=\"SRC_CODE_DOMAIN_NAME=RedLeader962\"
-  --build-arg=\"SRC_CODE_REPOSITORY_NAME=SNOW_AutoRally\"
+  --build-arg=\"DS_TARGET_PROJECT_SRC_REPO=SNOW_AutoRally\"
   --build-arg=\"DEV_BRANCH=SNOW-melodic-devel\"
 
 \033[2mRef. docker build command:

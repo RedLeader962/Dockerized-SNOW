@@ -12,8 +12,8 @@ FROM norlabsnow/norlab-mppi-dependencies:${BASE_IMG_TAG}
 #   2. Install Dependencies
 #   3. Compilation & Running
 
-ARG SRC_CODE_REPOSITORY_NAME=NorLab_MPPI
-ENV SRC_CODE_REPOSITORY_NAME=${SRC_CODE_REPOSITORY_NAME}
+ARG DS_TARGET_PROJECT_SRC_REPO=NorLab_MPPI
+ENV DS_TARGET_PROJECT_SRC_REPO=${DS_TARGET_PROJECT_SRC_REPO}
 ARG SRC_CODE_DOMAIN_NAME=RedLeader962
 ENV SRC_CODE_DOMAIN_NAME=${SRC_CODE_DOMAIN_NAME}
 
@@ -25,7 +25,7 @@ ENV DS_HOST_TYPE=${DS_HOST_TYPE}
 
 WORKDIR ${DS_DEV_WORKSPACE}/src
 RUN echo "Pull latest ${DEV_BRANCH} branch" \
-    && git clone --branch ${DEV_BRANCH} https://github.com/${SRC_CODE_DOMAIN_NAME}/${SRC_CODE_REPOSITORY_NAME}.git  \
+    && git clone --branch ${DEV_BRANCH} https://github.com/${SRC_CODE_DOMAIN_NAME}/${DS_TARGET_PROJECT_SRC_REPO}.git  \
     && cd ${DS_DEV_WORKSPACE} \
     && apt-get update \
     && rosdep install --from-path src --ignore-src --default-yes \
@@ -38,7 +38,7 @@ RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
 
 # (Priority) todo:refactor (ref task NLSAR-222 🛠→ setupEnv*.sh scripts for deployement case)
 ## Environment setup
-#RUN echo ". ${DS_DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/mppi_util/setupEnv${DS_HOST_TYPE}.sh" >> ~/.bashrc
+#RUN echo ". ${DS_DEV_WORKSPACE}/src/${DS_TARGET_PROJECT_SRC_REPO}/mppi_util/setupEnv${DS_HOST_TYPE}.sh" >> ~/.bashrc
 
 
 # ... Finish container setup ...........................................................................................

@@ -19,7 +19,7 @@ function print_help_in_terminal() {
   --runTag=<thatTag>              Overwrite default image tag eg.: x86-ubuntu20.04-gazebo-dart
   --name=<myCoolContainer>        Name that new container, the crazier the better
   --src=<myCoolSrcCode>           Host source code directory to mount inside the container.
-                                  Must be an absolute path eg.: /home/snowxavier/Repositories/${DS_SUB_PROJECT_GIT}
+                                  Must be an absolute path eg.: /home/snowxavier/Repositories/${DS_TARGET_PROJECT_SRC_REPO}
   --data=<myCrazyDataDir>         Host data directory to mount inside the container.
                                   Must be an absolute path eg.: /home/snowxavier/Repositories/wt_data
 
@@ -40,7 +40,7 @@ function print_help_in_terminal() {
   $ cd ~/my/source/code/dir/
   $ sudo git clone https://github.com/RedLeader962/NorLab_MPPI.git
   $ cd ~/my/source/code/dir/Dockerized-SNOW
-  $ bash run_snow_develop.bash --name=MyCrazyContainer --src=/absolute/path/to/source/code/dir/${DS_SUB_PROJECT_GIT}
+  $ bash run_snow_develop.bash --name=MyCrazyContainer --src=/absolute/path/to/source/code/dir/${DS_TARGET_PROJECT_SRC_REPO}
 "
 }
 
@@ -52,7 +52,7 @@ HOST_DATA_DIR_FLAG=""
 DS_IMAGE_TAG="arm64-l4t-r32.6.1-XavierSA"
 IDE="develop"
 DS_SUB_PROJECT="norlab-mppi"
-DS_SUB_PROJECT_GIT="NorLab_MPPI"
+DS_TARGET_PROJECT_SRC_REPO="NorLab_MPPI"
 # alt repo: SNOW_AutoRally
 
 
@@ -69,7 +69,7 @@ for arg in "$@"; do
     ;;
   --GT-AR)
     DS_SUB_PROJECT="gt-autorally"
-    DS_SUB_PROJECT_GIT="SNOW_AutoRally"
+    DS_TARGET_PROJECT_SRC_REPO="SNOW_AutoRally"
     shift # Remove --GT-AR from processing
     ;;
   --clion)
@@ -151,7 +151,7 @@ done
 
 # Set default source code location if user did not use the --src=<myCoolSrcCode> flag.
 if [[ -z $HOST_SOURCE_CODE_FLAG ]]; then
-  WS_DIR="${HOME}/Repositories/${DS_SUB_PROJECT_GIT}"
+  WS_DIR="${HOME}/Repositories/${DS_TARGET_PROJECT_SRC_REPO}"
 
   if [[ -d ${WS_DIR} ]]; then
     CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/ros_catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
@@ -159,11 +159,12 @@ if [[ -z $HOST_SOURCE_CODE_FLAG ]]; then
     HOST_SOURCE_CODE_FLAG=" --volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
     echo "Use default source code mapping from host to container: ${WS_DIR} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
   else
-    echo "Be advise, the ${DS_SUB_PROJECT} source code is unreachable with path ${WS_DIR}. Make sure you have cloned the ${DS_SUB_PROJECT_GIT}.git repository prior to running ${0} then provide it's absolute path to ${0} using --src=/absolute/path/to/source/code/dir/${DS_SUB_PROJECT_GIT}"
+    echo "Be advise, the ${DS_SUB_PROJECT} source code is unreachable with path ${WS_DIR}. Make sure you have cloned the ${DS_TARGET_PROJECT_SRC_REPO}.git repository prior to running ${0} then provide it's absolute path to ${0} using --src=/absolute/path/to/source/code/dir/${DS_TARGET_PROJECT_SRC_REPO}"
   fi
 fi
 
-#SRC_CODE_REPOSITORY_NAME
+# Pass the target project repository basename to the docker container envenrionment variable
+USER_ARG="${USER_ARG} -e DS_TARGET_PROJECT_SRC_REPO=${DS_TARGET_PROJECT_SRC_REPO}"
 
 echo "
 Run container ${DS_SUB_PROJECT}/${IDE} with tag: ${DS_IMAGE_TAG}

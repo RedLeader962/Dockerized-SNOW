@@ -17,7 +17,7 @@ RUN python3 catkin_make_isolated --install --install-space ${ROS_ROOT} -DCMAKE_B
 
 # (Priority) todo:refactor (ref task NLSAR-222 🛠→ setupEnv*.sh scripts for deployement case)
 ## Environment setup
-#norlab_mppi_env_setup="${DS_DEV_WORKSPACE}/src/${SRC_CODE_REPOSITORY_NAME}/mppi_util/setupEnv${DS_HOST_TYPE}.sh"
+#norlab_mppi_env_setup="${DS_DEV_WORKSPACE}/src/${DS_TARGET_PROJECT_SRC_REPO}/mppi_util/setupEnv${DS_HOST_TYPE}.sh"
 #echo "source ${norlab_mppi_env_setup}" >> ~/.bashrc
 
 
