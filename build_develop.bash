@@ -22,7 +22,7 @@ function print_help_in_terminal() {
 
 \033[1mNote:\033[0m You can pass any docker build flag as additional argument eg:
   --build-arg=\"DS_TARGET_PROJECT_SRC_REPO=SNOW_AutoRally\"
-  --build-arg BASE_IMG_TAG=\"arm64-l4t-r32.6.1\"
+  --build-arg=\"BASE_IMG_TAG=arm64-l4t-r32.6.1\"
 
     Available base img tag: arm64-l4t-r32.5.0, arm64-l4t-r32.6.1, x86-ubuntu18.04, x86-ubuntu20.04
 
