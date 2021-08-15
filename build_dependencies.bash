@@ -6,8 +6,7 @@ bash ./visual/terminal_splash.bash
 
 function print_help_in_terminal() {
 
-  echo -e "
-$ ${0}  [<optional argument>]
+  echo -e "\$ ${0}  [<optional argument>]
 
 Default compilation:
 - Project: norlab-mppi

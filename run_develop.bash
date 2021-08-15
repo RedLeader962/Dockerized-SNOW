@@ -6,38 +6,36 @@ bash ./visual/terminal_splash.bash
 
 function print_help_in_terminal() {
 
-  echo -e "
+  echo -e "$ ${0} [<optional argument>]
 
-  ${0} [<optional argument>]
+<optional argument>:
+  -h, --help                      Get help
+  --runTag=<thatTag>     Overwrite image tag eg.: arm64-l4t-r32.6.1-XavierSA-test, x86-ubuntu20.04-gazebo-dart
+  --name=<myCoolContainer>        Name that new container, the crazier the better
+  --src=<myCoolSrcCode>           Host source code directory to mount inside the container.
+                                  Must be an absolute path eg.: /home/snowxavier/Repositories/SNOW_AutoRally
+  --data==<myCrazyDataDir>        Host data directory to mount inside the container.
+                                  Must be an absolute path eg.: /home/snowxavier/Repositories/wt_data
 
-    <optional argument>:
-      -h, --help                      Get help
-      --runTag=<thatTag>     Overwrite image tag eg.: arm64-l4t-r32.6.1-XavierSA-test, x86-ubuntu20.04-gazebo-dart
-      --name=<myCoolContainer>        Name that new container, the crazier the better
-      --src=<myCoolSrcCode>           Host source code directory to mount inside the container.
-                                      Must be an absolute path eg.: /home/snowxavier/Repositories/SNOW_AutoRally
-      --data==<myCrazyDataDir>        Host data directory to mount inside the container.
-                                      Must be an absolute path eg.: /home/snowxavier/Repositories/wt_data
+  --GT-AR                         Project version: Georgia Tech AutoRally refactoring
+  --clion                         Build the version to use with CLion IDE (use with the --GT-AR flag)
 
-      --GT-AR                         Project version: Georgia Tech AutoRally refactoring
-      --clion                         Build the version to use with CLion IDE (use with the --GT-AR flag)
+  --name=xc                       Shortcut: ---name=xavier_red_clion
+  --data=jetson                   Shortcut: --volume \"\$HOME/Repositories/wt_data:/mnt/wt_data:ro\"
 
-      --name=xc                       Shortcut: ---name=xavier_red_clion
-      --data=jetson                   Shortcut: --volume \"\$HOME/Repositories/wt_data:/mnt/wt_data:ro\"
+Note: you can pass any docker run flag as additional argument eg:
+  --rm
+  --volume=\"/my/host/path/data:/my/container/path/data\"
+  -e DS_HOST_TYPE=XavierWarthog
 
-    Note: you can pass any docker run flag as additional argument eg:
-      --rm
-      --volume=\"/my/host/path/data:/my/container/path/data\"
-      -e DS_HOST_TYPE=XavierWarthog
+  ref: https://docs.docker.com/engine/reference/commandline/run/
 
-      ref: https://docs.docker.com/engine/reference/commandline/run/
-
-    Recommandation:
-      $ cd ~/my/source/code/dir/
-      $ sudo git clone https://github.com/RedLeader962/SNOW_AutoRally.git
-      $ cd ~/my/source/code/dir/Dockerized-SNOW
-      $ bash run_snow_develop.bash --name=MyCrazyContainer --src=/absolute/path/to/source/code/dir/SNOW_AutoRally
-  "
+Recommandation:
+  $ cd ~/my/source/code/dir/
+  $ sudo git clone https://github.com/RedLeader962/SNOW_AutoRally.git
+  $ cd ~/my/source/code/dir/Dockerized-SNOW
+  $ bash run_snow_develop.bash --name=MyCrazyContainer --src=/absolute/path/to/source/code/dir/SNOW_AutoRally
+"
 }
 
 

@@ -6,27 +6,25 @@ bash ./visual/terminal_splash.bash
 
 function print_help_in_terminal() {
 
-  echo -e "
+  echo -e "$ ${0}  [<optional argument>]
 
-  ${0}  [<optional argument>]
+<optional argument>:
+  -h, --help                      Get help
+  --runTag=<thatTag>     Overwrite image tag eg.: arm64-l4t-r32.6.1-XavierSA-test, x86-ubuntu20.04-gazebo-dart
+  --name=<myCoolContainer>        Name that new container, the crazier the better
+  --src=<myCoolSrcCode>           Host source code directory to mount inside the container.
+                                  Must be an absolute path eg.: /home/snowxavier/Repositories/SNOW_AutoRally
+  --data==<myCrazyDataDir>        Host data directory to mount inside the container.
+                                  Must be an absolute path eg.: /home/snowxavier/Repositories/wt_data
+  --data=jetson                   Shortcut: --volume \"\$HOME/Repositories/wt_data:/mnt/wt_data:ro\"
+  --GT-AR                         Project version: Georgia Tech AutoRally refactoring
 
-    <optional argument>:
-      -h, --help                      Get help
-      --runTag=<thatTag>     Overwrite image tag eg.: arm64-l4t-r32.6.1-XavierSA-test, x86-ubuntu20.04-gazebo-dart
-      --name=<myCoolContainer>        Name that new container, the crazier the better
-      --src=<myCoolSrcCode>           Host source code directory to mount inside the container.
-                                      Must be an absolute path eg.: /home/snowxavier/Repositories/SNOW_AutoRally
-      --data==<myCrazyDataDir>        Host data directory to mount inside the container.
-                                      Must be an absolute path eg.: /home/snowxavier/Repositories/wt_data
-      --data=jetson                   Shortcut: --volume \"\$HOME/Repositories/wt_data:/mnt/wt_data:ro\"
-      --GT-AR                         Project version: Georgia Tech AutoRally refactoring
+Note: you can pass any docker run flag as additional argument eg:
+  --rm
+  --volume=\"/my/host/path/data:/my/container/path/data\"
 
-    Note: you can pass any docker run flag as additional argument eg:
-      --rm
-      --volume=\"/my/host/path/data:/my/container/path/data\"
-
-    Ref.: https://docs.docker.com/engine/reference/commandline/run/
-  "
+Ref.: https://docs.docker.com/engine/reference/commandline/run/
+"
 }
 
 USER_ARG=""

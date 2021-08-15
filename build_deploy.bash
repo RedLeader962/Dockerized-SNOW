@@ -4,34 +4,30 @@ bash ./visual/terminal_splash.bash
 
 function print_help_in_terminal() {
 
-  echo -e "
+  echo -e "$ ${0}  [<optional argument>]
 
-    ${0}  [<optional argument>]
+Default compilation:
+- Project: norlab-mppi
+- Architecture & OS: arm64 with Linux for Tegra (L4T) os version 32.6.1 (tag: arm64-l4t-r32.6.1)
+- Host type: XavierStandAlone compute box
 
-    Default compilation:
-    - Project: norlab-mppi
-    - Architecture & OS: arm64 with Linux for Tegra (L4T) os version 32.6.1 (tag: arm64-l4t-r32.6.1)
-    - Host type: XavierStandAlone compute box
+<optional argument>:
+  -h, --help                Get help
+  --x86                     Build the image version compiled for x86 workstation instead of arm64-l4t
+  --l4t-version=<version>   Build arm64-l4t using an other release version (default: r32.6.1)
+  --host-type=<type>        Specified the container host type: XavierStandAlone, XavierWarthog, local
+  --GT-AR                   Project version: Georgia Tech AutoRally refactoring
+  --appendToTag=<detail>    Add supplemental details to the built image tag eg.: --appendToTag=test
 
-    <optional argument>:
-      -h, --help                Get help
-      --x86                     Build the image version compiled for x86 workstation instead of arm64-l4t
-      --l4t-version=<version>   Build arm64-l4t using an other release version (default: r32.6.1)
-      --host-type=<type>        Specified the container host type: XavierStandAlone, XavierWarthog, local
-      --GT-AR                   Project version: Georgia Tech AutoRally refactoring
-      --appendToTag=<detail>    Add supplemental details to the built image tag eg.: --appendToTag=test
+Note: you can pass any docker build flag as additional argument eg:
+  --build-arg=\"SRC_CODE_DOMAIN_NAME=RedLeader962\"
+  --build-arg=\"SRC_CODE_REPOSITORY_NAME=SNOW_AutoRally\"
+  --build-arg=\"DEV_BRANCH=SNOW-melodic-devel\"
 
-    Note: you can pass any docker build flag as additional argument eg:
-      --build-arg=\"SRC_CODE_DOMAIN_NAME=RedLeader962\"
-      --build-arg=\"SRC_CODE_REPOSITORY_NAME=SNOW_AutoRally\"
-      --build-arg=\"DEV_BRANCH=SNOW-melodic-devel\"
-
-    Ref. docker build command:
-      - https://docs.docker.com/engine/reference/commandline/build/
-  "
+Ref. docker build command:
+  - https://docs.docker.com/engine/reference/commandline/build/
+"
 }
-
-#      --x86                     Get the image version compiled for x86 workstation
 
 USER_ARG=""
 DS_IMAGE_TAG="arm64-l4t"

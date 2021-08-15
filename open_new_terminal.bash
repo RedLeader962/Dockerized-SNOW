@@ -4,21 +4,19 @@ bash ./visual/terminal_splash.bash
 
 function print_help_in_terminal() {
 
-  echo -e "
+  echo -e "$ ${0} [<optional argument>] <CONTAINER_NAMES>
 
-    ${0} [<optional argument>] <CONTAINER_NAMES>
+Open a new interactive terminal with pseudo-TTY
 
-    Open a new interactive terminal with pseudo-TTY
+<optional argument>:
+  -h, --help                Get help
 
-    <optional argument>:
-      -h, --help                Get help
+Note: you can pass any docker build flag in <optional argument> eg.:
+  --env=\"VAR=1\"        (to set environment variables)
 
-    Note: you can pass any docker build flag in <optional argument> eg.:
-      --env=\"VAR=1\"        (to set environment variables)
-
-    Ref. docker exec command:
-      - https://docs.docker.com/engine/reference/commandline/exec/
-  "
+Ref. docker exec command:
+  - https://docs.docker.com/engine/reference/commandline/exec/
+"
 }
 
 ## todo:on task end >> delete next bloc ↓↓
