@@ -14,7 +14,7 @@ Containerized workflow for the NorLab _SNOW_AutoRally_ project leveraging [_nvid
 <p>
 <sup>
 <b>Project related link: </b> &nbsp; 
-<a href="https://redleader.myjetbrains.com/youtrack/dashboard?id=bce3112d-bda1-425c-8628-802a047be4d3">NLSAR - NorLab SNOW AutoRally</a>
+<a href="https://redleader.myjetbrains.com/youtrack/dashboard?id=bce3112d-bda1-425c-8628-802a047be4d3">NorLab SNOW AutoRally</a>
 (Youtrack) &nbsp; • &nbsp;  
 <a href="https://hub.docker.com/u/norlabsnow">norlabsnow</a>
 (Docker Hub) &nbsp; • &nbsp; 
