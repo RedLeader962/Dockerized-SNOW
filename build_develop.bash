@@ -6,12 +6,12 @@ function print_help_in_terminal() {
 
   echo -e "\$ ${0}  [<optional argument>]
 
-Default compilation:
+\033[1mDefault compilation:\033[0m
 - Project: norlab-mppi
 - Architecture & OS: arm64 with Linux for Tegra (L4T) os version 32.6.1 (tag: arm64-l4t-r32.6.1)
 - Host type: XavierStandAlone compute box
 
-<optional argument>:
+\033[1m<optional argument>:\033[0m
   -h, --help                Get help
   --x86                     Build the image version compiled for x86 workstation instead of arm64-l4t
   --l4t-version=<version>   Build arm64-l4t using an other release version (default: r32.6.1)
@@ -20,15 +20,15 @@ Default compilation:
   --clion                   Build the version to use with CLion IDE (use with the --GT-AR flag)
   --appendToTag=<detail>    Add supplemental details to the built image tag eg.: --appendToTag=test
 
-Note: you can pass any docker build flag as additional argument eg:
+\033[1mNote:\033[0m You can pass any docker build flag as additional argument eg:
   --build-arg=\"SRC_CODE_REPOSITORY_NAME=SNOW_AutoRally\"
   --build-arg BASE_IMG_TAG=\"arm64-l4t-r32.6.1\"
 
     Available base img tag: arm64-l4t-r32.5.0, arm64-l4t-r32.6.1, x86-ubuntu18.04, x86-ubuntu20.04
 
-Ref. docker build command:
+\033[2mRef. docker build command:
   - https://docs.docker.com/engine/reference/commandline/build/
-"
+\033[0m"
 }
 
 USER_ARG=""

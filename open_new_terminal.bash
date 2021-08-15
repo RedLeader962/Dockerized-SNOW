@@ -8,15 +8,15 @@ function print_help_in_terminal() {
 
 Open a new interactive terminal with pseudo-TTY
 
-<optional argument>:
+\033[1m<optional argument>:\033[0m
   -h, --help                Get help
 
-Note: you can pass any docker build flag in <optional argument> eg.:
+\033[1mNote:\033[0m You can pass any docker build flag in <optional argument> eg.:
   --env=\"VAR=1\"        (to set environment variables)
 
-Ref. docker exec command:
+\033[2mRef. docker exec command:
   - https://docs.docker.com/engine/reference/commandline/exec/
-"
+\033[0m"
 }
 
 ## todo:on task end >> delete next bloc ↓↓

@@ -8,7 +8,7 @@ function print_help_in_terminal() {
 
   echo -e "\$ ${0} [<optional argument>]
 
-<optional argument>:
+\033[1m<optional argument>:\033[0m
   -h, --help                      Get help
   --runTag=<thatTag>     Overwrite image tag eg.: arm64-l4t-r32.6.1-XavierSA-test, x86-ubuntu20.04-gazebo-dart
   --name=<myCoolContainer>        Name that new container, the crazier the better
@@ -23,14 +23,14 @@ function print_help_in_terminal() {
   --name=xc                       Shortcut: ---name=xavier_red_clion
   --data=jetson                   Shortcut: --volume \"\$HOME/Repositories/wt_data:/mnt/wt_data:ro\"
 
-Note: you can pass any docker run flag as additional argument eg:
+\033[1mNote:\033[0m You can pass any docker run flag as additional argument eg:
   --rm
   --volume=\"/my/host/path/data:/my/container/path/data\"
   -e DS_HOST_TYPE=XavierWarthog
 
-  ref: https://docs.docker.com/engine/reference/commandline/run/
-
-Recommandation:
+\033[2mRef: https://docs.docker.com/engine/reference/commandline/run/
+\033[0m
+\033[1mRecommandation:\033[0m
   $ cd ~/my/source/code/dir/
   $ sudo git clone https://github.com/RedLeader962/SNOW_AutoRally.git
   $ cd ~/my/source/code/dir/Dockerized-SNOW
