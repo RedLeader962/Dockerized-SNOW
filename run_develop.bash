@@ -9,18 +9,18 @@ function print_help_in_terminal() {
   echo -e "\$ ${0} [<optional argument>]
 
 \033[1mDefault setting:\033[0m
-- Project: norlab-mppi
-- Image tag: --runTag=arm64-l4t-r32.6.1-XavierSA
+- Project: ${DS_SUB_PROJECT}
+- Image tag: --runTag=${DS_IMAGE_TAG}
 - Host source code directory: --src=${HOME}/Repositories/NorLab_MPPI
-- Host data directory:
+- Host data directory: none
 
 \033[1m<optional argument>:\033[0m
   -h, --help                      Get help
-  --runTag=<thatTag>              Overwrite image tag eg.: arm64-l4t-r32.6.1-XavierSA-test, x86-ubuntu20.04-gazebo-dart
+  --runTag=<thatTag>              Overwrite default image tag eg.: x86-ubuntu20.04-gazebo-dart
   --name=<myCoolContainer>        Name that new container, the crazier the better
   --src=<myCoolSrcCode>           Host source code directory to mount inside the container.
-                                  Must be an absolute path eg.: /home/snowxavier/Repositories/NorLab_MPPI
-  --data=<myCrazyDataDir>        Host data directory to mount inside the container.
+                                  Must be an absolute path eg.: /home/snowxavier/Repositories/${DS_SUB_PROJECT_GIT}
+  --data=<myCrazyDataDir>         Host data directory to mount inside the container.
                                   Must be an absolute path eg.: /home/snowxavier/Repositories/wt_data
 
   --GT-AR                         Project version: Georgia Tech AutoRally refactoring
@@ -40,7 +40,7 @@ function print_help_in_terminal() {
   $ cd ~/my/source/code/dir/
   $ sudo git clone https://github.com/RedLeader962/NorLab_MPPI.git
   $ cd ~/my/source/code/dir/Dockerized-SNOW
-  $ bash run_snow_develop.bash --name=MyCrazyContainer --src=/absolute/path/to/source/code/dir/NorLab_MPPI
+  $ bash run_snow_develop.bash --name=MyCrazyContainer --src=/absolute/path/to/source/code/dir/${DS_SUB_PROJECT_GIT}
 "
 }
 
