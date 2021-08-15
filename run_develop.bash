@@ -37,9 +37,9 @@ function print_help_in_terminal() {
 \033[2mRef: https://docs.docker.com/engine/reference/commandline/run/
 \033[0m
 \033[1mRecommandation:\033[0m
-  $ cd ~/my/source/code/dir/
+  $ mkdir -p ~/Repositories \&\& cd ~/Repositories
   $ sudo git clone https://github.com/norlab-ulaval/NorLab_MPPI.git
-  $ cd ~/my/source/code/dir/Dockerized-SNOW
+  $ cd ~/Repositories/Dockerized-SNOW
   $ bash run_snow_develop.bash --name=MyCrazyContainer --src=/absolute/path/to/source/code/dir/${DS_TARGET_PROJECT_SRC_REPO}
 "
 }

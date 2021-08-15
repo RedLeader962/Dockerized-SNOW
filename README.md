@@ -18,6 +18,8 @@ Containerized workflow for the NorLab _SNOW_AutoRally_ project leveraging [_nvid
 (Youtrack) &nbsp; • &nbsp;  
 <a href="https://hub.docker.com/u/norlabsnow">norlabsnow</a>
 (Docker Hub) &nbsp; • &nbsp; 
+<a href="https://github.com/norlab-ulaval/NorLab_MPPI">NorLab_MPPI</a>
+(GitHub) &nbsp; • &nbsp; 
 <a href="https://github.com/RedLeader962/SNOW_AutoRally">SNOW_AutoRally</a>
 (GitHub)
 &nbsp;
@@ -52,30 +54,29 @@ diagram &nbsp;)
 - **Tips:** You can use the `--help` flag for usage instruction on any dockerized-snow bash script
 
 ```shell
-cd ~/path/to/source/code/dir
+mkdir -p ~/Repositories && cd ~/Repositories
 
 # Clone both repositories 
+sudo git clone https://github.com/RedLeader962/Dockerized-SNOW.git
 sudo git clone https://github.com/norlab-ulaval/NorLab_MPPI.git
-sudo git clone https://github.com/RedLeader962/Dockerized-SNOW.git && cd Dockerized-SNOW
+cd ~/Repositories/Dockerized-SNOW
 
-# Pull the develop image with x86 tag
-sudo docker pull norlabsnow/gt-autorally/develop:x86
+# Pull the develop image with x86-ubuntu20.04 tag
+sudo docker pull norlabsnow/norlab-mppi-develop:x86-ubuntu20.04 
 
-bash run_develop.bash --x86 --name=MyCrazyContainer --src=/absolute/path/to/source/code/dir/SNOW_AutoRally
-#
-#
-#                   .|'''.|  '|.   '|'  ..|''||   '|| '||'  '|'
-#                   ||..  '   |'|   |  .|'    ||   '|. '|.  .'
-#                    ''|||.   | '|. |  ||      ||   ||  ||  |
-#                  .     '||  |   |||  '|.     ||    ||| |||
-#                  |'....|'  .|.   '|   ''|...|'      |   |
-#
-#                               (Dockerized-SNOW)
-#
-#                https://github.com/RedLeader962/Dockerized-SNOW
-#                           https://norlab.ulaval.ca
-#
-#
+# create a new develop image instance for development of the NorLab_MPPI project with ROS noetic, Python 3 and Pytorch
+bash run_develop.bash --runTag=x86-ubuntu20.04 --name=MyCrazyContainer --src=/absolute/path/to/source/code/dir/NorLab_MPPI
+
+# bash run_snow_develop.bash --x86 --name=MyCrazyContainer --src=/absolute/path/to/source/code/dir/
+#                                           .|'''.|                                               
+#                                           ||..  '                                               
+# ····································· Dockerized-SNOW ••········································
+#                                            ''|||.                                               
+#                                          .     '||                                              
+#                                          |'....|'                                               
+#                                  https://norlab.ulaval.ca                                       
+#                               https://redleader962.github.io                                    
+# 
 # root@snowxavier-desktop:/#
 ```
 To open a new interactive terminal with pseudo-TTY inside `MyCrazyContainer`
