@@ -38,6 +38,9 @@
 <br>
 </div>
 
+<div>
+TEXT<hr style="border:10px solid gray"> </hr>
+</div>
 
 
 # _/// Dockerized SNOW /////////////////////////////_
