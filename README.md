@@ -65,25 +65,28 @@ cd ~/Repositories/Dockerized-SNOW
 # Pull the develop image with x86-ubuntu20.04 tag
 sudo docker pull norlabsnow/norlab-mppi-develop:x86-ubuntu20.04 
 
-# create a new develop image instance for development of the NorLab_MPPI project with ROS noetic, Python 3 and Pytorch
+# create a new docker image instance for development on your machine and start working on the 
+# NorLab_MPPI project using ROS noetic, Python 3 and Pytorch right away
 bash run_develop.bash --runTag=x86-ubuntu20.04 --name=MyCrazyContainer --src=/absolute/path/to/source/code/dir/NorLab_MPPI
 
-# bash run_snow_develop.bash --x86 --name=MyCrazyContainer --src=/absolute/path/to/source/code/dir/
-#                                           .|'''.|                                               
-#                                           ||..  '                                               
-# ····································· Dockerized-SNOW ••········································
-#                                            ''|||.                                               
-#                                          .     '||                                              
-#                                          |'....|'                                               
-#                                  https://norlab.ulaval.ca                                       
-#                               https://redleader962.github.io                                    
-# 
-# root@snowxavier-desktop:/#
+                                          .|'''.|                                               
+                                          ||..  '                                               
+····································· Dockerized-SNOW ••········································
+                                           ''|||.                                               
+                                         .     '||                                              
+                                         |'....|'                                               
+
+                                 https://norlab.ulaval.ca                                       
+                              https://redleader962.github.io                                    
+
+root@norlab-og:/#
 ```
 To open a new interactive terminal with pseudo-TTY inside `MyCrazyContainer`
 ```shell 
-bash open_new_terminal.bash MyCrazyContainer
-# root@snowxavier-desktop:/#
+sudo docker exec -it MyCrazyContainer bash
+# or use the following convenient script
+bash ~/Repositories/Dockerized-SNOW/open_new_terminal.bash MyCrazyContainer
+# root@norlab-og:/#
 ```
 
 
