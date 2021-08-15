@@ -118,11 +118,13 @@ for arg in "$@"; do
     WS_DIRNAME=$(basename $WS_DIR)
     HOST_DATA_DIR_FLAG="${HOST_DATA_DIR_FLAG} --volume ${WS_DIR}:/mnt/${WS_DIRNAME}:ro"
     echo "Data directory mapping from host to container: ${WS_DIR} >>> /mnt/${WS_DIRNAME}"
+    ;;
   --data=?*)
     WS_DIR="${arg#*=}"                                  # Remove every character up to the '=' and assign the remainder
     WS_DIRNAME=$(basename $WS_DIR)
     HOST_DATA_DIR_FLAG="${HOST_DATA_DIR_FLAG} --volume ${WS_DIR}:/mnt/${WS_DIRNAME}:ro"
     echo "Data directory mapping from host to container: ${WS_DIR} >>> /mnt/${WS_DIRNAME}"
+    ;;
   --)
     shift
     break
