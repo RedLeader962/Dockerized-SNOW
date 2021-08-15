@@ -10,7 +10,7 @@ function print_help_in_terminal() {
 
 
 \033[1mDefault setting:\033[0m
-- Project: norlab-mppi
+- Project: ${DS_SUB_PROJECT}
 - Image tag: --runTag=arm64-l4t-r32.6.1-XavierSA
 - Host data directory:
 

@@ -9,7 +9,7 @@ function print_help_in_terminal() {
   echo -e "\$ ${0}  [<optional argument>]
 
 \033[1mDefault compilation:\033[0m
-- Project: norlab-mppi
+- Project: ${DS_SUB_PROJECT}
 - Architecture & OS: arm64 with Linux for Tegra (L4T) os version 32.6.1 (tag: arm64-l4t-r32.6.1)
 
 \033[1m<optional argument>:\033[0m
