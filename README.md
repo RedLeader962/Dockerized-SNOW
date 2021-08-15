@@ -72,18 +72,19 @@ diagram &nbsp;)
 mkdir -p ~/Repositories && cd ~/Repositories
 
 # Clone both repositories 
-sudo git clone https://github.com/RedLeader962/Dockerized-SNOW.git
 sudo git clone https://github.com/norlab-ulaval/NorLab_MPPI.git
+sudo git clone https://github.com/RedLeader962/Dockerized-SNOW.git
 cd ~/Repositories/Dockerized-SNOW
 
 # Pull the norlab-mppi-develop image from norlabsnow Dockerhub with the x86-ubuntu20.04 tag
-sudo docker pull norlabsnow/norlab-mppi-develop:x86-ubuntu20.04 
+sudo docker pull norlabsnow/norlab-mppi-dependencies:x86-ubuntu20.04 
 
 # Create a new docker image instance for development on your machine and start working on the 
 # NorLab_MPPI project using ROS noetic, Python 3 and Pytorch right away
 bash run_develop.bash --runTag=x86-ubuntu20.04 \
                       --name=MyCrazyContainer \ 
                       --src=</absolute/path/to/your>/Repositories/NorLab_MPPI
+
 
                                           .|'''.|                                               
                                           ||..  '                                               
