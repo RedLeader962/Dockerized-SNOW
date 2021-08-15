@@ -1,9 +1,27 @@
+<!-- 
+<head>
+<style>
+img.displayed {
+    display: block;
+    margin-left: auto;
+    margin-right: auto }
+</style>
+</head>
+
+-->
+
 <div align="center">
 <a href="https://norlab.ulaval.ca">
 <img src="visual/norlab_logo_acronym_dark.png" width="200">
 </a>
 <br>
 </div>
+
+<span style="display:block;text-align:center">
+<a href="https://norlab.ulaval.ca" style="text-align: center; display:block;">
+<img src="visual/norlab_logo_acronym_dark.png" width="200">
+</a>
+</span>
 
 <div >
 <a href="https://norlab.ulaval.ca" style="text-align: center; display:block;">
@@ -12,18 +30,7 @@
 <br>
 </div>
 
-<style>
-img.displayed {
-    display: block;
-    margin-left: auto;
-    margin-right: auto }
-</style>
-<div>
-<a href="https://norlab.ulaval.ca">
-<img class="displayed" src="visual/norlab_logo_acronym_dark.png" width="200">
-</a>
-<br>
-</div>
+
 
 # _/// Dockerized SNOW /////////////////////////////_
 Containerized workflow for the NorLab _SNOW_AutoRally_ project leveraging [_nvidia-docker_](https://github.com/NVIDIA/nvidia-docker) technology
