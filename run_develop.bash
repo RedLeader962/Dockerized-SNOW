@@ -219,7 +219,7 @@ sudo docker run \
   --security-opt apparmor=unconfined \
   --cap-add sys_ptrace \
   ${USER_ARG} \
-  norlabsnow/${DS_SUB_PROJECT}/${IDE}:${DS_IMAGE_TAG}
+  norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG}
 
 # -p10.0.1.103:2222:22 \
 # Change -p10.0.1.7:<host port>:<container port> to your host ip adress

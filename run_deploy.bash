@@ -155,6 +155,6 @@ sudo docker run \
   --volume "/etc/localtime:/etc/localtime:ro" \
   ${HOST_DATA_DIR_FLAG} \
   ${USER_ARG} \
-  norlabsnow/${DS_SUB_PROJECT}/deploy:${DS_IMAGE_TAG}
+  norlabsnow/${DS_SUB_PROJECT}-deploy:${DS_IMAGE_TAG}
 
 
