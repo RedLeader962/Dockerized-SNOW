@@ -8,20 +8,26 @@ function print_help_in_terminal() {
 
   echo -e "\$ ${0} [<optional argument>]
 
+\033[1mDefault setting:\033[0m
+- Project: norlab-mppi
+- Image tag: --runTag=arm64-l4t-r32.6.1-XavierSA
+- Host source code directory: --src=${HOME}/Repositories/NorLab_MPPI
+- Host data directory:
+
 \033[1m<optional argument>:\033[0m
   -h, --help                      Get help
-  --runTag=<thatTag>     Overwrite image tag eg.: arm64-l4t-r32.6.1-XavierSA-test, x86-ubuntu20.04-gazebo-dart
+  --runTag=<thatTag>              Overwrite image tag eg.: arm64-l4t-r32.6.1-XavierSA-test, x86-ubuntu20.04-gazebo-dart
   --name=<myCoolContainer>        Name that new container, the crazier the better
   --src=<myCoolSrcCode>           Host source code directory to mount inside the container.
-                                  Must be an absolute path eg.: /home/snowxavier/Repositories/SNOW_AutoRally
-  --data==<myCrazyDataDir>        Host data directory to mount inside the container.
+                                  Must be an absolute path eg.: /home/snowxavier/Repositories/NorLab_MPPI
+  --data=<myCrazyDataDir>        Host data directory to mount inside the container.
                                   Must be an absolute path eg.: /home/snowxavier/Repositories/wt_data
 
   --GT-AR                         Project version: Georgia Tech AutoRally refactoring
   --clion                         Build the version to use with CLion IDE (use with the --GT-AR flag)
 
   --name=xc                       Shortcut: ---name=xavier_red_clion
-  --data=jetson                   Shortcut: --volume \"\$HOME/Repositories/wt_data:/mnt/wt_data:ro\"
+  --data=jetson                   Shortcut: --volume=\"\$HOME/Repositories/wt_data:/mnt/wt_data:ro\"
 
 \033[1mNote:\033[0m You can pass any docker run flag as additional argument eg:
   --rm
@@ -32,9 +38,9 @@ function print_help_in_terminal() {
 \033[0m
 \033[1mRecommandation:\033[0m
   $ cd ~/my/source/code/dir/
-  $ sudo git clone https://github.com/RedLeader962/SNOW_AutoRally.git
+  $ sudo git clone https://github.com/RedLeader962/NorLab_MPPI.git
   $ cd ~/my/source/code/dir/Dockerized-SNOW
-  $ bash run_snow_develop.bash --name=MyCrazyContainer --src=/absolute/path/to/source/code/dir/SNOW_AutoRally
+  $ bash run_snow_develop.bash --name=MyCrazyContainer --src=/absolute/path/to/source/code/dir/NorLab_MPPI
 "
 }
 
@@ -47,6 +53,7 @@ DS_IMAGE_TAG="arm64-l4t-r32.6.1-XavierSA"
 IDE="develop"
 DS_SUB_PROJECT="norlab-mppi"
 DS_SUB_PROJECT_GIT="NorLab_MPPI"
+# alt repo: SNOW_AutoRally
 
 
 # todo:on task end >> delete next bloc ↓↓
@@ -142,16 +149,21 @@ for arg in "$@"; do
   shift
 done
 
-
+# Set default source code location if user did not use the --src=<myCoolSrcCode> flag.
 if [[ -z $HOST_SOURCE_CODE_FLAG ]]; then
   WS_DIR="${HOME}/Repositories/${DS_SUB_PROJECT_GIT}"
-  CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/ros_catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
-  WS_DIRNAME=$(basename $WS_DIR)
-  HOST_SOURCE_CODE_FLAG=" --volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
-  echo "Use default source code mapping from host to container: ${WS_DIR} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+
+  if [[ -d ${WS_DIR}]]; then
+    CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/ros_catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
+    WS_DIRNAME=$(basename $WS_DIR)
+    HOST_SOURCE_CODE_FLAG=" --volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+    echo "Use default source code mapping from host to container: ${WS_DIR} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+  else
+    echo "Be advise, the ${DS_SUB_PROJECT} source code is unreachable with path ${WS_DIR}. Make sure you have cloned the ${DS_SUB_PROJECT_GIT}.git repository prior to running ${0} then provide it's absolute path to ${0} using --src=/absolute/path/to/source/code/dir/${DS_SUB_PROJECT_GIT}"
+  fi
 fi
 
-SRC_CODE_REPOSITORY_NAME
+#SRC_CODE_REPOSITORY_NAME
 
 echo "
 Run container ${DS_SUB_PROJECT}/${IDE} with tag: ${DS_IMAGE_TAG}

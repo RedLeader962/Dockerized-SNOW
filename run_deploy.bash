@@ -8,13 +8,17 @@ function print_help_in_terminal() {
 
   echo -e "\$ ${0}  [<optional argument>]
 
+
+\033[1mDefault setting:\033[0m
+- Project: norlab-mppi
+- Image tag: --runTag=arm64-l4t-r32.6.1-XavierSA
+- Host data directory:
+
 \033[1m<optional argument>:\033[0m
   -h, --help                      Get help
   --runTag=<thatTag>     Overwrite image tag eg.: arm64-l4t-r32.6.1-XavierSA-test, x86-ubuntu20.04-gazebo-dart
   --name=<myCoolContainer>        Name that new container, the crazier the better
-  --src=<myCoolSrcCode>           Host source code directory to mount inside the container.
-                                  Must be an absolute path eg.: /home/snowxavier/Repositories/SNOW_AutoRally
-  --data==<myCrazyDataDir>        Host data directory to mount inside the container.
+  --data=<myCrazyDataDir>        Host data directory to mount inside the container.
                                   Must be an absolute path eg.: /home/snowxavier/Repositories/wt_data
   --data=jetson                   Shortcut: --volume \"\$HOME/Repositories/wt_data:/mnt/wt_data:ro\"
   --GT-AR                         Project version: Georgia Tech AutoRally refactoring
