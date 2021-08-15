@@ -4,7 +4,7 @@ bash ./visual/terminal_splash.bash
 
 function print_help_in_terminal() {
 
-  echo -e "$ ${0} [<optional argument>] <CONTAINER_NAMES>
+  echo -e "\$ ${0} [<optional argument>] <CONTAINER_NAMES>
 
 Open a new interactive terminal with pseudo-TTY
 
