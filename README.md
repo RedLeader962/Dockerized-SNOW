@@ -81,7 +81,7 @@ sudo docker pull norlabsnow/norlab-mppi-dependencies:x86-ubuntu20.04
 
 # Create a new docker image instance for development on your machine and start working on the 
 # NorLab_MPPI project using ROS noetic, Python 3 and Pytorch right away.
-bash run_develop.bash --runTag=x86-ubuntu20.04 --name=4everSnow --src="\$HOME/Repositories/NorLab_MPPI"
+bash run_develop.bash --runTag=x86-ubuntu20.04 --name=4everSnow --src="$HOME/Repositories/NorLab_MPPI"
 
 
                                           .|'''.|                                               
