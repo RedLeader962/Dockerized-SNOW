@@ -117,7 +117,7 @@ for arg in "$@"; do
 done
 
 echo "
-Run container ${DS_SUB_PROJECT}/${IDE} with tag: ${DS_IMAGE_TAG}
+Run container ${DS_SUB_PROJECT}-${IDE} with tag: ${DS_IMAGE_TAG}
 "
 
 ## todo:on task end >> mute next bloc ↓↓

@@ -173,7 +173,7 @@ fi
 USER_ARG="${USER_ARG} -e DS_TARGET_PROJECT_SRC_REPO=${DS_TARGET_PROJECT_SRC_REPO}"
 
 echo "
-Run container ${DS_SUB_PROJECT}/${IDE} with tag: ${DS_IMAGE_TAG}
+Run container ${DS_SUB_PROJECT}-${IDE} with tag: ${DS_IMAGE_TAG}
 "
 
 
