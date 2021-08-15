@@ -8,7 +8,21 @@
 </div>
 
 
-# _/// Dockerized SNOW /////////////////////////////_
+```shell
+
+                                          .|'''.|                                               
+                                          ||..  '                                               
+····································· Dockerized-SNOW ••········································
+                                           ''|||.                                               
+                                         .     '||                                              
+                                         |'....|'                                               
+
+                                 https://norlab.ulaval.ca                                       
+                              https://redleader962.github.io                                    
+
+```
+
+
 Containerized workflow for the _NorLab_MPPI_ and _SNOW_AutoRally_ projects leveraging [_nvidia-docker_](https://github.com/NVIDIA/nvidia-docker) technology
 
 <div align="left">
@@ -46,6 +60,8 @@ diagram &nbsp;)
 </sub>
 </div>
 <br>
+
+# _/// Dockerized SNOW /////////////////////////////_
 
 ---
 ## Usage
