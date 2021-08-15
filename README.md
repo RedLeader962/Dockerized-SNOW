@@ -5,6 +5,13 @@
 <br>
 </div>
 
+<div style="text-align: center">
+<a href="https://norlab.ulaval.ca">
+<img src="visual/norlab_logo_acronym_dark.png" width="200" align="center">
+</a>
+<br>
+</div>
+
 # _/// Dockerized SNOW /////////////////////////////_
 Containerized workflow for the NorLab _SNOW_AutoRally_ project leveraging [_nvidia-docker_](https://github.com/NVIDIA/nvidia-docker) technology
 
