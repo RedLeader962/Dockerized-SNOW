@@ -10,6 +10,8 @@
 # _/// Dockerized SNOW /////////////////////////////_
 Containerized workflow for the _NorLab_MPPI_ and _SNOW_AutoRally_ projects leveraging [_nvidia-docker_](https://github.com/NVIDIA/nvidia-docker) technology
 
+by [Luc Coupal](https://redleader962.github.io) 
+
 ```shell
 
                                           .|'''.|                                               
@@ -20,9 +22,9 @@ Containerized workflow for the _NorLab_MPPI_ and _SNOW_AutoRally_ projects lever
                                          |'....|'                                               
 
 ```
-by [Luc Coupal](https://redleader962.github.io) 
 
-<div align="left">
+
+<div align="center">
 <p>
 <sup>
 <b>Project related link: </b> &nbsp; 
