@@ -153,7 +153,7 @@ done
 if [[ -z $HOST_SOURCE_CODE_FLAG ]]; then
   WS_DIR="${HOME}/Repositories/${DS_SUB_PROJECT_GIT}"
 
-  if [[ -d ${WS_DIR}]]; then
+  if [[ -d ${WS_DIR} ]]; then
     CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/ros_catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
     WS_DIRNAME=$(basename $WS_DIR)
     HOST_SOURCE_CODE_FLAG=" --volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
