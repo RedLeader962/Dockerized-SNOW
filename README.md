@@ -17,11 +17,25 @@ img.displayed {
 <br>
 </div>
 
-<span style="display:block;text-align:center">
-<a href="https://norlab.ulaval.ca" style="text-align: center; display:block;">
-<img src="visual/norlab_logo_acronym_dark.png" width="200">
+<br>
+
+<div>
+<a href="https://norlab.ulaval.ca">
+<img src="visual/norlab_logo_acronym_dark.png" width="200"
+      alt="this is an optional description of the image to help the blind and show up in case the
+          image won't load"
+     style="display:block; /* override the default display setting of `inline-block` */
+            float:none; /* override any prior settings of `left` or `right` */
+            /* set both the left and right margins to `auto` to center the image */
+            margin-left:auto;
+            margin-right:auto;
+            width:200; /* optionally resize the image to a screen percentage width if you want too */
+            ">
 </a>
-</span>
+<br>
+</div>
+
+<br>
 
 <div >
 <a href="https://norlab.ulaval.ca" style="text-align: center; display:block;">
