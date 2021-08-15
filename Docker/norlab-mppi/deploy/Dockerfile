@@ -14,8 +14,8 @@ FROM norlabsnow/norlab-mppi-dependencies:${BASE_IMG_TAG}
 
 ARG DS_TARGET_PROJECT_SRC_REPO=NorLab_MPPI
 ENV DS_TARGET_PROJECT_SRC_REPO=${DS_TARGET_PROJECT_SRC_REPO}
-ARG SRC_CODE_DOMAIN_NAME=RedLeader962
-ENV SRC_CODE_DOMAIN_NAME=${SRC_CODE_DOMAIN_NAME}
+ARG DS_TARGET_PROJECT_SRC_DOMAIN=RedLeader962
+ENV DS_TARGET_PROJECT_SRC_DOMAIN=${DS_TARGET_PROJECT_SRC_DOMAIN}
 
 ARG DEV_BRANCH=master
 
@@ -25,7 +25,7 @@ ENV DS_HOST_TYPE=${DS_HOST_TYPE}
 
 WORKDIR ${DS_DEV_WORKSPACE}/src
 RUN echo "Pull latest ${DEV_BRANCH} branch" \
-    && git clone --branch ${DEV_BRANCH} https://github.com/${SRC_CODE_DOMAIN_NAME}/${DS_TARGET_PROJECT_SRC_REPO}.git  \
+    && git clone --branch ${DEV_BRANCH} https://github.com/${DS_TARGET_PROJECT_SRC_DOMAIN}/${DS_TARGET_PROJECT_SRC_REPO}.git  \
     && cd ${DS_DEV_WORKSPACE} \
     && apt-get update \
     && rosdep install --from-path src --ignore-src --default-yes \

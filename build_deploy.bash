@@ -20,8 +20,8 @@ function print_help_in_terminal() {
   --appendToTag=<detail>    Add supplemental details to the built image tag eg.: --appendToTag=test
 
 \033[1mNote:\033[0m you can pass any docker build flag as additional argument eg:
-  --build-arg=\"SRC_CODE_DOMAIN_NAME=RedLeader962\"
-  --build-arg=\"DS_TARGET_PROJECT_SRC_REPO=SNOW_AutoRally\"
+  --build-arg=\"DS_TARGET_PROJECT_SRC_DOMAIN=RedLeader962\"
+  --build-arg=\"DS_TARGET_PROJECT_SRC_REPO=NorLab_MPPI\"
   --build-arg=\"DEV_BRANCH=SNOW-melodic-devel\"
 
 \033[2mRef. docker build command:
@@ -174,17 +174,17 @@ if [[ "$ADD_TO_TAG" != "" ]]; then
   DS_IMAGE_TAG="${DS_IMAGE_TAG}-${ADD_TO_TAG}"
 fi
 
-# todo:on task end >> delete next bloc ↓↓
-echo "
-${0}:
-  USER_ARG >> ${USER_ARG}
-  DS_IMAGE_TAG >> ${DS_IMAGE_TAG}
-  BASE_IMG_ARG >> ${BASE_IMG_ARG}
-  DS_SUB_PROJECT >> ${DS_SUB_PROJECT}
-  BASE_IMG_VERSION >> ${BASE_IMG_VERSION}
-  ADD_TO_TAG >> ${ADD_TO_TAG}
-  DS_HOST_TYPE >> ${DS_HOST_TYPE}
-"
+## todo:on task end >> delete next bloc ↓↓
+#echo "
+#${0}:
+#  USER_ARG >> ${USER_ARG}
+#  DS_IMAGE_TAG >> ${DS_IMAGE_TAG}
+#  BASE_IMG_ARG >> ${BASE_IMG_ARG}
+#  DS_SUB_PROJECT >> ${DS_SUB_PROJECT}
+#  BASE_IMG_VERSION >> ${BASE_IMG_VERSION}
+#  ADD_TO_TAG >> ${ADD_TO_TAG}
+#  DS_HOST_TYPE >> ${DS_HOST_TYPE}
+#"
 
 # ---Build docker image-------------------------------------------------------------------------------------------------
 
