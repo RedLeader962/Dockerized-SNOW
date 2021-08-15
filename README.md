@@ -5,9 +5,22 @@
 <br>
 </div>
 
-<div style="text-align: center; display:block;">
-<a href="https://norlab.ulaval.ca">
+<div >
+<a href="https://norlab.ulaval.ca" style="text-align: center; display:block;">
 <img src="visual/norlab_logo_acronym_dark.png" width="200">
+</a>
+<br>
+</div>
+
+<style>
+img.displayed {
+    display: block;
+    margin-left: auto;
+    margin-right: auto }
+</style>
+<div>
+<a href="https://norlab.ulaval.ca">
+<img class="displayed" src="visual/norlab_logo_acronym_dark.png" width="200">
 </a>
 <br>
 </div>
