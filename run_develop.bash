@@ -160,6 +160,8 @@ if [[ -z $HOST_SOURCE_CODE_FLAG ]]; then
     echo "Use default source code mapping from host to container: ${WS_DIR} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
   else
     echo "Be advise, the ${DS_SUB_PROJECT} source code is unreachable with path ${WS_DIR}. Make sure you have cloned the ${DS_TARGET_PROJECT_SRC_REPO}.git repository prior to running ${0} then provide it's absolute path to ${0} using --src=/absolute/path/to/source/code/dir/${DS_TARGET_PROJECT_SRC_REPO}"
+    echo
+    exit
   fi
 fi
 
