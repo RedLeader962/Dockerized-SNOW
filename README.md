@@ -1,14 +1,4 @@
 <!-- 
-<head>
-<style>
-img.displayed {
-    display: block;
-    margin-left: auto;
-    margin-right: auto }
-</style>
-</head>
-
--->
 
 <div align="center">
 <a href="https://norlab.ulaval.ca">
@@ -16,11 +6,10 @@ img.displayed {
 </a>
 <br>
 </div>
+-->
 
 <br>
 
-<div>
-<a href="https://norlab.ulaval.ca">
 <img src="visual/norlab_logo_acronym_dark.png" width="200"
       alt="this is an optional description of the image to help the blind and show up in case the
           image won't load"
@@ -31,10 +20,15 @@ img.displayed {
             margin-right:auto;
             width:200; /* optionally resize the image to a screen percentage width if you want too */
             ">
+
+<!-- 
+<div>
+<a href="https://norlab.ulaval.ca">
 </a>
 <br>
 </div>
 
+-->
 <br>
 
 <div >
