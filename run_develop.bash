@@ -39,8 +39,12 @@ function print_help_in_terminal() {
 \033[1mRecommandation:\033[0m
   $ mkdir -p ~/Repositories \&\& cd ~/Repositories
   $ sudo git clone https://github.com/norlab-ulaval/NorLab_MPPI.git
+  $ sudo git clone https://github.com/RedLeader962/Dockerized-SNOW.git
   $ cd ~/Repositories/Dockerized-SNOW
-  $ bash run_snow_develop.bash --name=MyCrazyContainer --src=/absolute/path/to/source/code/dir/${DS_TARGET_PROJECT_SRC_REPO}
+
+  $ sudo docker pull norlabsnow/norlab-mppi-dependencies:x86-ubuntu20.04
+  $ bash run_develop.bash --runTag=x86-ubuntu20.04 --name=4everSnow --src=\"\$HOME/Repositories/${DS_TARGET_PROJECT_SRC_REPO}\"
+
 "
 }
 
