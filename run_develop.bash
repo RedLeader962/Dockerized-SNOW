@@ -99,14 +99,10 @@ for arg in "$@"; do
     CONTAINER_NAME="xavier_red_clion" # Remove every character up to the '=' and assign the remainder
     USER_ARG="${USER_ARG} --name ${CONTAINER_NAME}"
     echo
-    echo "new container name: ${CONTAINER_NAME}"
-    echo
     ;;
   --name=?*)
     CONTAINER_NAME="${arg#*=}" # Remove every character up to the '=' and assign the remainder
     USER_ARG="${USER_ARG} --name ${CONTAINER_NAME}"
-    echo
-    echo "new container name: ${CONTAINER_NAME}"
     echo
     ;;
   --runTag)
@@ -173,7 +169,8 @@ fi
 USER_ARG="${USER_ARG} -e DS_TARGET_PROJECT_SRC_REPO=${DS_TARGET_PROJECT_SRC_REPO}"
 
 echo "
-Run container ${DS_SUB_PROJECT}-${IDE} with tag: ${DS_IMAGE_TAG}
+Create container instance from docker image ${DS_SUB_PROJECT}-${IDE} with tag: ${DS_IMAGE_TAG}
+New container name: ${CONTAINER_NAME}
 "
 
 
