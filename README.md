@@ -55,7 +55,7 @@ diagram &nbsp;)
 cd ~/path/to/source/code/dir
 
 # Clone both repositories 
-sudo git clone https://github.com/RedLeader962/SNOW_AutoRally.git
+sudo git clone https://github.com/norlab-ulaval/NorLab_MPPI.git
 sudo git clone https://github.com/RedLeader962/Dockerized-SNOW.git && cd Dockerized-SNOW
 
 # Pull the develop image with x86 tag
