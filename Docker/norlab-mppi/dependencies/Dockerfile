@@ -138,7 +138,7 @@ RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E
 WORKDIR "${DS_DEV_WORKSPACE}"
 RUN apt-get update \
     && rosdep fix-permissions \
-    && rosdep update
+    && rosdep update \
     && rosdep fix-permissions
 
 RUN python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
