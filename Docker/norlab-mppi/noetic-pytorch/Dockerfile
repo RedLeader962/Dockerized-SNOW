@@ -200,42 +200,6 @@ RUN pip3 install setuptools Cython wheel
 RUN pip3 install numpy --verbose
 
 
-# ===Install PyCUDA=====================================================================================================
-#   - pycuda 2021.1 documentation: https://documen.tician.de/pycuda/index.html
-# (CRITICAL) todo:fixme!! (ref task NLSAR-225)
-
-#ENV PATH="/usr/local/cuda/bin:${PATH}"
-#ENV LD_LIBRARY_PATH="/usr/local/cuda/lib64:${LD_LIBRARY_PATH}"
-#RUN echo "$PATH" && echo "$LD_LIBRARY_PATH"
-#
-#RUN apt-get update && apt-get install -y python3 python3-pip
-##RUN pip3 install pycuda --verbose
-
-## Ref pycuda doc install instruction: https://wiki.tiker.net/PyCuda/Installation/Linux/#installing-pycuda-on-linux
-#RUN tar xfz pycuda-VERSION.tar.gz \
-#    && cd pycuda-VERSION \
-#    && python3 configure.py --cuda-root=/usr/local/cuda/bin \
-#    && su -c "make install"
-#
-## Test PyCUDA
-#RUN echo " \
-#    Test PyCUDA \
-#    " \
-#    && cd pycuda-VERSION/test \
-#    && python test_driver.py
-
-#RUN apt-get update \
-#    && apt-get install --assume-yes --no-install-recommends \
-#        build-essential \
-#        python3-dev \
-#        python3-setuptools \
-#        libboost-python-dev \
-#        libboost-thread-dev \
-#    && rm -rf /var/lib/apt/lists/*
-#
-#RUN pip3 install pycuda --verbose
-
-
 
 # ===PyTorch============================================================================================================
 
@@ -295,6 +259,46 @@ FROM noetic-pytorch-base-image AS final
 #    python3 setup.py install && \
 #    cd ../ && \
 #    rm -rf torchvision
+
+
+
+# ===Install PyCUDA=====================================================================================================
+#   - pycuda 2021.1 documentation: https://documen.tician.de/pycuda/index.html
+# (CRITICAL) todo:fixme!! (ref task NLSAR-225)
+
+#
+# PyCUDA
+#
+ENV PATH="/usr/local/cuda/bin:${PATH}"
+ENV LD_LIBRARY_PATH="/usr/local/cuda/lib64:${LD_LIBRARY_PATH}"
+RUN echo "$PATH" && echo "$LD_LIBRARY_PATH"
+
+RUN pip3 install --no-cache-dir --verbose pycuda six
+
+## Ref pycuda doc install instruction: https://wiki.tiker.net/PyCuda/Installation/Linux/#installing-pycuda-on-linux
+#RUN tar xfz pycuda-VERSION.tar.gz \
+#    && cd pycuda-VERSION \
+#    && python3 configure.py --cuda-root=/usr/local/cuda/bin \
+#    && su -c "make install"
+#
+## Test PyCUDA
+#RUN echo " \
+#    Test PyCUDA \
+#    " \
+#    && cd pycuda-VERSION/test \
+#    && python test_driver.py
+
+#RUN apt-get update \
+#    && apt-get install --assume-yes --no-install-recommends \
+#        build-essential \
+#        python3-dev \
+#        python3-setuptools \
+#        libboost-python-dev \
+#        libboost-thread-dev \
+#    && rm -rf /var/lib/apt/lists/*
+#
+#RUN pip3 install pycuda --verbose
+
 
 # -------------------
 # torch2trt installations
