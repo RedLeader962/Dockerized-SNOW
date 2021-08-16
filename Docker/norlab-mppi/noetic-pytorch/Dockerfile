@@ -186,6 +186,7 @@ RUN apt-get update \
     && ldconfig \
     && apt-get install -y --no-install-recommends \
             python3-pip \
+            python3-dev \
             libopenblas-base \
             libopenmpi-dev \
             openmpi-bin \
@@ -193,12 +194,11 @@ RUN apt-get update \
             gfortran \
     && rm -rf /var/lib/apt/lists/*
 
-#            python3-dev \
 #            libopenmpi2 \
 
-RUN pip3 install --upgrade pip
-RUN pip3 install setuptools Cython wheel
-RUN pip3 install numpy --verbose
+RUN pip3 install --no-cache-dir --verbose --upgrade pip
+RUN pip3 install --no-cache-dir --verbose setuptools Cython wheel
+RUN pip3 install --no-cache-dir --verbose numpy
 
 
 
@@ -225,10 +225,10 @@ ARG PYTORCH_WHL=torch-1.9.0-cp36-cp36m-linux_aarch64.whl
 # Conditional build stage base on architecture version (arm64-l4t and x86)
 RUN if [[ "${DS_IMAGE_ARCHITECTURE}" == "arm64-l4t" ]]; then \
     wget --quiet --show-progress --progress=bar:force:noscroll --no-check-certificate ${PYTORCH_URL} -O ${PYTORCH_WHL} && \
-        pip3 install ${PYTORCH_WHL} --verbose && \
+        pip3 install --no-cache-dir --verbose ${PYTORCH_WHL} --verbose && \
         rm ${PYTORCH_WHL}; \
   elif [[ "${DS_IMAGE_ARCHITECTURE}" == "x86" ]]; then \
-    pip3 install torch==1.9.0+cu111 -f https://download.pytorch.org/whl/torch_stable.html; \
+    pip3 install --no-cache-dir --verbose torch==1.9.0+cu111 -f https://download.pytorch.org/whl/torch_stable.html; \
   else \
     echo "Architecture ${DS_IMAGE_ARCHITECTURE} is not curently suported"; \
     exit; \
