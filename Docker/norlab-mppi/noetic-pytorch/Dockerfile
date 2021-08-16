@@ -93,7 +93,6 @@ RUN mkdir -p ${DS_DEV_WORKSPACE}/src
 WORKDIR "${DS_DEV_WORKSPACE}"
 
 RUN rosinstall_generator ${ROS_PKG} --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall && \
-    mkdir src && \
     vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src && \
     apt-get update && \
     rosdep install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} -y && \
