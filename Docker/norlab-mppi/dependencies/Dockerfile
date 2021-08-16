@@ -137,6 +137,8 @@ WORKDIR "${DS_DEV_WORKSPACE}"
 #    && python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
 #    && rm -rf /var/lib/apt/lists/*
 
+RUN /bin/bash -c "printenv | grep -e AR_ -e ROS -e MASTER -e HOSTNAME -e DS_"
+
 #ros-noetic-tf2
 RUN /bin/bash -c "source ${DS_ROS_ROOT}/setup.bash" \
     && rosinstall_generator tf2 --rosdistro ${ROS_DISTRO} --deps --exclude RPP --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall \
