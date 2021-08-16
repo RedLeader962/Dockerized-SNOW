@@ -111,7 +111,9 @@ RUN git clone https://github.com/norlab-ulaval/icp_odom_with_twist.git
 
 # (Priority) todo:fixme!! (ref task NLSAR-232 🩹→ (arm64-l4t version) E: Unable to locate package ros-noetic-tf2-tools)
 WORKDIR "${DS_DEV_WORKSPACE}"
-RUN rosinstall_generator tf2 --rosdistro ${ROS_DISTRO} --deps | vcs import ./src \
+
+#RUN rosinstall_generator tf2 --rosdistro ${ROS_DISTRO} --deps | vcs import ./src \
+RUN rosinstall_generator ros-noetic-tf2-tools --rosdistro ${ROS_DISTRO} --deps | vcs import ./src \
     && apt-get update \
     && rosdep install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} -y \
     && python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
