@@ -79,8 +79,13 @@ RUN pip3 install --no-cache-dir --verbose \
     pytest \
     setuptools \
     wheel \
-    matplotlib \
     jetson-stats
+
+# Hack to install matplotlib on arm64
+RUN apt-get update \
+    && apt-get install --assume-yes --no-install-recommends \
+      python3-matplotlib \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN pip3 install --no-cache-dir --ignore-installed pybind11
 RUN pip3 install --no-cache-dir --verbose onnx
