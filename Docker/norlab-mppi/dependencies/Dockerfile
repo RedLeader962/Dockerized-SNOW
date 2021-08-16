@@ -102,20 +102,21 @@ RUN git clone https://github.com/norlab-ulaval/icp_odom_with_twist.git
 # Procedure ref: ROS noetic installation from source http://wiki.ros.org/noetic/Installation/Source
 
 # ... register the ROS package source ..................................................................................
-## (CRITICAL) todo:assess >> next bloc ↓↓
-#RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-#RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
-
-## (CRITICAL) todo:assess >> next bloc ↓↓
-# setup sources.list
+# (CRITICAL) todo:assess >> next bloc ↓↓
 RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-# Ref: https://github.com/NVIDIA-AI-IOT/ros2_jetson/blob/main/docker/DockerFile.l4tbase.ros.noetic
-RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+
+### (CRITICAL) todo:assess >> next bloc ↓↓
+## setup sources.list
+#RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+## Ref: https://github.com/NVIDIA-AI-IOT/ros2_jetson/blob/main/docker/DockerFile.l4tbase.ros.noetic
+#RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 
 ## install additional ROS packages
 #RUN apt-get update \
 #    && apt-get install --assume-yes \
 #      geometry2 \
+#        ros-noetic-tf2 \
 #    && rosdep update \
 #    && rosdep fix-permissions \
 #    && rm -rf /var/lib/apt/lists/*
@@ -123,26 +124,36 @@ RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E
 #    && apt-get install --assume-yes --no-install-recommends \
 #      ros-noetic-tf2-tools \
 
-## (Priority) todo:fixme!! (ref task NLSAR-232 🩹→ (arm64-l4t version) E: Unable to locate package ros-noetic-tf2-tools)
-#WORKDIR "${DS_DEV_WORKSPACE}"
-#
+# (Priority) todo:fixme!! (ref task NLSAR-232 🩹→ (arm64-l4t version) E: Unable to locate package ros-noetic-tf2-tools)
+WORKDIR "${DS_DEV_WORKSPACE}"
+
 ##RUN rosinstall_generator tf2 --rosdistro ${ROS_DISTRO} --deps | vcs import ./src \
-##    && rosdep install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} -y \
-#RUN apt-get update \
+#RUN rosinstall_generator ${ROS_PKG} --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall \
+#    && vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src \
+#    && apt-get update \
 #    && rosdep fix-permissions \
 #    && rosdep update  \
 #    && rosdep --reinstall install geometry2 --rosdistro ${ROS_DISTRO} -y \
 #    && python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
 #    && rm -rf /var/lib/apt/lists/*
-
-WORKDIR "${DS_DEV_WORKSPACE}"
-RUN apt-get update \
+#
+RUN rosinstall_generator ros-noetic-tf2 --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall \
+    && vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src \
+    && apt-get update \
     && rosdep fix-permissions \
-    && rosdep update \
-    && rosdep fix-permissions
+    && rosdep update  \
+    && rosdep --reinstall install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} -y \
+    && python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
-    &&  rm -rf /var/lib/apt/lists/*
+#WORKDIR "${DS_DEV_WORKSPACE}"
+#RUN apt-get update \
+#    && rosdep fix-permissions \
+#    && rosdep update \
+#    && rosdep fix-permissions
+#
+#RUN python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
+#    &&  rm -rf /var/lib/apt/lists/*
 
 
 # Note on catkin_make_isolated:
