@@ -92,6 +92,7 @@ RUN pip3 install --no-cache-dir --verbose scipy
 RUN pip3 install --no-cache-dir --verbose scikit-learn
 RUN pip3 install --no-cache-dir --verbose pandas
 RUN pip3 install --no-cache-dir --verbose pycuda
+RUN pip3 install --no-cache-dir --verbose llvmlite
 RUN pip3 install --no-cache-dir --verbose numba
 #RUN pip3 install --no-cache-dir --ignore-installed pybind11
 
