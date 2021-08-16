@@ -270,14 +270,14 @@ FROM noetic-pytorch-base-image AS final
 #   - pycuda 2021.1 documentation: https://documen.tician.de/pycuda/index.html
 # (CRITICAL) todo:fixme!! (ref task NLSAR-225)
 
+##
+## PyCUDA
+##
+#ENV PATH="/usr/local/cuda/bin:${PATH}"
+#ENV LD_LIBRARY_PATH="/usr/local/cuda/lib64:${LD_LIBRARY_PATH}"
+#RUN echo "$PATH" && echo "$LD_LIBRARY_PATH"
 #
-# PyCUDA
-#
-ENV PATH="/usr/local/cuda/bin:${PATH}"
-ENV LD_LIBRARY_PATH="/usr/local/cuda/lib64:${LD_LIBRARY_PATH}"
-RUN echo "$PATH" && echo "$LD_LIBRARY_PATH"
-
-RUN pip3 install --no-cache-dir --verbose pycuda six
+#RUN pip3 install --no-cache-dir --verbose pycuda six
 
 ## Ref pycuda doc install instruction: https://wiki.tiker.net/PyCuda/Installation/Linux/#installing-pycuda-on-linux
 #RUN tar xfz pycuda-VERSION.tar.gz \
