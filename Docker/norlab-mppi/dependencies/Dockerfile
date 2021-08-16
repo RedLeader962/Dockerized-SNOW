@@ -103,12 +103,13 @@ RUN git clone https://github.com/norlab-ulaval/icp_odom_with_twist.git
 
 # install additional ROS packages
 RUN apt-get update \
-    && apt-get install --assume-yes --no-install-recommends \
+    && apt-get install --assume-yes \
       geometry2 \
     && rosdep update \
     && rosdep fix-permissions \
     && rm -rf /var/lib/apt/lists/*
 
+#    && apt-get install --assume-yes --no-install-recommends \
 #      ros-noetic-tf2-tools \
 
 ## (Priority) todo:fixme!! (ref task NLSAR-232 🩹→ (arm64-l4t version) E: Unable to locate package ros-noetic-tf2-tools)
