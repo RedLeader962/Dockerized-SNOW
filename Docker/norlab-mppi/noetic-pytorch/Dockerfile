@@ -13,13 +13,16 @@
 #   l4t-ros-noetic-pytorch: https://github.com/NVIDIA-AI-IOT/ros2_jetson/blob/main/docker/DockerFile.l4tbase.ros.noetic
 
 ARG BASE_IMAGE=nvcr.io/nvidia/l4t-base:r32.6.1
-FROM ${BASE_IMAGE}
+FROM ${BASE_IMAGE} AS noetic-base-image
 
 #ARG ROS_PKG=desktop_full
 ARG ROS_PKG=ros_base
 ENV ROS_DISTRO=noetic
 ENV DS_ROS_ROOT=/opt/ros/${ROS_DISTRO}
 ENV ROS_PYTHON_VERSION=3
+
+ARG DS_IMAGE_ARCHITECTURE=arm64-l4t
+ENV DS_IMAGE_ARCHITECTURE=${DS_IMAGE_ARCHITECTURE}
 
 # skip GUI dialog by setting everything to default
 ENV DEBIAN_FRONTEND=noninteractive
@@ -169,6 +172,8 @@ RUN apt-get update && \
 
 
 # ===Install numpy + PyTorch prerequisite===============================================================================
+FROM noetic-base-image AS noetic-numpy-base-image
+
 #
 # install PyTorch prerequisites (many of these are for numpy)
 #
@@ -233,24 +238,39 @@ RUN pip3 install numpy --verbose
 
 
 # ===PyTorch============================================================================================================
-#
+
+FROM noetic-numpy-base-image AS noetic-pytorch-base-image
+
 # PyTorch (for JetPack 4.4 DP)
 #
 #  PyTorch v1.2.0 https://nvidia.box.com/shared/static/lufbgr3xu2uha40cs9ryq1zn4kxsnogl.whl (torch-1.2.0-cp36-cp36m-linux_aarch64.whl)
 #  PyTorch v1.3.0 https://nvidia.box.com/shared/static/017sci9z4a0xhtwrb4ps52frdfti9iw0.whl (torch-1.3.0-cp36-cp36m-linux_aarch64.whl)
 #  PyTorch v1.4.0 https://nvidia.box.com/shared/static/c3d7vm4gcs9m728j6o5vjay2jdedqb55.whl (torch-1.4.0-cp36-cp36m-linux_aarch64.whl)
 #  PyTorch v1.5.0 https://nvidia.box.com/shared/static/3ibazbiwtkl181n95n9em3wtrca7tdzp.whl (torch-1.5.0-cp36-cp36m-linux_aarch64.whl)
-#
-#ARG PYTORCH_URL=https://nvidia.box.com/shared/static/cs3xn3td6sfgtene6jdvsxlr366m2dhq.whl
-#ARG PYTORCH_WHL=torch-1.7.0-cp36-cp36m-linux_aarch64.whl
-#
-#RUN wget --quiet --show-progress --progress=bar:force:noscroll --no-check-certificate ${PYTORCH_URL} -O ${PYTORCH_WHL} && \
-#    pip3 install ${PYTORCH_WHL} --verbose && \
-#    rm ${PYTORCH_WHL}
 
-# (CRITICAL) todo:fixme!! (ref task NLSAR-225)
-RUN python3 -m pip --no-cache-dir install \
-    torch==1.7.0
+ARG PYTORCH_URL=https://nvidia.box.com/shared/static/cs3xn3td6sfgtene6jdvsxlr366m2dhq.whl
+ARG PYTORCH_WHL=torch-1.7.0-cp36-cp36m-linux_aarch64.whl
+
+# (CRITICAL) todo:fixme!! (ref task NLSAR-230)
+# Conditional build stage base on architecture version (arm64-l4t and x86)
+RUN if [[ "${DS_IMAGE_ARCHITECTURE}" == "arm64-l4t" ]]; then \
+    wget --quiet --show-progress --progress=bar:force:noscroll --no-check-certificate ${PYTORCH_URL} -O ${PYTORCH_WHL} && \
+        pip3 install ${PYTORCH_WHL} --verbose && \
+        rm ${PYTORCH_WHL}; \
+  elif [[ "${DS_IMAGE_ARCHITECTURE}" == "arm64-l4t" ]]; then \
+    python3 -m pip --no-cache-dir install \
+    torch==1.7.0 ;
+  else \
+    echo "Architecture ${DS_IMAGE_ARCHITECTURE} is not curently suported"; \
+    exit; \
+  fi
+
+#RUN python3 -m pip --no-cache-dir install \
+#    torch==1.7.0
+
+
+# Choose final stage based on input argument passed to `docker build --build-arg` arg
+FROM noetic-pytorch-base-image AS final
 
 ## ------------------------
 ## torchvision 0.4

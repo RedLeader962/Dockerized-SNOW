@@ -115,6 +115,10 @@ else
   exit
 fi
 
+DS_IMAGE_ARCHITECTURE= ${DS_IMAGE_TAG}
+USER_ARG="${USER_ARG} --build-arg DS_IMAGE_ARCHITECTURE=${DS_IMAGE_ARCHITECTURE}"
+
+
 # ---Construct image tag------------------------------------------------------------------------------------------------
 DS_IMAGE_TAG="${DS_IMAGE_TAG}-${BASE_IMG_VERSION}"
 
