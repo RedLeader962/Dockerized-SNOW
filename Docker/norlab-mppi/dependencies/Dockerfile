@@ -138,7 +138,8 @@ WORKDIR "${DS_DEV_WORKSPACE}"
 #    && rm -rf /var/lib/apt/lists/*
 
 #ros-noetic-tf2
-RUN rosinstall_generator tf2 --rosdistro ${ROS_DISTRO} --deps --exclude RPP --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall \
+RUN /bin/bash -c "source ${DS_ROS_ROOT}/setup.bash" \
+    && rosinstall_generator tf2 --rosdistro ${ROS_DISTRO} --deps --exclude RPP --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall \
     && vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src \
     && apt-get update \
     && rosdep fix-permissions \
