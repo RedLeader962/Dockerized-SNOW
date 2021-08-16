@@ -100,7 +100,7 @@ RUN rosinstall_generator ${ROS_PKG} --rosdistro ${ROS_DISTRO} --deps --tar > ${R
     python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_DEV_WORKSPACE}/install_isolated -DCMAKE_BUILD_TYPE=Release && \
     rm -rf /var/lib/apt/lists/*
 
-RUN /bin/bash -c "source ${DS_DEV_WORKSPACE}/install_isolated/setup.bash \
+RUN /bin/bash -c "source ${DS_DEV_WORKSPACE}/install_isolated/setup.bash" \
     && echo "source ${DS_DEV_WORKSPACE}/install_isolated/setup.bash" >> ~/.bashrc
 
 #RUN apt-get update \
