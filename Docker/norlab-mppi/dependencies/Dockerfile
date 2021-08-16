@@ -88,7 +88,7 @@ RUN pip3 install --no-cache-dir --verbose scipy
 RUN pip3 install --no-cache-dir --verbose scikit-learn
 RUN pip3 install --no-cache-dir --verbose pandas
 RUN pip3 install --no-cache-dir --verbose pycuda
-RUN pip3 install --no-cache-dir --verbose numba
+#RUN pip3 install --no-cache-dir --verbose numba
 #RUN pip3 install --no-cache-dir --ignore-installed pybind11
 
 
@@ -101,16 +101,17 @@ RUN git clone https://github.com/norlab-ulaval/icp_odom_with_twist.git
 # ---Build the ROS source-----------------------------------------------------------------------------------------------
 # Procedure ref: ROS noetic installation from source http://wiki.ros.org/noetic/Installation/Source
 
-WORKDIR "${DS_DEV_WORKSPACE}"
-RUN python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
-    &&  rm -rf /var/lib/apt/lists/*
-
 # install additional ROS packages
 RUN apt-get update \
     && apt-get install --assume-yes --no-install-recommends \
       ros-noetic-tf2-tools && \
     rosdep update && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* \
+
+WORKDIR "${DS_DEV_WORKSPACE}"
+RUN python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
+    &&  rm -rf /var/lib/apt/lists/*
+
 
 # Note on catkin_make_isolated:
 # - Flag `--install-space <path/to/somewhere/else>` overwrite the default `~/ros_catkin_ws/install_isolated` install dir.
