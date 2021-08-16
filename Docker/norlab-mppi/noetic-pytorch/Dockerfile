@@ -100,7 +100,6 @@ RUN rosinstall_generator ${ROS_PKG} --rosdistro ${ROS_DISTRO} --deps --tar > ${R
     rm -rf /var/lib/apt/lists/*
 
 RUN /bin/bash -c "source ${DS_ROS_ROOT}/setup.bash \
-    && catkin_make \
     && source ${DS_DEV_WORKSPACE}/devel/setup.bash" \
     && echo "source ${DS_ROS_ROOT}/setup.bash" >> ~/.bashrc \
     && echo "source ${DS_DEV_WORKSPACE}/devel/setup.bash" >> ~/.bashrc
