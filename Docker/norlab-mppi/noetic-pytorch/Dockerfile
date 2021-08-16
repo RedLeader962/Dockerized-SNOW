@@ -101,7 +101,7 @@ ENV DS_DEV_WORKSPACE=$HOME/ros_catkin_ws
 
 RUN apt-get update \
      && apt-get install -y --no-install-recommends \
-          ros-${DS_IMG_LSB_RELEASE}-`echo "${ROS_PKG}" | tr '_' '-'` \
+          ros-${ROS_DISTRO}-`echo "${ROS_PKG}" | tr '_' '-'` \
           libpython3-dev \
           python3-rosdep \
           python3-rosinstall \
