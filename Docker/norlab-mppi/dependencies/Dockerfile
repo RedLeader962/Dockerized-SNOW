@@ -101,8 +101,16 @@ RUN git clone https://github.com/norlab-ulaval/icp_odom_with_twist.git
 # ---Build the ROS source-----------------------------------------------------------------------------------------------
 # Procedure ref: ROS noetic installation from source http://wiki.ros.org/noetic/Installation/Source
 
-# (CRITICAL) todo:assess >> next bloc ↓↓
-RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
+# ... register the ROS package source ..................................................................................
+## (CRITICAL) todo:assess >> next bloc ↓↓
+#RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+#RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
+
+## (CRITICAL) todo:assess >> next bloc ↓↓
+# setup sources.list
+RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+# Ref: https://github.com/NVIDIA-AI-IOT/ros2_jetson/blob/main/docker/DockerFile.l4tbase.ros.noetic
+RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 
 # install additional ROS packages
 RUN apt-get update \
