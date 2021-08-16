@@ -39,14 +39,8 @@ WORKDIR /workspace
 # install development utilities
 RUN apt-get update \
     && apt-get install --assume-yes --no-install-recommends \
-        ca-certificates \
-        git \
-        libusb-dev \
         usbutils \
-        vim \
-        apt-utils \
-        tree \
-        python3-pip \
+        openssh-server \
     && rm -rf /var/lib/apt/lists/*
 
 
@@ -54,22 +48,11 @@ RUN apt-get update \
 ## Note: libboost-all-dev and  libtbb-dev are GTSAM dependencies
 #RUN apt-get update \
 #    && apt-get install --assume-yes --no-install-recommends \
-#        openssh-server \
 #        doxygen \
 #        texinfo \
 #        libboost-all-dev\
 #        libtbb-dev \
 #    && rm -rf /var/lib/apt/lists/*
-
-
-# install additional ROS packages
-RUN apt-get update \
-    && apt-get install --assume-yes --no-install-recommends \
-      python3-rosinstall \
-      python3-wstool \
-      build-essential && \
-    rm -rf /var/lib/apt/lists/*
-
 
 # Hack to install matplotlib on arm64
 RUN apt-get update \
@@ -92,20 +75,32 @@ RUN pip3 install --no-cache-dir --verbose pycuda
 #RUN pip3 install --no-cache-dir --ignore-installed pybind11
 
 
-ENV DS_DEV_WORKSPACE=$HOME/ros_catkin_ws
+#ENV DS_DEV_WORKSPACE=$HOME/ros_catkin_ws
 
 # ... Clone required repo ..............................................................................................
-WORKDIR "${DS_DEV_WORKSPACE}/src"
-RUN git clone https://github.com/norlab-ulaval/icp_odom_with_twist.git
+WORKDIR ${DS_DEV_WORKSPACE}/src
+RUN git clone https://github.com/norlab-ulaval/icp_odom_with_twist.git \
+    && cd ${DS_DEV_WORKSPACE} \
+    && apt-get update \
+    && rosdep install --from-path src --ignore-src --default-yes \
+    && rm -rf /var/lib/apt/lists/*
+
+
+WORKDIR ${DS_DEV_WORKSPACE}
+RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
+        && catkin_make \
+        && source ${DS_DEV_WORKSPACE}/devel/setup.bash"
+
+
 
 # ---Build the ROS source-----------------------------------------------------------------------------------------------
 # Procedure ref: ROS noetic installation from source http://wiki.ros.org/noetic/Installation/Source
 
 # ... register the ROS package source ..................................................................................
 # (CRITICAL) todo:assess >> next bloc ↓↓
-RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu focal main" > /etc/apt/sources.list.d/ros-latest.list'
-RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+#RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+#RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu focal main" > /etc/apt/sources.list.d/ros-latest.list'
+#RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
 
 ### (CRITICAL) todo:assess >> next bloc ↓↓
 ## setup sources.list
@@ -138,8 +133,8 @@ WORKDIR "${DS_DEV_WORKSPACE}"
 #    && python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
 #    && rm -rf /var/lib/apt/lists/*
 
-RUN /bin/bash -c "source ${DS_ROS_ROOT}/setup.bash \
-    && printenv | grep -e AR_ -e ROS -e MASTER -e HOSTNAME -e DS_"
+#RUN /bin/bash -c "source ${DS_ROS_ROOT}/setup.bash \
+#    && printenv | grep -e AR_ -e ROS -e MASTER -e HOSTNAME -e DS_"
 
 ##ros-noetic-tf2
 #RUN /bin/bash -c "source ${DS_ROS_ROOT}/setup.bash" \
@@ -152,16 +147,16 @@ RUN /bin/bash -c "source ${DS_ROS_ROOT}/setup.bash \
 #    && python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
 #    && rm -rf /var/lib/apt/lists/*
 
-WORKDIR "${DS_DEV_WORKSPACE}"
-RUN apt-get update \
-    && rosdep install --from-path src --ignore-src --default-yes \
-    && rosdep fix-permissions \
-    && rosdep update \
-    && rosdep fix-permissions
-
-RUN /bin/bash -c "source ${DS_ROS_ROOT}/setup.bash" \
-    && python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
-    &&  rm -rf /var/lib/apt/lists/*
+#WORKDIR "${DS_DEV_WORKSPACE}"
+#RUN apt-get update \
+#    && rosdep install --from-path src --ignore-src --default-yes \
+#    && rosdep fix-permissions \
+#    && rosdep update \
+#    && rosdep fix-permissions
+#
+#RUN /bin/bash -c "source ${DS_ROS_ROOT}/setup.bash" \
+#    && python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
+#    &&  rm -rf /var/lib/apt/lists/*
 
 
 # Note on catkin_make_isolated:
@@ -169,11 +164,6 @@ RUN /bin/bash -c "source ${DS_ROS_ROOT}/setup.bash" \
 # - It treats each package as a separate cmake project, and builds and installs each separately in dependency order.
 #   This is why it's able to build plain cmake packages.
 #   ref: https://answers.ros.org/question/320613/catkin_make-vs-catkin_make_isolated-which-is-preferred/
-
-WORKDIR "${DS_DEV_WORKSPACE}"
-
-RUN /bin/bash -c "source ${DS_ROS_ROOT}/setup.bash" \
-    && echo "source ${DS_ROS_ROOT}/setup.bash" >> ~/.bashrc
 
 
 

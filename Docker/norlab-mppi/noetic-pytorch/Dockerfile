@@ -26,6 +26,7 @@ ENV DS_IMAGE_ARCHITECTURE=${DS_IMAGE_ARCHITECTURE}
 
 # skip GUI dialog by setting everything to default
 ENV DEBIAN_FRONTEND=noninteractive
+ENV DS_IMG_LSB_RELEASE=focal
 
 WORKDIR /workspace
 
@@ -64,7 +65,8 @@ RUN apt-get update \
 # === Install ROS ======================================================================================================
 # ... register the ROS package source ..................................................................................
 # setup sources.list
-RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+#RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu ${DS_IMG_LSB_RELEASE} main" > /etc/apt/sources.list.d/ros-latest.list'
 
 # Ref: https://github.com/NVIDIA-AI-IOT/ros2_jetson/blob/main/docker/DockerFile.l4tbase.ros.noetic
 RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
@@ -75,28 +77,60 @@ ENV DS_DEV_WORKSPACE=$HOME/ros_catkin_ws
 # Credit for the next two RUN step: NVIDIA-AI-IOT/ros2_jetson
 #    https://github.com/NVIDIA-AI-IOT/ros2_jetson/blob/main/docker/DockerFile.l4tbase.ros.noetic
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
+#RUN apt-get update && \
+#    apt-get install -y --no-install-recommends \
+#          libpython3-dev \
+#          python3-rosdep \
+#          python3-rosinstall-generator \
+#          python3-vcstool \
+#          build-essential && \
+#    rosdep init && \
+#    rosdep update && \
+#    rm -rf /var/lib/apt/lists/*
+#
+#RUN mkdir ${DS_DEV_WORKSPACE} && \
+#    cd ${DS_DEV_WORKSPACE} && \
+#    rosinstall_generator ${ROS_PKG} --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall && \
+#    mkdir src && \
+#    vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src && \
+#    apt-get update && \
+#    rosdep install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} -y && \
+#    python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release && \
+#    rm -rf /var/lib/apt/lists/*
+
+
+RUN apt-get update \
+     && apt-get install -y --no-install-recommends \
+          ros-${DS_IMG_LSB_RELEASE}-`echo "${ROS_PKG}" | tr '_' '-'` \
           libpython3-dev \
           python3-rosdep \
+          python3-rosinstall \
           python3-rosinstall-generator \
+          python3-wstool \
           python3-vcstool \
-          build-essential && \
-    rosdep init && \
-    rosdep update && \
-    rm -rf /var/lib/apt/lists/*
+          build-essential \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir ${DS_DEV_WORKSPACE} && \
-    cd ${DS_DEV_WORKSPACE} && \
-    rosinstall_generator ${ROS_PKG} --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall && \
-    mkdir src && \
-    vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src && \
-    apt-get update && \
-    rosdep install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} -y && \
-    python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release && \
-    rm -rf /var/lib/apt/lists/*
+# update and initialize rosdep
+RUN apt-get update \
+    && cd ${DS_ROS_ROOT} \
+    && rosdep init \
+    && rosdep update \
+    && rosdep fix-permissions \
+    && rm -rf /var/lib/apt/lists/*
 
-#   rosinstall_generator ${ROS_PKG} vision_msgs --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall && \
+RUN mkdir -p ${DS_DEV_WORKSPACE}/src
+WORKDIR "${DS_DEV_WORKSPACE}"
+
+RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
+    && catkin_make \
+    && source ${DS_DEV_WORKSPACE}/devel/setup.bash" \
+    && echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc \
+    && echo "source ${DS_DEV_WORKSPACE}/devel/setup.bash" >> ~/.bashrc
+
+
+RUN apt-get update \
+    && apt-get install -y rviz
 
 # Note on catkin_make_isolated:
 # - Flag `--install-space <path/to/somewhere/else>` overwrite the default `~/ros_catkin_ws/install_isolated` install dir.
@@ -106,8 +140,8 @@ RUN mkdir ${DS_DEV_WORKSPACE} && \
 
 WORKDIR "${DS_DEV_WORKSPACE}"
 
-RUN /bin/bash -c "source ${DS_ROS_ROOT}/setup.bash" \
-    && echo "source ${DS_ROS_ROOT}/setup.bash" >> ~/.bashrc
+#RUN /bin/bash -c "source ${DS_ROS_ROOT}/setup.bash" \
+#    && echo "source ${DS_ROS_ROOT}/setup.bash" >> ~/.bashrc
 
 # ===Install Gazebo=====================================================================================================
 
@@ -142,14 +176,9 @@ WORKDIR "${DS_DEV_WORKSPACE}"
 CMD [ "bash" ]
 
 
-# ===Install rviz/OpenCV/PyTorch/PyCUDA=================================================================================
+# ===Install OpenCV/PyTorch/PyCUDA======================================================================================
 # Credit for the next RUN step: NVIDIA-AI-IOT/ros2_jetson
 #    https://github.com/NVIDIA-AI-IOT/ros2_jetson/blob/main/docker/DockerFile.l4tbase.ros.noetic
-
-RUN apt-get update && \
-    apt-get install -y vim && \
-    apt-get install -y rviz
-
 
 # (NICE TO HAVE) todo:fixme!! (ref task NLSAR-225)
 ##
@@ -165,11 +194,6 @@ RUN apt-get update && \
 #            libopencv-python \
 #    && rm /etc/apt/sources.list.d/nvidia-l4t-apt-source.list \
 #    && rm -rf /var/lib/apt/lists/*
-
-
-
-
-
 
 # ===Install numpy + PyTorch prerequisite===============================================================================
 FROM noetic-base-image AS noetic-numpy-base-image
