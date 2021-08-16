@@ -222,12 +222,13 @@ RUN if [[ "${DS_IMAGE_ARCHITECTURE}" == "arm64-l4t" ]]; then \
         pip3 install ${PYTORCH_WHL} --verbose && \
         rm ${PYTORCH_WHL}; \
   elif [[ "${DS_IMAGE_ARCHITECTURE}" == "x86" ]]; then \
-    python3 -m pip --no-cache-dir install \
-    torch==1.7.0 ; \
+    pip3 install torch==1.9.0+cu111 torchvision==0.10.0+cu111 -f https://download.pytorch.org/whl/torch_stable.html; \
   else \
     echo "Architecture ${DS_IMAGE_ARCHITECTURE} is not curently suported"; \
     exit; \
   fi
+
+#    pip3 install torch==1.9.0+cu111 torchvision==0.10.0+cu111 -f https://download.pytorch.org/whl/torch_stable.html \
 
 #RUN python3 -m pip --no-cache-dir install \
 #    torch==1.7.0
