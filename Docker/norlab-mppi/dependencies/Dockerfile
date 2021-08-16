@@ -67,11 +67,11 @@ RUN apt-get update \
     && apt-get install --assume-yes --no-install-recommends \
       python3-rosinstall \
       python3-wstool \
-      ros-noetic-tf2-tools \
       build-essential && \
     rosdep update && \
     rm -rf /var/lib/apt/lists/*
 
+#      ros-noetic-tf2-tools \
 #    rosdep init && \
 
 # install aditional python package
@@ -109,6 +109,13 @@ RUN git clone https://github.com/norlab-ulaval/icp_odom_with_twist.git
 WORKDIR "${DS_DEV_WORKSPACE}"
 RUN python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
     &&  rm -rf /var/lib/apt/lists/*
+
+# install additional ROS packages
+RUN apt-get update \
+    && apt-get install --assume-yes --no-install-recommends \
+      ros-noetic-tf2-tools && \
+    rosdep update && \
+    rm -rf /var/lib/apt/lists/*
 
 # Note on catkin_make_isolated:
 # - Flag `--install-space <path/to/somewhere/else>` overwrite the default `~/ros_catkin_ws/install_isolated` install dir.
