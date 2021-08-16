@@ -186,7 +186,6 @@ RUN apt-get update \
     && ldconfig \
     && apt-get install -y --no-install-recommends \
             python3-pip \
-            python3-dev \
             libopenblas-base \
             libopenmpi-dev \
             openmpi-bin \
@@ -194,8 +193,10 @@ RUN apt-get update \
             gfortran \
     && rm -rf /var/lib/apt/lists/*
 
+#            python3-dev \
 #            libopenmpi2 \
 
+RUN pip3 install --upgrade pip3
 RUN pip3 install setuptools Cython wheel
 RUN pip3 install numpy --verbose
 

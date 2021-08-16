@@ -75,6 +75,7 @@ RUN apt-get update \
 #      ros-noetic-tf2-tools \
 
 # install aditional python package
+RUN pip3 install --upgrade pip3
 RUN pip3 install --no-cache-dir --verbose \
     pytest \
     setuptools \
@@ -88,7 +89,6 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip3 install --no-cache-dir --ignore-installed pybind11
-RUN pip3 install --no-cache-dir --verbose onnx
 RUN pip3 install --no-cache-dir --verbose scipy
 RUN pip3 install --no-cache-dir --verbose scikit-learn
 RUN pip3 install --no-cache-dir --verbose pandas
