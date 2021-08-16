@@ -152,7 +152,7 @@ RUN /bin/bash -c "source ${DS_ROS_ROOT}/setup.bash \
 #    && python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
 #    && rm -rf /var/lib/apt/lists/*
 
-WORKDIR "${DS_DEV_WORKSPACE}/src"
+WORKDIR "${DS_DEV_WORKSPACE}"
 RUN apt-get update \
     && rosdep install --from-path src --ignore-src --default-yes \
     && rosdep fix-permissions \
