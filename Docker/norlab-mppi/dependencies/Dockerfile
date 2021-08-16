@@ -101,17 +101,26 @@ RUN git clone https://github.com/norlab-ulaval/icp_odom_with_twist.git
 # ---Build the ROS source-----------------------------------------------------------------------------------------------
 # Procedure ref: ROS noetic installation from source http://wiki.ros.org/noetic/Installation/Source
 
-# install additional ROS packages
-RUN apt-get update \
-    && apt-get install --assume-yes --no-install-recommends \
-      ros-noetic-tf2-tools \
-    && rosdep update \
-    && rosdep fix-permissions \
+## install additional ROS packages
+#RUN apt-get update \
+#    && apt-get install --assume-yes --no-install-recommends \
+#      ros-noetic-tf2-tools \
+#    && rosdep update \
+#    && rosdep fix-permissions \
+#    && rm -rf /var/lib/apt/lists/*
+
+# (Priority) todo:fixme!! (ref task NLSAR-232 🩹→ (arm64-l4t version) E: Unable to locate package ros-noetic-tf2-tools)
+WORKDIR "${DS_DEV_WORKSPACE}"
+RUN rosinstall_generator ros-noetic-tf2-tools --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall \
+    && vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src \
+    && apt-get update \
+    && rosdep install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} -y \
+    && python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR "${DS_DEV_WORKSPACE}"
-RUN python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
-    &&  rm -rf /var/lib/apt/lists/*
+#WORKDIR "${DS_DEV_WORKSPACE}"
+#RUN python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
+#    &&  rm -rf /var/lib/apt/lists/*
 
 
 # Note on catkin_make_isolated:
