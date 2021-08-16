@@ -211,9 +211,11 @@ FROM noetic-numpy-base-image AS noetic-pytorch-base-image
 #  PyTorch v1.3.0 https://nvidia.box.com/shared/static/017sci9z4a0xhtwrb4ps52frdfti9iw0.whl (torch-1.3.0-cp36-cp36m-linux_aarch64.whl)
 #  PyTorch v1.4.0 https://nvidia.box.com/shared/static/c3d7vm4gcs9m728j6o5vjay2jdedqb55.whl (torch-1.4.0-cp36-cp36m-linux_aarch64.whl)
 #  PyTorch v1.5.0 https://nvidia.box.com/shared/static/3ibazbiwtkl181n95n9em3wtrca7tdzp.whl (torch-1.5.0-cp36-cp36m-linux_aarch64.whl)
-
 ARG PYTORCH_URL=https://nvidia.box.com/shared/static/cs3xn3td6sfgtene6jdvsxlr366m2dhq.whl
 ARG PYTORCH_WHL=torch-1.7.0-cp36-cp36m-linux_aarch64.whl
+
+# Pytorch for x86
+# https://pytorch.org/get-started/locally/
 
 # (CRITICAL) todo:fixme!! (ref task NLSAR-230)
 # Conditional build stage base on architecture version (arm64-l4t and x86)
