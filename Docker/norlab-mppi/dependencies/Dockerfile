@@ -112,13 +112,13 @@ RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main"
 # Ref: https://github.com/NVIDIA-AI-IOT/ros2_jetson/blob/main/docker/DockerFile.l4tbase.ros.noetic
 RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 
-# install additional ROS packages
-RUN apt-get update \
-    && apt-get install --assume-yes \
-      geometry2 \
-    && rosdep update \
-    && rosdep fix-permissions \
-    && rm -rf /var/lib/apt/lists/*
+## install additional ROS packages
+#RUN apt-get update \
+#    && apt-get install --assume-yes \
+#      geometry2 \
+#    && rosdep update \
+#    && rosdep fix-permissions \
+#    && rm -rf /var/lib/apt/lists/*
 
 #    && apt-get install --assume-yes --no-install-recommends \
 #      ros-noetic-tf2-tools \
@@ -135,9 +135,13 @@ RUN apt-get update \
 #    && python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
 #    && rm -rf /var/lib/apt/lists/*
 
-#WORKDIR "${DS_DEV_WORKSPACE}"
-#RUN python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
-#    &&  rm -rf /var/lib/apt/lists/*
+WORKDIR "${DS_DEV_WORKSPACE}"
+RUN apt-get update \
+    && rosdep fix-permissions \
+    && rosdep update  \
+
+RUN python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
+    &&  rm -rf /var/lib/apt/lists/*
 
 
 # Note on catkin_make_isolated:
