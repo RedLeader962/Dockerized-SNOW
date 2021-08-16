@@ -67,9 +67,12 @@ RUN apt-get update \
     && apt-get install --assume-yes --no-install-recommends \
       python3-rosinstall \
       python3-wstool \
-      python3-vcstools \
-      ros-noetic-tf2-tools \
-    && rm -rf /var/lib/apt/lists/*
+      build-essential && \
+    rosdep init && \
+    rosdep update && \
+    rm -rf /var/lib/apt/lists/*
+
+#      ros-noetic-tf2-tools \
 
 # install aditional python package
 RUN pip3 install \
