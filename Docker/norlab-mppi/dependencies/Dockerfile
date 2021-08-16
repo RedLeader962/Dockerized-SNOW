@@ -68,10 +68,10 @@ RUN apt-get update \
       python3-rosinstall \
       python3-wstool \
       build-essential && \
-    rosdep init && \
     rosdep update && \
     rm -rf /var/lib/apt/lists/*
 
+#    rosdep init && \
 #      ros-noetic-tf2-tools \
 
 # install aditional python package
