@@ -140,25 +140,25 @@ WORKDIR "${DS_DEV_WORKSPACE}"
 RUN /bin/bash -c "source ${DS_ROS_ROOT}/setup.bash \
     && printenv | grep -e AR_ -e ROS -e MASTER -e HOSTNAME -e DS_"
 
-#ros-noetic-tf2
-RUN /bin/bash -c "source ${DS_ROS_ROOT}/setup.bash" \
-    && rosinstall_generator tf2 --rosdistro ${ROS_DISTRO} --deps --exclude RPP --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall \
-    && vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src \
-    && apt-get update \
-    && rosdep fix-permissions \
-    && rosdep update  \
-    && rosdep --reinstall install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} -y \
-    && python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
-    && rm -rf /var/lib/apt/lists/*
-
-#WORKDIR "${DS_DEV_WORKSPACE}"
-#RUN apt-get update \
+##ros-noetic-tf2
+#RUN /bin/bash -c "source ${DS_ROS_ROOT}/setup.bash" \
+#    && rosinstall_generator tf2 --rosdistro ${ROS_DISTRO} --deps --exclude RPP --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall \
+#    && vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src \
+#    && apt-get update \
 #    && rosdep fix-permissions \
-#    && rosdep update \
-#    && rosdep fix-permissions
-#
-#RUN python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
-#    &&  rm -rf /var/lib/apt/lists/*
+#    && rosdep update  \
+#    && rosdep --reinstall install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} -y \
+#    && python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
+#    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR "${DS_DEV_WORKSPACE}"
+RUN apt-get update \
+    && rosdep fix-permissions \
+    && rosdep update \
+    && rosdep fix-permissions
+
+RUN python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
+    &&  rm -rf /var/lib/apt/lists/*
 
 
 # Note on catkin_make_isolated:
