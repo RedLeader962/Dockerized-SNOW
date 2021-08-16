@@ -21,7 +21,7 @@ ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
 ENV ROS_DISTRO=noetic
-ENV ROS_ROOT=/opt/ros/${ROS_DISTRO}
+ENV DS_ROS_ROOT=/opt/ros/${ROS_DISTRO}
 ENV ROS_PYTHON_VERSION=3
 
 WORKDIR /workspace
@@ -91,7 +91,7 @@ RUN git clone https://github.com/norlab-ulaval/icp_odom_with_twist.git
 # Procedure ref: ROS noetic installation from source http://wiki.ros.org/noetic/Installation/Source
 
 WORKDIR "${DS_DEV_WORKSPACE}"
-RUN python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
+RUN python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
     &&  rm -rf /var/lib/apt/lists/*
 
 # Note on catkin_make_isolated:
@@ -102,8 +102,8 @@ RUN python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${RO
 
 WORKDIR "${DS_DEV_WORKSPACE}"
 
-RUN /bin/bash -c "source ${ROS_ROOT}/setup.bash" \
-    && echo "source ${ROS_ROOT}/setup.bash" >> ~/.bashrc
+RUN /bin/bash -c "source ${DS_ROS_ROOT}/setup.bash" \
+    && echo "source ${DS_ROS_ROOT}/setup.bash" >> ~/.bashrc
 
 
 

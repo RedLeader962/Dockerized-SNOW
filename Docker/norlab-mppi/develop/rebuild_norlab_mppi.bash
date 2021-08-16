@@ -10,9 +10,10 @@ sudo apt-get update
 rosdep install --from-path src --ignore-src -r --default-yes
 #rm -rf /var/lib/apt/lists/*
 
-source "${ROS_ROOT}/setup.bash"
-RUN python3 catkin_make_isolated --install --install-space ${ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
+python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
     &&  rm -rf /var/lib/apt/lists/*
+
+source "${DS_ROS_ROOT}/setup.bash"
 
 
 # (Priority) todo:refactor (ref task NLSAR-222 🛠→ setupEnv*.sh scripts for deployement case)
@@ -20,31 +21,13 @@ RUN python3 catkin_make_isolated --install --install-space ${ROS_ROOT} -DCMAKE_B
 #norlab_mppi_env_setup="${DS_DEV_WORKSPACE}/src/${DS_TARGET_PROJECT_SRC_REPO}/mppi_util/setupEnv${DS_HOST_TYPE}.sh"
 #echo "source ${norlab_mppi_env_setup}" >> ~/.bashrc
 
-
-echo -e "
-\033[1;2m
-
-
-               .|'''.|
-               ||..  '
-               ''|||.            \033[0m \033[1;37m
-•••·· ·· · Dockerized-SNOW ··· ·••$(printf '·%.s' {1..$(( $(tput cols) - 41 ))}) ·· ·\033[0m\033[1;2m
-                NorLab
-              .     '||
-              |'....|'
-\n\033[0m \033[2;37m
-       https://norlab.ulaval.ca
-    https://redleader962.github.io
-
-
-\033[0m
-"
+# (NICE TO HAVE) todo:implement >> Terminal splash screen
 
 echo
 echo "  Make sure your workspace is properly overlayed by the setup script by checking the ROS_PACKAGE_PATH environment variable. "
 echo "  It should include the directory you're in: /home/<youruser>/ros_catkin_ws/src:/opt/ros/melodic/share"
 echo
-printenv | grep ROS
+printenv | grep -e ROS -e DS_
 echo
 
 cd /

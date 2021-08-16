@@ -22,25 +22,7 @@ autorally_env_setup="${DS_DEV_WORKSPACE}/src/${DS_TARGET_PROJECT_SRC_REPO}/autor
 #source "${autorally_env_setup}"
 echo "source ${autorally_env_setup}" >> ~/.bashrc
 
-
-echo -e "
-\033[1;2m
-
-
-               .|'''.|
-               ||..  '
-               ''|||.            \033[0m \033[1;37m
-•••·· ·· · Dockerized-SNOW ··· ·••$(printf '·%.s' {1..$(( $(tput cols) - 41 ))}) ·· ·\033[0m\033[1;2m
-                NorLab
-              .     '||
-              |'....|'
-\n\033[0m \033[2;37m
-       https://norlab.ulaval.ca
-    https://redleader962.github.io
-
-
-\033[0m
-"
+# (NICE TO HAVE) todo:implement >> Terminal splash screen
 
 JOYSTICK_ZERO="/dev/input/js0"
 # The '-c' flag is a character device file test operator
