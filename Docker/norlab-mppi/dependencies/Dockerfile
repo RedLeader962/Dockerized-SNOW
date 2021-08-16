@@ -157,7 +157,8 @@ RUN apt-get update \
     && rosdep update \
     && rosdep fix-permissions
 
-RUN python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
+RUN /bin/bash -c "source ${DS_ROS_ROOT}/setup.bash" \
+    && python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
     &&  rm -rf /var/lib/apt/lists/*
 
 
