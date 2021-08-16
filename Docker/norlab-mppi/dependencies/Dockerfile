@@ -116,6 +116,7 @@ WORKDIR "${DS_DEV_WORKSPACE}"
 #    && rosdep install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} -y \
 RUN rosinstall_generator geometry2 --rosdistro ${ROS_DISTRO} --deps | vcs import ./src \
     && apt-get update \
+    && rosdep update  \
     && rosdep install --reinstall --from-paths ./src --rosdistro ${ROS_DISTRO} -y \
     && python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
     && rm -rf /var/lib/apt/lists/*
