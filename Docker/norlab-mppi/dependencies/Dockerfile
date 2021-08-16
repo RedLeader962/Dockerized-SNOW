@@ -67,19 +67,19 @@ RUN apt-get update \
     && apt-get install --assume-yes --no-install-recommends \
       python3-rosinstall \
       python3-wstool \
+      ros-noetic-tf2-tools \
       build-essential && \
     rosdep update && \
     rm -rf /var/lib/apt/lists/*
 
 #    rosdep init && \
-#      ros-noetic-tf2-tools \
 
 # install aditional python package
 RUN pip3 install --upgrade pip
 RUN pip3 install --no-cache-dir --verbose \
+    wheel \
     pytest \
     setuptools \
-    wheel \
     jetson-stats
 
 # Hack to install matplotlib on arm64
@@ -88,12 +88,12 @@ RUN apt-get update \
       python3-matplotlib \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip3 install --no-cache-dir --ignore-installed pybind11
 RUN pip3 install --no-cache-dir --verbose scipy
 RUN pip3 install --no-cache-dir --verbose scikit-learn
 RUN pip3 install --no-cache-dir --verbose pandas
 RUN pip3 install --no-cache-dir --verbose pycuda
 RUN pip3 install --no-cache-dir --verbose numba
+#RUN pip3 install --no-cache-dir --ignore-installed pybind11
 
 
 ENV DS_DEV_WORKSPACE=$HOME/ros_catkin_ws
