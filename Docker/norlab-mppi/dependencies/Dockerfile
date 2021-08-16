@@ -104,7 +104,7 @@ RUN git clone https://github.com/norlab-ulaval/icp_odom_with_twist.git
 # install additional ROS packages
 RUN apt-get update \
     && apt-get install --assume-yes --no-install-recommends \
-      ros-noetic-geometry2 \
+      geometry2 \
     && rosdep update \
     && rosdep fix-permissions \
     && rm -rf /var/lib/apt/lists/*
