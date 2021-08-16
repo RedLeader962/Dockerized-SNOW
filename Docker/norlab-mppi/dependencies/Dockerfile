@@ -104,9 +104,10 @@ RUN git clone https://github.com/norlab-ulaval/icp_odom_with_twist.git
 # install additional ROS packages
 RUN apt-get update \
     && apt-get install --assume-yes --no-install-recommends \
-      ros-noetic-tf2-tools && \
-    rosdep update && \
-    rm -rf /var/lib/apt/lists/* \
+      ros-noetic-tf2-tools \
+    && rosdep update \
+    && rosdep fix-permissions \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR "${DS_DEV_WORKSPACE}"
 RUN python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
