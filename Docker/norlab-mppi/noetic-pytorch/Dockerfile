@@ -78,56 +78,62 @@ ENV DS_DEV_WORKSPACE=$HOME/ros_catkin_ws
 # Credit for the next two RUN step: NVIDIA-AI-IOT/ros2_jetson
 #    https://github.com/NVIDIA-AI-IOT/ros2_jetson/blob/main/docker/DockerFile.l4tbase.ros.noetic
 
-#RUN apt-get update && \
-#    apt-get install -y --no-install-recommends \
-#          libpython3-dev \
-#          python3-rosdep \
-#          python3-rosinstall-generator \
-#          python3-vcstool \
-#          build-essential && \
-#    rosdep init && \
-#    rosdep update && \
-#    rm -rf /var/lib/apt/lists/*
-#
-#RUN mkdir ${DS_DEV_WORKSPACE} && \
-#    cd ${DS_DEV_WORKSPACE} && \
-#    rosinstall_generator ${ROS_PKG} --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall && \
-#    mkdir src && \
-#    vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src && \
-#    apt-get update && \
-#    rosdep install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} -y && \
-#    python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release && \
-#    rm -rf /var/lib/apt/lists/*
-
-
-RUN apt-get update \
-     && apt-get install -y --no-install-recommends \
-          ros-${ROS_DISTRO}-`echo "${ROS_PKG}" | tr '_' '-'` \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
           libpython3-dev \
           python3-rosdep \
-          python3-rosinstall \
           python3-rosinstall-generator \
-          python3-wstool \
           python3-vcstool \
-          build-essential \
-    && rm -rf /var/lib/apt/lists/*
-
-# update and initialize rosdep
-RUN apt-get update \
-    && cd ${DS_ROS_ROOT} \
-    && rosdep init \
-    && rosdep update \
-    && rosdep fix-permissions \
-    && rm -rf /var/lib/apt/lists/*
+          build-essential && \
+    rosdep init && \
+    rosdep update && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p ${DS_DEV_WORKSPACE}/src
 WORKDIR "${DS_DEV_WORKSPACE}"
 
-RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
+RUN rosinstall_generator ${ROS_PKG} --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall && \
+    mkdir src && \
+    vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src && \
+    apt-get update && \
+    rosdep install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} -y && \
+    python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT}/devel_isolated -DCMAKE_BUILD_TYPE=Release && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN /bin/bash -c "source ${DS_ROS_ROOT}/setup.bash \
     && catkin_make \
     && source ${DS_DEV_WORKSPACE}/devel/setup.bash" \
-    && echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc \
+    && echo "source ${DS_ROS_ROOT}/setup.bash" >> ~/.bashrc \
     && echo "source ${DS_DEV_WORKSPACE}/devel/setup.bash" >> ~/.bashrc
+
+#RUN apt-get update \
+#     && apt-get install -y --no-install-recommends \
+#          ros-${ROS_DISTRO}-`echo "${ROS_PKG}" | tr '_' '-'` \
+#          libpython3-dev \
+#          python3-rosdep \
+#          python3-rosinstall \
+#          python3-rosinstall-generator \
+#          python3-wstool \
+#          python3-vcstool \
+#          build-essential \
+#    && rm -rf /var/lib/apt/lists/*
+#
+## update and initialize rosdep
+#RUN apt-get update \
+#    && cd ${DS_ROS_ROOT} \
+#    && rosdep init \
+#    && rosdep update \
+#    && rosdep fix-permissions \
+#    && rm -rf /var/lib/apt/lists/*
+#
+#RUN mkdir -p ${DS_DEV_WORKSPACE}/src
+#WORKDIR "${DS_DEV_WORKSPACE}"
+#
+#RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
+#    && catkin_make \
+#    && source ${DS_DEV_WORKSPACE}/devel/setup.bash" \
+#    && echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc \
+#    && echo "source ${DS_DEV_WORKSPACE}/devel/setup.bash" >> ~/.bashrc
 
 
 RUN apt-get update \
