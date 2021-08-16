@@ -37,7 +37,7 @@ function print_help_in_terminal() {
 \033[2mRef: https://docs.docker.com/engine/reference/commandline/run/
 \033[0m
 \033[1mRecommandation:\033[0m
-  $ mkdir -p ~/Repositories \&\& cd ~/Repositories
+  $ mkdir -p ~/Repositories && cd ~/Repositories
   $ sudo git clone https://github.com/norlab-ulaval/NorLab_MPPI.git
   $ sudo git clone https://github.com/RedLeader962/Dockerized-SNOW.git
   $ cd ~/Repositories/Dockerized-SNOW
