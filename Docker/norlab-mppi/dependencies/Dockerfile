@@ -75,7 +75,7 @@ RUN apt-get update \
 #      ros-noetic-tf2-tools \
 
 # install aditional python package
-RUN pip3 install --upgrade pip3
+RUN pip3 install --upgrade pip
 RUN pip3 install --no-cache-dir --verbose \
     pytest \
     setuptools \

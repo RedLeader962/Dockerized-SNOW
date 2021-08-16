@@ -177,8 +177,8 @@ FROM noetic-base-image AS noetic-numpy-base-image
 #
 # install PyTorch prerequisites (many of these are for numpy)
 #
-ENV PATH="/usr/local/cuda-10.2/bin:${PATH}"
-ENV LD_LIBRARY_PATH="/usr/local/cuda-10.2/lib64:/usr/local/cuda-10.2/extras/CUPTI/lib64:${LD_LIBRARY_PATH}"
+ENV PATH="/usr/local/cuda/bin:${PATH}"
+ENV LD_LIBRARY_PATH="/usr/local/cuda/lib64:${LD_LIBRARY_PATH}"
 
 
 RUN apt-get update \
@@ -196,7 +196,7 @@ RUN apt-get update \
 #            python3-dev \
 #            libopenmpi2 \
 
-RUN pip3 install --upgrade pip3
+RUN pip3 install --upgrade pip
 RUN pip3 install setuptools Cython wheel
 RUN pip3 install numpy --verbose
 
