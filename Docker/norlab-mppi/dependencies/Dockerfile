@@ -136,8 +136,9 @@ WORKDIR "${DS_DEV_WORKSPACE}"
 #    && rosdep --reinstall install geometry2 --rosdistro ${ROS_DISTRO} -y \
 #    && python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
 #    && rm -rf /var/lib/apt/lists/*
-#
-RUN rosinstall_generator ros-noetic-tf2 --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall \
+
+#ros-noetic-tf2
+RUN rosinstall_generator tf2 --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall \
     && vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src \
     && apt-get update \
     && rosdep fix-permissions \
