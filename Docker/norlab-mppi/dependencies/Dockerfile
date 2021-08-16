@@ -98,8 +98,7 @@ RUN git clone https://github.com/norlab-ulaval/icp_odom_with_twist.git \
     && cd ${DS_DEV_WORKSPACE} \
     && apt-get update \
     && rosdep install --from-path ./src --ignore-src --default-yes \
-    python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_DEV_WORKSPACE}/install_isolated -DCMAKE_BUILD_TYPE=Release \
-
+    && python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_DEV_WORKSPACE}/install_isolated -DCMAKE_BUILD_TYPE=Release \
     && rm -rf /var/lib/apt/lists/*
 
 
