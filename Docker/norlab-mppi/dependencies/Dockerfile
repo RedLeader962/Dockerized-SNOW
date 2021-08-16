@@ -101,6 +101,9 @@ RUN git clone https://github.com/norlab-ulaval/icp_odom_with_twist.git
 # ---Build the ROS source-----------------------------------------------------------------------------------------------
 # Procedure ref: ROS noetic installation from source http://wiki.ros.org/noetic/Installation/Source
 
+# (CRITICAL) todo:assess >> next bloc ↓↓
+RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
+
 # install additional ROS packages
 RUN apt-get update \
     && apt-get install --assume-yes \
