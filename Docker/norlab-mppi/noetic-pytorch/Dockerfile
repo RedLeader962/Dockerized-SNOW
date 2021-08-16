@@ -257,7 +257,7 @@ RUN if [[ "${DS_IMAGE_ARCHITECTURE}" == "arm64-l4t" ]]; then \
     wget --quiet --show-progress --progress=bar:force:noscroll --no-check-certificate ${PYTORCH_URL} -O ${PYTORCH_WHL} && \
         pip3 install ${PYTORCH_WHL} --verbose && \
         rm ${PYTORCH_WHL}; \
-  elif [[ "${DS_IMAGE_ARCHITECTURE}" == "arm64-l4t" ]]; then \
+  elif [[ "${DS_IMAGE_ARCHITECTURE}" == "x86" ]]; then \
     python3 -m pip --no-cache-dir install \
     torch==1.7.0 ; \
   else \
