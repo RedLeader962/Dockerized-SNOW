@@ -187,7 +187,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends \
             python3-pip \
             python3-dev \
-            libopenblas-dev \
+            libopenblas-base \
             libopenmpi-dev \
             openmpi-bin \
             openmpi-common \
@@ -205,14 +205,17 @@ RUN pip3 install numpy --verbose
 
 FROM noetic-numpy-base-image AS noetic-pytorch-base-image
 
-# PyTorch (for JetPack 4.4 DP)
+# PyTorch (for JetPack)
+#  https://elinux.org/Jetson_Zoo#PyTorch_.28Caffe2.29
 #
 #  PyTorch v1.2.0 https://nvidia.box.com/shared/static/lufbgr3xu2uha40cs9ryq1zn4kxsnogl.whl (torch-1.2.0-cp36-cp36m-linux_aarch64.whl)
 #  PyTorch v1.3.0 https://nvidia.box.com/shared/static/017sci9z4a0xhtwrb4ps52frdfti9iw0.whl (torch-1.3.0-cp36-cp36m-linux_aarch64.whl)
 #  PyTorch v1.4.0 https://nvidia.box.com/shared/static/c3d7vm4gcs9m728j6o5vjay2jdedqb55.whl (torch-1.4.0-cp36-cp36m-linux_aarch64.whl)
 #  PyTorch v1.5.0 https://nvidia.box.com/shared/static/3ibazbiwtkl181n95n9em3wtrca7tdzp.whl (torch-1.5.0-cp36-cp36m-linux_aarch64.whl)
-ARG PYTORCH_URL=https://nvidia.box.com/shared/static/cs3xn3td6sfgtene6jdvsxlr366m2dhq.whl
-ARG PYTORCH_WHL=torch-1.7.0-cp36-cp36m-linux_aarch64.whl
+#  PyTorch v1.7.0 https://nvidia.box.com/shared/static/cs3xn3td6sfgtene6jdvsxlr366m2dhq.whl (torch-1.7.0-cp36-cp36m-linux_aarch64.whl)
+#  PyTorch v1.9.0 https://nvidia.box.com/shared/static/h1z9sw4bb1ybi0rm3tu8qdj8hs05ljbm.whl (torch-1.9.0-cp36-cp36m-linux_aarch64.whl)
+ARG PYTORCH_URL=https://nvidia.box.com/shared/static/h1z9sw4bb1ybi0rm3tu8qdj8hs05ljbm.whl
+ARG PYTORCH_WHL=torch-1.9.0-cp36-cp36m-linux_aarch64.whl
 
 # Pytorch for x86
 # https://pytorch.org/get-started/locally/
