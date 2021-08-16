@@ -75,14 +75,21 @@ RUN apt-get update \
 #      ros-noetic-tf2-tools \
 
 # install aditional python package
-RUN pip3 install \
+RUN pip3 install --no-cache-dir --verbose \
     pytest \
     setuptools \
     wheel \
-    Cython \
-    wheel \
     matplotlib \
     jetson-stats
+
+RUN pip3 install --no-cache-dir --ignore-installed pybind11
+RUN pip3 install --no-cache-dir --verbose onnx
+RUN pip3 install --no-cache-dir --verbose scipy
+RUN pip3 install --no-cache-dir --verbose scikit-learn
+RUN pip3 install --no-cache-dir --verbose pandas
+RUN pip3 install --no-cache-dir --verbose pycuda
+RUN pip3 install --no-cache-dir --verbose numba
+
 
 ENV DS_DEV_WORKSPACE=$HOME/ros_catkin_ws
 
