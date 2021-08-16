@@ -76,20 +76,36 @@ RUN pip3 install --no-cache-dir --verbose pycuda
 
 
 #ENV DS_DEV_WORKSPACE=$HOME/ros_catkin_ws
+#
+## ... Clone required repo ..............................................................................................
+#WORKDIR ${DS_DEV_WORKSPACE}/src
+#RUN git clone https://github.com/norlab-ulaval/icp_odom_with_twist.git \
+#    && cd ${DS_DEV_WORKSPACE} \
+#    && apt-get update \
+#    && rosdep install --from-path src --ignore-src --default-yes \
+#    && rm -rf /var/lib/apt/lists/*
+#
+#
+#WORKDIR ${DS_DEV_WORKSPACE}
+#RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
+#        && catkin_make \
+#        && source ${DS_DEV_WORKSPACE}/devel/setup.bash"
+#
 
 # ... Clone required repo ..............................................................................................
 WORKDIR ${DS_DEV_WORKSPACE}/src
 RUN git clone https://github.com/norlab-ulaval/icp_odom_with_twist.git \
     && cd ${DS_DEV_WORKSPACE} \
     && apt-get update \
-    && rosdep install --from-path src --ignore-src --default-yes \
+    && rosdep install --from-path ./src --ignore-src --default-yes \
+    python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_DEV_WORKSPACE}/install_isolated -DCMAKE_BUILD_TYPE=Release \
+
     && rm -rf /var/lib/apt/lists/*
 
 
 WORKDIR ${DS_DEV_WORKSPACE}
-RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
-        && catkin_make \
-        && source ${DS_DEV_WORKSPACE}/devel/setup.bash"
+RUN /bin/bash -c "source ${DS_DEV_WORKSPACE}/install_isolated/setup.bash \
+    && printenv | grep -e AR_ -e ROS -e MASTER -e HOSTNAME -e DS_"
 
 
 
