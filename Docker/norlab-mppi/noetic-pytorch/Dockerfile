@@ -224,14 +224,14 @@ ARG PYTORCH_WHL=torch-1.9.0-cp36-cp36m-linux_aarch64.whl
 # (CRITICAL) todo:fixme!! (ref task NLSAR-230)
 # Conditional build stage base on architecture version (arm64-l4t and x86)
 
-RUN /bin/bash -c "if [[ "${DS_IMAGE_ARCHITECTURE}" == "arm64-l4t" ]]; then \
+RUN /bin/bash -c "if [[ ${DS_IMAGE_ARCHITECTURE} == 'arm64-l4t' ]]; then \
     wget --quiet --show-progress --progress=bar:force:noscroll --no-check-certificate ${PYTORCH_URL} -O ${PYTORCH_WHL} && \
         pip3 install --no-cache-dir --verbose ${PYTORCH_WHL} --verbose && \
         rm ${PYTORCH_WHL}; \
-  elif [[ "${DS_IMAGE_ARCHITECTURE}" == "x86" ]]; then \
+  elif [[ ${DS_IMAGE_ARCHITECTURE} == 'x86' ]]; then \
     pip3 install --no-cache-dir --verbose torch==1.9.0+cu111 -f https://download.pytorch.org/whl/torch_stable.html; \
   else \
-    echo "Architecture ${DS_IMAGE_ARCHITECTURE} is not curently suported"; \
+    echo 'Architecture ${DS_IMAGE_ARCHITECTURE} is not curently suported'; \
     exit; \
   fi"
 
