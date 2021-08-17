@@ -99,6 +99,10 @@ RUN apt-get update \
 #          ros-melodic-joy \
 #          python3-wstool \
 
+
+RUN /bin/bash -c "source ${DS_DEV_WORKSPACE}/install_isolated/setup.bash" \
+    && echo "source ${DS_DEV_WORKSPACE}/install_isolated/setup.bash" >> ~/.bashrc \
+
 RUN mkdir -p "${DS_DEV_WORKSPACE}/src"
 WORKDIR "${DS_DEV_WORKSPACE}/src"
 RUN git clone https://github.com/norlab-ulaval/icp_odom_with_twist.git
@@ -111,10 +115,10 @@ WORKDIR "${DS_DEV_WORKSPACE}"
 #RUN rosinstall_generator ${ROS_PKG} --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall && \
 #    vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src
 
-RUN apt-get update && \
-    rosdep install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} -y && \
-    ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_DEV_WORKSPACE}/install_isolated -DCMAKE_BUILD_TYPE=Release && \
-    rm -rf /var/lib/apt/lists/*
+RUN apt-get update \
+    && rosdep install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} -y \
+    && ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_DEV_WORKSPACE}/install_isolated -DCMAKE_BUILD_TYPE=Release \
+    && rm -rf /var/lib/apt/lists/*
 
 # Note on catkin_make_isolated:
 # - Flag `--install-space <path/to/somewhere/else>` overwrite the default `~/ros_catkin_ws/install_isolated` install dir.
@@ -122,8 +126,6 @@ RUN apt-get update && \
 #   This is why it's able to build plain cmake packages.
 #   ref: https://answers.ros.org/question/320613/catkin_make-vs-catkin_make_isolated-which-is-preferred/
 
-RUN /bin/bash -c "source ${DS_DEV_WORKSPACE}/install_isolated/setup.bash" \
-    && echo "source ${DS_DEV_WORKSPACE}/install_isolated/setup.bash" >> ~/.bashrc
 
 
 RUN apt-get update \
