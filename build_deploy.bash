@@ -102,6 +102,10 @@ done
 
 # ---Compose image------------------------------------------------------------------------------------------------------
 if [[ "$DS_SUB_PROJECT" == "norlab-mppi" ]]; then
+
+  # (Priority) todo:implement >> everything ↓↓
+  echo "${0}:not implemented error" && exit
+
   if [[ "$DS_IMAGE_TAG" == "arm64-l4t" ]]; then
     if [[ "$BASE_IMG_VERSION" == "" ]]; then
       BASE_IMG_VERSION="r32.6.1"

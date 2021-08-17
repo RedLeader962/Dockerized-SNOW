@@ -23,6 +23,9 @@ ARG DEV_BRANCH=master
 ARG DS_HOST_TYPE=Local
 ENV DS_HOST_TYPE=${DS_HOST_TYPE}
 
+# (Priority) todo:implement >> everything ↓↓
+RUN echo "${0}:not implemented error" && exit
+
 WORKDIR ${DS_DEV_WORKSPACE}/src
 RUN echo "Pull latest ${DEV_BRANCH} branch" \
     && git clone --branch ${DEV_BRANCH} https://github.com/${DS_TARGET_PROJECT_SRC_DOMAIN}/${DS_TARGET_PROJECT_SRC_REPO}.git  \
