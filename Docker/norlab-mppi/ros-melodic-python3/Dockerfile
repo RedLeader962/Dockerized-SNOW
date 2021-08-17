@@ -99,9 +99,9 @@ RUN apt-get update \
 #          ros-melodic-joy \
 #          python3-wstool \
 
-
-RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash" \
-    && echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc
+#
+#RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash" \
+#    && echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc
 
 RUN mkdir -p "${DS_DEV_WORKSPACE}/src"
 WORKDIR "${DS_DEV_WORKSPACE}/src"
@@ -115,8 +115,8 @@ WORKDIR "${DS_DEV_WORKSPACE}"
 RUN rosinstall_generator ${ROS_PKG} --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall && \
     vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src
 
-RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash" \
-    && apt-get update \
+#RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash" \
+RUN apt-get update \
     && rosdep install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} -y \
     && /bin/bash -c "./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_DEV_WORKSPACE}/install_isolated -DCMAKE_BUILD_TYPE=Release" \
     && rm -rf /var/lib/apt/lists/*
