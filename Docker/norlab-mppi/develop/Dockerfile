@@ -18,7 +18,8 @@ COPY rebuild_norlab_mppi.bash /
 COPY ros_entrypoint.bash /
 # set read/write permission to entrypoint file and joystick dir js0
 RUN /bin/bash -c "chmod +x /ros_entrypoint.bash" \
-    && /bin/bash -c "chmod +x /rebuild_norlab_mppi.bash"
+    && /bin/bash -c "chmod +x /rebuild_norlab_mppi.bash" \
+    && /bin/bash -c "chmod +x /fetch_ros_env.bash"
 
 ENTRYPOINT [ "/ros_entrypoint.bash" ]
 CMD [ "bash" ]

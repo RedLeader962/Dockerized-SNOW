@@ -279,16 +279,16 @@ RUN ( \
   && mkdir /run/sshd
 
 # ssh port, remaped from default 22 to 2222
-ARG PYCHARM_DEV_SERVER_PORT=2222
-ENV PYCHARM_DEV_SERVER_PORT=${PYCHARM_DEV_SERVER_PORT}
-EXPOSE ${PYCHARM_DEV_SERVER_PORT}
+ARG DS_PYCHARM_DEV_SERVER_PORT=2222
+ENV DS_PYCHARM_DEV_SERVER_PORT=${DS_PYCHARM_DEV_SERVER_PORT}
+EXPOSE ${DS_PYCHARM_DEV_SERVER_PORT}
 
 ## gdbserver port
 #EXPOSE 7777
 
 # ...Add new user.......................................................................................................
 ARG NEW_USER=clion-debugger
-ENV CLION_DEV_USER=${NEW_USER}
+ENV DS_PYCHARM_DEV_USER=${NEW_USER}
 ARG PASSWORD=lasagne
 
 RUN echo 'root:SNOW' | chpasswd
