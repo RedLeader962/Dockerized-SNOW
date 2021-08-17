@@ -198,7 +198,8 @@ RUN apt-get install -y \
     python3-rospkg*
 
 
-ARG ROS_DISTRO_ROS_PCK="ros-${ROS_DISTRO}-`echo ${DS_ROS_PKG} | tr '_' '-'`"
+#ARG ROS_DISTRO_ROS_PCK="ros-${ROS_DISTRO}-`echo ${DS_ROS_PKG} | tr '_' '-'`"
+ARG ROS_DISTRO_ROS_PCK="ros-${ROS_DISTRO}-${DS_ROS_PKG//'_'/'-'}"
 RUN echo "ROS_DISTRO_ROS_PCK=${ROS_DISTRO_ROS_PCK}"
 
 RUN apt-get update --fix-missing
