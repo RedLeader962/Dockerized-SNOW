@@ -85,18 +85,18 @@ RUN apt-get update \
     && apt-get install --assume-yes --no-install-recommends \
         ros-${ROS_DISTRO}-`echo "${ROS_PKG}" | tr '_' '-'` \
         python-rosdep \
-        python-rosinstall \
         python-rosinstall-generator \
-        python-wstool \
         python-vcstools \
+        python-wstool \
+        python3-rosinstall \
         build-essential \
     && rosdep init \
     && rosdep update \
     && rosdep fix-permissions \
     && rm -rf /var/lib/apt/lists/*
 
+#        python-rosinstall \
 #          ros-melodic-joy \
-#          python3-rosinstall \
 #          python3-wstool \
 
 RUN mkdir -p "${DS_DEV_WORKSPACE}/src"
@@ -113,7 +113,7 @@ WORKDIR "${DS_DEV_WORKSPACE}"
 
 RUN apt-get update && \
     rosdep install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} -y && \
-    python ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_DEV_WORKSPACE}/install_isolated -DCMAKE_BUILD_TYPE=Release && \
+    ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_DEV_WORKSPACE}/install_isolated -DCMAKE_BUILD_TYPE=Release && \
     rm -rf /var/lib/apt/lists/*
 
 # Note on catkin_make_isolated:
