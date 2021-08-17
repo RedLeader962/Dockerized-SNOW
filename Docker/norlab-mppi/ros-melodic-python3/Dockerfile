@@ -100,8 +100,8 @@ RUN apt-get update \
 #          python3-wstool \
 
 
-RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/install_isolated/setup.bash" \
-    && echo "source /opt/ros/${ROS_DISTRO}/install_isolated/setup.bash" >> ~/.bashrc
+RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash" \
+    && echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc
 
 RUN mkdir -p "${DS_DEV_WORKSPACE}/src"
 WORKDIR "${DS_DEV_WORKSPACE}/src"
