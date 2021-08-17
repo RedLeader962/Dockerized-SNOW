@@ -290,7 +290,7 @@ EXPOSE ${DS_PYCHARM_DEV_SERVER_PORT}
 #EXPOSE 7777
 
 # ...Add new user.......................................................................................................
-ARG NEW_USER=clion-debugger
+ARG NEW_USER=pycharm-debugger
 ENV DS_PYCHARM_DEV_USER=${NEW_USER}
 ARG PASSWORD=lasagne
 
