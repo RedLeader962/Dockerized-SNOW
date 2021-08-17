@@ -5,11 +5,12 @@
 </a>
 <br>
 <br>
+<br>
 </div>
 
 # _Dockerized SNOW_
-Containerized workflow for the _NorLab_MPPI_ and _SNOW_AutoRally_ projects leveraging [_nvidia-docker_](https://github.com/NVIDIA/nvidia-docker) technology.
-
+Containerized development workflow for the _NorLab_MPPI_ and _SNOW_AutoRally_ projects leveraging [_nvidia-docker_](https://github.com/NVIDIA/nvidia-docker) technology.
+Fast development iteration, reproducable results and easy deployment on alternate host computer.    
 Author: [Luc Coupal](https://redleader962.github.io) 
 
 ```shell
