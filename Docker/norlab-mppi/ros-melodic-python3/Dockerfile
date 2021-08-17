@@ -108,6 +108,9 @@ WORKDIR "${DS_DEV_WORKSPACE}/src"
 RUN git clone https://github.com/norlab-ulaval/icp_odom_with_twist.git
 
 WORKDIR "${DS_DEV_WORKSPACE}"
+RUN apt-get update \
+    && rosdep install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} -y
+
 RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
     && catkin_make \
     && source ${DS_DEV_WORKSPACE}/devel/setup.bash" \
