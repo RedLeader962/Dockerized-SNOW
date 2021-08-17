@@ -16,7 +16,7 @@
 #ARG BASE_IMAGE=norlabsnow/norlab-mppi-ros-melodic-python3:x86-ubuntu20.04
 #ARG BASE_IMAGE=norlabsnow/norlab-mppi-ros-noetic:x86-ubuntu18.04
 ARG BASE_IMAGE=norlabsnow/norlab-mppi-ros-melodic-python3:arm64-l4t-r32.6.1
-FROM ${BASE_IMAGE} AS noetic-base-imag
+FROM ${BASE_IMAGE} AS ros-base-imag
 
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
@@ -60,7 +60,7 @@ WORKDIR /workspace
 
 
 # ===PyTorch============================================================================================================
-FROM noetic-base-imag AS noetic-pytorch-base-image
+FROM ros-base-imag AS ros-pytorch-base-image
 
 #
 # install PyTorch prerequisites (many of these are for numpy)
@@ -156,7 +156,7 @@ RUN /bin/bash -c "if [[ ${DS_IMAGE_ARCHITECTURE} == 'arm64-l4t' ]]; then \
 
 
 # ===Install noetic scientific stack step ==============================================================================
-FROM noetic-pytorch-base-image AS noetic-scientific-stack-base-image
+FROM ros-pytorch-base-image AS ros-scientific-stack-base-image
 
 # install aditional python package
 RUN pip3 install --upgrade pip
@@ -176,7 +176,7 @@ RUN apt-get update \
 
 
 # ===Install performance optimization package===========================================================================
-FROM noetic-scientific-stack-base-image AS noetic-performance-pkg-base-image
+FROM ros-scientific-stack-base-image AS ros-performance-pkg-base-image
 
 RUN pip3 install --no-cache-dir --verbose pycuda
 #RUN pip3 install --no-cache-dir --verbose numba
@@ -230,7 +230,7 @@ RUN pip3 install --no-cache-dir --verbose pycuda
 #    python3 setup.py install --plugins
 
 # ===Final build step — install utilities===============================================================================
-FROM noetic-performance-pkg-base-image AS final
+FROM ros-performance-pkg-base-image AS final
 
 RUN pip3 install --no-cache-dir --verbose pyyaml
 RUN pip3 install --no-cache-dir --verbose jupyter
