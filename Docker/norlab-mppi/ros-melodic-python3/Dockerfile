@@ -88,14 +88,14 @@ RUN apt-get update \
         python-rosinstall-generator \
         python-vcstools \
         python-wstool \
-        python3-rosinstall \
+        python-rosinstall \
         build-essential \
     && rosdep init \
     && rosdep update \
     && rosdep fix-permissions \
     && rm -rf /var/lib/apt/lists/*
 
-#        python-rosinstall \
+#        python3-rosinstall \
 #          ros-melodic-joy \
 #          python3-wstool \
 
