@@ -113,7 +113,7 @@ WORKDIR "${DS_DEV_WORKSPACE}"
 ## 2. rosdep install step: looks at all the packages in the src directory and tries to find and install their dependencies on your platform
 ## 3. catkin_make_isolated step: build everything in the catkin workspace DS_DEV_WORKSPACE
 RUN rosinstall_generator ${ROS_PKG} --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall && \
-    vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src
+    vcs import ./src < ${ROS_DISTRO}-${ROS_PKG}.rosinstall
 
 #RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash" \
 RUN apt-get update \
