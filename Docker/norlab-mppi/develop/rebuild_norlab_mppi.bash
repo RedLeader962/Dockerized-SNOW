@@ -7,13 +7,14 @@ cd "${DS_DEV_WORKSPACE}"
 
 # Install dependencies
 sudo apt-get update
-rosdep install --from-path src --ignore-src -r --default-yes
-#rm -rf /var/lib/apt/lists/*
+# rosdep install: looks at all the packages in the src directory and tries to find and install their dependencies on your platform
+rosdep install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} --default-yes
 
-python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
+# catkin_make_isolated step: rebuild everything in the catkin workspace DS_DEV_WORKSPACE
+python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_DEV_WORKSPACE}/install_isolated -DCMAKE_BUILD_TYPE=Release \
     &&  rm -rf /var/lib/apt/lists/*
 
-source "${DS_ROS_ROOT}/setup.bash"
+source "source ${DS_DEV_WORKSPACE}/install_isolated/setup.bash"
 
 
 # (Priority) todo:refactor (ref task NLSAR-222 🛠→ setupEnv*.sh scripts for deployement case)
@@ -27,7 +28,7 @@ echo
 echo "  Make sure your workspace is properly overlayed by the setup script by checking the ROS_PACKAGE_PATH environment variable. "
 echo "  It should include the directory you're in: /home/<youruser>/ros_catkin_ws/src:/opt/ros/melodic/share"
 echo
-printenv | grep -e ROS -e DS_
+printenv | grep -e ROS -e MASTER -e HOSTNAME -e DS_
 echo
 
 cd /

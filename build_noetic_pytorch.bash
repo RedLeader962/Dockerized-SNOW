@@ -139,8 +139,8 @@ fi
 # ---Build docker image-------------------------------------------------------------------------------------------------
 
 sudo docker build \
-  -t norlabsnow/${DS_SUB_PROJECT}-noetic-pytorch:${DS_IMAGE_TAG} \
-  -f ./Docker/${DS_SUB_PROJECT}/noetic-pytorch/Dockerfile \
+  -t norlabsnow/${DS_SUB_PROJECT}-ros-noetic:${DS_IMAGE_TAG} \
+  -f ./Docker/${DS_SUB_PROJECT}/ros-noetic/Dockerfile \
   ${BASE_IMG_ARG} \
   ${USER_ARG} \
-  ./Docker/${DS_SUB_PROJECT}/noetic-pytorch
+  ./Docker/${DS_SUB_PROJECT}/ros-noetic
