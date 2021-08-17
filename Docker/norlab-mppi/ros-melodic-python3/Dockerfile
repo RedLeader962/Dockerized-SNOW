@@ -13,12 +13,11 @@
 #   l4t-ros-noetic-pytorch: https://github.com/NVIDIA-AI-IOT/ros2_jetson/blob/main/docker/DockerFile.l4tbase.ros.noetic
 
 ARG BASE_IMAGE=nvcr.io/nvidia/l4t-base:r32.6.1
-#FROM ${BASE_IMAGE} AS noetic-base-image
-FROM ${BASE_IMAGE}
+FROM ${BASE_IMAGE} AS ros-base-image
 MAINTAINER luc.coupal.1@ulaval.ca
 
-ARG ROS_PKG=desktop_full
-#ARG ROS_PKG=ros_base
+#ARG ROS_PKG=desktop_full
+ARG ROS_PKG=ros_base
 ENV ROS_DISTRO=melodic
 ENV DS_ROS_ROOT=/opt/ros/${ROS_DISTRO}
 #ENV ROS_PYTHON_VERSION=3
@@ -174,6 +173,8 @@ WORKDIR "${DS_DEV_WORKSPACE}"
 
 
 # ===Build ROS step DONE================================================================================================
+FROM ros-base-image AS ros-python3-base-image
+
 # Inspired from the ROS In Docker Container post by THE INSANE TECHIE May 7, 2020
 #  https://dhanoopbhaskar.com/blog/2020-05-07-ros-in-docker-container/
 
