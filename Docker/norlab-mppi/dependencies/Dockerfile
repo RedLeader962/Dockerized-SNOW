@@ -13,8 +13,8 @@
 #   l4t-ros-noetic-pytorch: https://github.com/NVIDIA-AI-IOT/ros2_jetson/blob/main/docker/DockerFile.l4tbase.ros.noetic
 
 #ARG BASE_IMAGE=nvidiajetson/l4t-ros-noetic-pytorch:r32.5
-#ARG BASE_IMAGE=norlabsnow/norlab-mppi-ros-noetic:x86-ubuntu20.04
-ARG BASE_IMAGE=norlabsnow/norlab-mppi-ros-noetic:arm64-l4t-r32.6.1
+#ARG BASE_IMAGE=norlabsnow/norlab-mppi-ros-melodic-python3:x86-ubuntu20.04
+ARG BASE_IMAGE=norlabsnow/norlab-mppi-ros-melodic-python3:arm64-l4t-r32.6.1
 FROM ${BASE_IMAGE} AS noetic-base-imag
 
 ENV LANG C.UTF-8
