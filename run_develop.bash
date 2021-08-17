@@ -16,7 +16,7 @@ function print_help_in_terminal() {
 
 \033[1m<optional argument>:\033[0m
   -h, --help                      Get help
-  --runTag=<thatTag>              Overwrite default image tag eg.: x86-ubuntu20.04-gazebo-dart
+  --runTag=<thatTag>              Overwrite default image tag eg.: x86-ubuntu18.04-gazebo-dart
   --name=<myCoolContainer>        Name that new container, the crazier the better
   --src=<myCoolSrcCode>           Host source code directory to mount inside the container.
                                   Must be an absolute path eg.: /home/snowxavier/Repositories/${DS_TARGET_PROJECT_SRC_REPO}
@@ -42,8 +42,8 @@ function print_help_in_terminal() {
   $ sudo git clone https://github.com/RedLeader962/Dockerized-SNOW.git
   $ cd ~/Repositories/Dockerized-SNOW
 
-  $ sudo docker pull norlabsnow/norlab-mppi-dependencies:x86-ubuntu20.04
-  $ bash run_develop.bash --runTag=x86-ubuntu20.04 --name=4everSnow --src=\"\$HOME/Repositories/${DS_TARGET_PROJECT_SRC_REPO}\"
+  $ sudo docker pull norlabsnow/norlab-mppi-develop=x86-ubuntu18.04
+  $ bash run_develop.bash --runTag=x86-ubuntu18.04 --name=4everSnow --src=\"\$HOME/Repositories/${DS_TARGET_PROJECT_SRC_REPO}\"
 
 "
 }
