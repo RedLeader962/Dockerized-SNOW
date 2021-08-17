@@ -124,9 +124,8 @@ RUN /bin/bash -c "if [[ ${DS_IMAGE_ARCHITECTURE} == 'arm64-l4t' ]]; then \
     exit; \
   fi"
 
-# Install PyTorch for x86 with torchvision
+## Install PyTorch for x86 with torchvision
 #    pip3 install torch==1.9.0+cu111 torchvision==0.10.0+cu111 -f https://download.pytorch.org/whl/torch_stable.html \
-
 
 
 
@@ -183,10 +182,8 @@ RUN pip3 install --no-cache-dir --verbose pycuda
 #RUN pip3 install --no-cache-dir --verbose numba
 #RUN pip3 install --no-cache-dir --ignore-installed pybind11
 
-
 #   - pycuda 2021.1 documentation: https://documen.tician.de/pycuda/index.html
 # (CRITICAL) todo:fixme!! (ref task NLSAR-225)
-
 ##
 ## PyCUDA
 ##
@@ -243,6 +240,8 @@ RUN apt-get update \
     && apt-get install --assume-yes --no-install-recommends \
         usbutils \
         openssh-server \
+        rsync \
+        tar \
     && rm -rf /var/lib/apt/lists/*
 
 ## install C++ development utilities
@@ -256,122 +255,10 @@ RUN apt-get update \
 #    && rm -rf /var/lib/apt/lists/*
 
 
-
-
-
-#ENV DS_DEV_WORKSPACE=$HOME/ros_catkin_ws
-#
-## ... Clone required repo ..............................................................................................
-#WORKDIR ${DS_DEV_WORKSPACE}/src
-#RUN git clone https://github.com/norlab-ulaval/icp_odom_with_twist.git \
-#    && cd ${DS_DEV_WORKSPACE} \
-#    && apt-get update \
-#    && rosdep install --from-path src --ignore-src --default-yes \
-#    && rm -rf /var/lib/apt/lists/*
-#
-#
-#WORKDIR ${DS_DEV_WORKSPACE}
-#RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
-#        && catkin_make \
-#        && source ${DS_DEV_WORKSPACE}/devel/setup.bash"
-#
-#
-## ... Clone required repo ..............................................................................................
-#WORKDIR ${DS_DEV_WORKSPACE}/src
-#RUN /bin/bash -c "source ${DS_DEV_WORKSPACE}/install_isolated/setup.bash" \
-#    && git clone https://github.com/norlab-ulaval/icp_odom_with_twist.git
-#
-##    && cd ${DS_DEV_WORKSPACE} \
-##    && apt-get update \
-##    && rosdep install --from-path ./src --ignore-src --default-yes  --rosdistro=${ROS_DISTRO} \
-##    && rm -rf /var/lib/apt/lists/*
-#
-#WORKDIR ${DS_DEV_WORKSPACE}
-#RUN /bin/bash -c "source ${DS_DEV_WORKSPACE}/install_isolated/setup.bash" \
-#    && python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_DEV_WORKSPACE}/install_isolated -DCMAKE_BUILD_TYPE=Release \
-#    && rm -rf /var/lib/apt/lists/*
-
-
 WORKDIR ${DS_DEV_WORKSPACE}
 RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
     && source ${DS_DEV_WORKSPACE}/devel/setup.bash \
     && printenv | grep -e AR_ -e ROS -e MASTER -e HOSTNAME -e DS_"
-
-
-
-# ---Build the ROS source-----------------------------------------------------------------------------------------------
-# Procedure ref: ROS noetic installation from source http://wiki.ros.org/noetic/Installation/Source
-
-# ... register the ROS package source ..................................................................................
-# (CRITICAL) todo:assess >> next bloc ↓↓
-#RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-#RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu focal main" > /etc/apt/sources.list.d/ros-latest.list'
-#RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
-
-### (CRITICAL) todo:assess >> next bloc ↓↓
-## setup sources.list
-#RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-## Ref: https://github.com/NVIDIA-AI-IOT/ros2_jetson/blob/main/docker/DockerFile.l4tbase.ros.noetic
-#RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
-
-## install additional ROS packages
-#RUN apt-get update \
-#    && apt-get install --assume-yes \
-#      geometry2 \
-#        ros-noetic-tf2 \
-#    && rosdep update \
-#    && rosdep fix-permissions \
-#    && rm -rf /var/lib/apt/lists/*
-
-#    && apt-get install --assume-yes --no-install-recommends \
-#      ros-noetic-tf2-tools \
-
-# (Priority) todo:fixme!! (ref task NLSAR-232 🩹→ (arm64-l4t version) E: Unable to locate package ros-noetic-tf2-tools)
-WORKDIR "${DS_DEV_WORKSPACE}"
-
-##RUN rosinstall_generator tf2 --rosdistro ${ROS_DISTRO} --deps | vcs import ./src \
-#RUN rosinstall_generator ${ROS_PKG} --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall \
-#    && vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src \
-#    && apt-get update \
-#    && rosdep fix-permissions \
-#    && rosdep update  \
-#    && rosdep --reinstall install geometry2 --rosdistro ${ROS_DISTRO} -y \
-#    && python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
-#    && rm -rf /var/lib/apt/lists/*
-
-#RUN /bin/bash -c "source ${DS_ROS_ROOT}/setup.bash \
-#    && printenv | grep -e AR_ -e ROS -e MASTER -e HOSTNAME -e DS_"
-
-##ros-noetic-tf2
-#RUN /bin/bash -c "source ${DS_ROS_ROOT}/setup.bash" \
-#    && rosinstall_generator tf2 --rosdistro ${ROS_DISTRO} --deps --exclude RPP --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall \
-#    && vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src \
-#    && apt-get update \
-#    && rosdep fix-permissions \
-#    && rosdep update  \
-#    && rosdep --reinstall install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} -y \
-#    && python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
-#    && rm -rf /var/lib/apt/lists/*
-
-#WORKDIR "${DS_DEV_WORKSPACE}"
-#RUN apt-get update \
-#    && rosdep install --from-path src --ignore-src --default-yes \
-#    && rosdep fix-permissions \
-#    && rosdep update \
-#    && rosdep fix-permissions
-#
-#RUN /bin/bash -c "source ${DS_ROS_ROOT}/setup.bash" \
-#    && python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_ROS_ROOT} -DCMAKE_BUILD_TYPE=Release \
-#    &&  rm -rf /var/lib/apt/lists/*
-
-
-# Note on catkin_make_isolated:
-# - Flag `--install-space <path/to/somewhere/else>` overwrite the default `~/ros_catkin_ws/install_isolated` install dir.
-# - It treats each package as a separate cmake project, and builds and installs each separately in dependency order.
-#   This is why it's able to build plain cmake packages.
-#   ref: https://answers.ros.org/question/320613/catkin_make-vs-catkin_make_isolated-which-is-preferred/
-
-
 
 WORKDIR "${DS_DEV_WORKSPACE}"
 

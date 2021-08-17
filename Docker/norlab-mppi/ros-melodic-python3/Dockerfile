@@ -187,34 +187,35 @@ RUN apt-get update && apt-get upgrade -y \
      && add-apt-repository ppa:deadsnakes/ppa \
      && apt-get install -y ${DS_PYTHON3_VERSION}
 
- RUN apt-get update && apt-get install -y \
-     python-pip \
-     python3-pip \
-     python3-all-dev
+# Deadsnakes python 3.9 on Ubuntu 18.04 LTS https://gist.github.com/plembo/6bc141a150cff0369574ce0b0a92f5e7
+RUN apt-get update && apt-get install -y \
+    python-pip \
+    python3-pip \
+    python3-all-dev
 
- RUN apt-get install -y \
-     python3-rospkg*
+RUN apt-get install -y \
+    python3-rospkg*
 
- RUN apt-get update --fix-missing
- RUN dpkg --configure -a
- RUN apt-get install -f
- RUN apt-get install -y \
-     ros-melodic-desktop-full --fix-missing
- RUN apt-get install -y python-catkin-tools
+RUN apt-get update --fix-missing
+RUN dpkg --configure -a
+RUN apt-get install -f
+RUN apt-get install -y \
+    ros-${ROS_DISTRO}-`echo "${ROS_PKG}" | tr '_' '-'` --fix-missing
+RUN apt-get install -y python-catkin-tools
 
- RUN apt-get install --no-install-recommends --no-install-suggests -y \
-     build-essential \
-     cmake \
-     ${DS_PYTHON3_VERSION}-dev \
-     && rm -rf /var/lib/apt/lists/*
+RUN apt-get install --no-install-recommends --no-install-suggests -y \
+    build-essential \
+    cmake \
+    ${DS_PYTHON3_VERSION}-dev \
+    && rm -rf /var/lib/apt/lists/*
 
- RUN python -m pip install --upgrade pip
- RUN python2 -m pip install --upgrade pip
- RUN python3 -m pip install --upgrade pip
- RUN pip3 install --upgrade pip
- RUN pip3 install --upgrade setuptools
- RUN ${DS_PYTHON3_VERSION} -m pip install --upgrade pip
- RUN ${DS_PYTHON3_VERSION} -m pip install --upgrade setuptools
+RUN python -m pip install --upgrade pip
+RUN python2 -m pip install --upgrade pip
+RUN python3 -m pip install --upgrade pip
+RUN pip3 install --upgrade pip
+RUN pip3 install --upgrade setuptools
+RUN ${DS_PYTHON3_VERSION} -m pip install --upgrade pip
+RUN ${DS_PYTHON3_VERSION} -m pip install --upgrade setuptools
 
 
 ## ===INstall Python 3 step DONE========================================================================================
