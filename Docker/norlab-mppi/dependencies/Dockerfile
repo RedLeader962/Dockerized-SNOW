@@ -73,10 +73,10 @@ RUN apt-get update \
     && apt-get install -y software-properties-common \
     && ldconfig \
     && apt-get install -y --no-install-recommends \
-            python3-pip \
-            python3-dev \
             libopenblas-base \
             libopenmpi-dev \
+            python3-pip \
+            python3-dev \
             openmpi-bin \
             openmpi-common \
             gfortran \
@@ -88,8 +88,10 @@ RUN pip3 install --no-cache-dir --verbose --upgrade pip
 RUN pip3 install --no-cache-dir --verbose setuptools
 RUN pip3 install --no-cache-dir --verbose wheel
 RUN pip3 install --no-cache-dir --verbose Cython
-#RUN pip3 install --no-cache-dir --verbose numpy
+RUN pip3 install --no-cache-dir --verbose numpy
 
+# Note: libopenblas-base, libopenmpi-dev, python3-pip, Cython, numpy are all requirement for PyTorch
+#       build for JetPack (L4T). https://elinux.org/Jetson_Zoo#PyTorch_.28Caffe2.29
 
 
 
@@ -162,7 +164,6 @@ RUN pip3 install --upgrade pip
 #RUN pip3 install --no-cache-dir --verbose setuptools
 #RUN pip3 install --no-cache-dir --verbose wheel
 
-RUN pip3 install --no-cache-dir --verbose numpy
 RUN pip3 install --no-cache-dir --verbose scipy
 RUN pip3 install --no-cache-dir --verbose scikit-learn
 RUN pip3 install --no-cache-dir --verbose pandas

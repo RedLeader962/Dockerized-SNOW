@@ -30,6 +30,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV DS_IMG_LSB_RELEASE=bionic
 ENV DS_DEV_WORKSPACE=$HOME/ros_catkin_ws
 
+# Python 3.6 is a requirement for PyTorch compiled for JetPack (L4T)
+#   https://elinux.org/Jetson_Zoo#PyTorch_.28Caffe2.29
+ENV DS_PYTHON3_VERSION=python3.6
+
 WORKDIR /workspace
 
 
@@ -181,7 +185,7 @@ FROM ros-base-image AS ros-python3-base-image
 RUN apt-get update && apt-get upgrade -y \
      && apt-get install -y software-properties-common \
      && add-apt-repository ppa:deadsnakes/ppa \
-     && apt-get install -y python3.8
+     && apt-get install -y ${DS_PYTHON3_VERSION}
 
  RUN apt-get update && apt-get install -y \
      python-pip \
@@ -201,7 +205,7 @@ RUN apt-get update && apt-get upgrade -y \
  RUN apt-get install --no-install-recommends --no-install-suggests -y \
      build-essential \
      cmake \
-     python3.8-dev \
+     ${DS_PYTHON3_VERSION}-dev \
      && rm -rf /var/lib/apt/lists/*
 
  RUN python -m pip install --upgrade pip
@@ -209,8 +213,8 @@ RUN apt-get update && apt-get upgrade -y \
  RUN python3 -m pip install --upgrade pip
  RUN pip3 install --upgrade pip
  RUN pip3 install --upgrade setuptools
- RUN python3.8 -m pip install --upgrade pip
- RUN python3.8 -m pip install --upgrade setuptools
+ RUN ${DS_PYTHON3_VERSION} -m pip install --upgrade pip
+ RUN ${DS_PYTHON3_VERSION} -m pip install --upgrade setuptools
 
 
 ## ===INstall Python 3 step DONE========================================================================================
