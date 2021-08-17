@@ -7,7 +7,6 @@
 # - dusty-nv/jetson-containers: https://github.com/dusty-nv/jetson-containers/blob/master/Dockerfile.ros.noetic
 # - ROS noetic installation from source: http://wiki.ros.org/noetic/Installation/Source
 
-
 # Base image: nvidia linux 4 tegra (L4T) nvidia docker container official image
 #   l4t-base: https://ngc.nvidia.com/catalog/containers/nvidia:l4t-base
 #   l4t-ros-noetic-pytorch: https://github.com/NVIDIA-AI-IOT/ros2_jetson/blob/main/docker/DockerFile.l4tbase.ros.noetic
@@ -21,8 +20,7 @@ FROM ${BASE_IMAGE} AS ros-base-imag
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
-#ENV ROS_DISTRO=noetic
-ENV DS_ROS_ROOT=/opt/ros/${ROS_DISTRO}
+#ENV DS_ROS_ROOT=/opt/ros/${ROS_DISTRO}
 ENV ROS_PYTHON_VERSION=3
 RUN echo "export ROS_PYTHON_VERSION=3" >> ~/.bashrc
 
@@ -62,12 +60,8 @@ WORKDIR /workspace
 # ===PyTorch============================================================================================================
 FROM ros-base-imag AS ros-pytorch-base-image
 
-#
-# install PyTorch prerequisites (many of these are for numpy)
-#
 ENV PATH="/usr/local/cuda/bin:${PATH}"
 ENV LD_LIBRARY_PATH="/usr/local/cuda/lib64:${LD_LIBRARY_PATH}"
-
 
 RUN apt-get update \
     && apt-get install -y software-properties-common \
@@ -82,7 +76,8 @@ RUN apt-get update \
             gfortran \
     && rm -rf /var/lib/apt/lists/*
 
-#            libopenmpi2 \
+# Note: libopenblas-base, libopenmpi-dev, python3-pip, Cython, numpy are all requirement for PyTorch
+#       build for JetPack (L4T). https://elinux.org/Jetson_Zoo#PyTorch_.28Caffe2.29
 
 RUN pip3 install --no-cache-dir --verbose --upgrade pip
 RUN pip3 install --no-cache-dir --verbose setuptools
@@ -90,8 +85,6 @@ RUN pip3 install --no-cache-dir --verbose wheel
 RUN pip3 install --no-cache-dir --verbose Cython
 RUN pip3 install --no-cache-dir --verbose numpy
 
-# Note: libopenblas-base, libopenmpi-dev, python3-pip, Cython, numpy are all requirement for PyTorch
-#       build for JetPack (L4T). https://elinux.org/Jetson_Zoo#PyTorch_.28Caffe2.29
 
 
 
@@ -307,7 +300,12 @@ RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
     && source ${DS_DEV_WORKSPACE}/devel/setup.bash \
     && printenv | grep -e AR_ -e ROS -e MASTER -e HOSTNAME -e DS_"
 
-WORKDIR "${DS_DEV_WORKSPACE}"
+
+# Temporary work around for the numpy 1.19.5 `Illegal instruction (core dumped)` error when executed on arm64
+#   - https://github.com/numpy/numpy/issues/18131
+#   - see Task NLSAR-237 🩹→ Illegal instruction (core dumped) on the arm64-l4t image when running pytorch
+RUN pip3 install --no-cache-dir --verbose numpy==1.19.4
+
 
 # Make sure that you have your environment properly setup. A good way to check is to ensure that environment variables
 # like ROS_ROOT and ROS_PACKAGE_PATH are set:
