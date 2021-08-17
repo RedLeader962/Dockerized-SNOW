@@ -126,15 +126,15 @@ if [[ "$ADD_TO_TAG" != "" ]]; then
   DS_IMAGE_TAG="${DS_IMAGE_TAG}-${ADD_TO_TAG}"
 fi
 
-## todo:on task end >> delete next bloc ↓↓
-#echo "
-#${0}:
-#  USER_ARG >> ${USER_ARG}
-#  DS_IMAGE_TAG >> ${DS_IMAGE_TAG}
-#  BASE_IMG_ARG >> ${BASE_IMG_ARG}
-#  BASE_IMG_VERSION >> ${BASE_IMG_VERSION}
-#  DS_SUB_PROJECT >> ${DS_SUB_PROJECT}
-#"
+# todo:on task end >> delete next bloc ↓↓
+echo "
+${0}:
+  USER_ARG >> ${USER_ARG}
+  DS_IMAGE_TAG >> ${DS_IMAGE_TAG}
+  BASE_IMG_ARG >> ${BASE_IMG_ARG}
+  BASE_IMG_VERSION >> ${BASE_IMG_VERSION}
+  DS_SUB_PROJECT >> ${DS_SUB_PROJECT}
+"
 
 # ---Build docker image-------------------------------------------------------------------------------------------------
 
