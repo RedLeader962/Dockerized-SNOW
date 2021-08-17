@@ -68,10 +68,10 @@ RUN apt-get update \
 # setup sources.list
 #RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu ${DS_IMG_LSB_RELEASE} main" > /etc/apt/sources.list.d/ros-latest.list'
-RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
+#RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
 
 ## Ref: https://github.com/NVIDIA-AI-IOT/ros2_jetson/blob/main/docker/DockerFile.l4tbase.ros.noetic
-#RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 
 # ... Install ROS, create and build catkin workspace ...................................................................
 ENV DS_DEV_WORKSPACE=$HOME/ros_catkin_ws
