@@ -200,7 +200,7 @@ RUN apt-get update && apt-get upgrade -y \
  RUN apt-get install --no-install-recommends --no-install-suggests -y \
      build-essential \
      cmake \
-     python3.7-dev \
+     python3.8-dev \
      && rm -rf /var/lib/apt/lists/*
 
  RUN python -m pip install --upgrade pip
@@ -208,8 +208,8 @@ RUN apt-get update && apt-get upgrade -y \
  RUN python3 -m pip install --upgrade pip
  RUN pip3 install --upgrade pip
  RUN pip3 install --upgrade setuptools
- RUN python3.7 -m pip install --upgrade pip
- RUN python3.7 -m pip install --upgrade setuptools
+ RUN python3.8 -m pip install --upgrade pip
+ RUN python3.8 -m pip install --upgrade setuptools
 
 
 ## ===INstall Python 3 step DONE========================================================================================
