@@ -104,10 +104,10 @@ RUN git clone https://github.com/norlab-ulaval/icp_odom_with_twist.git
 
 
 WORKDIR "${DS_DEV_WORKSPACE}"
-# 1. rosinstall_generator + vcs import steps: download the source code for ROS packages into the ./src directory
-# 2. rosdep install step: looks at all the packages in the src directory and tries to find and install their dependencies on your platform
-# 3. catkin_make_isolated step: build everything in the catkin workspace DS_DEV_WORKSPACE
-RUN #rosinstall_generator ${ROS_PKG} --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall && \
+## 1. rosinstall_generator + vcs import steps: download the source code for ROS packages into the ./src directory
+## 2. rosdep install step: looks at all the packages in the src directory and tries to find and install their dependencies on your platform
+## 3. catkin_make_isolated step: build everything in the catkin workspace DS_DEV_WORKSPACE
+#RUN rosinstall_generator ${ROS_PKG} --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall && \
 #    vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src
 
 RUN apt-get update && \
