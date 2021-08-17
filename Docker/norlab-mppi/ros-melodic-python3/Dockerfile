@@ -18,6 +18,11 @@ MAINTAINER luc.coupal.1@ulaval.ca
 
 #ARG DS_ROS_PKG=desktop_full
 ARG DS_ROS_PKG=ros_base
+# Be advise ros_base in hardcoded at the end of the dockerfile as a quickhack for an other issue.
+# If you change it here, you'l probably have to change it there to
+# (NLSAR-236 🩹→ refactor hardcoded `ros_distro_ros_pck` variable)
+
+
 ENV DS_ROS_PKG=${DS_ROS_PKG}
 ENV ROS_DISTRO=melodic
 ENV DS_ROS_ROOT=/opt/ros/${ROS_DISTRO}
@@ -200,7 +205,7 @@ RUN apt-get install -y \
 # (Priority) todo:fixme!! >> do not hardcode value (NLSAR-236 🩹→ refactor hardcoded `ros_distro_ros_pck` variable)
 #ARG ROS_DISTRO_ROS_PCK="ros-${ROS_DISTRO}-`echo ${DS_ROS_PKG} | tr '_' '-'`"
 ARG ROS_DISTRO_ROS_PCK=ros-${ROS_DISTRO}-ros-base
-RUN echo "ROS_DISTRO_ROS_PCK=${ROS_DISTRO_ROS_PCK}"
+RUN echo "Be advise ROS_DISTRO_ROS_PCK=${ROS_DISTRO_ROS_PCK} is hardcoded at the end of the dockerfile as a temporary workaround, see  task NLSAR-236 for info"
 
 RUN apt-get update --fix-missing
 RUN dpkg --configure -a
