@@ -23,7 +23,8 @@ ENV LC_ALL C.UTF-8
 
 #ENV ROS_DISTRO=noetic
 ENV DS_ROS_ROOT=/opt/ros/${ROS_DISTRO}
-#ENV ROS_PYTHON_VERSION=3
+ENV ROS_PYTHON_VERSION=3
+RUN echo "export ROS_PYTHON_VERSION=3" >> ~/.bashrc
 
 WORKDIR /workspace
 
@@ -291,7 +292,8 @@ RUN apt-get update \
 
 
 WORKDIR ${DS_DEV_WORKSPACE}
-RUN /bin/bash -c "source ${DS_DEV_WORKSPACE}/install_isolated/setup.bash \
+RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
+    && source ${DS_DEV_WORKSPACE}/devel/setup.bash \
     && printenv | grep -e AR_ -e ROS -e MASTER -e HOSTNAME -e DS_"
 
 

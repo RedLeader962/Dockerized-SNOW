@@ -85,14 +85,14 @@ RUN apt-get update \
           python3-rosdep \
           python3-rosinstall-generator \
           python3-vcstool \
+          python3-wstool \
+          python3-rosinstall \
           build-essential \
     && rosdep init \
     && rosdep update \
     && rosdep fix-permissions \
     && rm -rf /var/lib/apt/lists/*
 
-#          python3-rosinstall \
-#          python3-wstool \
 
 RUN mkdir -p "${DS_DEV_WORKSPACE}/src"
 WORKDIR "${DS_DEV_WORKSPACE}/src"
@@ -107,17 +107,30 @@ RUN rosinstall_generator ${ROS_PKG} --rosdistro ${ROS_DISTRO} --deps --tar > ${R
     vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src && \
     apt-get update && \
     rosdep install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} -y && \
-    python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_DEV_WORKSPACE}/install_isolated -DCMAKE_BUILD_TYPE=Release && \
+    python3 ./src/catkin/bin/catkin_make --install -DCMAKE_BUILD_TYPE=Release && \
     rm -rf /var/lib/apt/lists/*
 
-# Note on catkin_make_isolated:
-# - Flag `--install-space <path/to/somewhere/else>` overwrite the default `~/ros_catkin_ws/install_isolated` install dir.
-# - It treats each package as a separate cmake project, and builds and installs each separately in dependency order.
-#   This is why it's able to build plain cmake packages.
-#   ref: https://answers.ros.org/question/320613/catkin_make-vs-catkin_make_isolated-which-is-preferred/
+RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
+    && source ${DS_DEV_WORKSPACE}/devel/setup.bash" \
+    && echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc \
+    && echo "source ${DS_DEV_WORKSPACE}/devel/setup.bash" >> ~/.bashrc
 
-RUN /bin/bash -c "source ${DS_DEV_WORKSPACE}/install_isolated/setup.bash" \
-    && echo "source ${DS_DEV_WORKSPACE}/install_isolated/setup.bash" >> ~/.bashrc
+
+#RUN rosinstall_generator ${ROS_PKG} --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall && \
+#    vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src && \
+#    apt-get update && \
+#    rosdep install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} -y && \
+#    python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_DEV_WORKSPACE}/install_isolated -DCMAKE_BUILD_TYPE=Release && \
+#    rm -rf /var/lib/apt/lists/*
+#
+## Note on catkin_make_isolated:
+## - Flag `--install-space <path/to/somewhere/else>` overwrite the default `~/ros_catkin_ws/install_isolated` install dir.
+## - It treats each package as a separate cmake project, and builds and installs each separately in dependency order.
+##   This is why it's able to build plain cmake packages.
+##   ref: https://answers.ros.org/question/320613/catkin_make-vs-catkin_make_isolated-which-is-preferred/
+#
+#RUN /bin/bash -c "source ${DS_DEV_WORKSPACE}/install_isolated/setup.bash" \
+#    && echo "source ${DS_DEV_WORKSPACE}/install_isolated/setup.bash" >> ~/.bashrc
 
 
 RUN apt-get update \
