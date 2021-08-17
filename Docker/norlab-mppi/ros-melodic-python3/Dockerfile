@@ -83,7 +83,6 @@ RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt
 
 RUN apt-get update \
     && apt-get install --assume-yes --no-install-recommends \
-        ros-${ROS_DISTRO}-`echo "${ROS_PKG}" | tr '_' '-'` \
         python-rosdep \
         python-rosinstall-generator \
         python-vcstools \
@@ -95,6 +94,7 @@ RUN apt-get update \
     && rosdep fix-permissions \
     && rm -rf /var/lib/apt/lists/*
 
+#        ros-${ROS_DISTRO}-`echo "${ROS_PKG}" | tr '_' '-'` \
 #        python3-rosinstall \
 #          ros-melodic-joy \
 #          python3-wstool \
@@ -112,8 +112,8 @@ WORKDIR "${DS_DEV_WORKSPACE}"
 ## 1. rosinstall_generator + vcs import steps: download the source code for ROS packages into the ./src directory
 ## 2. rosdep install step: looks at all the packages in the src directory and tries to find and install their dependencies on your platform
 ## 3. catkin_make_isolated step: build everything in the catkin workspace DS_DEV_WORKSPACE
-#RUN rosinstall_generator ${ROS_PKG} --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall && \
-#    vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src
+RUN rosinstall_generator ${ROS_PKG} --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall && \
+    vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src
 
 RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash" \
     && apt-get update \
