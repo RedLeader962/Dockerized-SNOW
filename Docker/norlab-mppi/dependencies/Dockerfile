@@ -237,7 +237,7 @@ RUN pip3 install --no-cache-dir --verbose jetson-stats
 RUN pip3 install --no-cache-dir --verbose termcolor
 RUN pip3 install --no-cache-dir --verbose decorator
 RUN pip3 install --no-cache-dir --verbose jupyter
-RUN pip3 install --no-cache-dir --verbose yaml
+RUN pip3 install --no-cache-dir --verbose pyyaml
 
 # install development utilities
 RUN apt-get update \

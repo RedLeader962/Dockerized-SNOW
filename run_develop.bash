@@ -174,15 +174,15 @@ New container name: ${CONTAINER_NAME}
 "
 
 
-## todo:on task end >> mute next bloc ↓↓
-echo "
-${0}:
-  DS_SUB_PROJECT >> ${DS_SUB_PROJECT}
-  DS_IMAGE_TAG >> ${DS_IMAGE_TAG}
-  HOST_SOURCE_CODE_FLAG >> ${HOST_SOURCE_CODE_FLAG}
-  HOST_DATA_DIR_FLAG >> ${HOST_DATA_DIR_FLAG}
-  USER_ARG >> ${USER_ARG}
-"
+### todo:on task end >> mute next bloc ↓↓
+#echo "
+#${0}:
+#  DS_SUB_PROJECT >> ${DS_SUB_PROJECT}
+#  DS_IMAGE_TAG >> ${DS_IMAGE_TAG}
+#  HOST_SOURCE_CODE_FLAG >> ${HOST_SOURCE_CODE_FLAG}
+#  HOST_DATA_DIR_FLAG >> ${HOST_DATA_DIR_FLAG}
+#  USER_ARG >> ${USER_ARG}
+#"
 
 ## todo:assessment (ref task NLSAR-159 Fix the execute permission of source code mounted volume)
 #sudo chmod --recursive +x "${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"

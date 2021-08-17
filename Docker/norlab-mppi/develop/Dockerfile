@@ -16,6 +16,7 @@ ENV DS_HOST_TYPE=${DS_HOST_TYPE}
 WORKDIR /
 COPY rebuild_norlab_mppi.bash /
 COPY ros_entrypoint.bash /
+COPY fetch_ros_env.bash /
 # set read/write permission to entrypoint file and joystick dir js0
 RUN /bin/bash -c "chmod +x /ros_entrypoint.bash" \
     && /bin/bash -c "chmod +x /rebuild_norlab_mppi.bash" \

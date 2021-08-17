@@ -197,7 +197,7 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get install -y \
     python3-rospkg*
 
-
+# (Priority) todo:fixme!! >> do not hardcode value (NLSAR-236 🩹→ refactor hardcoded `ros_distro_ros_pck` variable)
 #ARG ROS_DISTRO_ROS_PCK="ros-${ROS_DISTRO}-`echo ${DS_ROS_PKG} | tr '_' '-'`"
 ARG ROS_DISTRO_ROS_PCK=ros-${ROS_DISTRO}-ros-base
 RUN echo "ROS_DISTRO_ROS_PCK=${ROS_DISTRO_ROS_PCK}"
