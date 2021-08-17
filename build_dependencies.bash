@@ -116,6 +116,7 @@ elif [[ "$DS_IMAGE_TAG" == "x86" ]] && [[ "$DS_SUB_PROJECT" == "norlab-mppi" ]];
 #  BASE_IMG_VERSION="ubuntu20.04"
   BASE_IMG_VERSION="ubuntu18.04"
 #  BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/cudagl:11.4.0-devel-${BASE_IMG_VERSION}"
+#  BASE_IMG_ARG=" --build-arg BASE_IMAGE=norlabsnow/norlab-mppi-ros-noetic:x86-${BASE_IMG_VERSION}"
   BASE_IMG_ARG=" --build-arg BASE_IMAGE=norlabsnow/norlab-mppi-ros-melodic-python3:x86-${BASE_IMG_VERSION}"
 elif [[ "$DS_IMAGE_TAG" == "arm64-l4t" ]] && [[ "$DS_SUB_PROJECT" == "gt-autorally" ]]; then
   if [[ "$BASE_IMG_VERSION" == "" ]]; then
