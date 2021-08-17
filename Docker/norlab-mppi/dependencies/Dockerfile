@@ -234,6 +234,10 @@ FROM noetic-performance-pkg-base-image AS final
 
 RUN pip3 install --no-cache-dir --verbose pytest
 RUN pip3 install --no-cache-dir --verbose jetson-stats
+RUN pip3 install --no-cache-dir --verbose termcolor
+RUN pip3 install --no-cache-dir --verbose decorator
+RUN pip3 install --no-cache-dir --verbose jupyter
+RUN pip3 install --no-cache-dir --verbose yaml
 
 # install development utilities
 RUN apt-get update \
@@ -242,6 +246,7 @@ RUN apt-get update \
         openssh-server \
         rsync \
         tar \
+    && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 ## install C++ development utilities
@@ -252,7 +257,46 @@ RUN apt-get update \
 #        texinfo \
 #        libboost-all-dev\
 #        libtbb-dev \
+#        gcc \
+#        g++ \
+#        gdb \
+#        clang \
+#        cmake \
+#        rsync \
+#        tar \
+#        gdbserver \
 #    && rm -rf /var/lib/apt/lists/*
+
+
+# ...Setup ssh server...................................................................................................
+RUN ( \
+    echo 'LogLevel DEBUG2'; \
+    echo 'PermitRootLogin yes'; \
+    echo 'PasswordAuthentication yes'; \
+    echo 'Port 2222'; \
+    echo 'Subsystem sftp /usr/lib/openssh/sftp-server'; \
+  ) > /etc/ssh/sshd_config_clion_snow_dev \
+  && mkdir /run/sshd
+
+# ssh port, remaped from default 22 to 2222
+ARG PYCHARM_DEV_SERVER_PORT=2222
+ENV PYCHARM_DEV_SERVER_PORT=${PYCHARM_DEV_SERVER_PORT}
+EXPOSE ${PYCHARM_DEV_SERVER_PORT}
+
+## gdbserver port
+#EXPOSE 7777
+
+# ...Add new user.......................................................................................................
+ARG NEW_USER=clion-debugger
+ENV CLION_DEV_USER=${NEW_USER}
+ARG PASSWORD=lasagne
+
+RUN echo 'root:SNOW' | chpasswd
+RUN useradd -m ${NEW_USER} \
+  && yes ${PASSWORD} | passwd ${NEW_USER}
+
+# (Optional) Change default shell for new user
+#RUN usermod -s /bin/bash ${NEW_USER}
 
 
 WORKDIR ${DS_DEV_WORKSPACE}

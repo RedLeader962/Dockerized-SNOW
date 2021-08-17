@@ -196,11 +196,15 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get install -y \
     python3-rospkg*
 
+
+ROS_DISTRO_ROS_PCK=ros-${ROS_DISTRO}-$(echo "${DS_ROS_PKG}" | tr '_' '-')
+RUN echo "ROS_DISTRO_ROS_PCK=${ROS_DISTRO_ROS_PCK}"
+
 RUN apt-get update --fix-missing
 RUN dpkg --configure -a
 RUN apt-get install -f
 RUN apt-get install -y \
-    ros-${ROS_DISTRO}-$(echo "${DS_ROS_PKG}" | tr '_' '-') --fix-missing
+    ${ROS_DISTRO_ROS_PCK} --fix-missing
 RUN apt-get install -y python-catkin-tools
 
 RUN apt-get install --no-install-recommends --no-install-suggests -y \
