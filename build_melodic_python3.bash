@@ -51,10 +51,10 @@ BASE_IMG_ARG=""
 DS_SUB_PROJECT="norlab-mppi"
 ADD_TO_TAG=""
 
-## todo:on task end >> delete next bloc ↓↓
-#echo "
-#${0}: all arg >> ${@}
-#"
+# todo:on task end >> delete next bloc ↓↓
+echo "
+${0}: all arg >> ${@}
+"
 
 for arg in "$@"; do
   case $arg in
@@ -108,7 +108,7 @@ if [[ "$DS_IMAGE_TAG" == "arm64-l4t" ]] && [[ "$DS_SUB_PROJECT" == "norlab-mppi"
   fi
   BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/l4t-base:${BASE_IMG_VERSION}"
 elif [[ "$DS_IMAGE_TAG" == "x86" ]] && [[ "$DS_SUB_PROJECT" == "norlab-mppi" ]]; then
-  BASE_IMG_VERSION="ubuntu20.04"
+  BASE_IMG_VERSION="ubuntu18.04"
   BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/cudagl:11.4.0-devel-${BASE_IMG_VERSION}"
 else
   echo  "$DS_SUB_PROJECT is not currently supported"
