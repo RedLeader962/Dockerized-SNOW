@@ -104,7 +104,7 @@ RUN /bin/bash -c "source ${DS_DEV_WORKSPACE}/install_isolated/setup.bash" \
 
 WORKDIR ${DS_DEV_WORKSPACE}
 RUN /bin/bash -c "source ${DS_DEV_WORKSPACE}/install_isolated/setup.bash" \
-    && python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_DEV_WORKSPACE}/install_isolated --rosdistro ${ROS_DISTRO} -DCMAKE_BUILD_TYPE=Release \
+    && python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_DEV_WORKSPACE}/install_isolated --rosdistro=${ROS_DISTRO} -DCMAKE_BUILD_TYPE=Release \
     && rm -rf /var/lib/apt/lists/*
 
 
