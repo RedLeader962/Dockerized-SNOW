@@ -18,6 +18,7 @@ MAINTAINER luc.coupal.1@ulaval.ca
 
 #ARG DS_ROS_PKG=desktop_full
 ARG DS_ROS_PKG=ros_base
+ENV DS_ROS_PKG=${DS_ROS_PKG}
 ENV ROS_DISTRO=melodic
 ENV DS_ROS_ROOT=/opt/ros/${ROS_DISTRO}
 #ENV ROS_PYTHON_VERSION=3
