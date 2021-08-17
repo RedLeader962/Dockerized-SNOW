@@ -20,7 +20,7 @@ function print_help_in_terminal() {
   --appendToTag=<detail>    Add suplemental details to the builded image tag eg.: --appendToTag=test
 
 \033[1mNote:\033[0m You can pass any docker build flag as additional argument eg:
-  --build-arg=\"ROS_PKG=desktop-full\"
+  --build-arg=\"DS_ROS_PKG=desktop-full\"
   --build-arg=\"BASE_IMAGE=nvcr.io/nvidia/l4t-base:r32.5.0\"
 
 \033[2mRef. docker build command:

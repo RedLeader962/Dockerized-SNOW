@@ -16,8 +16,8 @@ ARG BASE_IMAGE=nvcr.io/nvidia/l4t-base:r32.6.1
 #FROM ${BASE_IMAGE} AS noetic-base-image
 FROM ${BASE_IMAGE}
 
-#ARG ROS_PKG=desktop_full
-ARG ROS_PKG=ros_base
+#ARG DS_ROS_PKG=desktop_full
+ARG DS_ROS_PKG=ros_base
 ENV ROS_DISTRO=noetic
 ENV DS_ROS_ROOT=/opt/ros/${ROS_DISTRO}
 ENV ROS_PYTHON_VERSION=3
@@ -103,8 +103,8 @@ WORKDIR "${DS_DEV_WORKSPACE}"
 # 1. rosinstall_generator + vcs import steps: download the source code for ROS packages into the ./src directory
 # 2. rosdep install step: looks at all the packages in the src directory and tries to find and install their dependencies on your platform
 # 3. catkin_make_isolated step: build everything in the catkin workspace DS_DEV_WORKSPACE
-RUN rosinstall_generator ${ROS_PKG} --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall && \
-    vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src && \
+RUN rosinstall_generator ${DS_ROS_PKG} --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${DS_ROS_PKG}.rosinstall && \
+    vcs import --input ${ROS_DISTRO}-${DS_ROS_PKG}.rosinstall ./src && \
     apt-get update && \
     rosdep install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} -y && \
     python3 ./src/catkin/bin/catkin_make --install -DCMAKE_BUILD_TYPE=Release && \
@@ -116,8 +116,8 @@ RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
     && echo "source ${DS_DEV_WORKSPACE}/devel/setup.bash" >> ~/.bashrc
 
 
-#RUN rosinstall_generator ${ROS_PKG} --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall && \
-#    vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src && \
+#RUN rosinstall_generator ${DS_ROS_PKG} --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${DS_ROS_PKG}.rosinstall && \
+#    vcs import --input ${ROS_DISTRO}-${DS_ROS_PKG}.rosinstall ./src && \
 #    apt-get update && \
 #    rosdep install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} -y && \
 #    python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_DEV_WORKSPACE}/install_isolated -DCMAKE_BUILD_TYPE=Release && \

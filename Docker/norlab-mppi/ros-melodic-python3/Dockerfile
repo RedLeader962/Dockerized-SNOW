@@ -16,8 +16,8 @@ ARG BASE_IMAGE=nvcr.io/nvidia/l4t-base:r32.6.1
 FROM ${BASE_IMAGE} AS ros-base-image
 MAINTAINER luc.coupal.1@ulaval.ca
 
-#ARG ROS_PKG=desktop_full
-ARG ROS_PKG=ros_base
+#ARG DS_ROS_PKG=desktop_full
+ARG DS_ROS_PKG=ros_base
 ENV ROS_DISTRO=melodic
 ENV DS_ROS_ROOT=/opt/ros/${ROS_DISTRO}
 #ENV ROS_PYTHON_VERSION=3
@@ -86,7 +86,7 @@ RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt
 
 RUN apt-get update \
     && apt-get install --assume-yes --no-install-recommends \
-        ros-${ROS_DISTRO}-`echo "${ROS_PKG}" | tr '_' '-'` \
+        ros-${ROS_DISTRO}-`echo "${DS_ROS_PKG}" | tr '_' '-'` \
         python-rosdep \
         python-rosinstall-generator \
         python-vcstool \
@@ -125,8 +125,8 @@ RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
 ## 1. rosinstall_generator + vcs import steps: download the source code for ROS packages into the ./src directory
 ## 2. rosdep install step: looks at all the packages in the src directory and tries to find and install their dependencies on your platform
 ## 3. catkin_make_isolated step: build everything in the catkin workspace DS_DEV_WORKSPACE
-#RUN rosinstall_generator ${ROS_PKG} --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall && \
-#    vcs import ./src < ${ROS_DISTRO}-${ROS_PKG}.rosinstall
+#RUN rosinstall_generator ${DS_ROS_PKG} --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${DS_ROS_PKG}.rosinstall && \
+#    vcs import ./src < ${ROS_DISTRO}-${DS_ROS_PKG}.rosinstall
 #
 ##RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash" \
 #RUN apt-get update \
@@ -200,7 +200,7 @@ RUN apt-get update --fix-missing
 RUN dpkg --configure -a
 RUN apt-get install -f
 RUN apt-get install -y \
-    ros-${ROS_DISTRO}-$(echo "${ROS_PKG}" | tr '_' '-') --fix-missing
+    ros-${ROS_DISTRO}-$(echo "${DS_ROS_PKG}" | tr '_' '-') --fix-missing
 RUN apt-get install -y python-catkin-tools
 
 RUN apt-get install --no-install-recommends --no-install-suggests -y \
