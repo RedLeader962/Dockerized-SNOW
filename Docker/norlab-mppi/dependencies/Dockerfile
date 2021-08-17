@@ -232,12 +232,15 @@ RUN pip3 install --no-cache-dir --verbose pycuda
 # ===Final build step — install utilities===============================================================================
 FROM noetic-performance-pkg-base-image AS final
 
-RUN pip3 install --no-cache-dir --verbose pytest
+RUN pip3 install --no-cache-dir --verbose pyyaml
+RUN pip3 install --no-cache-dir --verbose jupyter
 RUN pip3 install --no-cache-dir --verbose jetson-stats
 RUN pip3 install --no-cache-dir --verbose termcolor
 RUN pip3 install --no-cache-dir --verbose decorator
-RUN pip3 install --no-cache-dir --verbose jupyter
-RUN pip3 install --no-cache-dir --verbose pyyaml
+RUN pip3 install --no-cache-dir --verbose -U mock
+RUN pip3 install --no-cache-dir --verbose pytest
+RUN pip3 install --no-cache-dir --verbose pytest-benchmark
+RUN pip3 install --no-cache-dir --verbose pytest-mock
 
 # install development utilities
 RUN apt-get update \
