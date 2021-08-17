@@ -122,7 +122,7 @@ RUN apt-get update \
         python-rosinstall \
         python-rosinstall-generator \
         python-wstool \
-        python-vcstools \
+        python-vcstool \
     && rm -rf /var/lib/apt/lists/*
 
 
