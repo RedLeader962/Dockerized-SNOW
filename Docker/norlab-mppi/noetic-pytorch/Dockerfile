@@ -65,8 +65,8 @@ RUN apt-get update \
 # === Install ROS ======================================================================================================
 # ... register the ROS package source ..................................................................................
 # setup sources.list
-#RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu ${DS_IMG_LSB_RELEASE} main" > /etc/apt/sources.list.d/ros-latest.list'
+RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+#RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu ${DS_IMG_LSB_RELEASE} main" > /etc/apt/sources.list.d/ros-latest.list'
 RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
 
 ## Ref: https://github.com/NVIDIA-AI-IOT/ros2_jetson/blob/main/docker/DockerFile.l4tbase.ros.noetic
@@ -90,9 +90,12 @@ RUN apt-get update \
     && rosdep fix-permissions \
     && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p ${DS_DEV_WORKSPACE}/src
-WORKDIR "${DS_DEV_WORKSPACE}"
 
+RUN mkdir -p ${DS_DEV_WORKSPACE}/src
+RUN git clone https://github.com/norlab-ulaval/icp_odom_with_twist.git
+
+
+WORKDIR "${DS_DEV_WORKSPACE}"
 RUN rosinstall_generator ${ROS_PKG} --rosdistro ${ROS_DISTRO} --deps --tar > ${ROS_DISTRO}-${ROS_PKG}.rosinstall && \
     vcs import --input ${ROS_DISTRO}-${ROS_PKG}.rosinstall ./src && \
     apt-get update && \
