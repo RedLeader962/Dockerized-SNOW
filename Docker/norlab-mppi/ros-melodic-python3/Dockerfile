@@ -200,7 +200,7 @@ RUN apt-get update --fix-missing
 RUN dpkg --configure -a
 RUN apt-get install -f
 RUN apt-get install -y \
-    ros-${ROS_DISTRO}-`echo "${ROS_PKG}" | tr '_' '-'` --fix-missing
+    ros-${ROS_DISTRO}-$(echo "${ROS_PKG}" | tr '_' '-') --fix-missing
 RUN apt-get install -y python-catkin-tools
 
 RUN apt-get install --no-install-recommends --no-install-suggests -y \
