@@ -100,8 +100,8 @@ RUN apt-get update \
 #          python3-wstool \
 
 
-RUN /bin/bash -c "source ${DS_DEV_WORKSPACE}/install_isolated/setup.bash" \
-    && echo "source ${DS_DEV_WORKSPACE}/install_isolated/setup.bash" >> ~/.bashrc \
+RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/install_isolated/setup.bash" \
+    && echo "source /opt/ros/${ROS_DISTRO}/install_isolated/setup.bash" >> ~/.bashrc
 
 RUN mkdir -p "${DS_DEV_WORKSPACE}/src"
 WORKDIR "${DS_DEV_WORKSPACE}/src"
@@ -126,6 +126,8 @@ RUN apt-get update \
 #   This is why it's able to build plain cmake packages.
 #   ref: https://answers.ros.org/question/320613/catkin_make-vs-catkin_make_isolated-which-is-preferred/
 
+RUN /bin/bash -c "source ${DS_DEV_WORKSPACE}/install_isolated/setup.bash" \
+    && echo "source ${DS_DEV_WORKSPACE}/install_isolated/setup.bash" >> ~/.bashrc
 
 
 RUN apt-get update \
