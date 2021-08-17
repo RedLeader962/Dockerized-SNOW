@@ -48,9 +48,10 @@ RUN apt-get update \
         libusb-dev \
         usbutils \
         vim \
-        apt-utils \
         tree \
     && rm -rf /var/lib/apt/lists/*
+
+#        apt-utils \
 
 
 ## install C++ development utilities
