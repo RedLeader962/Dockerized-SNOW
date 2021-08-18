@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-08-18T15:06:17.808Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Safari/605.1.15" etag="1KOwujbl5uez7fuG4GJE" version="14.9.7" type="github">
+<mxfile host="app.diagrams.net" modified="2021-08-18T15:13:36.845Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Safari/605.1.15" etag="4I6pT2Sfq0RtTM-BfOr9" version="14.9.7" type="github">
   <diagram id="bTZJt1o0T5sxhTdyZIyC" name="Page-1">
     <mxGraphModel dx="946" dy="2677" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1920" pageHeight="1200" math="0" shadow="0">
       <root>
@@ -103,7 +103,7 @@
         <mxCell id="xUTtplGJXiZXMpH6DIID-127" value="Pre Compile NotLab_MPPI" style="text;strokeColor=none;fillColor=#FFFFFF;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=1;" parent="xUTtplGJXiZXMpH6DIID-71" vertex="1">
           <mxGeometry y="52" width="360" height="26" as="geometry" />
         </mxCell>
-        <UserObject label="NorLab_MPPI" link="https://github.com/RedLeader962/SNOW_AutoRally" linkTarget="_blank" id="xUTtplGJXiZXMpH6DIID-43">
+        <UserObject label="NorLab_MPPI" link="https://github.com/norlab-ulaval/NorLab_MPPI" linkTarget="_blank" id="xUTtplGJXiZXMpH6DIID-43">
           <mxCell style="swimlane;align=left;spacingLeft=15;collapsible=0;strokeWidth=3;rounded=0;shadow=0;sketch=0;fillColor=#404040;fontStyle=1;fontSize=14;fontColor=#FFFFFF;swimlaneFillColor=#D6D6D6;strokeColor=#404040;" parent="1" vertex="1">
             <mxGeometry x="1100" y="300" width="183" height="100" as="geometry" />
           </mxCell>
