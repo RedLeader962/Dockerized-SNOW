@@ -126,7 +126,6 @@ diagram &nbsp;)
                                    https://norlab.ulaval.ca                                       
                                 https://redleader962.github.io                                    
   
-  root@norlab-og:/#
   ```
   To open an additional interactive terminal inside _IamSnow_
   ```shell 
@@ -136,7 +135,6 @@ diagram &nbsp;)
   # or use the following convenient script
   bash ~/Repositories/Dockerized-SNOW/open_new_terminal.bash IamSnow
   
-  # root@norlab-og:/#
   ```
 
   <br>
