@@ -8,7 +8,7 @@
 <br>
 </div>
 
-# _Dockerized SNOW_
+# _Dockerized-SNOW_
 Containerized development workflow for the _NorLab_MPPI_ and _SNOW_AutoRally_ projects leveraging [_nvidia-docker_](https://github.com/NVIDIA/nvidia-docker) technology.
 
 **Key benefit:** consistency of development environment, fast deployment from local computer to robots compute box and results reproducibility.    
