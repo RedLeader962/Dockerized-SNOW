@@ -10,7 +10,7 @@
 
 # _Dockerized SNOW_
 Containerized development workflow for the _NorLab_MPPI_ and _SNOW_AutoRally_ projects leveraging [_nvidia-docker_](https://github.com/NVIDIA/nvidia-docker) technology.
-Fast development iteration, reproducable results and easy deployment on alternate host computer.    
+Develop with fast development iteration in mind, results reproducability and easy deployment from local computer to compute box.    
 Author: [Luc Coupal](https://redleader962.github.io) 
 
 ```shell
@@ -55,6 +55,27 @@ fullscreen
 </a>
 &nbsp; • &nbsp;
 <a href="https://app.diagrams.net/?mode=github#HRedLeader962%2FDockerized-SNOW%2Fmaster%2Fdrawio%2Fdockerized_snow_plan.drawio" target="_blank" rel="noopener noreferrer">edit
+</a>
+diagram &nbsp;)
+</sub>
+</div>
+<br>
+
+---
+
+<div align="center">
+<p>
+<a href="https://viewer.diagrams.net/?target=blank&highlight=0000ff&edit=_blank&layers=1&nav=1&title=dockerized_snow_norlab_mppi_plan2.drawio#Uhttps%3A%2F%2Fraw.githubusercontent.com%2FRedLeader962%2FDockerized-SNOW%2Fmaster%2Fdrawio%2Fdockerized_snow_norlab_mppi_plan2.drawio">
+<img src="drawio/dockerized_snow_plan.svg">
+</a>
+</p>
+<sub>
+(&nbsp; View diagram  
+<a href="https://viewer.diagrams.net/?target=blank&highlight=0000ff&edit=_blank&layers=1&nav=1&title=dockerized_snow_norlab_mppi_plan2.drawio#Uhttps%3A%2F%2Fraw.githubusercontent.com%2FRedLeader962%2FDockerized-SNOW%2Fmaster%2Fdrawio%2Fdockerized_snow_norlab_mppi_plan2.drawio">
+fullscreen
+</a>
+&nbsp; • &nbsp;
+<a href="https://app.diagrams.net/?mode=github#HRedLeader962%2FDockerized-SNOW%2Fmaster%2Fdrawio%2Fdockerized_snow_norlab_mppi_plan2.drawio" target="_blank" rel="noopener noreferrer">edit
 </a>
 diagram &nbsp;)
 </sub>
