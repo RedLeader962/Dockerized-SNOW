@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-08-18T15:13:36.845Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Safari/605.1.15" etag="4I6pT2Sfq0RtTM-BfOr9" version="14.9.7" type="github">
+<mxfile host="app.diagrams.net" modified="2021-08-18T15:42:01.813Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Safari/605.1.15" etag="RmLJIsTSYEmsTRBmda4L" version="14.9.7" type="github">
   <diagram id="bTZJt1o0T5sxhTdyZIyC" name="Page-1">
     <mxGraphModel dx="946" dy="2677" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1920" pageHeight="1200" math="0" shadow="0">
       <root>
@@ -51,13 +51,13 @@
         <mxCell id="xUTtplGJXiZXMpH6DIID-10" value="ros-melodic-snow-autorally-dependencies" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fontColor=#ffffff;strokeColor=#006EAF;strokeWidth=4;sketch=0;shadow=0;fontSize=13;swimlaneFillColor=none;swimlaneLine=1;rounded=0;perimeterSpacing=0;labelBorderColor=none;fillColor=#1BA1E2;" parent="xUTtplGJXiZXMpH6DIID-9" vertex="1">
           <mxGeometry x="250" y="103" width="360" height="262" as="geometry" />
         </mxCell>
-        <mxCell id="xUTtplGJXiZXMpH6DIID-15" value="ROS-melodic-ros-base + rviz" style="text;strokeColor=none;fillColor=#FFFFFF;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=1;" parent="xUTtplGJXiZXMpH6DIID-10" vertex="1">
+        <mxCell id="xUTtplGJXiZXMpH6DIID-15" value="ros-melodic-ros-base" style="text;strokeColor=none;fillColor=#FFFFFF;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=1;" parent="xUTtplGJXiZXMpH6DIID-10" vertex="1">
           <mxGeometry y="26" width="360" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="xUTtplGJXiZXMpH6DIID-16" value="(Clone repo) icp_with_twist" style="text;strokeColor=none;fillColor=#FFFFFF;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=1;" parent="xUTtplGJXiZXMpH6DIID-10" vertex="1">
+        <mxCell id="58gTZ6w1oZRNHgXwbD4U-1" value="rviz" style="text;strokeColor=none;fillColor=#FFFFFF;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=1;" vertex="1" parent="xUTtplGJXiZXMpH6DIID-10">
           <mxGeometry y="52" width="360" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="xUTtplGJXiZXMpH6DIID-17" value="Create and build a catkin workspace " style="text;strokeColor=none;fillColor=#FFFFFF;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=1;" parent="xUTtplGJXiZXMpH6DIID-10" vertex="1">
+        <mxCell id="xUTtplGJXiZXMpH6DIID-16" value="(Clone repo) norlab-ulaval/icp_odom_with_twist.git" style="text;strokeColor=none;fillColor=#FFFFFF;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=1;" parent="xUTtplGJXiZXMpH6DIID-10" vertex="1">
           <mxGeometry y="78" width="360" height="26" as="geometry" />
         </mxCell>
         <mxCell id="xUTtplGJXiZXMpH6DIID-18" value="Python 3.6" style="text;strokeColor=none;fillColor=#FFFFFF;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=1;" parent="xUTtplGJXiZXMpH6DIID-10" vertex="1">
