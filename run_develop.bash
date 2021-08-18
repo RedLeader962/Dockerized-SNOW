@@ -42,7 +42,7 @@ function print_help_in_terminal() {
   $ sudo git clone https://github.com/RedLeader962/Dockerized-SNOW.git
   $ cd ~/Repositories/Dockerized-SNOW
 
-  $ sudo docker pull norlabsnow/norlab-mppi-develop=x86-ubuntu18.04
+  $ sudo docker pull norlabsnow/norlab-mppi-develop:x86-ubuntu18.04
   $ bash run_develop.bash --runTag=x86-ubuntu18.04 --name=IamSnow --src=\"\$HOME/Repositories/${DS_TARGET_PROJECT_SRC_REPO}\"
 
 "

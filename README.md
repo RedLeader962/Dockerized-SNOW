@@ -108,7 +108,7 @@ diagram &nbsp;)
   cd ~/Repositories/Dockerized-SNOW
   
   # Pull the norlab-mppi-develop image from norlabsnow Dockerhub with the x86-ubuntu20.04 tag
-  sudo docker pull norlabsnow/norlab-mppi-develop=x86-ubuntu18.04 
+  sudo docker pull norlabsnow/norlab-mppi-develop:x86-ubuntu18.04 
   
   # Create a new docker image instance for development on your machine and start working on the 
   # NorLab_MPPI project using ROS noetic, Python 3 and Pytorch right away.
