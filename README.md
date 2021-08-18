@@ -142,7 +142,6 @@ diagram &nbsp;)
   <br>
 </details>
 
-
 <details>
   <summary style="font-weight: bolder;font-size: large;">Quick start for the SNOW_AutoRally project on x86 workstation</summary>
   <br>
