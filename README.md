@@ -111,7 +111,7 @@ diagram &nbsp;)
   
   # Create a new docker image instance for development on your machine and start working on the 
   # NorLab_MPPI project using ROS noetic, Python 3 and Pytorch right away.
-  bash run_develop.bash --runTag=x86-ubuntu18.04 --name=4everSnow --src="$HOME/Repositories/NorLab_MPPI"
+  bash run_develop.bash --runTag=x86-ubuntu18.04 --name=IamSnow --src="$HOME/Repositories/NorLab_MPPI"
   
   
   
@@ -127,13 +127,13 @@ diagram &nbsp;)
   
   root@norlab-og:/#
   ```
-  To open an additional interactive terminal inside _4everSnow_
+  To open an additional interactive terminal inside _IamSnow_
   ```shell 
-  sudo docker exec -it 4everSnow bash
+  sudo docker exec -it IamSnow bash
   # root@norlab-og:/#
   
   # or use the following convenient script
-  bash ~/Repositories/Dockerized-SNOW/open_new_terminal.bash 4everSnow
+  bash ~/Repositories/Dockerized-SNOW/open_new_terminal.bash IamSnow
   
   # root@norlab-og:/#
   ```
@@ -164,7 +164,7 @@ diagram &nbsp;)
   
   # Create a new docker image instance for development on your machine and start working on the 
   # NorLab_MPPI project using ROS noetic, Python 3 and Pytorch right away.
-  bash run_develop.bash --runTag=x86-ubuntu18.04 --name=IamSnow --src="$HOME/Repositories/SNOW_AutoRally"
+  bash run_develop.bash --runTag=x86-ubuntu18.04 --name=THEgtar --src="$HOME/Repositories/SNOW_AutoRally"
   
   
   
