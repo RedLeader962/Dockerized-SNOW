@@ -10,7 +10,9 @@
 
 # _Dockerized SNOW_
 Containerized development workflow for the _NorLab_MPPI_ and _SNOW_AutoRally_ projects leveraging [_nvidia-docker_](https://github.com/NVIDIA/nvidia-docker) technology.
-Develop with fast development iteration in mind, results reproducability and easy deployment from local computer to compute box.    
+
+**Key benefit:** consistency of development environment, fast deployment from local computer to robots compute box and results reproducibility.    
+
 Author: [Luc Coupal](https://redleader962.github.io) 
 
 ```shell
@@ -89,57 +91,107 @@ diagram &nbsp;)
 ---
 ## Usage
 
-### Quick start for x86 workstation
-- **Requirement:** _docker_ and _nvidia container toolkit_ must be installed ([follow install step 1 and 2](how_to_readme/README_x86_architecture.md))
-- **Tips:** You can use the `--help` flag for usage instruction on any dockerized-snow bash script
 
-```shell
-# Create a directory for your development source code if you dont already have one
-mkdir -p ~/Repositories && cd ~/Repositories
+<details open>
+  <summary style="font-weight: bolder;font-size: large;">Quick start for the NorLab_MPPI project on x86 workstation</summary>
 
-# Clone both repositories 
-sudo git clone https://github.com/norlab-ulaval/NorLab_MPPI.git
-sudo git clone https://github.com/RedLeader962/Dockerized-SNOW.git
-cd ~/Repositories/Dockerized-SNOW
+  - **Requirement:** _docker_ and _nvidia container toolkit_ must be installed ([follow install step 1 and 2](how_to_readme/README_x86_architecture.md))
+  - **Tips:** You can use the `--help` flag for usage instruction on any dockerized-snow bash script
+  
+  ```shell
+  # Create a directory for your development source code if you dont already have one
+  mkdir -p ~/Repositories && cd ~/Repositories
+  
+  # Clone both repositories 
+  sudo git clone https://github.com/norlab-ulaval/NorLab_MPPI.git
+  sudo git clone https://github.com/RedLeader962/Dockerized-SNOW.git
+  cd ~/Repositories/Dockerized-SNOW
+  
+  # Pull the norlab-mppi-develop image from norlabsnow Dockerhub with the x86-ubuntu20.04 tag
+  sudo docker pull norlabsnow/norlab-mppi-develop=x86-ubuntu18.04 
+  
+  # Create a new docker image instance for development on your machine and start working on the 
+  # NorLab_MPPI project using ROS noetic, Python 3 and Pytorch right away.
+  bash run_develop.bash --runTag=x86-ubuntu18.04 --name=4everSnow --src="$HOME/Repositories/NorLab_MPPI"
+  
+  
+  
+                                            .|'''.|                                               
+                                            ||..  '                                               
+  ····································· Dockerized-SNOW ••········································
+                                             ''|||.                                               
+                                           .     '||                                              
+                                           |'....|'                                               
+  
+                                   https://norlab.ulaval.ca                                       
+                                https://redleader962.github.io                                    
+  
+  root@norlab-og:/#
+  ```
+  To open an additional interactive terminal inside _4everSnow_
+  ```shell 
+  sudo docker exec -it 4everSnow bash
+  # root@norlab-og:/#
+  
+  # or use the following convenient script
+  bash ~/Repositories/Dockerized-SNOW/open_new_terminal.bash 4everSnow
+  
+  # root@norlab-og:/#
+  ```
 
-# Pull the norlab-mppi-develop image from norlabsnow Dockerhub with the x86-ubuntu20.04 tag
-sudo sudo docker pull norlabsnow/norlab-mppi-develop=x86-ubuntu18.04 
+</details>
 
-# Create a new docker image instance for development on your machine and start working on the 
-# NorLab_MPPI project using ROS noetic, Python 3 and Pytorch right away.
-bash run_develop.bash --runTag=x86-ubuntu18.04 --name=4everSnow --src="$HOME/Repositories/NorLab_MPPI"
+<br>
 
+<details>
+  <summary style="font-weight: bolder;font-size: large;">Quick start for the SNOW_AutoRally project on x86 workstation</summary>
 
+  - **Requirement:** _docker_ and _nvidia container toolkit_ must be installed ([follow install step 1 and 2](how_to_readme/README_x86_architecture.md))
+  - **Tips:** You can use the `--help` flag for usage instruction on any dockerized-snow bash script
+  
+  ```shell
+  # Create a directory for your development source code if you dont already have one
+  mkdir -p ~/Repositories && cd ~/Repositories
+  
+  # Clone both repositories 
+  sudo git clone https://github.com/RedLeader962/SNOW_AutoRally.git
+  sudo git clone https://github.com/RedLeader962/Dockerized-SNOW.git
+  cd ~/Repositories/Dockerized-SNOW
+  
+  # Pull the norlab-mppi-develop image from norlabsnow Dockerhub with the x86-ubuntu20.04 tag
+  bash build_dependencies.bash --x86 --GT-AR
+  bash build_develop.bash --x86 --GT-AR
+  
+  
+  # Create a new docker image instance for development on your machine and start working on the 
+  # NorLab_MPPI project using ROS noetic, Python 3 and Pytorch right away.
+  bash run_develop.bash --runTag=x86-ubuntu18.04 --name=IamSnow --src="$HOME/Repositories/SNOW_AutoRally"
+  
+  
+  
+                                            .|'''.|                                               
+                                            ||..  '                                               
+  ····································· Dockerized-SNOW ••········································
+                                             ''|||.                                               
+                                           .     '||                                              
+                                           |'....|'                                               
+  
+                                   https://norlab.ulaval.ca                                       
+                                https://redleader962.github.io                                    
+  
+  root@norlab-og:/#
+  ```
+  Then follow the step at [SNOW_AutoRally: Autonomous Driving in Simulation using MPPI](https://github.com/RedLeader962/SNOW_AutoRally#autonomous-driving-in-simulation-using-mppi)
+  ```docker
+  roslaunch autorally_gazebo autoRallyTrackGazeboSim.launch
+  
+  ...
+  ```
+</details> 
 
-                                          .|'''.|                                               
-                                          ||..  '                                               
-····································· Dockerized-SNOW ••········································
-                                           ''|||.                                               
-                                         .     '||                                              
-                                         |'....|'                                               
+<br>
 
-                                 https://norlab.ulaval.ca                                       
-                              https://redleader962.github.io                                    
-
-root@norlab-og:/#
-```
-To open a new interactive terminal with pseudo-TTY inside `4everSnow`
-```shell 
-sudo docker exec -it 4everSnow bash
-# or use the following convenient script
-bash ~/Repositories/Dockerized-SNOW/open_new_terminal.bash 4everSnow
-# root@norlab-og:/#
-```
-
-
-Then follow the step at [SNOW_AutoRally: Autonomous Driving in Simulation using MPPI](https://github.com/RedLeader962/SNOW_AutoRally#autonomous-driving-in-simulation-using-mppi)
-```docker
-roslaunch autorally_gazebo autoRallyTrackGazeboSim.launch
-
-...
-```
-
-
+---
 ### Instruction:
 
 - [**Using the _nvidia-docker_ image on a _Jetson_ device (`arm64-l4t`)**](how_to_readme/README_Jetson_builded.md)
@@ -159,6 +211,7 @@ sudo docker pull <container name>:<tag>
 ```
 with `<container name>`= _theImageName_ and `<tag>`= _theHostArchitecture_  
 
+<!-- 
 Latest images for _Jetson_: 
   - `norlabsnow/gt-autorally/deploy:arm64-l4t`
   - `norlabsnow/gt-autorally/develop:arm64-l4t`
@@ -172,7 +225,7 @@ Latest images for _x86_64_ workstion:
 Base image: 
   - `nvcr.io/nvidia/l4t-base:r32.5.0`
   - `nvcr.io/nvidia/cudagl:11.3.1-devel-ubuntu18.04`
-
+-->
 
 ---
 ### References:
