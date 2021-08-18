@@ -42,6 +42,9 @@ Author: [Luc Coupal](https://redleader962.github.io)
 &nbsp;
 </sup>
 </p>
+<br>
+
+<!-- 
 </div>
 <br>
 <div align="center">
@@ -62,11 +65,8 @@ diagram &nbsp;)
 </sub>
 </div>
 <br>
+-->
 
-
-<!-- 
-
----
 
 <div align="center">
 <p>
@@ -86,9 +86,8 @@ diagram &nbsp;)
 </sub>
 </div>
 <br>
--->
 
----
+
 ## Usage
 
 <details open>
