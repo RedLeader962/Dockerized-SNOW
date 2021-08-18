@@ -184,6 +184,11 @@ New container name: ${CONTAINER_NAME}
 #  USER_ARG >> ${USER_ARG}
 #"
 
+echo "
+${0}:
+  sudo docker run --runtime nvidia --interactive --tty --network host --device=/dev/input/js0 --env DISPLAY=$DISPLAY --privileged --volume "/tmp/.X11-unix/:/tmp/.X11-unix" --volume "/etc/localtime:/etc/localtime:ro" ${HOST_DATA_DIR_FLAG} ${HOST_SOURCE_CODE_FLAG} --security-opt seccomp=unconfined --security-opt apparmor=unconfined --cap-add sys_ptrace ${USER_ARG} norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG}
+"
+
 ## todo:assessment (ref task NLSAR-159 Fix the execute permission of source code mounted volume)
 #sudo chmod --recursive +x "${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
 
