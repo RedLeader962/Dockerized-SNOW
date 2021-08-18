@@ -91,9 +91,9 @@ diagram &nbsp;)
 ---
 ## Usage
 
-
 <details open>
   <summary style="font-weight: bolder;font-size: large;">Quick start for the NorLab_MPPI project on x86 workstation</summary>
+  <br>
 
   - **Requirement:** _docker_ and _nvidia container toolkit_ must be installed ([follow install step 1 and 2](how_to_readme/README_x86_architecture.md))
   - **Tips:** You can use the `--help` flag for usage instruction on any dockerized-snow bash script
@@ -139,12 +139,13 @@ diagram &nbsp;)
   # root@norlab-og:/#
   ```
 
+  <br>
 </details>
 
-<br>
 
 <details>
   <summary style="font-weight: bolder;font-size: large;">Quick start for the SNOW_AutoRally project on x86 workstation</summary>
+  <br>
 
   - **Requirement:** _docker_ and _nvidia container toolkit_ must be installed ([follow install step 1 and 2](how_to_readme/README_x86_architecture.md))
   - **Tips:** You can use the `--help` flag for usage instruction on any dockerized-snow bash script
@@ -187,6 +188,8 @@ diagram &nbsp;)
   
   ...
   ```
+
+  <br>
 </details> 
 
 <br>
