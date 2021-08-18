@@ -43,9 +43,9 @@ Author: [Luc Coupal](https://redleader962.github.io)
 </sup>
 </p>
 <br>
+</div>
 
 <!-- 
-</div>
 <br>
 <div align="center">
 <p>
