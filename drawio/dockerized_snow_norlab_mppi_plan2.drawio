@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-08-18T00:15:46.675Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Safari/605.1.15" etag="mdrYr4ZbbZP9EcEEDsj1" version="14.9.7" type="github">
+<mxfile host="app.diagrams.net" modified="2021-08-18T00:22:00.655Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Safari/605.1.15" etag="SGCbXFmlW2fLqs6XyAyg" version="14.9.7" type="github">
   <diagram id="bTZJt1o0T5sxhTdyZIyC" name="Page-1">
     <mxGraphModel dx="788" dy="2298" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1920" pageHeight="1200" math="0" shadow="0">
       <root>
@@ -49,7 +49,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="xUTtplGJXiZXMpH6DIID-10" value="ros-melodic-snow-autorally-dependencies" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;fontColor=#ffffff;strokeColor=#006EAF;strokeWidth=4;sketch=0;shadow=0;fontSize=13;swimlaneFillColor=none;swimlaneLine=1;rounded=0;perimeterSpacing=0;labelBorderColor=none;fillColor=#1BA1E2;" parent="xUTtplGJXiZXMpH6DIID-9" vertex="1">
-          <mxGeometry x="250" y="103" width="360" height="182" as="geometry" />
+          <mxGeometry x="250" y="103" width="360" height="262" as="geometry" />
         </mxCell>
         <mxCell id="xUTtplGJXiZXMpH6DIID-15" value="ROS-melodic-ros-base + rviz" style="text;strokeColor=none;fillColor=#FFFFFF;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=1;" parent="xUTtplGJXiZXMpH6DIID-10" vertex="1">
           <mxGeometry y="26" width="360" height="26" as="geometry" />
@@ -66,8 +66,17 @@
         <mxCell id="xUTtplGJXiZXMpH6DIID-19" value="PyTorch 1.9" style="text;strokeColor=none;fillColor=#FFFFFF;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=1;" parent="xUTtplGJXiZXMpH6DIID-10" vertex="1">
           <mxGeometry y="130" width="360" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="xUTtplGJXiZXMpH6DIID-20" value="Python scientic stack: Numpy, scipy, jupyter, ..." style="text;strokeColor=none;fillColor=#FFFFFF;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=1;" parent="xUTtplGJXiZXMpH6DIID-10" vertex="1">
+        <mxCell id="B50nd82u5LSKyYwprPi5-9" value="PyCuda and Cython" style="text;strokeColor=none;fillColor=#FFFFFF;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=1;" vertex="1" parent="xUTtplGJXiZXMpH6DIID-10">
           <mxGeometry y="156" width="360" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="xUTtplGJXiZXMpH6DIID-20" value="Python scientic stack: Numpy, scipy, jupyter, ..." style="text;strokeColor=none;fillColor=#FFFFFF;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=1;" parent="xUTtplGJXiZXMpH6DIID-10" vertex="1">
+          <mxGeometry y="182" width="360" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="B50nd82u5LSKyYwprPi5-8" value="PyTest tools (pytest-benchmark, pytest-mock )" style="text;strokeColor=none;fillColor=#FFFFFF;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=1;" vertex="1" parent="xUTtplGJXiZXMpH6DIID-10">
+          <mxGeometry y="208" width="360" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="B50nd82u5LSKyYwprPi5-10" value="ssh server for remote python terminal" style="text;strokeColor=none;fillColor=#FFFFFF;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=1;" vertex="1" parent="xUTtplGJXiZXMpH6DIID-10">
+          <mxGeometry y="235" width="360" height="27" as="geometry" />
         </mxCell>
         <mxCell id="xUTtplGJXiZXMpH6DIID-73" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;startArrow=circle;startFill=1;endArrow=none;endFill=0;strokeWidth=4;jumpStyle=arc;jumpSize=6;sketch=0;shadow=0;fontColor=#007BC4;strokeColor=#007BC4;endSize=3;startSize=3;" parent="xUTtplGJXiZXMpH6DIID-9" source="xUTtplGJXiZXMpH6DIID-10" target="xUTtplGJXiZXMpH6DIID-71" edge="1">
           <mxGeometry relative="1" as="geometry">
