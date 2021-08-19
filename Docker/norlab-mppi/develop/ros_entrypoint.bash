@@ -12,26 +12,25 @@ echo "Starting container ssh server on port ${DS_PYCHARM_DEV_SERVER_PORT}"
 /usr/sbin/sshd -e -f /etc/ssh/sshd_config_dockerized_snow_openssh_server
 
 echo "
-    To connect remotely to the container:
-        Default user: ${DS_PYCHARM_DEV_USER}  pass: lasagne
+To connect remotely to the container:
+    Default user: ${DS_PYCHARM_DEV_USER}  pass: lasagne
 
-        $ ssh -p ${DS_PYCHARM_DEV_SERVER_PORT} ${DS_PYCHARM_DEV_USER}@$(hostname -I | awk '{print $1}')
-        $ sftp -P ${DS_PYCHARM_DEV_SERVER_PORT} openssh-$(hostname -I | awk '{print $1}')
-        $ scp -P ${DS_PYCHARM_DEV_SERVER_PORT} /path/to/foo ${DS_PYCHARM_DEV_USER}@$(hostname -I | awk '{print $1}'):/dest/
+    $ ssh -p ${DS_PYCHARM_DEV_SERVER_PORT} ${DS_PYCHARM_DEV_USER}@$(hostname -I | awk '{print $1}')
+    $ sftp -P ${DS_PYCHARM_DEV_SERVER_PORT} openssh-$(hostname -I | awk '{print $1}')
+    $ scp -P ${DS_PYCHARM_DEV_SERVER_PORT} /path/to/foo ${DS_PYCHARM_DEV_USER}@$(hostname -I | awk '{print $1}'):/dest/
 "
 
 echo "
 
-    From inside the container, use the norlab-mppi build script to compile your development source code and source your ROS environment when needed:
+From inside the container, use the norlab-mppi build script to compile your development source code and source your ROS environment when needed:
 
-      # bash /rebuild_norlab_mppi.bash
+  # bash /rebuild_norlab_mppi.bash
 
-    Check if Python3 is working properly by running this command
+Check if Python3 is working properly by running this command
 
-      # python3 /ros_catkin_ws/src/${DS_TARGET_PROJECT_SRC_REPO}/src/container_related/try_pytorch.py
+  # python3 /ros_catkin_ws/src/${DS_TARGET_PROJECT_SRC_REPO}/src/container_related/try_pytorch.py
 
-    Recall that your project source code is mapped in the container in dir /ros_catkin_ws/src/${DS_TARGET_PROJECT_SRC_REPO}/
-    Note: Docker container user are by default sudo user. That's why it's # instead of $.
+Recall that your project source code is mapped in the container in dir /ros_catkin_ws/src/${DS_TARGET_PROJECT_SRC_REPO}/
 "
 
 exec "$@"

@@ -271,11 +271,11 @@ ENV DS_PYCHARM_DEV_SERVER_PORT=${DS_PYCHARM_DEV_SERVER_PORT}
 EXPOSE ${DS_PYCHARM_DEV_SERVER_PORT}
 
 RUN ( \
-    echo 'LogLevel DEBUG2'; \
-    echo 'PermitRootLogin yes'; \
-    echo 'PasswordAuthentication yes'; \
-    echo 'Port ${DS_PYCHARM_DEV_SERVER_PORT}'; \
-    echo 'Subsystem sftp /usr/lib/openssh/sftp-server'; \
+    echo "LogLevel DEBUG2"; \
+    echo "PermitRootLogin yes"; \
+    echo "PasswordAuthentication yes"; \
+    echo "Port ${DS_PYCHARM_DEV_SERVER_PORT}"; \
+    echo "Subsystem sftp /usr/lib/openssh/sftp-server"; \
   ) > /etc/ssh/sshd_config_dockerized_snow_openssh_server \
   && mkdir /run/sshd
 
