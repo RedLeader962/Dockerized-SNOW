@@ -16,6 +16,7 @@ function print_help_in_terminal() {
   --x86                     Build the image version compiled for x86 workstation instead of arm64-l4t
   --l4t-version=<version>   Build arm64-l4t using an other release version (default: r32.6.1)
   --host-type=<type>        Specified the container host type: XavierStandAlone, XavierWarthog, local
+  --dryrun                        Print the docker run command but dont execute it
   --GT-AR                   Project version: Georgia Tech AutoRally refactoring
   --clion                   Build the version to use with CLion IDE (use with the --GT-AR flag)
   --appendToTag=<detail>    Add supplemental details to the built image tag eg.: --appendToTag=test
@@ -39,6 +40,7 @@ DS_SUB_PROJECT="norlab-mppi"
 ADD_TO_TAG=""
 IDE="develop"
 DS_HOST_TYPE=""
+DRY_RUN=false
 
 ## todo:on task end >> delete next bloc ↓↓
 #echo "
@@ -58,6 +60,10 @@ for arg in "$@"; do
   --GT-AR)
     DS_SUB_PROJECT="gt-autorally"
     shift # Remove --GT-AR from processing
+    ;;
+  --dryrun)
+    DRY_RUN=true
+    shift # Remove --dryrun from processing
     ;;
   --l4t-version)
     echo "${0} >> pass argument with the equal sign: --l4t-version=${2}" >&2 # Note: '>&2' = print to stderr
@@ -200,8 +206,14 @@ fi
 #  DS_HOST_TYPE >> ${DS_HOST_TYPE}
 #"
 
-# ---Build docker image-------------------------------------------------------------------------------------------------
+if [ $DRY_RUN == true ]; then
+  echo "${0} dry run:
+  sudo docker build -t norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG} -f ./Docker/${DS_SUB_PROJECT}/${IDE}/Dockerfile ${BASE_IMG_ARG} ${USER_ARG} ./Docker/${DS_SUB_PROJECT}/${IDE}
+  "
+  exit
+fi
 
+# ---Build docker image-------------------------------------------------------------------------------------------------
 sudo docker build \
   -t norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG} \
   -f ./Docker/${DS_SUB_PROJECT}/${IDE}/Dockerfile \

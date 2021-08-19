@@ -18,6 +18,7 @@ function print_help_in_terminal() {
   --x86                     Build the image version compiled for x86 workstation instead of arm64-l4t
   --l4t-version=<version>   Build arm64-l4t using an other release version (default: r32.6.1)
   --appendToTag=<detail>    Add suplemental details to the builded image tag eg.: --appendToTag=test
+  --dryrun                        Print the docker run command but dont execute it
 
 \033[1mNote:\033[0m You can pass any docker build flag as additional argument eg:
   --build-arg=\"DS_ROS_PKG=desktop-full\"
@@ -50,6 +51,7 @@ BASE_IMG_VERSION=""
 BASE_IMG_ARG=""
 DS_SUB_PROJECT="norlab-mppi"
 ADD_TO_TAG=""
+DRY_RUN=false
 
 # todo:on task end >> delete next bloc ↓↓
 echo "
@@ -65,6 +67,10 @@ for arg in "$@"; do
   --x86)
     DS_IMAGE_TAG="x86"
     shift # Remove --x86 from processing
+    ;;
+  --dryrun)
+    DRY_RUN=true
+    shift # Remove --dryrun from processing
     ;;
   --l4t-version)
     echo "${0} >> pass argument with the equal sign: --l4t-version=${2}" >&2 # Note: '>&2' = print to stderr
@@ -127,15 +133,23 @@ if [[ "$ADD_TO_TAG" != "" ]]; then
   DS_IMAGE_TAG="${DS_IMAGE_TAG}-${ADD_TO_TAG}"
 fi
 
-# todo:on task end >> delete next bloc ↓↓
-echo "
-${0}:
-  USER_ARG >> ${USER_ARG}
-  DS_IMAGE_TAG >> ${DS_IMAGE_TAG}
-  BASE_IMG_ARG >> ${BASE_IMG_ARG}
-  BASE_IMG_VERSION >> ${BASE_IMG_VERSION}
-  DS_SUB_PROJECT >> ${DS_SUB_PROJECT}
-"
+## todo:on task end >> delete next bloc ↓↓
+#echo "
+#${0}:
+#  USER_ARG >> ${USER_ARG}
+#  DS_IMAGE_TAG >> ${DS_IMAGE_TAG}
+#  BASE_IMG_ARG >> ${BASE_IMG_ARG}
+#  BASE_IMG_VERSION >> ${BASE_IMG_VERSION}
+#  DS_SUB_PROJECT >> ${DS_SUB_PROJECT}
+#"
+
+
+if [ $DRY_RUN == true ]; then
+  echo "${0} dry run:
+  sudo docker build -t norlabsnow/${DS_SUB_PROJECT}-ros-melodic-python3:${DS_IMAGE_TAG} -f ./Docker/${DS_SUB_PROJECT}/ros-melodic-python3/Dockerfile ${BASE_IMG_ARG} ${USER_ARG} ./Docker/${DS_SUB_PROJECT}/ros-melodic-python3
+  "
+  exit
+fi
 
 # ---Build docker image-------------------------------------------------------------------------------------------------
 
