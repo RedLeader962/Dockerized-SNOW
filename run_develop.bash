@@ -23,7 +23,7 @@ function print_help_in_terminal() {
   --data=<myCrazyDataDir>         Host data directory to mount inside the container.
                                   Must be an absolute path eg.: /home/snowxavier/Repositories/wt_data
   --dryrun                        Print the docker run command but dont execute it
-  --osx                           Switch network flag to bridge and explicitly publish container port
+  --osx                           Mac osX configuration: switch network flag to bridge and explicitly publish container port
 
   --GT-AR                         Project version: Georgia Tech AutoRally refactoring
   --clion                         Build the version to use with CLion IDE (use with the --GT-AR flag)
