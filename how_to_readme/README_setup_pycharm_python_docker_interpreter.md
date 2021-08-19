@@ -21,7 +21,7 @@ Note that the procedure to setup PyCharm for full remote development (notably on
 - [Configure an interpreter using Docker | PyCharm](https://www.jetbrains.com/help/pycharm/using-docker-as-a-remote-interpreter.html)
 - [Docker Docs](https://docs.docker.com/)
 
-# Procedure: How to setup a Python interpreter connected to a Docker container running localy
+## Procedure: 
 #### Note:  
 - We assume that the user already have a *PyCharm project* setup with the source code cloned from `https://github.com/norlab-ulaval/NorLab_MPPI`. 
 - We assume that this project is located in the *host* computer at `/Users/redleader/PycharmProjects/NorLab_MPPI`
@@ -42,7 +42,8 @@ In the *Add Python Interpreter* popup window,
 1. **select *Docker* in the left menu** 
 2. then in the *Image name* field, select the name of our image from step 1, in our case: `norlabsnow/norlab-mppi-develop:x86-ubuntu18.04`
 3. and write in the *Python interpreter path* field: `python3` 
-   ![](../visual/remote_python_interpreter_pycharm_setup_snapshot/rpi2.png){width=700}
+
+   ![](../visual/remote_python_interpreter_pycharm_setup_snapshot/rpi2.png)
 
 ## Step 4. Configure the *path mapping* from the the project source code location on the host to where it reside in the container
 In the *Preferences | Project: NorLab_MPPI | Python Interpreter* window.
@@ -51,7 +52,8 @@ In the *Preferences | Project: NorLab_MPPI | Python Interpreter* window.
 2. In the *Edit Project Path Mapping* popup window, 
    a. In the *Local Path*  column (left side), add the *host*  absolute path to the project source code. In our case: `/Users/redleader/PycharmProjects/NorLab_MPPI`
    b. In the *Remote Path* colum ()right side,  add `/ros_catkin_ws/src/NorLab_MPPI`
-   ![](../visual/remote_python_interpreter_pycharm_setup_snapshot/rpi4.png){width=700}
+
+   ![](../visual/remote_python_interpreter_pycharm_setup_snapshot/rpi4.png)
 
 ## Step 5. Congratulations, your remote Docker python interpreter is ready to use. 
 As you can see, our project default interpreter is now a *python3.6* interpreter from our `norlabsnow/norlab-mppi-develop:x86-ubuntu18.04` image and it as *PyTorch 1.9* installed. Dont forget to **click apply**.
@@ -76,19 +78,14 @@ As you can see, our project default interpreter is now a *python3.6* interpreter
 4. In the *Docker container setting*, click on the **folder** icon on the left side 
 5. In the *Edit Docker Container Settings*, click on the **+** icon under *Volume binding* 
 6. In the pop up window, add the same value as in step *4.2.a* and *4.2.b* to *Host path* and to *Container path*
-   <br>
 
    ![](../visual/remote_python_interpreter_pycharm_setup_snapshot/rpi6.png)
 
-    <br>
 
 7. You now have access to the **run configuration** tools and more importantly the **debug tools**  
 
-   <br>
-
    ![](../visual/remote_python_interpreter_pycharm_setup_snapshot/rpi7.png)
 
-<br>
 
 **You're now ready to conquer the world ... one debug breakpoint at the time**
 
