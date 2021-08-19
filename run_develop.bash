@@ -200,9 +200,11 @@ New container name: ${CONTAINER_NAME}
 ## todo:assessment (ref task NLSAR-159 Fix the execute permission of source code mounted volume)
 #sudo chmod --recursive +x "${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
 
-DS_HOST_IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
+# todo:investigate?? >> The next line cause error on other os
+#DS_HOST_IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
+
 #export DISPLAY=:0
-export DISPLAY=${DS_HOST_IP}:0
+export DISPLAY=:0
 #echo "export DISPLAY=:0" >> ~/.bashrc
 
 # Note on xhost usage:
@@ -215,7 +217,7 @@ export DISPLAY=${DS_HOST_IP}:0
 #     - si:         Server Interpreted : si:<type>:<value>
 
 #sudo xhost +si:localuser:root
-sudo xhost + ${DS_HOST_IP} # (Priority) todo:fixme!! (ref task NLSAR-189)
+sudo xhost +  # (Priority) todo:fixme!! (ref task NLSAR-189)
 
 
 RUNTIME_FLAG="--runtime nvidia "
@@ -234,7 +236,7 @@ if [ $OSX == true ]; then
   --publish=11311:11311 --publish=2222:22 --publish=5900:5900  --publish=80:80 \
   "
 #  --publish=7777:7777
-  USER_ARG="${USER_ARG} --env='DISPLAY=${DS_HOST_IP}:0' "
+#  USER_ARG="${USER_ARG} --env='DISPLAY=${DS_HOST_IP}:0' "
 fi
 
 if [ $DRY_RUN == true ]; then

@@ -11,17 +11,9 @@ sudo apt-get update
 rosdep install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} --default-yes
 
 # catkin_make step: rebuild everything in the catkin workspace DS_DEV_WORKSPACE
-RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
-    && catkin_make \
-    && source ${DS_DEV_WORKSPACE}/devel/setup.bash" \
-    && echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc \
-    && echo "source ${DS_DEV_WORKSPACE}/devel/setup.bash" >> ~/.bashrc
-
-## catkin_make_isolated step: rebuild everything in the catkin workspace DS_DEV_WORKSPACE
-#python3 ./src/catkin/bin/catkin_make_isolated --install --install-space ${DS_DEV_WORKSPACE}/install_isolated -DCMAKE_BUILD_TYPE=Release \
-#    &&  rm -rf /var/lib/apt/lists/*
-#
-#source "source ${DS_DEV_WORKSPACE}/install_isolated/setup.bash"
+source /opt/ros/${ROS_DISTRO}/setup.bash
+catkin_make
+source ${DS_DEV_WORKSPACE}/devel/setup.bash
 
 
 # (Priority) todo:refactor (ref task NLSAR-222 🛠→ setupEnv*.sh scripts for deployement case)

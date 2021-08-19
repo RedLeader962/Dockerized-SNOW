@@ -17,7 +17,6 @@ echo "
 
         $ ssh -p ${DS_PYCHARM_DEV_SERVER_PORT} ${DS_PYCHARM_DEV_USER}@$(hostname -I | awk '{print $1}')
         $ sftp -P ${DS_PYCHARM_DEV_SERVER_PORT} openssh-$(hostname -I | awk '{print $1}')
-        $ scp -P ${DS_PYCHARM_DEV_SERVER_PORT} source target
         $ scp -P ${DS_PYCHARM_DEV_SERVER_PORT} /path/to/foo ${DS_PYCHARM_DEV_USER}@$(hostname -I | awk '{print $1}'):/dest/
 "
 

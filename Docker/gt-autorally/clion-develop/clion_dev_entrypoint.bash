@@ -17,7 +17,6 @@ echo "
 
         $ ssh -p ${CLION_DEV_SERVER_PORT} ${CLION_DEV_USER}@$(hostname -I | awk '{print $1}')
         $ sftp -P ${CLION_DEV_SERVER_PORT} openssh-$(hostname -I | awk '{print $1}')
-        $ scp -P ${CLION_DEV_SERVER_PORT} source target
         $ scp -P ${CLION_DEV_SERVER_PORT} /path/to/foo ${CLION_DEV_USER}@$(hostname -I | awk '{print $1}'):/dest/
 "
 echo "
