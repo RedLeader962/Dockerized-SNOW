@@ -5,10 +5,10 @@
 Note that the procedure to setup PyCharm for full remote development (notably on a Jetson) is different and involve configuring a **remote ssh Python interpreter** (more to follow later in september 2021).
 
 #### Terminology:
-- *Docker "image"* = a containerized build. Think of it like an object in OO programming
-- *Docker "container"* = it's an instance of a *Docker image* that we can run
-- "host" = the computer on which a container is run. Could be *local* or a remote compute box like the Jetson. 
-- *"Dockerhub"* = it's a repository of docker image from which we pull pre-builded *image*
+- *Docker "**image**"* = a containerized build. Think of it like an object in OO programming
+- *Docker "**container**"* = it's an instance of a *Docker image* that we can run
+- _"**host**"_ = the computer on which a container is run. Could be *local* or a remote compute box like the Jetson. 
+- *"**Dockerhub**"* = it's a repository of docker image from which we pull pre-builded *image*
 
 #### Requirement:
 - [ ] *PyCharm Professional* is installed
