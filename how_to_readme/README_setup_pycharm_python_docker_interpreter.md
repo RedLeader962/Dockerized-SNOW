@@ -35,7 +35,7 @@ sudo docker pull norlabsnow/norlab-mppi-develop:x86-ubuntu18.04
 
 ## Step  2. Add a new Python interpreter to your Pycharm project
 Go to *Preferences | Project: NorLab_MPPI | Python Interpreter*, click on the **cog** icon  on the left side and select *Add ...*
-![](visual/remote_python_interpreter_pycharm_setup_snapshot/rpi1.png)
+![ ](visual/remote_python_interpreter_pycharm_setup_snapshot/rpi1.png)
 
 
 <!-- 
