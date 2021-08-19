@@ -127,7 +127,7 @@ diagram &nbsp;)
                                 https://redleader962.github.io                                    
   
   ```
-  To open an additional interactive terminal inside _IamSnow_
+  Now make sure open an additional interactive terminal inside _IamSnow_
   ```shell 
   sudo docker exec -it IamSnow bash
   # root@norlab-og:/#
@@ -193,7 +193,7 @@ diagram &nbsp;)
 
 ---
 ### Instruction:
-
+- [** ★ | Setup PyCharm for local development using a Docker Python interpreter**](how_to_readme/README_setup_pycharm_python_docker_interpreter.md)
 - [**Using the _nvidia-docker_ image on a _Jetson_ device (`arm64-l4t`)**](how_to_readme/README_Jetson_builded.md)
 - [**Using the _nvidia-docker_ image on a `x86` host**](how_to_readme/README_x86_architecture.md)
 - [**Building the `arm64-l4t` nvidia-docker image on a `x86` host using _qemu_ virtualization**](how_to_readme/README_cross_compiler.md)

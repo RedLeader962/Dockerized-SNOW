@@ -53,7 +53,7 @@ fi
 
 echo
 echo "  Make sure your workspace is properly overlayed by the setup script by checking the ROS_PACKAGE_PATH environment variable. "
-echo "  It should include the directory you're in: /home/<youruser>/ros_catkin_ws/src:/opt/ros/melodic/share"
+echo "  It should include the directory you're in: ${DS_DEV_WORKSPACE}/src:/opt/ros/melodic/share"
 echo
 printenv | grep ROS
 echo
