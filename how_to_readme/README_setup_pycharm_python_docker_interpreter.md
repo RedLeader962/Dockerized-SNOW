@@ -21,7 +21,7 @@ Note that the procedure to setup PyCharm for full remote development (notably on
 - [Configure an interpreter using Docker | PyCharm](https://www.jetbrains.com/help/pycharm/using-docker-as-a-remote-interpreter.html)
 - [Docker Docs](https://docs.docker.com/)
 
-## Procedure: 
+# The setup procedure: 
 #### Note:  
 - We assume that the user already have a *PyCharm project* setup with the source code cloned from `https://github.com/norlab-ulaval/NorLab_MPPI`. 
 - We assume that this project is located in the *host* computer at `/Users/redleader/PycharmProjects/NorLab_MPPI`
