@@ -22,11 +22,12 @@ function print_help_in_terminal() {
                                   Must be an absolute path eg.: /home/snowxavier/Repositories/${DS_TARGET_PROJECT_SRC_REPO}
   --data=<myCrazyDataDir>         Host data directory to mount inside the container.
                                   Must be an absolute path eg.: /home/snowxavier/Repositories/wt_data
+  --dryrun                        Print the docker run command but dont execute it
+  --osX                           Switch network flag to bridge and explicitly publish container port
 
   --GT-AR                         Project version: Georgia Tech AutoRally refactoring
   --clion                         Build the version to use with CLion IDE (use with the --GT-AR flag)
 
-  --name=xc                       Shortcut: ---name=xavier_red_clion
   --data=jetson                   Shortcut: --volume=\"\$HOME/Repositories/wt_data:/mnt/wt_data:ro\"
 
 \033[1mNote:\033[0m You can pass any docker run flag as additional argument eg:
@@ -58,6 +59,8 @@ IDE="develop"
 DS_SUB_PROJECT="norlab-mppi"
 DS_TARGET_PROJECT_SRC_REPO="NorLab_MPPI"
 # alt repo: SNOW_AutoRally
+DRY_RUN=false
+OSX=false
 
 
 # todo:on task end >> delete next bloc ↓↓
@@ -79,6 +82,14 @@ for arg in "$@"; do
   --clion)
     IDE="clion-develop"
     shift # Remove --clion from processing
+    ;;
+  --dryrun)
+    DRY_RUN=true
+    shift # Remove --dryrun from processing
+    ;;
+  --osX)
+    OSX=true
+    shift # Remove --osX from processing
     ;;
   --name)
     echo "${0} >> pass argument with the equal sign: --name=${2}" >&2 # Note: '>&2' = print to stderr
@@ -184,16 +195,14 @@ New container name: ${CONTAINER_NAME}
 #  USER_ARG >> ${USER_ARG}
 #"
 
-### todo:on task end >> mute next bloc ↓↓
-#echo "
-#${0}:
-#  sudo docker run --runtime nvidia --interactive --tty --network host --device=/dev/input/js0 --env DISPLAY=$DISPLAY --privileged --volume "/tmp/.X11-unix/:/tmp/.X11-unix" --volume "/etc/localtime:/etc/localtime:ro" ${HOST_DATA_DIR_FLAG} ${HOST_SOURCE_CODE_FLAG} --security-opt seccomp=unconfined --security-opt apparmor=unconfined --cap-add sys_ptrace ${USER_ARG} norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG}
-#"
+
 
 ## todo:assessment (ref task NLSAR-159 Fix the execute permission of source code mounted volume)
 #sudo chmod --recursive +x "${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
 
-export DISPLAY=:0
+DS_HOST_IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
+#export DISPLAY=:0
+export DISPLAY=${DS_HOST_IP}:0
 #echo "export DISPLAY=:0" >> ~/.bashrc
 
 # Note on xhost usage:
@@ -206,15 +215,38 @@ export DISPLAY=:0
 #     - si:         Server Interpreted : si:<type>:<value>
 
 #sudo xhost +si:localuser:root
-sudo xhost + # (Priority) todo:fixme!! (ref task NLSAR-189)
+sudo xhost + ${DS_HOST_IP} # (Priority) todo:fixme!! (ref task NLSAR-189)
 
+
+RUNTIME_FLAG="--runtime nvidia "
+NETWORK_FLAG="--network host "
+if [ $OSX == true ]; then
+  # 80 --> default ros master port
+  # 11311 --> Warthog ros master
+  # 22 --> ssh
+  # 7777 --> gdbserver
+  # 5900 --> vnc
+  # 0-1023 --> well-know ports
+  # ⚠️ | Be advise, you cannot ping from a container outside: "Docker Desktop for Mac can’t route traffic to containers."
+  #     https://docs.docker.com/docker-for-mac/networking/
+  RUNTIME_FLAG=""
+  NETWORK_FLAG="--network=bridge \
+  --publish=11311:11311 --publish=2222:22 --publish=7777:7777 --publish=5900:5900  --publish=80:80 \
+  "
+fi
+
+if [ $DRY_RUN == true ]; then
+  echo "${0} dry run:
+  sudo docker run ${RUNTIME_FLAG} --interactive --tty ${NETWORK_FLAG} --device=/dev/input/js0 --env DISPLAY=$DISPLAY --privileged --volume "/tmp/.X11-unix/:/tmp/.X11-unix" --volume \"/etc/localtime:/etc/localtime:ro\" ${HOST_DATA_DIR_FLAG} ${HOST_SOURCE_CODE_FLAG} --security-opt seccomp=unconfined --security-opt apparmor=unconfined --cap-add sys_ptrace ${USER_ARG} norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG}"
+  exit
+fi
 
 
 sudo docker run \
-  --runtime nvidia \
+  ${RUNTIME_FLAG} \
   --interactive \
   --tty \
-  --network host \
+  ${NETWORK_FLAG} \
   --device=/dev/input/js0 \
   --env DISPLAY=$DISPLAY \
   --privileged \
