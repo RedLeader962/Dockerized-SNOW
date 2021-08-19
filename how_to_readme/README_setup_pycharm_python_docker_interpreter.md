@@ -23,7 +23,7 @@ Note that the procedure to setup PyCharm for full remote development (notably on
 
 # The setup procedure: 
 #### Note:  
-- We assume that the user already have a *PyCharm project* setup with the source code cloned from `https://github.com/norlab-ulaval/NorLab_MPPI`. 
+- We assume that the user already have a *PyCharm project* setup with the source code cloned from `https://github.com/norlab-ulaval/NorLab_MPPI` 
 - We assume that this project is located in the *host* computer at `/Users/redleader/PycharmProjects/NorLab_MPPI`
 - For the sake of the example, **assume that the host computer has only Python2.7 and does not have PyTorch or ROS installed at all.** 
 
