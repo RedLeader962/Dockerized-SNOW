@@ -265,19 +265,20 @@ RUN apt-get update \
 
 
 # ...Setup ssh server...................................................................................................
-RUN ( \
-    echo 'LogLevel DEBUG2'; \
-    echo 'PermitRootLogin yes'; \
-    echo 'PasswordAuthentication yes'; \
-    echo 'Port 2222'; \
-    echo 'Subsystem sftp /usr/lib/openssh/sftp-server'; \
-  ) > /etc/ssh/sshd_config_clion_snow_dev \
-  && mkdir /run/sshd
-
 # ssh port, remaped from default 22 to 2222
 ARG DS_PYCHARM_DEV_SERVER_PORT=2222
 ENV DS_PYCHARM_DEV_SERVER_PORT=${DS_PYCHARM_DEV_SERVER_PORT}
 EXPOSE ${DS_PYCHARM_DEV_SERVER_PORT}
+
+RUN ( \
+    echo 'LogLevel DEBUG2'; \
+    echo 'PermitRootLogin yes'; \
+    echo 'PasswordAuthentication yes'; \
+    echo 'Port ${DS_PYCHARM_DEV_SERVER_PORT}'; \
+    echo 'Subsystem sftp /usr/lib/openssh/sftp-server'; \
+  ) > /etc/ssh/sshd_config_dockerized_snow_openssh_server \
+  && mkdir /run/sshd
+
 
 ## gdbserver port
 #EXPOSE 7777

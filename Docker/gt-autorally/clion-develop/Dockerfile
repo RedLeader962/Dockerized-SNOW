@@ -92,7 +92,7 @@ RUN ( \
     echo 'PasswordAuthentication yes'; \
     echo 'Port 2222'; \
     echo 'Subsystem sftp /usr/lib/openssh/sftp-server'; \
-  ) > /etc/ssh/sshd_config_clion_snow_dev \
+  ) > /etc/ssh/sshd_config_dockerized_snow_openssh_server \
   && mkdir /run/sshd
 
 # ssh port, remaped from default 22 to 2222

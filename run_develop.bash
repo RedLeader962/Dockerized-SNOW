@@ -231,8 +231,10 @@ if [ $OSX == true ]; then
   #     https://docs.docker.com/docker-for-mac/networking/
   RUNTIME_FLAG=""
   NETWORK_FLAG="--network=bridge \
-  --publish=11311:11311 --publish=2222:22 --publish=7777:7777 --publish=5900:5900  --publish=80:80 \
+  --publish=11311:11311 --publish=2222:22 --publish=5900:5900  --publish=80:80 \
   "
+#  --publish=7777:7777
+  USER_ARG="${USER_ARG} --env='DISPLAY=${DS_HOST_IP}:0' "
 fi
 
 if [ $DRY_RUN == true ]; then
@@ -250,6 +252,7 @@ sudo docker run \
   --device=/dev/input/js0 \
   --env DISPLAY=$DISPLAY \
   --privileged \
+  --env="QT_X11_NO_MITSHM=1" \
   --volume "/tmp/.X11-unix/:/tmp/.X11-unix" \
   --volume "/etc/localtime:/etc/localtime:ro" \
   ${HOST_DATA_DIR_FLAG} \
