@@ -37,6 +37,9 @@ sudo docker pull norlabsnow/norlab-mppi-develop:x86-ubuntu18.04
 Go to *Preferences | Project: NorLab_MPPI | Python Interpreter*, click on the **cog** icon  on the left side and select *Add ...*
 ![](visual/remote_python_interpreter_pycharm_setup_snapshot/rpi1.png)
 
+
+<!-- 
+
 ## Step 3. Configure the *Docker Python* interpreter
 In the *Add Python Interpreter* popup window, 
 1. **select *Docker* in the left menu** 
@@ -93,3 +96,5 @@ As you can see, our project default interpreter is now a *python3.6* interpreter
 **You're now ready to conquer the world ... one debug breakpoint at the time**
 
 <br>
+
+-->
