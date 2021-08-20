@@ -50,8 +50,8 @@ In the *Preferences | Project: NorLab_MPPI | Python Interpreter* window.
 1. Click on the **folder** icon on the left side of the *Path mapping* field  
    ![](../visual/remote_python_interpreter_pycharm_setup_snapshot/rpi3.png)
 2. In the *Edit Project Path Mapping* popup window, 
-   a. In the *Local Path*  column (left side), add the *host*  absolute path to the project source code. In our case: `/Users/redleader/PycharmProjects/NorLab_MPPI`
-   b. In the *Remote Path* colum ()right side,  add `/ros_catkin_ws/src/NorLab_MPPI`
+   - In the *Local Path*  column (left side), add the *host*  absolute path to the project source code. In our case: `/Users/redleader/PycharmProjects/NorLab_MPPI`
+   - In the *Remote Path* colum ()right side,  add `/ros_catkin_ws/src/NorLab_MPPI`
 
    ![](../visual/remote_python_interpreter_pycharm_setup_snapshot/rpi4.png)
 
@@ -77,7 +77,7 @@ As you can see, our project default interpreter is now a *python3.6* interpreter
 3. Make sure that the *Python Interpreter* filed point to our `Remote Python 3.6.9 Docker ...` created earlier at step 3.
 4. In the *Docker container setting*, click on the **folder** icon on the left side 
 5. In the *Edit Docker Container Settings*, click on the **+** icon under *Volume binding* 
-6. In the pop up window, add the same value as in step *4.2.a* and *4.2.b* to *Host path* and to *Container path*
+6. In the pop up window, add the same value has in step *4.2.a* and *4.2.b* to *Host path* and to *Container path*
 
    ![](../visual/remote_python_interpreter_pycharm_setup_snapshot/rpi6.png)
 
