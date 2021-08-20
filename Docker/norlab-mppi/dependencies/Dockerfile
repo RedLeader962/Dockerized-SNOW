@@ -270,6 +270,7 @@ ARG DS_PYCHARM_DEV_SERVER_PORT=2222
 ENV DS_PYCHARM_DEV_SERVER_PORT=${DS_PYCHARM_DEV_SERVER_PORT}
 EXPOSE ${DS_PYCHARM_DEV_SERVER_PORT}
 
+# Inspired from https://austinmorlan.com/posts/docker_clion_development/
 RUN ( \
     echo "LogLevel DEBUG2"; \
     echo "PermitRootLogin yes"; \
@@ -279,6 +280,8 @@ RUN ( \
   ) > /etc/ssh/sshd_config_dockerized_snow_openssh_server \
   && mkdir /run/sshd
 
+# SSH login fix. Otherwise user is kicked off after login
+RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 
 ## gdbserver port
 #EXPOSE 7777
@@ -287,10 +290,12 @@ RUN ( \
 ARG NEW_USER=pycharm-debugger
 ENV DS_PYCHARM_DEV_USER=${NEW_USER}
 ARG PASSWORD=lasagne
-
-RUN echo 'root:SNOW' | chpasswd
 RUN useradd -m ${NEW_USER} \
   && yes ${PASSWORD} | passwd ${NEW_USER}
+
+# ...root config........................................................................................................
+# user:newpassword
+RUN echo "root:${PASSWORD}" | chpasswd
 
 # (Optional) Change default shell for new user
 #RUN usermod -s /bin/bash ${NEW_USER}
