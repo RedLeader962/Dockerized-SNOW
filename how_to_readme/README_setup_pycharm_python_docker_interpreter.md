@@ -66,27 +66,32 @@ As you can see, our project default interpreter is now a *python3.6* interpreter
 
 <br>
 
-***⚠️ | WAIT!!! One last thing***
+[comment]: <> (***⚠️ | WAIT!!! One last thing***)
+<div align="center">
+<span style="font-weight: bolder;font-size: x-large;">⚠️ | WAIT!!! One last thing</span>
+</div>
 
 <br>
 
 ## Step 6. Finaly, set *Run/debug Configuration* volume path explicitly (for each run/debug config)
 ★ | This is a required hack for Dockerized-SNOW to execute run/debug configuration.
-1. Open the *Run/Debug Configurations* window at *PyCharm menu | Run | Edit Configurations ...*
-2. Create a new Python run configuration for the `try_pytorch.py` module. The *Script path* field should pointing from the *host* side.
-3. Make sure that the *Python Interpreter* filed point to our `Remote Python 3.6.9 Docker ...` created earlier at step 3.
-4. In the *Docker container setting*, click on the **folder** icon on the left side 
-5. In the *Edit Docker Container Settings*, click on the **+** icon under *Volume binding* 
-6. In the pop up window, add the same value has in step *4.2.a* and *4.2.b* to *Host path* and to *Container path*
+1. Open the *Run/Debug Configurations* window at *PyCharm menu | Run | Edit Configurations ...*;
+2. Create a new Python run configuration for the `try_pytorch.py` module;
+3. Make sure that the *Python Interpreter* field point to our `Remote Python 3.6.9 Docker ...` created earlier at step 3;
+4. In the *Docker container setting*, click on the **folder** icon on the left side;
+5. In the *Edit Docker Container Settings*, click on the **+** icon under *Volume binding*; 
+6. In the pop up window, add the same value has in step *4.2.a* and *4.2.b* to *Host path* and to *Container path*;
 
    ![](../visual/remote_python_interpreter_pycharm_setup_snapshot/rpi6.png)
 
 
-7. You now have access to the **run configuration** tools and more importantly the **debug tools**  
+7. You now have access to the **run configuration** tools and more importantly the **debug tools**.
 
    ![](../visual/remote_python_interpreter_pycharm_setup_snapshot/rpi7.png)
 
 
-**You're now ready to conquer the world ... one debug breakpoint at the time**
-
+[comment]: <> (**You're now ready to conquer the world ... one debug breakpoint at the time**)
+<div align="center">
+<span style="font-weight: bolder;font-size: x-large;">You're now ready to conquer the world ... one debug breakpoint at the time</span>
+</div>
 <br>
