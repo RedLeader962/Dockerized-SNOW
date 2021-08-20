@@ -78,7 +78,7 @@ As you can see, our project default interpreter is now a *python3.6* interpreter
 1. Open the *Run/Debug Configurations* window at *PyCharm menu | Run | Edit Configurations ...*;
 2. Create a new Python run configuration for the `try_pytorch.py` module;
 3. Make sure that the *Python Interpreter* field point to our `Remote Python 3.6.9 Docker ...` interpreter created earlier at step 3. Until this point, everything was standard procedure,  now commes the trick;
-4. In the *Docker container setting*, click on the **folder** icon on the left side;
+4. In the *Docker container setting* field at the bottom, click on the **folder** icon on the left side;
 5. In the *Edit Docker Container Settings*, click on the **+** icon under *Volume binding*; 
 6. In the pop up window, add the same value has in step *4.2.a* and *4.2.b* to *Host path* and to *Container path*;
 
