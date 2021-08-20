@@ -18,7 +18,7 @@ function print_help_in_terminal() {
   --x86                     Build the image version compiled for x86 workstation instead of arm64-l4t
   --l4t-version=<version>   Build arm64-l4t using an other release version (default: r32.6.1)
   --appendToTag=<detail>    Add suplemental details to the builded image tag eg.: --appendToTag=test
-  --dryrun                        Print the docker run command but dont execute it
+  --dryrun                  Print the docker run command but dont execute it
 
 \033[1mNote:\033[0m You can pass any docker build flag as additional argument eg:
   --build-arg=\"DS_ROS_PKG=desktop-full\"

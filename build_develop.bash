@@ -16,7 +16,7 @@ function print_help_in_terminal() {
   --x86                     Build the image version compiled for x86 workstation instead of arm64-l4t
   --l4t-version=<version>   Build arm64-l4t using an other release version (default: r32.6.1)
   --host-type=<type>        Specified the container host type: XavierStandAlone, XavierWarthog, local
-  --dryrun                        Print the docker run command but dont execute it
+  --dryrun                  Print the docker run command but dont execute it
   --GT-AR                   Project version: Georgia Tech AutoRally refactoring
   --clion                   Build the version to use with CLion IDE (use with the --GT-AR flag)
   --appendToTag=<detail>    Add supplemental details to the built image tag eg.: --appendToTag=test
