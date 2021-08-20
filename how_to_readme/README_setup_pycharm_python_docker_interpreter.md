@@ -68,7 +68,7 @@ As you can see, our project default interpreter is now a *python3.6* interpreter
 
 [comment]: <> (***⚠️ | WAIT!!! One last thing***)
 <div align="center">
-<span style="font-weight: bolder;font-size: x-large;">⚠️ | WAIT!!! One last thing</span>
+<span style="font-weight: bolder;font-size: x-large;" ><b>⚠️ WAIT!!! One last thing</b></span>
 </div>
 
 <br>
@@ -92,6 +92,6 @@ As you can see, our project default interpreter is now a *python3.6* interpreter
 
 [comment]: <> (**You're now ready to conquer the world ... one debug breakpoint at the time**)
 <div align="center">
-<span style="font-weight: bolder;font-size: x-large;">You're now ready to conquer the world ... one debug breakpoint at the time</span>
+<span style="font-weight: bolder;font-size: x-large;"><b>You're now ready to conquer the world ... one debug breakpoint at the time</b></span>
 </div>
 <br>
