@@ -241,7 +241,7 @@ fi
 
 if [ $DRY_RUN == true ]; then
   echo "${0} dry run:
-  sudo docker run ${RUNTIME_FLAG} --interactive --tty ${NETWORK_FLAG} --device=/dev/input/js0 --env DISPLAY=$DISPLAY --privileged --volume "/tmp/.X11-unix/:/tmp/.X11-unix" --volume \"/etc/localtime:/etc/localtime:ro\" ${HOST_DATA_DIR_FLAG} ${HOST_SOURCE_CODE_FLAG} --security-opt seccomp=unconfined --security-opt apparmor=unconfined --cap-add sys_ptrace ${USER_ARG} norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG}
+  sudo docker run ${RUNTIME_FLAG} --interactive --tty ${NETWORK_FLAG} --device=/dev/input/js0 --env DISPLAY=$DISPLAY --privileged --volume "/tmp/.X11-unix/:/tmp/.X11-unix" --volume \"/etc/localtime:/etc/localtime:ro\" ${HOST_DATA_DIR_FLAG} ${HOST_SOURCE_CODE_FLAG} --security-opt seccomp=unconfined --security-opt apparmor=unconfined --cap-add sys_ptrace --hostname "DS-${CONTAINER_NAME}" ${USER_ARG} norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG}
   "
   exit
 fi
@@ -263,6 +263,7 @@ sudo docker run \
   --security-opt seccomp=unconfined \
   --security-opt apparmor=unconfined \
   --cap-add sys_ptrace \
+  --hostname ${CONTAINER_NAME} \
   ${USER_ARG} \
   norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG}
 
