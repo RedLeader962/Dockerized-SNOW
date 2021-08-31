@@ -166,7 +166,8 @@ for arg in "$@"; do
 done
 
 if [[ "${NAMED}" == "false" ]]; then
-    echo "Please name your container with a meaning full name using the --name=<myCoolContainer> flag. The crazier the better!"
+    #  "\$ ${0} --name=<myCoolContainer> [<optional argument>]
+    echo "${0} missing required flag: please ame your container with a meaning full name using the --name=<myCoolContainer> flag. The crazier the better!"
     echo
     exit
 fi
