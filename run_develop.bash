@@ -165,9 +165,10 @@ for arg in "$@"; do
   shift
 done
 
+MSG_ERROR="\033[1;31m(Dockerized-SNOW error)${MSG_END}"
 if [[ "${NAMED}" == "false" ]]; then
     #  "\$ ${0} --name=<myCoolContainer> [<optional argument>]
-    echo "${0} missing required flag: please ame your container with a meaning full name using the --name=<myCoolContainer> flag. The crazier the better!"
+    echo "${MSG_ERROR} Please name your container with a meaning full name using the \033[1m--name=<myCoolContainer>\033[0m flag. The crazier the better!"
     echo
     exit
 fi
