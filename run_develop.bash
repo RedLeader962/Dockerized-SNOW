@@ -169,7 +169,7 @@ for arg in "$@"; do
 done
 
 
-printenv | grep -e DS_MSG_ERROR - DS_
+printenv | grep -e DS_MSG_ERROR -e DS_
 #MSG_END="\033[0m"
 #MSG_ERROR="\033[1;31m(Dockerized-SNOW error)${MSG_END}"
 if [[ "${NAMED}" == "false" ]]; then
