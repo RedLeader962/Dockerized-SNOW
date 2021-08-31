@@ -98,17 +98,17 @@ for arg in "$@"; do
     shift # Remove --osx from processing
     ;;
   --name)
-    echo "${0} >> pass argument with the equal sign: --name=${2}" >&2 # Note: '>&2' = print to stderr
+    echo -e "${DS_MSG_ERROR} ${0} >> pass argument with the equal sign: --name=${2}" >&2 # Note: '>&2' = print to stderr
     echo
     exit
     ;;
   --src)
-    echo "${0} >> pass argument with the equal sign: --src=${2}" >&2 # Note: '>&2' = print to stderr
+    echo -e "${DS_MSG_ERROR} ${0} >> pass argument with the equal sign: --src=${2}" >&2 # Note: '>&2' = print to stderr
     echo
     exit
     ;;
   --data)
-    echo "${0} >> pass argument with the equal sign: --data=${2}" >&2 # Note: '>&2' = print to stderr
+    echo -e "${DS_MSG_ERROR} ${0} >> pass argument with the equal sign: --data=${2}" >&2 # Note: '>&2' = print to stderr
     echo
     exit
     ;;
@@ -125,7 +125,7 @@ for arg in "$@"; do
     echo
     ;;
   --runTag)
-    echo "${0} >> pass argument with the equal sign: --runTag=${2}" >&2 # Note: '>&2' = print to stderr
+    echo -e "${DS_MSG_ERROR} ${0} >> pass argument with the equal sign: --runTag=${2}" >&2 # Note: '>&2' = print to stderr
     echo
     exit
     ;;
@@ -184,9 +184,9 @@ if [[ -z $HOST_SOURCE_CODE_FLAG ]]; then
     CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/ros_catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
     WS_DIRNAME=$(basename $WS_DIR)
     HOST_SOURCE_CODE_FLAG=" --volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
-    echo "Use default source code mapping from host to container: ${WS_DIR} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+    echo -e "Using ${DS_MSG_EMPH}default source code mapping${DS_MSG_END} from host to container: ${WS_DIR} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
   else
-    echo "Be advise, the ${DS_SUB_PROJECT} source code is unreachable with path ${WS_DIR}. Make sure you have cloned the ${DS_TARGET_PROJECT_SRC_REPO}.git repository prior to running ${0} then provide it's absolute path to ${0} using --src=/absolute/path/to/source/code/dir/${DS_TARGET_PROJECT_SRC_REPO}"
+    echo -e "${DS_MSG_ERROR} Be advise, the ${DS_SUB_PROJECT} source code is unreachable with path ${WS_DIR}. Make sure you have cloned the ${DS_TARGET_PROJECT_SRC_REPO}.git repository prior to running ${0} then provide it's absolute path to ${0} using ${DS_MSG_EMPH}--src=/absolute/path/to/source/code/dir/${DS_TARGET_PROJECT_SRC_REPO}${DS_MSG_END}"
     echo
     exit
   fi
@@ -195,7 +195,7 @@ fi
 # Pass the target project repository basename to the docker container envenrionment variable
 USER_ARG="${USER_ARG} -e DS_TARGET_PROJECT_SRC_REPO=${DS_TARGET_PROJECT_SRC_REPO}"
 
-echo "
+echo -e "
 Create container instance from docker image ${DS_SUB_PROJECT}-${IDE} with tag: ${DS_IMAGE_TAG}
 New container name: ${DS_MSG_EMPH}${CONTAINER_NAME}${DS_MSG_END}
 "
