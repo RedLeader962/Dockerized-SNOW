@@ -168,6 +168,8 @@ for arg in "$@"; do
   shift
 done
 
+
+printenv | grep -e DS_MSG_ERROR - DS_
 #MSG_END="\033[0m"
 #MSG_ERROR="\033[1;31m(Dockerized-SNOW error)${MSG_END}"
 if [[ "${NAMED}" == "false" ]]; then
@@ -264,7 +266,6 @@ if [ $DRY_RUN == true ]; then
   exit
 fi
 
-printenv | grep -e DS_MSG_ERROR - DS_
 
 
 sudo docker run \
