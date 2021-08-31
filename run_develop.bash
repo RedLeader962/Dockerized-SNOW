@@ -264,6 +264,8 @@ if [ $DRY_RUN == true ]; then
   exit
 fi
 
+printenv | grep -e DS_MSG_ERROR - DS_
+
 
 sudo docker run \
   ${RUNTIME_FLAG} \
