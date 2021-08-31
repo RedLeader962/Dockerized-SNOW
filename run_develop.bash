@@ -171,7 +171,7 @@ done
 
 #printenv | grep -e DS_MSG_ERROR -e DS_
 if [[ "${NAMED}" == "false" ]]; then
-    echo -e "${DS_MSG_ERROR} Please name your container with a meaningful name using the \033[1m--name=<myCoolContainer>\033[0m flag. The crazier the better!"
+    echo -e "${DS_MSG_ERROR} Please name your container with a meaningful name using the ${DS_MSG_EMPH}--name=<myCoolContainer>${DS_MSG_END} flag. The crazier the better!"
     echo
     exit
 fi
