@@ -264,6 +264,30 @@ RUN apt-get update \
 #    && rm -rf /var/lib/apt/lists/*
 
 
+# ...Configure prompt...................................................................................................
+# https://powerline.readthedocs.io/en/latest/index.html
+RUN sudo pip3 install powerline-status
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends fonts-powerline \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN ( \
+    echo "if [ -f `which powerline-daemon` ]; then"; \
+    echo "  powerline-daemon -q"; \
+    echo "  POWERLINE_BASH_CONTINUATION=1"; \
+    echo "  POWERLINE_BASH_SELECT=1"; \
+    echo "  . $(pip show powerline-status | grep Location: | sed 's/Location: //g')/powerline/bindings/bash/powerline.sh"; \
+    echo "fi"; \
+  ) >> ~/.bashrc
+
+WORKDIR "$(pip show powerline-status | grep Location: | sed 's/Location: //g')/powerline"
+
+COPY prompt/config_files/config.json config_files/
+COPY prompt/config_files/themes/shell/dockerized_snow.json config_files/themes/shell/dockerized_snow.json
+COPY prompt/config_files/colorschemes/shell/dockerized_snow.json config_files/colorschemes/shell/dockerized_snow.json
+
+
+
 # ...Setup ssh server...................................................................................................
 # ssh port, remaped from default 22 to 2222
 ARG DS_PYCHARM_DEV_SERVER_PORT=2222

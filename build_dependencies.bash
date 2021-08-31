@@ -162,9 +162,12 @@ if [ $DRY_RUN == true ]; then
 fi
 
 # ---Build docker image-------------------------------------------------------------------------------------------------
+# Build context is set to the `Docker` directory in order to copy the prompt config files in the image
 sudo docker build \
   -t norlabsnow/${DS_SUB_PROJECT}-dependencies:${DS_IMAGE_TAG} \
   -f ./Docker/${DS_SUB_PROJECT}/dependencies/Dockerfile \
   ${BASE_IMG_ARG} \
   ${USER_ARG} \
-  ./Docker/${DS_SUB_PROJECT}/dependencies
+  ./Docker
+
+#  ./Docker/${DS_SUB_PROJECT}/dependencies
