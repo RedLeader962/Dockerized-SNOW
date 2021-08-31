@@ -6,7 +6,7 @@ bash ./visual/terminal_splash.bash
 
 function print_help_in_terminal() {
 
-  echo -e "\$ ${0} [<optional argument>]
+  echo -e "\$ ${0} --name=<myCoolContainer> [<optional argument>]
 
 \033[1mDefault setting:\033[0m
 - Project: ${DS_SUB_PROJECT}
@@ -14,10 +14,12 @@ function print_help_in_terminal() {
 - Host source code directory: --src=${HOME}/Repositories/NorLab_MPPI
 - Host data directory: none
 
+\033[1mRequired argument:\033[0m
+  --name=<myCoolContainer>        Name that new container, the crazier the better
+
 \033[1m<optional argument>:\033[0m
   -h, --help                      Get help
   --runTag=<thatTag>              Overwrite default image tag eg.: x86-ubuntu18.04-gazebo-dart
-  --name=<myCoolContainer>        Name that new container, the crazier the better
   --src=<myCoolSrcCode>           Host source code directory to mount inside the container.
                                   Must be an absolute path eg.: /home/snowxavier/Repositories/${DS_TARGET_PROJECT_SRC_REPO}
   --data=<myCrazyDataDir>         Host data directory to mount inside the container.
@@ -61,6 +63,7 @@ DS_TARGET_PROJECT_SRC_REPO="NorLab_MPPI"
 # alt repo: SNOW_AutoRally
 DRY_RUN=false
 OSX=false
+NAMED=false
 
 
 # todo:on task end >> delete next bloc ↓↓
@@ -109,11 +112,13 @@ for arg in "$@"; do
   --name=xc)
     CONTAINER_NAME="xavier_red_clion" # Remove every character up to the '=' and assign the remainder
     USER_ARG="${USER_ARG} --name ${CONTAINER_NAME}"
+    NAMED=true
     echo
     ;;
   --name=?*)
     CONTAINER_NAME="${arg#*=}" # Remove every character up to the '=' and assign the remainder
     USER_ARG="${USER_ARG} --name ${CONTAINER_NAME}"
+    NAMED=true
     echo
     ;;
   --runTag)
@@ -159,6 +164,12 @@ for arg in "$@"; do
 
   shift
 done
+
+if [[ "${NAMED}" == "false" ]]; then
+    echo "Please name your container with a meaning full name using the --name= flag. The crazier the better!"
+    echo
+    exit
+fi
 
 # Set default source code location if user did not use the --src=<myCoolSrcCode> flag.
 if [[ -z $HOST_SOURCE_CODE_FLAG ]]; then
@@ -241,7 +252,7 @@ fi
 
 if [ $DRY_RUN == true ]; then
   echo "${0} dry run:
-  sudo docker run ${RUNTIME_FLAG} --interactive --tty ${NETWORK_FLAG} --device=/dev/input/js0 --env DISPLAY=$DISPLAY --privileged --volume "/tmp/.X11-unix/:/tmp/.X11-unix" --volume \"/etc/localtime:/etc/localtime:ro\" ${HOST_DATA_DIR_FLAG} ${HOST_SOURCE_CODE_FLAG} --security-opt seccomp=unconfined --security-opt apparmor=unconfined --cap-add sys_ptrace --hostname "DS-${CONTAINER_NAME}" ${USER_ARG} norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG}
+  sudo docker run ${RUNTIME_FLAG} --interactive --tty ${NETWORK_FLAG} --device=/dev/input/js0 --env DISPLAY=$DISPLAY --privileged --volume "/tmp/.X11-unix/:/tmp/.X11-unix" --volume \"/etc/localtime:/etc/localtime:ro\" ${HOST_DATA_DIR_FLAG} ${HOST_SOURCE_CODE_FLAG} --security-opt seccomp=unconfined --security-opt apparmor=unconfined --cap-add sys_ptrace --hostname "${CONTAINER_NAME}" ${USER_ARG} norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG}
   "
   exit
 fi
