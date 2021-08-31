@@ -2,6 +2,9 @@
 
 #set -e  # exit script if any statement returns a non-true return value
 
+# Load environment variable from file
+set -o allexport; source .env; set +o allexport
+
 bash ./visual/terminal_splash.bash
 
 function print_help_in_terminal() {
@@ -165,11 +168,12 @@ for arg in "$@"; do
   shift
 done
 
-MSG_END="\033[0m"
-MSG_ERROR="\033[1;31m(Dockerized-SNOW error)${MSG_END}"
+#MSG_END="\033[0m"
+#MSG_ERROR="\033[1;31m(Dockerized-SNOW error)${MSG_END}"
 if [[ "${NAMED}" == "false" ]]; then
     #  "\$ ${0} --name=<myCoolContainer> [<optional argument>]
-    echo -e "${MSG_ERROR} Please name your container with a meaning full name using the \033[1m--name=<myCoolContainer>\033[0m flag. The crazier the better!"
+#    echo -e "${MSG_ERROR} Please name your container with a meaningful name using the \033[1m--name=<myCoolContainer>\033[0m flag. The crazier the better!"
+    echo -e "${DS_MSG_ERROR} Please name your container with a meaningful name using the \033[1m--name=<myCoolContainer>\033[0m flag. The crazier the better!"
     echo
     exit
 fi
