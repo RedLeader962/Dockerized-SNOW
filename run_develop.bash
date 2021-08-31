@@ -169,12 +169,8 @@ for arg in "$@"; do
 done
 
 
-printenv | grep -e DS_MSG_ERROR -e DS_
-#MSG_END="\033[0m"
-#MSG_ERROR="\033[1;31m(Dockerized-SNOW error)${MSG_END}"
+#printenv | grep -e DS_MSG_ERROR -e DS_
 if [[ "${NAMED}" == "false" ]]; then
-    #  "\$ ${0} --name=<myCoolContainer> [<optional argument>]
-#    echo -e "${MSG_ERROR} Please name your container with a meaningful name using the \033[1m--name=<myCoolContainer>\033[0m flag. The crazier the better!"
     echo -e "${DS_MSG_ERROR} Please name your container with a meaningful name using the \033[1m--name=<myCoolContainer>\033[0m flag. The crazier the better!"
     echo
     exit
@@ -201,7 +197,7 @@ USER_ARG="${USER_ARG} -e DS_TARGET_PROJECT_SRC_REPO=${DS_TARGET_PROJECT_SRC_REPO
 
 echo "
 Create container instance from docker image ${DS_SUB_PROJECT}-${IDE} with tag: ${DS_IMAGE_TAG}
-New container name: ${CONTAINER_NAME}
+New container name: ${DS_MSG_EMPH}${CONTAINER_NAME}${DS_MSG_END}
 "
 
 
