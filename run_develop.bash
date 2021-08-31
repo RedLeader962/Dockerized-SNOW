@@ -166,7 +166,7 @@ for arg in "$@"; do
 done
 
 if [[ "${NAMED}" == "false" ]]; then
-    echo "Please name your container with a meaning full name using the --name= flag. The crazier the better!"
+    echo "Please name your container with a meaning full name using the `--name=` flag. The crazier the better!"
     echo
     exit
 fi
