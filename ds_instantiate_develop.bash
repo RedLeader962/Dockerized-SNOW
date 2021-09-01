@@ -292,7 +292,7 @@ sudo docker run \
   norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG}
 
 # Keep the container up even when the terminal use to execute ds_instantiate_develop.bash is closed
-sudo docker start ${CONTAINER_NAME}
+#sudo docker start ${CONTAINER_NAME}
 sudo docker exec -it ${CONTAINER_NAME} /ros_entrypoint.bash bash
 
 # -p10.0.1.103:2222:22 \

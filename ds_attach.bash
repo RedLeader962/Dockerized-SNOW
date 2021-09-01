@@ -67,17 +67,10 @@ done
 #  CONTAINER_NAMES >> ${CONTAINER_NAMES}
 #"
 
-#sudo docker exec -it ${USER_ARG} ${CONTAINER_NAMES} bash
-
-REDTAIL_ID=`docker ps -aqf "name=^/${CONTAINER_NAMES}$"`
+# Start container if he is stopped
 if [ -z `docker ps -qf "name=^/${CONTAINER_NAMES}$"` ]; then
-    xhost +local:${REDTAIL_ID}
-    echo "Starting and attaching to ${CONTAINER_NAMES} container..."
-    docker start ${REDTAIL_ID}
-#    docker attach ${REDTAIL_ID}
-#else
-#    echo "Found running ${CONTAINER_NAMES} container, attaching bash..."
-#    docker exec -it ${REDTAIL_ID} bash
+    docker start ${CONTAINER_NAMES}
 fi
 
+#sudo docker exec -it ${USER_ARG} ${CONTAINER_NAME} /ros_entrypoint.bash bash
 sudo docker exec -it ${USER_ARG} ${CONTAINER_NAMES} bash
