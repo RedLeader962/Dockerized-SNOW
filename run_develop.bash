@@ -142,7 +142,7 @@ for arg in "$@"; do
       HOST_SOURCE_CODE_FLAG="${HOST_SOURCE_CODE_FLAG} --volume ${HOST_SRC_PATH}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
       echo "Source code mapping from host to container: ${HOST_SRC_PATH} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
     else
-      echo -e "${DS_MSG_ERROR} Be advise, the ${DS_SUB_PROJECT} source code is unreachable with path ${HOST_SRC_PATH}. Make sure you have cloned the ${DS_TARGET_PROJECT_SRC_REPO}.git repository prior to running ${0} then provide it's absolute path to ${0} using ${DS_MSG_EMPH}--src=/absolute/path/to/source/code/dir/${DS_TARGET_PROJECT_SRC_REPO}${DS_MSG_END}"
+      echo -e "${DS_MSG_ERROR} Be advise, the ${DS_SUB_PROJECT} ${DS_MSG_ERROR_FORMAT}source code is unreachable with path ${HOST_SRC_PATH}${DS_MSG_END_FORMAT}. Make sure you have cloned the ${DS_TARGET_PROJECT_SRC_REPO}.git repository prior to running ${0} then provide it's absolute path to ${0} using ${DS_MSG_EMPH_FORMAT}--src=/absolute/path/to/source/code/dir/${DS_TARGET_PROJECT_SRC_REPO}${DS_MSG_END_FORMAT}"
       echo
       exit
     fi
@@ -179,7 +179,7 @@ done
 
 #printenv | grep -e DS_MSG_ERROR -e DS_
 if [[ "${NAMED}" == "false" ]]; then
-    echo -e "${DS_MSG_ERROR} Please name your container with a meaningful name using the ${DS_MSG_EMPH}--name=<myCoolContainer>${DS_MSG_END} flag. The crazier the better!"
+    echo -e "${DS_MSG_ERROR} Please name your container with a meaningful name using the ${DS_MSG_EMPH_FORMAT}--name=<myCoolContainer>${DS_MSG_END_FORMAT} flag. The crazier the better!"
     echo
     exit
 fi
@@ -191,9 +191,9 @@ if [[ -z $HOST_SOURCE_CODE_FLAG ]]; then
   if [[ -d ${DEFAULT_HOST_SRC_PATH} ]]; then
     WS_DIRNAME=$(basename DEFAULT_HOST_SRC_PATH)
     HOST_SOURCE_CODE_FLAG=" --volume ${DEFAULT_HOST_SRC_PATH}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
-    echo -e "Using ${DS_MSG_EMPH}default source code mapping${DS_MSG_END} from host to container: ${DEFAULT_HOST_SRC_PATH} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+    echo -e "Using ${DS_MSG_EMPH_FORMAT}default source code mapping${DS_MSG_END_FORMAT} from host to container: ${DEFAULT_HOST_SRC_PATH} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
   else
-    echo -e "${DS_MSG_ERROR} Be advise, the ${DS_SUB_PROJECT} source code is unreachable with path ${DEFAULT_HOST_SRC_PATH}. Make sure you have cloned the ${DS_TARGET_PROJECT_SRC_REPO}.git repository prior to running ${0} then provide it's absolute path to ${0} using ${DS_MSG_EMPH}--src=/absolute/path/to/source/code/dir/${DS_TARGET_PROJECT_SRC_REPO}${DS_MSG_END}"
+    echo -e "${DS_MSG_ERROR} Be advise, the ${DS_SUB_PROJECT} ${DS_MSG_ERROR_FORMAT}source code is unreachable with path ${DEFAULT_HOST_SRC_PATH}${DS_MSG_END_FORMAT}. Make sure you have cloned the ${DS_TARGET_PROJECT_SRC_REPO}.git repository prior to running ${0} then provide it's absolute path to ${0} using ${DS_MSG_EMPH_FORMAT}--src=/absolute/path/to/source/code/dir/${DS_TARGET_PROJECT_SRC_REPO}${DS_MSG_END_FORMAT}"
     echo
     exit
   fi
@@ -204,7 +204,7 @@ USER_ARG="${USER_ARG} -e DS_TARGET_PROJECT_SRC_REPO=${DS_TARGET_PROJECT_SRC_REPO
 
 echo -e "
 Create container instance from docker image ${DS_SUB_PROJECT}-${IDE} with tag: ${DS_IMAGE_TAG}
-New container name: ${DS_MSG_EMPH}${CONTAINER_NAME}${DS_MSG_END}
+New container name: ${DS_MSG_EMPH_FORMAT}${CONTAINER_NAME}${DS_MSG_END_FORMAT}
 "
 
 
@@ -263,7 +263,7 @@ if [ $OSX == true ]; then
 fi
 
 if [ $DRY_RUN == true ]; then
-  echo "${0} dry run:
+  echo -e "${DS_MSG_EMPH_FORMAT}${0} dry run${DS_MSG_END_FORMAT}:
   sudo docker run ${RUNTIME_FLAG} --interactive --tty ${NETWORK_FLAG} --device=/dev/input/js0 --env DISPLAY=$DISPLAY --privileged --volume "/tmp/.X11-unix/:/tmp/.X11-unix" --volume \"/etc/localtime:/etc/localtime:ro\" ${HOST_DATA_DIR_FLAG} ${HOST_SOURCE_CODE_FLAG} --security-opt seccomp=unconfined --security-opt apparmor=unconfined --cap-add sys_ptrace --hostname "${CONTAINER_NAME}" ${USER_ARG} norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG}
   "
   exit
