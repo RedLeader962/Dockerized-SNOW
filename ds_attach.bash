@@ -69,7 +69,8 @@ done
 
 # Start container if he is stopped
 if [ -z `docker ps -qf "name=^/${CONTAINER_NAMES}$"` ]; then
-    echo "starting container " && docker start ${CONTAINER_NAMES}
+    NAME=docker start ${CONTAINER_NAMES}
+    echo "starting container ${NAME}"
 fi
 
 #sudo docker exec -it ${USER_ARG} ${CONTAINER_NAME} /ros_entrypoint.bash bash
