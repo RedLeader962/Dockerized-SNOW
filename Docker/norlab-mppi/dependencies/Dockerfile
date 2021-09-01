@@ -271,29 +271,29 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends fonts-powerline \
     && rm -rf /var/lib/apt/lists/*
 
+
+# Fetched Powerline install location using:
+#    $(pip3 show powerline-status | grep Location: | sed 's/Location: //g')/powerline
+ENV POWERLINE_DIR=/usr/local/lib/${DS_PYTHON3_VERSION}/dist-packages/powerline
 RUN ( \
     echo "if [ -f `which powerline-daemon` ]; then"; \
     echo "  powerline-daemon -q"; \
     echo "  POWERLINE_BASH_CONTINUATION=1"; \
     echo "  POWERLINE_BASH_SELECT=1"; \
-    echo "  . $(pip show powerline-status | grep Location: | sed 's/Location: //g')/powerline/bindings/bash/powerline.sh"; \
+    echo "  . ${POWERLINE_DIR}/bindings/bash/powerline.sh"; \
     echo "fi"; \
-  ) >> ~/.bashrc
+  ) >> ~/.bashrc \
 
-#ARG POWERLINE_DIR="$(pip3 show powerline-status | grep Location: | sed 's/Location: //g')/powerline"
-ENV POWERLINE_DIR=/usr/local/lib/${DS_PYTHON3_VERSION}/dist-packages/powerline
 WORKDIR $POWERLINE_DIR
-#RUN echo $POWERLINE_DIR
-
-# (Priority) todo:on task end >> delete next line
-RUN pwd
 
 COPY ./prompt/config_files/config.json config_files/
 COPY ./prompt/config_files/themes/shell/dockerized_snow.json config_files/themes/shell/dockerized_snow.json
 COPY ./prompt/config_files/colorschemes/shell/dockerized_snow.json config_files/colorschemes/shell/dockerized_snow.json
 
-# (Priority) todo:on task end >> delete next line
-RUN /bin/bash -c "tree -L 4"
+# (Priority) todo:on task end >> delete bloc line
+RUN echo $POWERLINE_DIR
+RUN pwd
+RUN /bin/bash -c "cd config_files && tree -L 3"
 
 
 WORKDIR ${DS_DEV_WORKSPACE}
