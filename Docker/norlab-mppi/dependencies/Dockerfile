@@ -281,9 +281,10 @@ RUN ( \
   ) >> ~/.bashrc
 
 
-RUN POWERLINE_DIR="$(pip3 show powerline-status | grep Location: | sed 's/Location: //g')/powerline"
-WORKDIR $POWERLINE_DIR
-RUN echo $POWERLINE_DIR
+#RUN POWERLINE_DIR="$(pip3 show powerline-status | grep Location: | sed 's/Location: //g')/powerline"
+#WORKDIR $POWERLINE_DIR
+#RUN echo $POWERLINE_DIR
+WORKDIR /bin/bash -c "$(pip3 show powerline-status | grep Location: | sed 's/Location: //g')/powerline"
 RUN pwd
 COPY ./prompt/config_files/config.json config_files/
 COPY ./prompt/config_files/themes/shell/dockerized_snow.json config_files/themes/shell/dockerized_snow.json
