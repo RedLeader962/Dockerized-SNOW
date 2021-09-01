@@ -2,7 +2,7 @@
         "name": "Default color scheme for Dockerized-SNOW shell prompts",
         "groups": {
                 "information:additional":     { "fg": "gray7", "bg": "gray2", "attrs": [] },
-                "information:regular":        { "fg": "gray8", "bg": "gray2", "attrs": ["bold"] },
+                "information:regular":        { "fg": "gray9", "bg": "gray2", "attrs": ["bold"] },
                 "information:highlighted":    { "fg": "white", "bg": "gray2", "attrs": [] },
                 "information:priority":       { "fg": "brightyellow", "bg": "mediumorange", "attrs": [] },
                 "cwd":                        "information:additional",
