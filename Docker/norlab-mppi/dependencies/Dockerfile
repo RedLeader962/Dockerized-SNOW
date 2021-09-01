@@ -22,9 +22,9 @@ ENV LC_ALL C.UTF-8
 
 #ENV DS_ROS_ROOT=/opt/ros/${ROS_DISTRO}
 ENV ROS_PYTHON_VERSION=3
-RUN echo "export ROS_PYTHON_VERSION=3" >> ~/.bashrc
+RUN echo "export ROS_PYTHON_VERSION=${ROS_PYTHON_VERSION}" >> ~/.bashrc
 
-WORKDIR /workspace
+WORKDIR "/workspace"
 
 ## (NICE TO HAVE) todo:investigate?? ( NLSAR-226 ) >> ln: failed to create symbolic link '/etc/localtime': File exists
 ## Setup timezone
@@ -280,11 +280,10 @@ RUN ( \
     echo "fi"; \
   ) >> ~/.bashrc
 
-
-#RUN POWERLINE_DIR="$(pip3 show powerline-status | grep Location: | sed 's/Location: //g')/powerline"
-#WORKDIR $POWERLINE_DIR
+#ENV POWERLINE_DIR=/usr/local/lib/python3.6/dist-packages/powerline
+ARG POWERLINE_DIR="$(pip3 show powerline-status | grep Location: | sed 's/Location: //g')/powerline"
+WORKDIR $POWERLINE_DIR
 #RUN echo $POWERLINE_DIR
-WORKDIR /bin/bash -c "$(pip3 show powerline-status | grep Location: | sed 's/Location: //g')/powerline"
 RUN pwd
 COPY ./prompt/config_files/config.json config_files/
 COPY ./prompt/config_files/themes/shell/dockerized_snow.json config_files/themes/shell/dockerized_snow.json
