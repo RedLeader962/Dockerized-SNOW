@@ -25,19 +25,19 @@ sudo git clone https://github.com/RedLeader962/Dockerized-SNOW.git && cd Dockeri
 Use the `--help` flag for instruction
 
 ```shell
-bash ./build_dependencies.bash
-bash ./build_develop.bash
-bash ./build_deploy.bash
+bash ./ds_build_dependencies.bash
+bash ./ds_build_develop.bash
+bash ./ds_build_deploy.bash
 ```
 
 
 ### 5. Run the container using the following script
 ```shell
-bash ./run_develop.bash
-bash ./run_deploy.bash
+bash ./ds_instantiate_develop.bash
+bash ./ds_instantiate_deploy.bash
 
 # To open additional terminal in a running container 
-bash ./open_new_terminal.bash <container name to execute>
+bash ./ds_attach.bash <container name to execute>
 ```
 
 

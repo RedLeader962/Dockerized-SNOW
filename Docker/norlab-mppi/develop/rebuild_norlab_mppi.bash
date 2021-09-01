@@ -41,7 +41,7 @@ cd /
 #    2. check if norlab-mppi was properly sourced
 #      # printenv | grep AR_
 #  or open a new terminal in the container
-#    $ bash /open_new_terminal.bash <container name>
+#    $ bash /ds_attach.bash <container name>
 #"
 
 

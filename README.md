@@ -112,7 +112,7 @@ diagram &nbsp;)
   
   # Create a new docker image instance for development on your machine and start working on the 
   # NorLab_MPPI project using ROS noetic, Python 3 and Pytorch right away.
-  bash run_develop.bash --runTag=x86-ubuntu18.04 --name=IamSnow --src="$HOME/Repositories/NorLab_MPPI"
+  bash ds_instantiate_develop.bash --runTag=x86-ubuntu18.04 --name=IamSnow --src="$HOME/Repositories/NorLab_MPPI"
   
   
   
@@ -158,13 +158,13 @@ diagram &nbsp;)
   cd ~/Repositories/Dockerized-SNOW
   
   # Pull the norlab-mppi-develop image from norlabsnow Dockerhub with the x86-ubuntu20.04 tag
-  bash build_dependencies.bash --x86 --GT-AR
-  bash build_develop.bash --x86 --GT-AR
+  bash ds_build_dependencies.bash --x86 --GT-AR
+  bash ds_build_develop.bash --x86 --GT-AR
   
   
   # Create a new docker image instance for development on your machine and start working on the 
   # NorLab_MPPI project using ROS noetic, Python 3 and Pytorch right away.
-  bash run_develop.bash --runTag=x86-ubuntu18.04 --name=THEgtar --src="$HOME/Repositories/SNOW_AutoRally"
+  bash ds_instantiate_develop.bash --runTag=x86-ubuntu18.04 --name=THEgtar --src="$HOME/Repositories/SNOW_AutoRally"
   
   
   

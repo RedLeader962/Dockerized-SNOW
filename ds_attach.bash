@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Load environment variable from file
+set -o allexport; source .env; set +o allexport
+
+
 bash ./visual/terminal_splash.bash
 
 function print_help_in_terminal() {
@@ -25,10 +29,10 @@ Open a new interactive terminal with pseudo-TTY
 #"
 
 if [ $# -ne 1 ]; then
-  echo "  >> missing argument: $0 <CONTAINER_NAMES>"
-  echo "  If your not sure, run in terminal"
-  echo "         docker ps -a"
-  echo "  and check the STATUS column to see running container"
+  echo -e "${DS_MSG_ERROR} missing argument: $0 <CONTAINER_NAMES>
+  If your not sure, run in terminal
+        $ docker ps -a
+  and check the STATUS column to see running container"
   exit 1
 fi
 
@@ -65,8 +69,17 @@ done
 #  CONTAINER_NAMES >> ${CONTAINER_NAMES}
 #"
 
-sudo docker exec \
-  -it \
-  ${USER_ARG} \
-  ${CONTAINER_NAMES} \
-  bash
+#sudo docker exec -it ${USER_ARG} ${CONTAINER_NAMES} bash
+
+REDTAIL_ID=`docker ps -aqf "name=^/${CONTAINER_NAMES}$"`
+if [ -z `docker ps -qf "name=^/${CONTAINER_NAMES}$"` ]; then
+    xhost +local:${REDTAIL_ID}
+    echo "Starting and attaching to ${CONTAINER_NAMES} container..."
+    docker start ${REDTAIL_ID}
+#    docker attach ${REDTAIL_ID}
+#else
+#    echo "Found running ${CONTAINER_NAMES} container, attaching bash..."
+#    docker exec -it ${REDTAIL_ID} bash
+fi
+
+sudo docker exec -it ${USER_ARG} ${CONTAINER_NAMES} bash
