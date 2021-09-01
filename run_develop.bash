@@ -263,7 +263,7 @@ fi
 
 if [ $DRY_RUN == true ]; then
   echo -e "${DS_MSG_EMPH_FORMAT}${0} dry run${DS_MSG_END_FORMAT}:
-  sudo docker run ${RUNTIME_FLAG} --interactive --tty ${NETWORK_FLAG} --device=/dev/input/js0 --env DISPLAY=$DISPLAY --privileged --volume "/tmp/.X11-unix/:/tmp/.X11-unix" --volume \"/etc/localtime:/etc/localtime:ro\" ${HOST_DATA_DIR_FLAG} ${HOST_SOURCE_CODE_FLAG} --security-opt seccomp=unconfined --security-opt apparmor=unconfined --cap-add sys_ptrace --hostname "${CONTAINER_NAME}" ${USER_ARG} norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG}
+  sudo docker run ${RUNTIME_FLAG} --interactive --tty ${NETWORK_FLAG} --device=/dev/input/js0 --env DISPLAY=$DISPLAY --privileged --volume "/tmp/.X11-unix/:/tmp/.X11-unix" --volume \"/etc/localtime:/etc/localtime:ro\" ${HOST_DATA_DIR_FLAG} ${HOST_SOURCE_CODE_FLAG} --security-opt seccomp=unconfined --security-opt apparmor=unconfined --cap-add sys_ptrace --hostname "${CONTAINER_NAME}" --detach ${USER_ARG} norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG}
   "
   exit
 fi
@@ -287,8 +287,12 @@ sudo docker run \
   --security-opt apparmor=unconfined \
   --cap-add sys_ptrace \
   --hostname ${CONTAINER_NAME} \
+  --detach \
   ${USER_ARG} \
   norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG}
+
+sudo docker start -ia ${CONTAINER_NAME}
+#sudo docker exec -it ${CONTAINER_NAME}
 
 # -p10.0.1.103:2222:22 \
 # Change -p10.0.1.7:<host port>:<container port> to your host ip adress
