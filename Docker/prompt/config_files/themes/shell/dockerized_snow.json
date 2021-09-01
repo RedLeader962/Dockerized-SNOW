@@ -6,7 +6,7 @@
       },
       {
         "function": "powerline.segments.common.net.hostname",
-        "before": "❄️  ",
+        "before": "❄️   ",
         "after": "",
         "args": {
           "only_if_ssh": false
