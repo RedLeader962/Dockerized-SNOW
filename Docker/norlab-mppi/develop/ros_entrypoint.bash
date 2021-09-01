@@ -3,7 +3,7 @@
 #set -e  # exit script if any statement returns a non-true return value
 
 echo
-echo "Starting container ssh server on port ${DS_PYCHARM_DEV_SERVER_PORT}\n"
+echo "Starting container ssh server on port ${DS_PYCHARM_DEV_SERVER_PORT}"
 # sshd flag
 # -D : sshd will not detach and does not become a daemon. This allows easy monitoring of sshd.
 # -e : sshd will send the output to the standard error instead of the system log.
