@@ -25,7 +25,7 @@ RUN /bin/bash -c "chmod +x /ros_entrypoint.bash" \
 
 WORKDIR /ros_catkin_ws/src/${DS_TARGET_PROJECT_SRC_REPO}
 ENTRYPOINT [ "/ros_entrypoint.bash" ]
-CMD [ "bash", "tree -L 2" ]
+CMD [ "bash tree -L 2" ]
 
 # ////////////////////////////////////////////////////////////////////////////////////////////// norlab-mppi/develop ///
 
