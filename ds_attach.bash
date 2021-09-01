@@ -29,10 +29,8 @@ Open a new interactive terminal with pseudo-TTY
 #"
 
 if [ $# -ne 1 ]; then
-  echo -e "${DS_MSG_ERROR} missing argument: $0 <CONTAINER_NAMES>
-  If your not sure, run in terminal
-        $ docker ps -a
-  and check the STATUS column to see running container"
+  echo -e "${DS_MSG_ERROR} Missing argument: $0 ${DS_MSG_ERROR_FORMAT}<CONTAINER_NAMES>${DS_MSG_END_FORMAT}
+If your not sure, execute ${DS_MSG_EMPH_FORMAT}\$ docker ps -a${DS_MSG_END_FORMAT} in host terminal and check the STATUS column to see running container"
   exit 1
 fi
 
