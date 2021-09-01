@@ -138,9 +138,9 @@ for arg in "$@"; do
   --src=?*)
     HOST_SRC_PATH="${arg#*=}"                                  # Remove every character up to the '=' and assign the remainder
     if [[ -d ${HOST_SRC_PATH} ]]; then
-      WS_DIRNAME=$(basename $HOST_SRC_PATH)
-      HOST_SOURCE_CODE_FLAG="${HOST_SOURCE_CODE_FLAG} --volume ${HOST_SRC_PATH}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
-      echo "Source code mapping from host to container: ${HOST_SRC_PATH} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+      SRC_BASENAME=$(basename ${HOST_SRC_PATH})
+      HOST_SOURCE_CODE_FLAG="${HOST_SOURCE_CODE_FLAG} --volume ${HOST_SRC_PATH}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${SRC_BASENAME}"
+      echo "Source code mapping from host to container: ${HOST_SRC_PATH} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${SRC_BASENAME}"
     else
       echo -e "${DS_MSG_ERROR} Be advise, the ${DS_MSG_ERROR_FORMAT}${DS_TARGET_PROJECT_SRC_REPO} source code is unreachable with given path ${HOST_SRC_PATH}${DS_MSG_END_FORMAT}. Make sure you have cloned the ${DS_TARGET_PROJECT_SRC_REPO}.git repository prior to running ${0} then provide it's absolute path to ${0} using ${DS_MSG_EMPH_FORMAT}--src=/absolute/path/to/source/code/dir/${DS_TARGET_PROJECT_SRC_REPO}${DS_MSG_END_FORMAT}"
       echo
@@ -149,15 +149,15 @@ for arg in "$@"; do
     ;;
   --data=jetson)
     HOST_DATA_PATH="${HOME}/Repositories/wt_data"
-    WS_DIRNAME=$(basename $HOST_DATA_PATH)
-    HOST_DATA_DIR_FLAG="${HOST_DATA_DIR_FLAG} --volume ${HOST_DATA_PATH}:/mnt/${WS_DIRNAME}:ro"
-    echo "Data directory mapping from host to container: ${HOST_DATA_PATH} >>> /mnt/${WS_DIRNAME}"
+    DATA_BASENAME=$(basename $HOST_DATA_PATH)
+    HOST_DATA_DIR_FLAG="${HOST_DATA_DIR_FLAG} --volume ${HOST_DATA_PATH}:/mnt/${DATA_BASENAME}:ro"
+    echo "Data directory mapping from host to container: ${HOST_DATA_PATH} >>> /mnt/${DATA_BASENAME}"
     ;;
   --data=?*)
     HOST_DATA_PATH="${arg#*=}"                                  # Remove every character up to the '=' and assign the remainder
-    WS_DIRNAME=$(basename $HOST_DATA_PATH)
-    HOST_DATA_DIR_FLAG="${HOST_DATA_DIR_FLAG} --volume ${HOST_DATA_PATH}:/mnt/${WS_DIRNAME}:ro"
-    echo "Data directory mapping from host to container: ${HOST_DATA_PATH} >>> /mnt/${WS_DIRNAME}"
+    DATA_BASENAME=$(basename $HOST_DATA_PATH)
+    HOST_DATA_DIR_FLAG="${HOST_DATA_DIR_FLAG} --volume ${HOST_DATA_PATH}:/mnt/${DATA_BASENAME}:ro"
+    echo "Data directory mapping from host to container: ${HOST_DATA_PATH} >>> /mnt/${DATA_BASENAME}"
     ;;
   --)
     shift
@@ -189,9 +189,9 @@ if [[ -z $HOST_SOURCE_CODE_FLAG ]]; then
   DEFAULT_HOST_SRC_PATH="${HOME}/Repositories/${DS_TARGET_PROJECT_SRC_REPO}"
 
   if [[ -d ${DEFAULT_HOST_SRC_PATH} ]]; then
-    WS_DIRNAME=$(basename DEFAULT_HOST_SRC_PATH)
-    HOST_SOURCE_CODE_FLAG=" --volume ${DEFAULT_HOST_SRC_PATH}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
-    echo -e "Using ${DS_MSG_EMPH_FORMAT}default source code mapping${DS_MSG_END_FORMAT} from host to container: ${DEFAULT_HOST_SRC_PATH} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+    SRC_BASENAME=$(basename ${DEFAULT_HOST_SRC_PATH})
+    HOST_SOURCE_CODE_FLAG=" --volume ${DEFAULT_HOST_SRC_PATH}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${SRC_BASENAME}"
+    echo -e "Using ${DS_MSG_EMPH_FORMAT}default source code mapping${DS_MSG_END_FORMAT} from host to container: ${DEFAULT_HOST_SRC_PATH} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${SRC_BASENAME}"
   else
     echo -e "${DS_MSG_ERROR} Be advise, the ${DS_MSG_ERROR_FORMAT}${DS_TARGET_PROJECT_SRC_REPO} source code is unreachable with given path ${DEFAULT_HOST_SRC_PATH}${DS_MSG_END_FORMAT}. Make sure you have cloned the ${DS_TARGET_PROJECT_SRC_REPO}.git repository prior to running ${0} then provide it's absolute path to ${0} using ${DS_MSG_EMPH_FORMAT}--src=/absolute/path/to/source/code/dir/${DS_TARGET_PROJECT_SRC_REPO}${DS_MSG_END_FORMAT}"
     echo
@@ -221,7 +221,7 @@ New container name: ${DS_MSG_EMPH_FORMAT}${CONTAINER_NAME}${DS_MSG_END_FORMAT}
 
 
 ## todo:assessment (ref task NLSAR-159 Fix the execute permission of source code mounted volume)
-#sudo chmod --recursive +x "${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+#sudo chmod --recursive +x "${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${SRC_BASENAME}"
 
 # todo:investigate?? >> The next line cause error on other os
 #DS_HOST_IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
