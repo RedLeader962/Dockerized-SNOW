@@ -280,14 +280,16 @@ RUN ( \
     echo "fi"; \
   ) >> ~/.bashrc
 
-WORKDIR "$(pip show powerline-status | grep Location: | sed 's/Location: //g')/powerline"
 
-COPY prompt/config_files/config.json config_files/
-COPY prompt/config_files/themes/shell/dockerized_snow.json config_files/themes/shell/dockerized_snow.json
-COPY prompt/config_files/colorschemes/shell/dockerized_snow.json config_files/colorschemes/shell/dockerized_snow.json
+ENV POWERLINE_DIR="$(pip show powerline-status | grep Location: | sed 's/Location: //g')/powerline"
+WORKDIR ${POWERLINE_DIR}
+RUN echo pwd
+COPY ./prompt/config_files/config.json config_files/
+COPY ./prompt/config_files/themes/shell/dockerized_snow.json config_files/themes/shell/dockerized_snow.json
+COPY ./prompt/config_files/colorschemes/shell/dockerized_snow.json config_files/colorschemes/shell/dockerized_snow.json
 
 
-
+WORKDIR ${DS_DEV_WORKSPACE}
 # ...Setup ssh server...................................................................................................
 # ssh port, remaped from default 22 to 2222
 ARG DS_PYCHARM_DEV_SERVER_PORT=2222

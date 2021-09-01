@@ -159,7 +159,7 @@ fi
 
 if [ $DRY_RUN == true ]; then
   echo -e "${DS_MSG_EMPH_FORMAT}${0} dry run${DS_MSG_END_FORMAT}:
-  sudo docker build -t norlabsnow/${DS_SUB_PROJECT}-dependencies:${DS_IMAGE_TAG} -f ./Docker/${DS_SUB_PROJECT}/dependencies/Dockerfile ${BASE_IMG_ARG} ${USER_ARG} ./Docker/${DS_SUB_PROJECT}/dependencies
+  sudo docker build -t norlabsnow/${DS_SUB_PROJECT}-dependencies:${DS_IMAGE_TAG} -f ./Docker/${DS_SUB_PROJECT}/dependencies/Dockerfile ${BASE_IMG_ARG} ${USER_ARG} ./Docker
   "
   exit
 fi
