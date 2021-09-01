@@ -281,7 +281,7 @@ RUN ( \
   ) >> ~/.bashrc
 
 
-ENV POWERLINE_DIR=$(pip3 show powerline-status | grep Location: | sed 's/Location: //g')/powerline
+RUN POWERLINE_DIR="$(pip3 show powerline-status | grep Location: | sed 's/Location: //g')/powerline"
 WORKDIR $POWERLINE_DIR
 RUN echo $POWERLINE_DIR
 RUN pwd
