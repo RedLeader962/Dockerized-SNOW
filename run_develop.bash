@@ -226,7 +226,6 @@ New container name: ${DS_MSG_EMPH_FORMAT}${CONTAINER_NAME}${DS_MSG_END_FORMAT}
 #DS_HOST_IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
 
 #export DISPLAY=:0
-export DISPLAY=:0
 #echo "export DISPLAY=:0" >> ~/.bashrc
 
 # Note on xhost usage:
@@ -239,7 +238,7 @@ export DISPLAY=:0
 #     - si:         Server Interpreted : si:<type>:<value>
 
 #sudo xhost +si:localuser:root
-sudo xhost +si:local:hostname
+#sudo xhost +si:local:hostname
 #sudo xhost +  # (Priority) todo:fixme!! (ref task NLSAR-189)
 
 
