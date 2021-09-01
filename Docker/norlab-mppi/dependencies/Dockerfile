@@ -281,15 +281,16 @@ RUN ( \
   ) >> ~/.bashrc
 
 
-ENV POWERLINE_DIR="$(pip show powerline-status | grep Location: | sed 's/Location: //g')/powerline"
-WORKDIR ${POWERLINE_DIR}
+ENV POWERLINE_DIR=$(pip3 show powerline-status | grep Location: | sed 's/Location: //g')/powerline
+WORKDIR $POWERLINE_DIR
+RUN echo $POWERLINE_DIR
 RUN pwd
 COPY ./prompt/config_files/config.json config_files/
 COPY ./prompt/config_files/themes/shell/dockerized_snow.json config_files/themes/shell/dockerized_snow.json
 COPY ./prompt/config_files/colorschemes/shell/dockerized_snow.json config_files/colorschemes/shell/dockerized_snow.json
 
 # (Priority) todo:on task end >> delete next line
-RUN /bin/bash -c "tree -L 2"
+RUN /bin/bash -c "tree -L 4"
 
 
 WORKDIR ${DS_DEV_WORKSPACE}
