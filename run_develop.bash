@@ -59,6 +59,9 @@ function print_help_in_terminal() {
 USER_ARG=""
 HOST_SOURCE_CODE_FLAG=""
 HOST_DATA_DIR_FLAG=""
+HOST_SRC_PATH=""
+HOST_DATA_PATH=""
+CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/ros_catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
 DS_IMAGE_TAG="arm64-l4t-r32.6.1-XavierSA"
 IDE="develop"
 DS_SUB_PROJECT="norlab-mppi"
@@ -133,23 +136,28 @@ for arg in "$@"; do
     DS_IMAGE_TAG="${arg#*=}" # Remove every character up to the '=' and assign the remainder
     ;;
   --src=?*)
-    WS_DIR="${arg#*=}"                                  # Remove every character up to the '=' and assign the remainder
-    CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/ros_catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
-    WS_DIRNAME=$(basename $WS_DIR)
-    HOST_SOURCE_CODE_FLAG="${HOST_SOURCE_CODE_FLAG} --volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
-    echo "Source code mapping from host to container: ${WS_DIR} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+    HOST_SRC_PATH="${arg#*=}"                                  # Remove every character up to the '=' and assign the remainder
+    if [[ -d ${HOST_SRC_PATH} ]]; then
+      WS_DIRNAME=$(basename $HOST_SRC_PATH)
+      HOST_SOURCE_CODE_FLAG="${HOST_SOURCE_CODE_FLAG} --volume ${HOST_SRC_PATH}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+      echo "Source code mapping from host to container: ${HOST_SRC_PATH} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+    else
+      echo -e "${DS_MSG_ERROR} Be advise, the ${DS_SUB_PROJECT} source code is unreachable with path ${HOST_SRC_PATH}. Make sure you have cloned the ${DS_TARGET_PROJECT_SRC_REPO}.git repository prior to running ${0} then provide it's absolute path to ${0} using ${DS_MSG_EMPH}--src=/absolute/path/to/source/code/dir/${DS_TARGET_PROJECT_SRC_REPO}${DS_MSG_END}"
+      echo
+      exit
+    fi
     ;;
   --data=jetson)
-    WS_DIR="${HOME}/Repositories/wt_data"
-    WS_DIRNAME=$(basename $WS_DIR)
-    HOST_DATA_DIR_FLAG="${HOST_DATA_DIR_FLAG} --volume ${WS_DIR}:/mnt/${WS_DIRNAME}:ro"
-    echo "Data directory mapping from host to container: ${WS_DIR} >>> /mnt/${WS_DIRNAME}"
+    HOST_DATA_PATH="${HOME}/Repositories/wt_data"
+    WS_DIRNAME=$(basename $HOST_DATA_PATH)
+    HOST_DATA_DIR_FLAG="${HOST_DATA_DIR_FLAG} --volume ${HOST_DATA_PATH}:/mnt/${WS_DIRNAME}:ro"
+    echo "Data directory mapping from host to container: ${HOST_DATA_PATH} >>> /mnt/${WS_DIRNAME}"
     ;;
   --data=?*)
-    WS_DIR="${arg#*=}"                                  # Remove every character up to the '=' and assign the remainder
-    WS_DIRNAME=$(basename $WS_DIR)
-    HOST_DATA_DIR_FLAG="${HOST_DATA_DIR_FLAG} --volume ${WS_DIR}:/mnt/${WS_DIRNAME}:ro"
-    echo "Data directory mapping from host to container: ${WS_DIR} >>> /mnt/${WS_DIRNAME}"
+    HOST_DATA_PATH="${arg#*=}"                                  # Remove every character up to the '=' and assign the remainder
+    WS_DIRNAME=$(basename $HOST_DATA_PATH)
+    HOST_DATA_DIR_FLAG="${HOST_DATA_DIR_FLAG} --volume ${HOST_DATA_PATH}:/mnt/${WS_DIRNAME}:ro"
+    echo "Data directory mapping from host to container: ${HOST_DATA_PATH} >>> /mnt/${WS_DIRNAME}"
     ;;
   --)
     shift
@@ -178,15 +186,14 @@ fi
 
 # Set default source code location if user did not use the --src=<myCoolSrcCode> flag.
 if [[ -z $HOST_SOURCE_CODE_FLAG ]]; then
-#  WS_DIR="${HOME}/Repositories/${DS_TARGET_PROJECT_SRC_REPO}"
+  DEFAULT_HOST_SRC_PATH="${HOME}/Repositories/${DS_TARGET_PROJECT_SRC_REPO}"
 
-  if [[ -d ${WS_DIR} ]]; then
-    CONTAINER_SIDE_HOST_SRC_CODE_VOLUME="/ros_catkin_ws/src/" # (Priority) todo:refactor >> this line ← make it global
-    WS_DIRNAME=$(basename $WS_DIR)
-    HOST_SOURCE_CODE_FLAG=" --volume ${WS_DIR}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
-    echo -e "Using ${DS_MSG_EMPH}default source code mapping${DS_MSG_END} from host to container: ${WS_DIR} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+  if [[ -d ${DEFAULT_HOST_SRC_PATH} ]]; then
+    WS_DIRNAME=$(basename DEFAULT_HOST_SRC_PATH)
+    HOST_SOURCE_CODE_FLAG=" --volume ${DEFAULT_HOST_SRC_PATH}:${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
+    echo -e "Using ${DS_MSG_EMPH}default source code mapping${DS_MSG_END} from host to container: ${DEFAULT_HOST_SRC_PATH} >>> ${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${WS_DIRNAME}"
   else
-    echo -e "${DS_MSG_ERROR} Be advise, the ${DS_SUB_PROJECT} source code is unreachable with path ${WS_DIR}. Make sure you have cloned the ${DS_TARGET_PROJECT_SRC_REPO}.git repository prior to running ${0} then provide it's absolute path to ${0} using ${DS_MSG_EMPH}--src=/absolute/path/to/source/code/dir/${DS_TARGET_PROJECT_SRC_REPO}${DS_MSG_END}"
+    echo -e "${DS_MSG_ERROR} Be advise, the ${DS_SUB_PROJECT} source code is unreachable with path ${DEFAULT_HOST_SRC_PATH}. Make sure you have cloned the ${DS_TARGET_PROJECT_SRC_REPO}.git repository prior to running ${0} then provide it's absolute path to ${0} using ${DS_MSG_EMPH}--src=/absolute/path/to/source/code/dir/${DS_TARGET_PROJECT_SRC_REPO}${DS_MSG_END}"
     echo
     exit
   fi
