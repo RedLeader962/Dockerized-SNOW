@@ -39,6 +39,9 @@ ENV DS_DEV_WORKSPACE=$HOME/ros_catkin_ws
 # Python 3.6 is a requirement for PyTorch compiled for JetPack (L4T)
 #   https://elinux.org/Jetson_Zoo#PyTorch_.28Caffe2.29
 ENV DS_PYTHON3_VERSION=python3.6
+ENV ROS_PYTHON_VERSION=3
+RUN echo "export ROS_PYTHON_VERSION=${ROS_PYTHON_VERSION}" >> ~/.bashrc
+
 
 WORKDIR /workspace
 

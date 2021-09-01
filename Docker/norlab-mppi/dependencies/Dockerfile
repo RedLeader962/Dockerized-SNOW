@@ -21,8 +21,8 @@ ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
 #ENV DS_ROS_ROOT=/opt/ros/${ROS_DISTRO}
-ENV ROS_PYTHON_VERSION=3
-RUN echo "export ROS_PYTHON_VERSION=${ROS_PYTHON_VERSION}" >> ~/.bashrc
+#ENV ROS_PYTHON_VERSION=3
+#RUN echo "export ROS_PYTHON_VERSION=${ROS_PYTHON_VERSION}" >> ~/.bashrc
 
 WORKDIR "/workspace"
 
@@ -280,11 +280,14 @@ RUN ( \
     echo "fi"; \
   ) >> ~/.bashrc
 
-#ENV POWERLINE_DIR=/usr/local/lib/python3.6/dist-packages/powerline
-ARG POWERLINE_DIR="$(pip3 show powerline-status | grep Location: | sed 's/Location: //g')/powerline"
+#ARG POWERLINE_DIR="$(pip3 show powerline-status | grep Location: | sed 's/Location: //g')/powerline"
+ENV POWERLINE_DIR=/usr/local/lib/${DS_PYTHON3_VERSION}/dist-packages/powerline
 WORKDIR $POWERLINE_DIR
 #RUN echo $POWERLINE_DIR
+
+# (Priority) todo:on task end >> delete next line
 RUN pwd
+
 COPY ./prompt/config_files/config.json config_files/
 COPY ./prompt/config_files/themes/shell/dockerized_snow.json config_files/themes/shell/dockerized_snow.json
 COPY ./prompt/config_files/colorschemes/shell/dockerized_snow.json config_files/colorschemes/shell/dockerized_snow.json
