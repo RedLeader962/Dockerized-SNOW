@@ -292,7 +292,7 @@ sudo docker run \
   norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG}
 
 sudo docker start ${CONTAINER_NAME}
-sudo docker exec -it ${CONTAINER_NAME} /ros_entrypoint.bash
+sudo docker exec -it ${CONTAINER_NAME} /ros_entrypoint.bash bash
 
 # -p10.0.1.103:2222:22 \
 # Change -p10.0.1.7:<host port>:<container port> to your host ip adress
