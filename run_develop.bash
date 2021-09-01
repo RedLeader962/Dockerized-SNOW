@@ -239,7 +239,8 @@ export DISPLAY=:0
 #     - si:         Server Interpreted : si:<type>:<value>
 
 #sudo xhost +si:localuser:root
-sudo xhost +  # (Priority) todo:fixme!! (ref task NLSAR-189)
+sudo xhost +si:local:hostname
+#sudo xhost +  # (Priority) todo:fixme!! (ref task NLSAR-189)
 
 
 RUNTIME_FLAG="--runtime nvidia "
