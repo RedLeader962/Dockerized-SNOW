@@ -22,8 +22,10 @@ RUN /bin/bash -c "chmod +x /ros_entrypoint.bash" \
     && /bin/bash -c "chmod +x /rebuild_norlab_mppi.bash" \
     && /bin/bash -c "chmod +x /fetch_ros_env.bash"
 
+
+WORKDIR /ros_catkin_ws/src/${DS_TARGET_PROJECT_SRC_REPO}
 ENTRYPOINT [ "/ros_entrypoint.bash" ]
-CMD [ "bash" ]
+CMD [ "bash", "tree -L 2" ]
 
 # ////////////////////////////////////////////////////////////////////////////////////////////// norlab-mppi/develop ///
 
