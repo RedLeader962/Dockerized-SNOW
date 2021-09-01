@@ -202,8 +202,7 @@ fi
 # Pass the target project repository basename to the docker container envenrionment variable
 USER_ARG="${USER_ARG} -e DS_TARGET_PROJECT_SRC_REPO=${DS_TARGET_PROJECT_SRC_REPO}"
 
-echo -e "
-Create container instance from docker image ${DS_SUB_PROJECT}-${IDE} with tag ${DS_IMAGE_TAG}
+echo -e " Create container instance from docker image ${DS_SUB_PROJECT}-${IDE} with tag ${DS_IMAGE_TAG}
 New container name: ${DS_MSG_EMPH_FORMAT}${CONTAINER_NAME}${DS_MSG_END_FORMAT}
 "
 

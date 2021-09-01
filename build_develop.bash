@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Load environment variable from file
+set -o allexport; source .env; set +o allexport
+
 bash ./visual/terminal_splash.bash
 
 function print_help_in_terminal() {
@@ -66,7 +69,7 @@ for arg in "$@"; do
     shift # Remove --dryrun from processing
     ;;
   --l4t-version)
-    echo "${0} >> pass argument with the equal sign: --l4t-version=${2}" >&2 # Note: '>&2' = print to stderr
+    echo -e "${DS_MSG_ERROR} ${0} >> pass argument with the equal sign: --l4t-version=${2}" >&2 # Note: '>&2' = print to stderr
     echo
     exit
     ;;
@@ -75,7 +78,7 @@ for arg in "$@"; do
     echo "Base image tag: ${BASE_IMG_VERSION}"
     ;;
   --appendToTag)
-    echo "${0} >> pass argument with the equal sign: --appendToTag=${2}" >&2 # Note: '>&2' = print to stderr
+    echo -e "${DS_MSG_ERROR} ${0} >> pass argument with the equal sign: --appendToTag=${2}" >&2 # Note: '>&2' = print to stderr
     echo
     exit
     ;;
@@ -84,7 +87,7 @@ for arg in "$@"; do
     echo
     ;;
   --host-type)
-    echo "${0} >> pass argument with the equal sign: --host-type=${2}" >&2 # Note: '>&2' = print to stderr
+    echo -e "${DS_MSG_ERROR} ${0} >> pass argument with the equal sign: --host-type=${2}" >&2 # Note: '>&2' = print to stderr
     echo
     exit
     ;;
@@ -125,7 +128,7 @@ if [[ "$DS_SUB_PROJECT" == "norlab-mppi" ]]; then
   fi
 
   if [[ "$IDE" == "clion-develop" ]]; then
-    echo "Warning: Containers for clion development are currently only implemented for the GT-autorally refactoring project."
+    echo -e "${DS_MSG_WARNING} Containers for clion development are currently only implemented for the GT-autorally refactoring project."
     echo "         Build ${DS_SUB_PROJECT}-develop image instead"
     IDE="develop"
   fi
@@ -138,7 +141,7 @@ elif [[ "$DS_SUB_PROJECT" == "gt-autorally" ]]; then
     BASE_IMG_VERSION="ubuntu18.04"
   fi
 else
-  echo  "$DS_SUB_PROJECT is not currently supported"
+  echo  -e "${DS_MSG_ERROR} $DS_SUB_PROJECT is not currently supported"
   exit
 fi
 
@@ -158,7 +161,7 @@ if [[ "$DS_HOST_TYPE" == "local" ]]; then
     USER_ARG="${USER_ARG} --build-arg DS_HOST_TYPE=${DS_HOST_TYPE}"
     echo "Host type: ${DS_HOST_TYPE}"
   else
-    echo "Host type ${DS_HOST_TYPE} is for x86 build only"
+    echo -e "${DS_MSG_ERROR} Host type ${DS_HOST_TYPE} is for x86 build only"
     echo
     exit
   fi
@@ -167,12 +170,12 @@ elif [[ "$DS_HOST_TYPE" == "XavierStandAlone" || "$DS_HOST_TYPE" == "XavierWarth
     USER_ARG="${USER_ARG} --build-arg DS_HOST_TYPE=${DS_HOST_TYPE}"
     echo "Host type: ${DS_HOST_TYPE}"
   else
-    echo "Host type ${DS_HOST_TYPE} is for arm64-l4t build only"
+    echo -e "${DS_MSG_ERROR} Host type ${DS_HOST_TYPE} is for arm64-l4t build only"
     echo
     exit
   fi
 else
-  echo "Host type ${DS_HOST_TYPE} is not currently supported. Choose between: (default) XavierStandAlone, XavierWarthog or local"
+  echo -e "${DS_MSG_ERROR} Host type ${DS_HOST_TYPE} is not currently supported. Choose between: (default) XavierStandAlone, XavierWarthog or local"
   echo
   exit
 fi
@@ -207,7 +210,7 @@ fi
 #"
 
 if [ $DRY_RUN == true ]; then
-  echo "${0} dry run:
+  echo -e "${DS_MSG_EMPH_FORMAT}${0} dry run${DS_MSG_END_FORMAT}:
   sudo docker build -t norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG} -f ./Docker/${DS_SUB_PROJECT}/${IDE}/Dockerfile ${BASE_IMG_ARG} ${USER_ARG} ./Docker/${DS_SUB_PROJECT}/${IDE}
   "
   exit

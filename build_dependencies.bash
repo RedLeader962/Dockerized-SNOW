@@ -2,6 +2,9 @@
 
 #set -e  # exit script if any statement returns a non-true return value
 
+# Load environment variable from file
+set -o allexport; source .env; set +o allexport
+
 bash ./visual/terminal_splash.bash
 
 function print_help_in_terminal() {
@@ -77,7 +80,7 @@ for arg in "$@"; do
     shift # Remove --dryrun from processing
     ;;
   --l4t-version)
-    echo "${0} >> pass argument with the equal sign: --l4t-version=${2}" >&2 # Note: '>&2' = print to stderr
+    echo -e "${DS_MSG_ERROR} ${0} >> pass argument with the equal sign: --l4t-version=${2}" >&2 # Note: '>&2' = print to stderr
     echo
     exit
     ;;
@@ -86,7 +89,7 @@ for arg in "$@"; do
     echo "Base image tag: ${BASE_IMG_VERSION}"
     ;;
   --appendToTag)
-    echo "${0} >> pass argument with the equal sign: --appendToTag=${2}" >&2 # Note: '>&2' = print to stderr
+    echo -e "${DS_MSG_ERROR} ${0} >> pass argument with the equal sign: --appendToTag=${2}" >&2 # Note: '>&2' = print to stderr
     echo
     exit
     ;;
@@ -133,7 +136,7 @@ elif [[ "$DS_IMAGE_TAG" == "x86" ]] && [[ "$DS_SUB_PROJECT" == "gt-autorally" ]]
   BASE_IMG_VERSION="ubuntu18.04"
   BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/cudagl:11.3.1-devel-${BASE_IMG_VERSION}"
 else
-  echo  "$DS_SUB_PROJECT is not currently supported"
+  echo  -e "${DS_MSG_ERROR} $DS_SUB_PROJECT is not currently supported"
   exit
 fi
 
@@ -155,7 +158,7 @@ fi
 #"
 
 if [ $DRY_RUN == true ]; then
-  echo "${0} dry run:
+  echo -e "${DS_MSG_EMPH_FORMAT}${0} dry run${DS_MSG_END_FORMAT}:
   sudo docker build -t norlabsnow/${DS_SUB_PROJECT}-dependencies:${DS_IMAGE_TAG} -f ./Docker/${DS_SUB_PROJECT}/dependencies/Dockerfile ${BASE_IMG_ARG} ${USER_ARG} ./Docker/${DS_SUB_PROJECT}/dependencies
   "
   exit
