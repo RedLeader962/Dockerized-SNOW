@@ -282,7 +282,7 @@ RUN ( \
     echo "  POWERLINE_BASH_SELECT=1"; \
     echo "  . ${POWERLINE_DIR}/bindings/bash/powerline.sh"; \
     echo "fi"; \
-  ) >> ~/.bashrc \
+  ) >> ~/.bashrc
 
 WORKDIR $POWERLINE_DIR
 
