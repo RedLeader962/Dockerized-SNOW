@@ -264,39 +264,9 @@ RUN apt-get update \
 #    && rm -rf /var/lib/apt/lists/*
 
 
-# ...Configure prompt...................................................................................................
-# https://powerline.readthedocs.io/en/latest/index.html
-RUN sudo pip3 install powerline-status
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends fonts-powerline \
-    && rm -rf /var/lib/apt/lists/*
-
-
-# Fetched Powerline install location using:
-#    $(pip3 show powerline-status | grep Location: | sed 's/Location: //g')/powerline
-ENV POWERLINE_DIR=/usr/local/lib/${DS_PYTHON3_VERSION}/dist-packages/powerline
-RUN ( \
-    echo "if [ -f `which powerline-daemon` ]; then"; \
-    echo "  powerline-daemon -q"; \
-    echo "  POWERLINE_BASH_CONTINUATION=1"; \
-    echo "  POWERLINE_BASH_SELECT=1"; \
-    echo "  . ${POWERLINE_DIR}/bindings/bash/powerline.sh"; \
-    echo "fi"; \
-  ) >> ~/.bashrc
-
-WORKDIR $POWERLINE_DIR
-
-COPY ./prompt/config_files/config.json config_files/
-COPY ./prompt/config_files/themes/shell/dockerized_snow.json config_files/themes/shell/dockerized_snow.json
-COPY ./prompt/config_files/colorschemes/shell/dockerized_snow.json config_files/colorschemes/shell/dockerized_snow.json
-
-# (Priority) todo:on task end >> delete bloc line
-#RUN echo $POWERLINE_DIR
-RUN /bin/bash -c "cd config_files && tree -L 3"
-
-
-WORKDIR ${DS_DEV_WORKSPACE}
 # ...Setup ssh server...................................................................................................
+WORKDIR ${DS_DEV_WORKSPACE}
+
 # ssh port, remaped from default 22 to 2222
 ARG DS_PYCHARM_DEV_SERVER_PORT=2222
 ENV DS_PYCHARM_DEV_SERVER_PORT=${DS_PYCHARM_DEV_SERVER_PORT}
@@ -332,7 +302,38 @@ RUN echo "root:${PASSWORD}" | chpasswd
 # (Optional) Change default shell for new user
 #RUN usermod -s /bin/bash ${NEW_USER}
 
+# ...Configure prompt...................................................................................................
+# https://powerline.readthedocs.io/en/latest/index.html
+RUN sudo pip3 install powerline-status
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends fonts-powerline \
+    && rm -rf /var/lib/apt/lists/*
 
+
+# Fetched Powerline install location using:
+#    $(pip3 show powerline-status | grep Location: | sed 's/Location: //g')/powerline
+ENV POWERLINE_DIR=/usr/local/lib/${DS_PYTHON3_VERSION}/dist-packages/powerline
+RUN ( \
+    echo "if [ -f `which powerline-daemon` ]; then"; \
+    echo "  powerline-daemon -q"; \
+    echo "  POWERLINE_BASH_CONTINUATION=1"; \
+    echo "  POWERLINE_BASH_SELECT=1"; \
+    echo "  . ${POWERLINE_DIR}/bindings/bash/powerline.sh"; \
+    echo "fi"; \
+  ) >> ~/.bashrc
+
+WORKDIR $POWERLINE_DIR
+
+COPY ./prompt/config_files/config.json config_files/
+COPY ./prompt/config_files/themes/shell/dockerized_snow.json config_files/themes/shell/dockerized_snow.json
+COPY ./prompt/config_files/colorschemes/shell/dockerized_snow.json config_files/colorschemes/shell/dockerized_snow.json
+
+# (Priority) todo:on task end >> delete bloc line
+#RUN echo $POWERLINE_DIR
+RUN /bin/bash -c "cd config_files && tree -L 3"
+
+
+# ...source & check ROS environement variable...........................................................................
 WORKDIR ${DS_DEV_WORKSPACE}
 RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
     && source ${DS_DEV_WORKSPACE}/devel/setup.bash \
