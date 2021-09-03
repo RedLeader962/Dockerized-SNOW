@@ -306,10 +306,10 @@ RUN echo "root:${PASSWORD}" | chpasswd
 # ♜ Doc: https://powerline.readthedocs.io
 
 # Install Powerline requirement
+# Be advise, dont install `xrandr` it's not compatible with the Jetson kernel.
 RUN apt-get update \
     && apt-get install --assume-yes --no-install-recommends \
         socat \
-        xrandr \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
