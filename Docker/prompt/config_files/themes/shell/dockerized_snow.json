@@ -3,7 +3,7 @@
     "left": [
       {
         "type": "string",
-        "before": " ",
+        "before": "",
         "contents": "\ud835\udd7e",
         "highlight_groups": [
           "ds_logo"
@@ -11,7 +11,7 @@
       },
       {
         "function": "powerline.segments.common.env.environment",
-        "priority": 10,
+        "priority": 20,
         "after": "",
         "before": "\uf308 ",
         "args": {
@@ -21,7 +21,7 @@
       {
         "function": "powerline.segments.common.net.hostname",
         "priority": 30,
-        "before": "",
+        "before": "\uf827 ",
         "after": "",
         "args": {
           "only_if_ssh": false
@@ -42,7 +42,7 @@
       },
       {
         "function": "powerline.segments.shell.cwd",
-        "priority": 20,
+        "priority": 10,
         "args": {
           "use_path_separator": true
         }
