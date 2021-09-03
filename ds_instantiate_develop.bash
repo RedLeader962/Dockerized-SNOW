@@ -3,7 +3,7 @@
 #set -e  # exit script if any statement returns a non-true return value
 
 # Load environment variable from file
-set -o allexport; source .env; set +o allexport
+set -o allexport; source ds.env; set +o allexport
 
 bash ./visual/terminal_splash.bash
 
@@ -263,7 +263,7 @@ fi
 
 if [ $DRY_RUN == true ]; then
   echo -e "${DS_MSG_EMPH_FORMAT}${0} dry run${DS_MSG_END_FORMAT}:
-  sudo docker run ${RUNTIME_FLAG} --interactive --tty ${NETWORK_FLAG} --device=/dev/input/js0 --env DISPLAY=$DISPLAY --privileged --volume "/tmp/.X11-unix/:/tmp/.X11-unix" --volume \"/etc/localtime:/etc/localtime:ro\" ${HOST_DATA_DIR_FLAG} ${HOST_SOURCE_CODE_FLAG} --security-opt seccomp=unconfined --security-opt apparmor=unconfined --cap-add sys_ptrace --hostname "${CONTAINER_NAME}" --detach ${USER_ARG} norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG}
+  sudo docker run ${RUNTIME_FLAG} --interactive --tty ${NETWORK_FLAG} --device=/dev/input/js0 --env DISPLAY=$DISPLAY --privileged --volume "/tmp/.X11-unix/:/tmp/.X11-unix" --volume \"/etc/localtime:/etc/localtime:ro\" ${HOST_DATA_DIR_FLAG} ${HOST_SOURCE_CODE_FLAG} --security-opt seccomp=unconfined --security-opt apparmor=unconfined --cap-add sys_ptrace --env DS_CONTAINER_NAME="${CONTAINER_NAME}" --detach ${USER_ARG} norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG}
   "
   exit
 fi
@@ -286,7 +286,7 @@ sudo docker run \
   --security-opt seccomp=unconfined \
   --security-opt apparmor=unconfined \
   --cap-add sys_ptrace \
-  --hostname ${CONTAINER_NAME} \
+  --env DS_CONTAINER_NAME=${CONTAINER_NAME} \
   --detach \
   ${USER_ARG} \
   norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG}

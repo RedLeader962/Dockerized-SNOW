@@ -13,8 +13,8 @@
 ARG BASE_IMAGE=nvcr.io/nvidia/l4t-base:r32.5.0
 FROM ${BASE_IMAGE}
 
-ENV LANG C.UTF-8
-ENV LC_ALL C.UTF-8
+ENV LANG "C.UTF-8"
+ENV LC_ALL "C.UTF-8"
 
 ARG ROS_PKG=desktop-full
 ENV ROS_DISTRO=melodic

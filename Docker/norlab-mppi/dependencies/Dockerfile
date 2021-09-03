@@ -17,8 +17,8 @@
 ARG BASE_IMAGE=norlabsnow/norlab-mppi-ros-melodic-python3:arm64-l4t-r32.6.1
 FROM ${BASE_IMAGE} AS ros-base-imag
 
-ENV LANG C.UTF-8
-ENV LC_ALL C.UTF-8
+ENV LANG "C.UTF-8"
+ENV LC_ALL "C.UTF-8"
 
 #ENV DS_ROS_ROOT=/opt/ros/${ROS_DISTRO}
 #ENV ROS_PYTHON_VERSION=3
@@ -227,13 +227,13 @@ FROM ros-performance-pkg-base-image AS final
 
 RUN pip3 install --no-cache-dir --verbose pyyaml
 RUN pip3 install --no-cache-dir --verbose jupyter
-RUN pip3 install --no-cache-dir --verbose jetson-stats
 RUN pip3 install --no-cache-dir --verbose termcolor
 RUN pip3 install --no-cache-dir --verbose decorator
 RUN pip3 install --no-cache-dir --verbose -U mock
 RUN pip3 install --no-cache-dir --verbose pytest
 RUN pip3 install --no-cache-dir --verbose pytest-benchmark
 RUN pip3 install --no-cache-dir --verbose pytest-mock
+
 
 # install development utilities
 RUN apt-get update \
@@ -303,8 +303,28 @@ RUN echo "root:${PASSWORD}" | chpasswd
 #RUN usermod -s /bin/bash ${NEW_USER}
 
 # ...Configure prompt...................................................................................................
-# https://powerline.readthedocs.io/en/latest/index.html
-RUN sudo pip3 install powerline-status
+# ♜ Doc: https://powerline.readthedocs.io
+
+# Install Powerline requirement
+RUN apt-get update \
+    && apt-get install --assume-yes --no-install-recommends \
+        socat \
+        xrandr \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip3 install --no-cache-dir --verbose psutil
+RUN pip3 install --no-cache-dir --verbose pygit2
+
+# Require a Vim installation suporting python
+#       $ vim --version | grep +python
+#       +python/dyn +python3/dyn
+# 👍🏼 if it print either +python or +python3
+
+
+# Install Powerline + special font pack
+RUN #sudo pip3 install powerline-status
+RUN pip3 install --no-cache-dir --verbose powerline-status
 RUN apt-get update \
     && apt-get install -y --no-install-recommends fonts-powerline \
     && rm -rf /var/lib/apt/lists/*
@@ -315,9 +335,12 @@ RUN apt-get update \
 ENV POWERLINE_DIR=/usr/local/lib/${DS_PYTHON3_VERSION}/dist-packages/powerline
 RUN ( \
     echo "if [ -f `which powerline-daemon` ]; then"; \
+    echo "  # Start the powerline daemon quietly"; \
     echo "  powerline-daemon -q"; \
+    echo "  # Set Powerline env var for bash"; \
     echo "  POWERLINE_BASH_CONTINUATION=1"; \
     echo "  POWERLINE_BASH_SELECT=1"; \
+    echo "  # Invoke binding script"; \
     echo "  . ${POWERLINE_DIR}/bindings/bash/powerline.sh"; \
     echo "fi"; \
   ) >> ~/.bashrc
@@ -332,6 +355,12 @@ COPY ./prompt/config_files/colorschemes/shell/dockerized_snow.json config_files/
 #RUN echo $POWERLINE_DIR
 RUN /bin/bash -c "cd config_files && tree -L 3"
 
+# Set Promt logo
+#RUN echo DS_LOGO=$'\u22EF𝐒\u22EF' >> ~/.bashrc
+#RUN export DS_LOGO=$'\U22EF\U1D412\U22EF' # ⋯𝐒⋯        mathematical bold capital s (U+1D412)
+#RUN export DS_LOGO=$'\uf2dc' >> ~/.bashrc #            nf-fa-snowflake_o
+#RUN export DS_LOGO=$'\U1D516' >> ~/.bashrc # 𝔖    <-- mathematical fraktur capital s U+1D516
+RUN export DS_LOGO=$'\U1D57E' >> ~/.bashrc # 𝕾     <-- mathematical bold fraktur capital s U+1D57E
 
 # ...source & check ROS environement variable...........................................................................
 WORKDIR ${DS_DEV_WORKSPACE}

@@ -2,23 +2,47 @@
   "segments": {
     "left": [
       {
-        "function": "powerline.segments.shell.mode"
+        "type": "string",
+        "before": " ",
+        "contents": "\ud835\udd7e",
+        "highlight_groups": [
+          "ds_logo"
+        ]
+      },
+      {
+        "function": "powerline.segments.common.env.environment",
+        "priority": 10,
+        "after": "",
+        "before": "\uf308 ",
+        "args": {
+          "variable": "DS_CONTAINER_NAME"
+        }
       },
       {
         "function": "powerline.segments.common.net.hostname",
-        "before": "❄️   ",
+        "priority": 30,
+        "before": "",
         "after": "",
         "args": {
           "only_if_ssh": false
         }
       },
       {
+        "function": "powerline.segments.common.env.environment",
+        "after": "",
+        "before": "\ufb19 ",
+        "priority": 50,
+        "args": {
+          "variable": "DS_IMAGE_ARCHITECTURE"
+        }
+      },
+      {
         "function": "powerline.segments.common.env.virtualenv",
-        "priority": 50
+        "priority": 60
       },
       {
         "function": "powerline.segments.shell.cwd",
-        "priority": 10,
+        "priority": 20,
         "args": {
           "use_path_separator": true
         }
