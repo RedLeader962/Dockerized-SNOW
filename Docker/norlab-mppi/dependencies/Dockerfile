@@ -361,6 +361,7 @@ RUN /bin/bash -c "cd config_files && tree -L 3"
 #RUN export DS_LOGO=$'\uf2dc' >> ~/.bashrc #            nf-fa-snowflake_o
 #RUN export DS_LOGO=$'\U1D516' >> ~/.bashrc # 𝔖    <-- mathematical fraktur capital s U+1D516
 #RUN export DS_LOGO=$'\U1D57E' >> ~/.bashrc # 𝕾     <-- mathematical bold fraktur capital s U+1D57E
+ENV DS_CONTAINER_NAME=IamSnow
 
 # ...source & check ROS environement variable...........................................................................
 WORKDIR ${DS_DEV_WORKSPACE}
