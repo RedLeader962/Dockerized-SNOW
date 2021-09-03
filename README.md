@@ -16,6 +16,7 @@ Containerized development workflow for the _NorLab_MPPI_ and _SNOW_AutoRally_ pr
 
 Author: [Luc Coupal](https://redleader962.github.io) 
 
+<!-- 
 ```shell
 
                                           .|'''.|                                               
@@ -26,6 +27,9 @@ Author: [Luc Coupal](https://redleader962.github.io)
                                          |'....|'                                               
 
 ```
+-->
+
+![](visual/splash_and_promt_screenshot.png)
 
 
 <div align="center">
