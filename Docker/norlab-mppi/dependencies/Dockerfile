@@ -388,7 +388,9 @@ RUN pip3 install --no-cache-dir --verbose numpy==1.19.4
 #   > /home/youruser/ros_catkin_ws/src:/opt/ros/melodic/share
 
 WORKDIR /
+RUN echo $PWD
 COPY ./tools/ds_info.bash /
+RUN cd / && tree -L 2
 
 CMD [ "bash" ]
 
