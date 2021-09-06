@@ -23,6 +23,13 @@ fi
 cd /home/snow/Repositories/Dockerized-SNOW
 sudo git pull
 
+echo -e "${DS_MSG_BASE} Building norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG}"
+bash ds_build_melodic_python3.bash ${AARCH} \
+  && echo -e "${DS_MSG_BASE} Pushing to dockerhub" \
+  && sudo docker push norlabsnow/norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG} \
+  && echo -e "${DS_MSG_DONE} norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG} builded and pushed to dockerhub"
+
+
 echo -e "${DS_MSG_BASE} Building norlab-mppi-dependencies:${DEPEND_IMG_TAG}"
 bash ds_build_dependencies.bash ${AARCH} \
   && echo -e "${DS_MSG_BASE} Pushing to dockerhub" \
@@ -43,7 +50,7 @@ if [ -z `docker container list -qf "name=^/${CONTAINER_NAMES}$"` ]; then
     echo "Stoping container $(docker rm ${CONTAINER_NAMES})"
 fi
 
-bash ds_instantiate_develop.bash --name=${CONTAINER_NAMES}
+bash ds_instantiate_develop.bash --name=${CONTAINER_NAMES} --runTag=${DEV_IMG_TAG}
 
 if [ -z `docker ps -qf "name=^/${CONTAINER_NAMES}$"` ]; then
     echo -e "${DS_MSG_DONE} ${CONTAINER_NAMES} is up and running"
