@@ -29,7 +29,7 @@ Author: [Luc Coupal](https://redleader962.github.io)
 ```
 -->
 
-![](visual/splash_and_promt_screenshot_2.png)
+![](visual/splash_and_promt_screenshot_3.png)
 
 
 <div align="center">
