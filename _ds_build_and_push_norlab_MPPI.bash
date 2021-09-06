@@ -20,7 +20,7 @@ elif [[ $(uname -m) == "x86_64" ]]; then
 fi
 
 
-cd /home/snow/Repositories/Dockerized-SNOW
+cd ${HOME}/Repositories/Dockerized-SNOW
 sudo git pull
 
 echo -e "${DS_MSG_BASE} Building norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG}"
