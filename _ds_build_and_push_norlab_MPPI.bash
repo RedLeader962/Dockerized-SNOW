@@ -43,7 +43,7 @@ if [ -z `docker container list -qf "name=^/${CONTAINER_NAMES}$"` ]; then
     echo "Stoping container $(docker rm ${CONTAINER_NAMES})"
 fi
 
-ds_instantiate_develop.bash --name=${CONTAINER_NAMES}
+bash ds_instantiate_develop.bash --name=${CONTAINER_NAMES}
 
 if [ -z `docker ps -qf "name=^/${CONTAINER_NAMES}$"` ]; then
     echo -e "${DS_MSG_DONE} ${CONTAINER_NAMES} is up and running"
