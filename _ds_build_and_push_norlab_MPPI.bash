@@ -1,0 +1,51 @@
+#!/bin/bash
+
+
+# Load environment variable from file
+set -o allexport; source ds.env; set +o allexport
+
+#bash ./visual/terminal_splash.bash
+
+if [[ $(uname -m) == "aarch64" ]]; then
+  AARCH=""
+  DEPEND_IMG_TAG="arm64-l4t-r32.6.1"
+  DEV_IMG_TAG="arm64-l4t-r32.6.1-XavierSA"
+  CONTAINER_NAMES="IamSnow-NX"
+elif [[ $(uname -m) == "x86_64" ]]; then
+  AARCH="--x86"
+  DEPEND_IMG_TAG="arm64-l4t-r32.6.1"
+  DEV_IMG_TAG="arm64-l4t-r32.6.1-XavierSA"
+  CONTAINER_NAMES="IamSnow"
+
+fi
+
+
+cd /home/snow/Repositories/Dockerized-SNOW
+sudo git pull
+
+echo -e "${DS_MSG_BASE} Building norlab-mppi-dependencies:${DEPEND_IMG_TAG}"
+bash ds_build_dependencies.bash ${AARCH} \
+  && echo -e "${DS_MSG_BASE} Pushing to dockerhub" \
+  && sudo docker push norlabsnow/norlab-mppi-dependencies:${DEPEND_IMG_TAG} \
+  && echo -e "${DS_MSG_DONE} norlab-mppi-dependencies:${DEPEND_IMG_TAG} builded and pushed to dockerhub"
+
+echo -e "${DS_MSG_BASE} Building norlab-mppi-develop:${DEV_IMG_TAG}"
+bash ds_build_develop.bash ${AARCH} \
+  && echo -e "${DS_MSG_BASE} Pushing to dockerhub" \
+  && sudo docker push norlabsnow/norlab-mppi-develop:${DEV_IMG_TAG} \
+  && echo -e "${DS_MSG_DONE} norlabsnow/norlab-mppi-develop:${DEV_IMG_TAG} builded and pushed to dockerhub"
+
+# Stop container if he is started
+if [ -z `docker ps -qf "name=^/${CONTAINER_NAMES}$"` ]; then
+    echo "Stoping container $(docker stop ${CONTAINER_NAMES})"
+fi
+if [ -z `docker container list -qf "name=^/${CONTAINER_NAMES}$"` ]; then
+    echo "Stoping container $(docker rm ${CONTAINER_NAMES})"
+fi
+
+ds_instantiate_develop.bash --name=${CONTAINER_NAMES}
+
+if [ -z `docker ps -qf "name=^/${CONTAINER_NAMES}$"` ]; then
+    echo -e "${DS_MSG_DONE} ${CONTAINER_NAMES} is up and running"
+fi
+
