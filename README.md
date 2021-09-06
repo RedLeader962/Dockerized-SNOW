@@ -117,30 +117,13 @@ diagram &nbsp;)
   # Create a new docker image instance for development on your machine and start working on the 
   # NorLab_MPPI project using ROS noetic, Python 3 and Pytorch right away.
   bash ds_instantiate_develop.bash --runTag=x86-ubuntu18.04 --name=IamSnow --src="$HOME/Repositories/NorLab_MPPI"
-  
-  
-  
-                                            .|'''.|                                               
-                                            ||..  '                                               
-  ····································· Dockerized-SNOW ••········································
-                                             ''|||.                                               
-                                           .     '||                                              
-                                           |'....|'                                               
-  
-                                   https://norlab.ulaval.ca                                       
-                                https://redleader962.github.io                                    
-  
+
   ```
-  Now make sure _IamSnow_ is still running using `docker container list -a`. If not, execute `docker start IamSnow`. Then
-  open an terminal inside _IamSnow_
+  To open an terminal inside _IamSnow_, use the following convenient script 
   ```shell 
-  sudo docker exec -it IamSnow bash
-  # root@norlab-og:/#
-  
-  # or use the following convenient script
-  bash ~/Repositories/Dockerized-SNOW/open_new_terminal.bash IamSnow
-  
+  bash ~/Repositories/Dockerized-SNOW/ds_attach.bash IamSnow
   ```
+  or use `sudo docker exec -it IamSnow bash`
 
   <br>
 </details>
