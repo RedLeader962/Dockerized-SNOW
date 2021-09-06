@@ -16,7 +16,6 @@ elif [[ $(uname -m) == "x86_64" ]]; then
   DEPEND_IMG_TAG="x86-ubuntu18.04"
   DEV_IMG_TAG="x86-ubuntu18.04"
   CONTAINER_NAMES="IamSnow"
-
 fi
 
 
@@ -43,16 +42,16 @@ bash ds_build_develop.bash ${AARCH} \
   && echo -e "${DS_MSG_DONE} norlabsnow/norlab-mppi-develop:${DEV_IMG_TAG} builded and pushed to dockerhub"
 
 # Stop container if he is started
-if [ -z `docker ps -qf "name=^/${CONTAINER_NAMES}$"` ]; then
-    echo "Stoping container $(docker stop ${CONTAINER_NAMES})"
+if [ -z `sudo docker ps -qf "name=^/${CONTAINER_NAMES}$"` ]; then
+    echo "Stoping container $(sudo docker stop ${CONTAINER_NAMES})"
 fi
-if [ -z `docker container list -qf "name=^/${CONTAINER_NAMES}$"` ]; then
-    echo "Stoping container $(docker rm ${CONTAINER_NAMES})"
+if [ -z `sudo docker container list -qf "name=^/${CONTAINER_NAMES}$"` ]; then
+    echo "Stoping container $(sudo docker rm ${CONTAINER_NAMES})"
 fi
 
 bash ds_instantiate_develop.bash --name=${CONTAINER_NAMES} --runTag=${DEV_IMG_TAG}
 
-if [ -z `docker ps -qf "name=^/${CONTAINER_NAMES}$"` ]; then
+if [ -z `sudo docker ps -qf "name=^/${CONTAINER_NAMES}$"` ]; then
     echo -e "${DS_MSG_DONE} ${CONTAINER_NAMES} is up and running"
 fi
 
