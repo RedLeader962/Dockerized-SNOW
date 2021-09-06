@@ -13,8 +13,8 @@ if [[ $(uname -m) == "aarch64" ]]; then
   CONTAINER_NAMES="IamSnow-NX"
 elif [[ $(uname -m) == "x86_64" ]]; then
   AARCH="--x86"
-  DEPEND_IMG_TAG="arm64-l4t-r32.6.1"
-  DEV_IMG_TAG="arm64-l4t-r32.6.1-XavierSA"
+  DEPEND_IMG_TAG="x86-ubuntu18.04"
+  DEV_IMG_TAG="x86-ubuntu18.04"
   CONTAINER_NAMES="IamSnow"
 
 fi
