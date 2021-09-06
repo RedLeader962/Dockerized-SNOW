@@ -39,7 +39,6 @@ ENV DS_DEV_WORKSPACE=$HOME/ros_catkin_ws
 #   https://elinux.org/Jetson_Zoo#PyTorch_.28Caffe2.29
 ENV DS_PYTHON3_VERSION=python3.6
 ENV ROS_PYTHON_VERSION=3
-RUN echo "export ROS_PYTHON_VERSION=${ROS_PYTHON_VERSION}" >> ~/.bashrc
 
 
 WORKDIR /workspace
@@ -212,9 +211,9 @@ RUN apt-get install -f
 # (Priority) todo:fixme!! >> do not hardcode value (NLSAR-236 🩹→ refactor hardcoded `ros_distro_ros_pck` variable)
 #ARG ROS_DISTRO_ROS_PCK="ros-${ROS_DISTRO}-`echo ${DS_ROS_PKG} | tr '_' '-'`"
 ARG ROS_DISTRO_ROS_PCK=ros-${ROS_DISTRO}-ros-base
+RUN echo "Be advise ROS_DISTRO_ROS_PCK=${ROS_DISTRO_ROS_PCK} is hardcoded at the end of the dockerfile as a temporary workaround, see  task NLSAR-236 for info"
 RUN apt-get install -y \
     ${ROS_DISTRO_ROS_PCK} --fix-missing
-RUN echo "Be advise ROS_DISTRO_ROS_PCK=${ROS_DISTRO_ROS_PCK} is hardcoded at the end of the dockerfile as a temporary workaround, see  task NLSAR-236 for info"
 
 RUN apt-get install -y python-catkin-tools
 
@@ -231,6 +230,7 @@ RUN pip3 install --upgrade pip
 RUN pip3 install --upgrade setuptools
 RUN ${DS_PYTHON3_VERSION} -m pip install --upgrade pip
 RUN ${DS_PYTHON3_VERSION} -m pip install --upgrade setuptools
+RUN echo "export ROS_PYTHON_VERSION=${ROS_PYTHON_VERSION}" >> ~/.bashrc
 
 
 ## ===INstall Python 3 step DONE========================================================================================

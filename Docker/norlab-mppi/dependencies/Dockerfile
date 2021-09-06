@@ -234,6 +234,10 @@ RUN pip3 install --no-cache-dir --verbose pytest
 RUN pip3 install --no-cache-dir --verbose pytest-benchmark
 RUN pip3 install --no-cache-dir --verbose pytest-mock
 
+# Model predictive control python toolbox
+#   https://www.do-mpc.com/en/latest/index.html
+RUN pip3 install --no-cache-dir --verbose do-mpc
+
 
 # install development utilities
 RUN apt-get update \
@@ -382,6 +386,9 @@ RUN pip3 install --no-cache-dir --verbose numpy==1.19.4
 # Check the ROS_PACKAGE_PATH environment variable. It should include the directory you're in:
 #   $ echo $ROS_PACKAGE_PATH
 #   > /home/youruser/ros_catkin_ws/src:/opt/ros/melodic/share
+
+WORKDIR /
+COPY ./tools/ds_info.bash /
 
 CMD [ "bash" ]
 
