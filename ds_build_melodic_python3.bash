@@ -3,7 +3,7 @@
 #set -e  # exit script if any statement returns a non-true return value
 
 # Load environment variable from file
-set -o allexport; source .env; set +o allexport
+set -o allexport; source ds.env; set +o allexport
 
 bash ./visual/terminal_splash.bash
 
