@@ -42,16 +42,18 @@ bash ds_build_develop.bash ${AARCH} \
   && echo -e "${DS_MSG_DONE} norlabsnow/norlab-mppi-develop:${DEV_IMG_TAG} builded and pushed to dockerhub"
 
 # Stop container if he is started
-if [ -z `sudo docker ps -qf "name=^/${CONTAINER_NAMES}$"` ]; then
+if [[ -z `sudo docker ps -qf "name=^/${CONTAINER_NAMES}$"` ]]; then
     echo "Stoping container $(sudo docker stop ${CONTAINER_NAMES})"
     echo "Removing container $(sudo docker rm ${CONTAINER_NAMES})"
-elif [ -z `sudo docker container list -qf "name=^/${CONTAINER_NAMES}$"` ]; then
+    bash ds_instantiate_develop.bash --name=${CONTAINER_NAMES} --runTag=${DEV_IMG_TAG}
+elif [[ -z `sudo docker container list -qf "name=^/${CONTAINER_NAMES}$"` ]]; then
     echo "Removing container $(sudo docker rm ${CONTAINER_NAMES})"
+    bash ds_instantiate_develop.bash --name=${CONTAINER_NAMES} --runTag=${DEV_IMG_TAG}
+else
+    bash ds_instantiate_develop.bash --name=${CONTAINER_NAMES} --runTag=${DEV_IMG_TAG}
 fi
 
-bash ds_instantiate_develop.bash --name=${CONTAINER_NAMES} --runTag=${DEV_IMG_TAG}
-
-if [ -z `sudo docker ps -qf "name=^/${CONTAINER_NAMES}$"` ]; then
+if [[ -z `sudo docker ps -qf "name=^/${CONTAINER_NAMES}$"` ]]; then
     echo -e "${DS_MSG_DONE} ${CONTAINER_NAMES} is up and running"
 fi
 
