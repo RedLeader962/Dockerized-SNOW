@@ -390,7 +390,7 @@ RUN pip3 install --no-cache-dir --verbose numpy==1.19.4
 WORKDIR /
 RUN echo $PWD
 COPY ./tools/ds_info.bash /
-RUN cd / && tree -L 2
+RUN cd / && tree -L 1
 
 CMD [ "bash" ]
 
