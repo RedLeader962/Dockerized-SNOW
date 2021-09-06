@@ -44,9 +44,9 @@ bash ds_build_develop.bash ${AARCH} \
 # Stop container if he is started
 if [ -z `sudo docker ps -qf "name=^/${CONTAINER_NAMES}$"` ]; then
     echo "Stoping container $(sudo docker stop ${CONTAINER_NAMES})"
-fi
-if [ -z `sudo docker container list -qf "name=^/${CONTAINER_NAMES}$"` ]; then
-    echo "Stoping container $(sudo docker rm ${CONTAINER_NAMES})"
+    echo "Removing container $(sudo docker rm ${CONTAINER_NAMES})"
+elif [ -z `sudo docker container list -qf "name=^/${CONTAINER_NAMES}$"` ]; then
+    echo "Removing container $(sudo docker rm ${CONTAINER_NAMES})"
 fi
 
 bash ds_instantiate_develop.bash --name=${CONTAINER_NAMES} --runTag=${DEV_IMG_TAG}
