@@ -2,7 +2,7 @@
 
 PCK_VERSION=$(pip3 list --format freeze)
 
-echo "
+echo -e "
 \033[1;37mROS distro:         ${ROS_DISTRO}
 python3 version:    ${DS_PYTHON3_VERSION}\033[0m
 PyTorch version:    $(echo "${PCK_VERSION}" | grep torch | sed 's/torch==//g')
