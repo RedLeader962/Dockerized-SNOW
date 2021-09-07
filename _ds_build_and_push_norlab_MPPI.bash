@@ -44,7 +44,7 @@ sudo git pull
 # Stop container if he is started
 #if [ ! -z `docker ps -qf "name=^/${CONTAINER_NAMES}$"` ]; then
 #if [ `docker ps --format "{{.Names}}"` == ${CONTAINER_NAMES} ]; then
-if [ `$(docker ps --quiet --all --format "{{.Names}}" | grep Iam)` == ${CONTAINER_NAMES} ]; then
+if [ `docker ps --quiet --all --format "{{.Names}}" | grep Iam` == ${CONTAINER_NAMES} ]; then
     echo -e "${DS_MSG_DONE} I'M IN <<<<<<<<<<<<<<<<<<<<<<<"
     echo "Stoping container $(docker stop ${CONTAINER_NAMES})"
     echo "Removing container $(docker rm ${CONTAINER_NAMES})"
