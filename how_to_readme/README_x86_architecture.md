@@ -36,10 +36,15 @@ and make sure your system comply with those:
 - [ ] and platform requirement
 
 ##### Useful command to check nvidia driver
+Ref CUDA toolkit doc: [Pre-installation Actions](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html)
 ```shell
-lspci | grep -i nvidia
-uname -m && cat /etc/*release
+lspci | grep -i nvidia          # Verify You Have a CUDA-Capable GPU
+uname -m && cat /etc/*release   # Verify You Have a Supported Version of Linux
+```
+
+```shell
 ls -l /usr/local | grep cuda
+nvcc -V
 nvidia-smi
 ```
 

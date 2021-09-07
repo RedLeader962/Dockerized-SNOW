@@ -1,22 +1,25 @@
 #!/bin/bash
 
+
+# ...CUDA toolkit path..................................................................................................
+# ref dusty_nv comment at
+#    https://forums.developer.nvidia.com/t/cuda-nvcc-not-found/118068
+
+if [[ $(nvcc -V | grep 'nvcc: NVIDIA (R) Cuda compiler driver') != "nvcc: NVIDIA (R) Cuda compiler driver" ]]; then
+  ( \
+  echo ""; \
+  echo "# CUDA toolkit related"; \
+  echo "# ref dusty_nv comment at"; \
+  echo "#    https://forums.developer.nvidia.com/t/cuda-nvcc-not-found/118068"; \
+  echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}"; \
+  echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"; \
+  ) >> ~/.bashrc
+fi
+
 # ...aliasing dev.......................................................................................................
 # ref:
 # - https://www.baeldung.com/linux/bash-alias-with-parameters
 # - https://unix.stackexchange.com/questions/3773/how-to-pass-parameters-to-an-alias
-
-#DS_PATH=$(sudo find / -name 'Dockerized-SNOW' -type d 2>/dev/null)
-#echo "export DS_PATH=$(sudo find / -name 'Dockerized-SNOW' -type d 2>/dev/null)" >> ~/.bashrc
-#
-#alias ds_cd="cd $DS_PATH"
-#alias ds_attach="cd $DS_PATH && bash ds_attach.bash"
-#alias ds_instantiate_develop="cd $DS_PATH && bash ds_instantiate_develop.bash"
-#alias ds_instantiate_deploy="cd $DS_PATH && bash ds_instantiate_deploy.bash"
-#alias ds_build_dependencies="cd $DS_PATH && bash ds_build_dependencies.bash"
-#alias ds_build_deploy="cd $DS_PATH && bash ds_build_deploy.bash"
-#alias ds_build_develop="cd $DS_PATH && bash ds_build_develop.bash"
-#alias ds_build_melodic_python3="cd $DS_PATH && bash ds_build_melodic_python3.bash"
-#
 
 DS_PATH=$(sudo find / -name 'Dockerized-SNOW' -type d 2>/dev/null)
 
@@ -37,6 +40,9 @@ DS_PATH=$(sudo find / -name 'Dockerized-SNOW' -type d 2>/dev/null)
 ) >> ~/.bashrc
 
 source ~/.bashrc
+
+# Check cuda
+nvcc -V
 
 # Load environment variable from file
 set -o allexport; source ${DS_PATH}/ds.env; set +o allexport
