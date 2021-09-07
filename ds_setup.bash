@@ -35,10 +35,9 @@ set -o allexport; source ${DS_PATH}/ds.env; set +o allexport
 
 # ...CUDA toolkit path..................................................................................................
 # ref dusty_nv comment at https://forums.developer.nvidia.com/t/cuda-nvcc-not-found/118068
-
 if ! command -v nvcc -V &> /dev/null; then
   # nvcc command not working
-  echo -e "${DS_MSG_BASE} Fixing cuda path for nvcc";
+  echo -e "${DS_MSG_BASE} Fixing CUDA path for nvcc"
 
   ( \
   echo ""; \
@@ -48,16 +47,16 @@ if ! command -v nvcc -V &> /dev/null; then
   echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}"; \
   echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"; \
   echo ""; \
-  ) >> ~/.bashrc
-
-  source ~/.bashrc
+  ) >> ~/.bashrc \
+    && source ~/.bashrc \
+    && echo -e "${DS_MSG_DONE} CUDA path hack added to ~/.bashrc for nvcc"
 fi
 
 if [[ $(nvcc -V | grep 'nvcc: NVIDIA (R) Cuda compiler driver') == "nvcc: NVIDIA (R) Cuda compiler driver" ]]; then
-  echo -e "${DS_MSG_DONE} nvcc installed properly";
+  echo -e "${DS_MSG_DONE} nvcc installed properly"
   nvcc -V
 else
-  echo -e "${DS_MSG_ERROR} nvcc installed properly";
+  echo -e "${DS_MSG_ERROR} Check your nvcc installation. It's NOT installed properly!"
 fi
 
 
