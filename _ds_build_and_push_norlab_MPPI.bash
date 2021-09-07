@@ -47,7 +47,7 @@ if [ `docker ps --quiet --all --format "{{.Names}}" | grep ${CONTAINER_NAMES}` =
     echo -e "${DS_MSG_DONE} Stopping container $(docker stop ${CONTAINER_NAMES})"
     echo -e "${DS_MSG_DONE} Removing container $(docker rm ${CONTAINER_NAMES})"
     bash ds_instantiate_develop.bash --name=${CONTAINER_NAMES} --runTag=${DEV_IMG_TAG}
-if [ `docker container ls --quiet --all --format "{{.Names}}" | grep ${CONTAINER_NAMES}` == ${CONTAINER_NAMES} ]; then
+elif [ `docker container ls --quiet --all --format "{{.Names}}" | grep ${CONTAINER_NAMES}` == ${CONTAINER_NAMES} ]; then
     # Remove container if he is started
     echo -e "${DS_MSG_DONE} Removing container $(docker rm ${CONTAINER_NAMES})"
     bash ds_instantiate_develop.bash --name=${CONTAINER_NAMES} --runTag=${DEV_IMG_TAG}
