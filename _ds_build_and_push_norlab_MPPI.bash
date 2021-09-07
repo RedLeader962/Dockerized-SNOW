@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [[ -z ${DS_PATH} ]]; then
+  DS_PATH=$(sudo find / -name "Dockerized-SNOW" -type d 2>/dev/null)
+fi
+cd ${DS_PATH}
+sudo git pull
 
 # Load environment variable from file
 set -o allexport; source ds.env; set +o allexport
@@ -23,8 +28,6 @@ NORLAB_MPPI_DEPENDENCIES_BUILD_AND_PUSH=false
 NORLAB_MPPI_DEVELOP_BUILD_AND_PUSH=false
 NORLAB_MPPI_DEVELOP_INSTANTIATED=false
 
-cd ${HOME}/Repositories/Dockerized-SNOW
-sudo git pull
 
 # ...Build & push.......................................................................................................
 echo -e "${DS_MSG_BASE} Building norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG}"

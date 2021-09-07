@@ -222,8 +222,8 @@ RUN pip3 install --no-cache-dir --verbose pycuda
 #    cd torch2trt && \
 #    python3 setup.py install --plugins
 
-# ===Final build step — install utilities===============================================================================
-FROM ros-performance-pkg-base-image AS final
+# ===install utilities==================================================================================================
+FROM ros-performance-pkg-base-image AS python-dev-tools
 
 RUN pip3 install --no-cache-dir --verbose pyyaml
 RUN pip3 install --no-cache-dir --verbose jupyter
@@ -233,9 +233,12 @@ RUN pip3 install --no-cache-dir --verbose -U mock
 RUN pip3 install --no-cache-dir --verbose pytest
 RUN pip3 install --no-cache-dir --verbose pytest-benchmark
 RUN pip3 install --no-cache-dir --verbose pytest-mock
+RUN pip3 install --no-cache-dir --verbose python-dotenv
 
-# Model predictive control python toolbox
-#   https://www.do-mpc.com/en/latest/index.html
+
+# ...Sequential decision making related tools...........................................................................
+
+# Model predictive control python toolbox https://www.do-mpc.com/en/latest/index.html
 RUN pip3 install --no-cache-dir --verbose do-mpc
 
 
@@ -267,6 +270,9 @@ RUN apt-get update \
 #        gdbserver \
 #    && rm -rf /var/lib/apt/lists/*
 
+
+# ===Final build step===================================================================================================
+FROM python-dev-tools AS final
 
 # ...Setup ssh server...................................................................................................
 WORKDIR ${DS_DEV_WORKSPACE}
@@ -373,19 +379,23 @@ RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
     && source ${DS_DEV_WORKSPACE}/devel/setup.bash \
     && printenv | grep -e AR_ -e ROS -e MASTER -e HOSTNAME -e DS_"
 
-
-# ★ | Temporary work around for the numpy 1.19.5 `Illegal instruction (core dumped)` error when executed on arm64
-#   - https://github.com/numpy/numpy/issues/18131
-#   - see Task NLSAR-237 🩹→ Illegal instruction (core dumped) on the arm64-l4t image when running pytorch
-RUN pip3 install --no-cache-dir --verbose numpy==1.19.4
-
-
 # Make sure that you have your environment properly setup. A good way to check is to ensure that environment variables
 # like ROS_ROOT and ROS_PACKAGE_PATH are set:
 #   $ printenv | grep ROS
 # Check the ROS_PACKAGE_PATH environment variable. It should include the directory you're in:
 #   $ echo $ROS_PACKAGE_PATH
 #   > /home/youruser/ros_catkin_ws/src:/opt/ros/melodic/share
+
+
+# ❯❯❯ ★ Temporary build step ❯❯❯ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ..
+
+# ★ | Temporary work around for the numpy 1.19.5 `Illegal instruction (core dumped)` error when executed on arm64
+#   - https://github.com/numpy/numpy/issues/18131
+#   - see Task NLSAR-237 🩹→ Illegal instruction (core dumped) on the arm64-l4t image when running pytorch
+RUN pip3 install --no-cache-dir --verbose numpy==1.19.4
+
+#  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .❮❮❮ Temporary build step ❮❮❮
+
 
 WORKDIR /
 RUN echo $PWD
