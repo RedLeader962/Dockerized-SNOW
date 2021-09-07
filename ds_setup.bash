@@ -32,5 +32,12 @@ DS_PATH=$(sudo find / -name 'Dockerized-SNOW' -type d 2>/dev/null)
   echo "alias ds_build_deploy='cd $DS_PATH && bash ds_build_deploy.bash'"; \
   echo "alias ds_build_develop='cd $DS_PATH && bash ds_build_develop.bash'"; \
   echo "alias ds_build_melodic_python3='cd $DS_PATH && bash ds_build_melodic_python3.bash'"; \
+  echo "alias _ds_build_and_push_norlab_MPPI='cd $DS_PATH && bash _ds_build_and_push_norlab_MPPI.bash'"; \
   echo ""; \
 ) >> ~/.bashrc
+
+source ~/.bashrc
+
+# Load environment variable from file
+set -o allexport; source ${DS_PATH}/ds.env; set +o allexport
+echo -e "${DS_MSG_DONE} setup completed"
