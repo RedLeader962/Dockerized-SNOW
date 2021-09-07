@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e  # exit script if any statement returns a non-true return value
+
 
 # ...CUDA toolkit path..................................................................................................
 # ref dusty_nv comment at
@@ -46,4 +48,16 @@ nvcc -V
 
 # Load environment variable from file
 set -o allexport; source ${DS_PATH}/ds.env; set +o allexport
-echo -e "${DS_MSG_DONE} setup completed"
+echo -e "${DS_MSG_DONE} setup completed
+Available alias:
+  ds_cd
+  ds_attach
+  ds_instantiate_develop
+  ds_instantiate_deploy
+  ds_build_dependencies
+  ds_build_deploy
+  ds_build_develop
+  ds_build_melodic_python3
+"
+
+
