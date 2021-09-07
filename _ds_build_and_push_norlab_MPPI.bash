@@ -51,6 +51,8 @@ bash ds_build_develop.bash ${AARCH} \
 
 
 # ...Build & push pass/fail status......................................................................................
+echo "
+......................................"
 if [ $NORLAB_MPPI_ROS_MELODIC_PYTHON_3_BUILD_AND_PUSH == true ]; then
     echo -e "${DS_MSG_DONE} norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG} was build & push"
 else
@@ -68,6 +70,8 @@ if [ $NORLAB_MPPI_DEVELOP_BUILD_AND_PUSH == true ]; then
 else
     echo -e "${DS_MSG_ERROR} norlab-mppi-develop:${DEV_IMG_TAG} failed to build or push"
 fi
+echo "......................................
+"
 
 # ...Instantiate container..............................................................................................
 # Fetch all container name, strip those unrelated one and test for exact name
