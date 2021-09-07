@@ -68,7 +68,8 @@ done
 #"
 
 # Start container if he is stopped
-if [ -z `docker ps -qf "name=^/${CONTAINER_NAMES}$"` ]; then
+#if [ -z `docker ps -qf "name=^/${CONTAINER_NAMES}$"` ]; then
+if [ `docker ps --format "{{.Names}}"` == ${CONTAINER_NAMES} ]; then
     echo "Starting container $(docker start ${CONTAINER_NAMES})"
 fi
 
