@@ -1,7 +1,8 @@
 #!/bin/bash
 
-#set -e   # exit script if any statement returns a non-true return value
-
+# ★★★ Usage note | Must be executed in the current terminal so use the following command:
+#         $ source ds_setup.bash
+#
 
 
 # ...aliasing dev.......................................................................................................
@@ -28,7 +29,7 @@ DS_PATH=$(sudo find / -name 'Dockerized-SNOW' -type d 2>/dev/null)
 ) >> ~/.bashrc
 
 # Source bashrc
-source ${HOME}/.bashrc
+source ~/.bashrc
 
 # Load environment variable from file
 set -o allexport; source ${DS_PATH}/ds.env; set +o allexport
@@ -50,7 +51,7 @@ if ! command -v nvcc -V &> /dev/null; then
   echo ""; \
   ) >> ~/.bashrc
 
-  source ${HOME}/.bashrc && echo -e "${DS_MSG_DONE} CUDA path hack added to ~/.bashrc for nvcc"
+  source ~/.bashrc && echo -e "${DS_MSG_DONE} CUDA path hack added to ~/.bashrc for nvcc"
 fi
 
 if [[ $(nvcc -V | grep 'nvcc: NVIDIA (R) Cuda compiler driver') == "nvcc: NVIDIA (R) Cuda compiler driver" ]]; then

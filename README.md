@@ -9,6 +9,27 @@
 </div>
 
 # _Dockerized-SNOW_
+
+
+<div align="center">
+<p>
+<sup>
+<b>Project related link: </b> &nbsp; 
+<a href="https://redleader.myjetbrains.com/youtrack/dashboard?id=bce3112d-bda1-425c-8628-802a047be4d3">NLSAR</a>
+(Youtrack) &nbsp; • &nbsp;  
+<a href="https://hub.docker.com/u/norlabsnow">norlabsnow</a>
+(Docker Hub) &nbsp; • &nbsp; 
+<a href="https://github.com/norlab-ulaval/NorLab_MPPI">NorLab_MPPI</a>
+(GitHub) &nbsp; • &nbsp; 
+<a href="https://github.com/RedLeader962/SNOW_AutoRally">SNOW_AutoRally</a>
+(GitHub)
+&nbsp;
+</sup>
+</p>
+
+[comment]: <> (<br>)
+</div>
+
 Containerized development workflow for the _NorLab_MPPI_ and _SNOW_AutoRally_ projects leveraging [_nvidia-docker_](https://github.com/NVIDIA/nvidia-docker) technology.
 
 **Key benefit:** custom dependencies management, development environment consistency, easy deployment to robots compute box and results reproducibility.    
@@ -29,26 +50,10 @@ Author: [Luc Coupal](https://redleader962.github.io)
 ```
 -->
 
+
+
+
 ![](visual/splash_and_promt_screenshot_3.png)
-
-
-<div align="center">
-<p>
-<sup>
-<b>Project related link: </b> &nbsp; 
-<a href="https://redleader.myjetbrains.com/youtrack/dashboard?id=bce3112d-bda1-425c-8628-802a047be4d3">NLSAR</a>
-(Youtrack) &nbsp; • &nbsp;  
-<a href="https://hub.docker.com/u/norlabsnow">norlabsnow</a>
-(Docker Hub) &nbsp; • &nbsp; 
-<a href="https://github.com/norlab-ulaval/NorLab_MPPI">NorLab_MPPI</a>
-(GitHub) &nbsp; • &nbsp; 
-<a href="https://github.com/RedLeader962/SNOW_AutoRally">SNOW_AutoRally</a>
-(GitHub)
-&nbsp;
-</sup>
-</p>
-<br>
-</div>
 
 <!-- 
 <br>
@@ -72,6 +77,7 @@ diagram &nbsp;)
 <br>
 -->
 
+## Dockerized-SNOW high level architecture  
 
 <div align="center">
 <p>
@@ -100,7 +106,7 @@ diagram &nbsp;)
   <br>
 
   - **Requirement:** _docker_ and _nvidia container toolkit_ must be installed ([follow install step 1 and 2](how_to_readme/README_x86_architecture.md))
-  - **Tips:** You can use the `--help` flag for usage instruction on any dockerized-snow bash script
+  - **Tips:** You can use the `--help` flag for usage instruction on most  `ds_*` command
   
   ```shell
   # Create a directory for your development source code if you dont already have one
@@ -109,19 +115,23 @@ diagram &nbsp;)
   # Clone both repositories 
   sudo git clone https://github.com/norlab-ulaval/NorLab_MPPI.git
   sudo git clone https://github.com/RedLeader962/Dockerized-SNOW.git
+  
+  # Install aliases and check Nvidia NVCC  
   cd ~/Repositories/Dockerized-SNOW
+  source ds_setup.bash
   
   # Pull the norlab-mppi-develop image from norlabsnow Dockerhub with the x86-ubuntu20.04 tag
   sudo docker pull norlabsnow/norlab-mppi-develop:x86-ubuntu18.04 
   
   # Create a new docker image instance for development on your machine and start working on the 
   # NorLab_MPPI project using ROS noetic, Python 3 and Pytorch right away.
-  bash ds_instantiate_develop.bash --runTag=x86-ubuntu18.04 --name=IamSnow --src="$HOME/Repositories/NorLab_MPPI"
+  ds_instantiate_develop --runTag=x86-ubuntu18.04 --name=IamSnow --src="$HOME/Repositories/NorLab_MPPI"
 
   ```
+
   To open an terminal inside _IamSnow_, use the following convenient script 
   ```shell 
-  bash ~/Repositories/Dockerized-SNOW/ds_attach.bash IamSnow
+  ds_attach IamSnow
   ```
   or use `sudo docker exec -it IamSnow bash`
 
