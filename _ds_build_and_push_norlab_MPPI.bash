@@ -44,18 +44,18 @@ sudo git pull
 # Fetch all container name, strip those unrelated one and test for exact name
 if [ `docker ps --quiet --all --format "{{.Names}}" | grep ${CONTAINER_NAMES}` == ${CONTAINER_NAMES} ]; then
     # Stop and remove container if he is started
-    echo -e "${DS_MSG_DONE} Stopping container $(docker stop ${CONTAINER_NAMES})"
-    echo -e "${DS_MSG_DONE} Removing container $(docker rm ${CONTAINER_NAMES})"
+    echo -e "${DS_MSG_BASE} Stopping container $(docker stop ${CONTAINER_NAMES})"
+    echo -e "${DS_MSG_BASE} Removing container $(docker rm ${CONTAINER_NAMES})"
     bash ds_instantiate_develop.bash --name=${CONTAINER_NAMES} --runTag=${DEV_IMG_TAG}
 elif [ `docker container ls --quiet --all --format "{{.Names}}" | grep ${CONTAINER_NAMES}` == ${CONTAINER_NAMES} ]; then
     # Remove container if he is started
-    echo -e "${DS_MSG_DONE} Removing container $(docker rm ${CONTAINER_NAMES})"
+    echo -e "${DS_MSG_BASE} Removing container $(docker rm ${CONTAINER_NAMES})"
     bash ds_instantiate_develop.bash --name=${CONTAINER_NAMES} --runTag=${DEV_IMG_TAG}
 else
     bash ds_instantiate_develop.bash --name=${CONTAINER_NAMES} --runTag=${DEV_IMG_TAG}
 fi
 
-if [ -z `docker ps -qf "name=^/${CONTAINER_NAMES}$"` ]; then
+if [ `docker ps --quiet --all --format "{{.Names}}" | grep ${CONTAINER_NAMES}` == ${CONTAINER_NAMES} ]; then
     echo -e "${DS_MSG_DONE} ${CONTAINER_NAMES} is up and running"
 fi
 

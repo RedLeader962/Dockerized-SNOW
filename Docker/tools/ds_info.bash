@@ -1,11 +1,13 @@
 #!/bin/bash
 
+PCK_VERSION=$(pip3 list --format freeze)
+
 echo "
-ROS distro:         ${ROS_DISTRO}
-python3 version:    ${DS_PYTHON3_VERSION}
-PyTorch version:    $(pip3 show torch | grep Version | sed 's/Version: //g')
-PyCuda version:     $(pip3 show pycuda | grep Version | sed 's/Version: //g')
-Numpy version:      $(pip3 show numpy | grep Version | sed 's/Version: //g')
+\033[1;37mROS distro:         ${ROS_DISTRO}
+python3 version:    ${DS_PYTHON3_VERSION}\033[0m
+PyTorch version:    $(echo "${PCK_VERSION}" | grep torch | sed 's/torch==//g')
+PyCuda version:     $(echo "${PCK_VERSION}" | grep pycuda | sed 's/pycuda==//g')
+Numpy version:      $(echo "${PCK_VERSION}" | grep numpy | sed 's/numpy==//g')
 
 ROS package:        ${DS_ROS_PKG}
 ROS python version: ${ROS_PYTHON_VERSION}
