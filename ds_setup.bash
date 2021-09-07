@@ -1,6 +1,5 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-# "#!/bin/bash"
 #set -e   # exit script if any statement returns a non-true return value
 
 
@@ -54,7 +53,7 @@ if ! command -v nvcc -V &> /dev/null; then
   source ~/.bashrc && echo -e "${DS_MSG_DONE} CUDA path hack added to ~/.bashrc for nvcc"
 fi
 
-if [[ $(nvcc -V | grep 'nvcc: NVIDIA (R) Cuda compiler driver') == "nvcc: NVIDIA (R) Cuda compiler driver" ]]; then echo "> if TRUE"; else echo "> else FALSE"; fi
+if [[ $(nvcc -V | grep 'nvcc: NVIDIA (R) Cuda compiler driver') == "nvcc: NVIDIA (R) Cuda compiler driver" ]]; then
   echo -e "${DS_MSG_DONE} nvcc installed properly"
   nvcc -V
 else
