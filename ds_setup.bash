@@ -28,7 +28,7 @@ DS_PATH=$(sudo find / -name 'Dockerized-SNOW' -type d 2>/dev/null)
 ) >> ~/.bashrc
 
 # Source bashrc
-source ~/.bashrc
+source ${HOME}/.bashrc
 
 # Load environment variable from file
 set -o allexport; source ${DS_PATH}/ds.env; set +o allexport
@@ -50,7 +50,7 @@ if ! command -v nvcc -V &> /dev/null; then
   echo ""; \
   ) >> ~/.bashrc
 
-  source ~/.bashrc && echo -e "${DS_MSG_DONE} CUDA path hack added to ~/.bashrc for nvcc"
+  source ${HOME}/.bashrc && echo -e "${DS_MSG_DONE} CUDA path hack added to ~/.bashrc for nvcc"
 fi
 
 if [[ $(nvcc -V | grep 'nvcc: NVIDIA (R) Cuda compiler driver') == "nvcc: NVIDIA (R) Cuda compiler driver" ]]; then
