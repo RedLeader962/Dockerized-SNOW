@@ -1,13 +1,13 @@
 #!/bin/bash
 
-set -e  # exit script if any statement returns a non-true return value
+#set -e   # exit script if any statement returns a non-true return value
 
 
 # ...CUDA toolkit path..................................................................................................
 # ref dusty_nv comment at
 #    https://forums.developer.nvidia.com/t/cuda-nvcc-not-found/118068
 
-if [[ $(nvcc -V | grep 'nvcc: NVIDIA (R) Cuda compiler driver') != "nvcc: NVIDIA (R) Cuda compiler driver" ]]; then
+if [[ ! $(nvcc -V | grep 'nvcc: NVIDIA (R) Cuda compiler driver') == "nvcc: NVIDIA (R) Cuda compiler driver" ]]; then
   ( \
   echo ""; \
   echo "# CUDA toolkit related"; \
@@ -15,6 +15,7 @@ if [[ $(nvcc -V | grep 'nvcc: NVIDIA (R) Cuda compiler driver') != "nvcc: NVIDIA
   echo "#    https://forums.developer.nvidia.com/t/cuda-nvcc-not-found/118068"; \
   echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}"; \
   echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"; \
+  echo ""; \
   ) >> ~/.bashrc
 fi
 
