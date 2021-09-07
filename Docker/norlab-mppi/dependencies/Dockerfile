@@ -271,8 +271,8 @@ RUN apt-get update \
 #    && rm -rf /var/lib/apt/lists/*
 
 
-# ===Final build step===================================================================================================
-FROM python-dev-tools AS final
+# ===Services build step================================================================================================
+FROM python-dev-tools AS services
 
 # ...Setup ssh server...................................................................................................
 WORKDIR ${DS_DEV_WORKSPACE}
@@ -373,34 +373,33 @@ RUN /bin/bash -c "cd config_files && tree -L 3"
 #RUN export DS_LOGO=$'\U1D57E' >> ~/.bashrc # 𝕾     <-- mathematical bold fraktur capital s U+1D57E
 ENV DS_CONTAINER_NAME=IamSnow
 
-# ...source & check ROS environement variable...........................................................................
-WORKDIR ${DS_DEV_WORKSPACE}
-RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
-    && source ${DS_DEV_WORKSPACE}/devel/setup.bash \
-    && printenv | grep -e AR_ -e ROS -e MASTER -e HOSTNAME -e DS_"
 
+# ===Final build step===================================================================================================
+FROM services AS final
+
+# ❯❯❯ Temporary build step ❯❯❯..........................................................................................
+# ★ | Temporary work around for the numpy 1.19.5 `Illegal instruction (core dumped)` error when executed on arm64
+#   - https://github.com/numpy/numpy/issues/18131
+#   - see Task NLSAR-237 🩹→ Illegal instruction (core dumped) on the arm64-l4t image when running pytorch
+RUN pip3 install --no-cache-dir --verbose numpy==1.19.4
+# ..........................................................................................❮❮❮ Temporary build step ❮❮❮
+
+WORKDIR /
+#RUN echo $PWD
+COPY ./tools/ds_info.bash /
+#RUN cd / && tree -L 1
+
+# ...source & check ROS environement variable...........................................................................
 # Make sure that you have your environment properly setup. A good way to check is to ensure that environment variables
 # like ROS_ROOT and ROS_PACKAGE_PATH are set:
 #   $ printenv | grep ROS
 # Check the ROS_PACKAGE_PATH environment variable. It should include the directory you're in:
 #   $ echo $ROS_PACKAGE_PATH
 #   > /home/youruser/ros_catkin_ws/src:/opt/ros/melodic/share
-
-
-# ❯❯❯ ★ Temporary build step ❯❯❯ . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ..
-
-# ★ | Temporary work around for the numpy 1.19.5 `Illegal instruction (core dumped)` error when executed on arm64
-#   - https://github.com/numpy/numpy/issues/18131
-#   - see Task NLSAR-237 🩹→ Illegal instruction (core dumped) on the arm64-l4t image when running pytorch
-RUN pip3 install --no-cache-dir --verbose numpy==1.19.4
-
-#  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .❮❮❮ Temporary build step ❮❮❮
-
-
-WORKDIR /
-RUN echo $PWD
-COPY ./tools/ds_info.bash /
-RUN cd / && tree -L 1
+WORKDIR ${DS_DEV_WORKSPACE}
+RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash \
+    && source ${DS_DEV_WORKSPACE}/devel/setup.bash \
+    && printenv | grep -e AR_ -e ROS -e MASTER -e HOSTNAME -e DS_"
 
 CMD [ "bash" ]
 
