@@ -27,7 +27,8 @@ DS_PATH=$(sudo find / -name 'Dockerized-SNOW' -type d 2>/dev/null)
   echo ""; \
 ) >> ~/.bashrc
 
-source ~/.bashrc
+# Source bashrc
+. ~/.bashrc
 
 # Load environment variable from file
 set -o allexport; source ${DS_PATH}/ds.env; set +o allexport
@@ -48,7 +49,7 @@ if ! command -v nvcc -V &> /dev/null; then
   echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"; \
   echo ""; \
   ) >> ~/.bashrc \
-    && source ~/.bashrc \
+    && . ~/.bashrc \
     && echo -e "${DS_MSG_DONE} CUDA path hack added to ~/.bashrc for nvcc"
 fi
 
