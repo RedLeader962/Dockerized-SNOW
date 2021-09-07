@@ -73,8 +73,4 @@ echo -e "${DS_MSG_DONE} Setup completed! New available alias:
   ds_build_melodic_python3
 "
 
-# (Priority) todo:on task end >> delete next bloc ↓↓
-echo -e "${DS_MSG_WARNING} TEST execute nvcc -V"
-nvcc -V
-
 
