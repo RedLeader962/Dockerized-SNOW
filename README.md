@@ -77,27 +77,6 @@ diagram &nbsp;)
 <br>
 -->
 
-## Dockerized-SNOW high level architecture  
-
-<div align="center">
-<p>
-<a href="https://viewer.diagrams.net/?target=blank&highlight=0000ff&edit=_blank&layers=1&nav=1&title=dockerized_snow_norlab_mppi_plan2.drawio#Uhttps%3A%2F%2Fraw.githubusercontent.com%2FRedLeader962%2FDockerized-SNOW%2Fmaster%2Fdrawio%2Fdockerized_snow_norlab_mppi_plan2.drawio">
-<img src="drawio/dockerized_snow_norlab_mppi_plan2.svg">
-</a>
-</p>
-<sub>
-(&nbsp; View diagram  
-<a href="https://viewer.diagrams.net/?target=blank&highlight=0000ff&edit=_blank&layers=1&nav=1&title=dockerized_snow_norlab_mppi_plan2.drawio#Uhttps%3A%2F%2Fraw.githubusercontent.com%2FRedLeader962%2FDockerized-SNOW%2Fmaster%2Fdrawio%2Fdockerized_snow_norlab_mppi_plan2.drawio">
-fullscreen
-</a>
-&nbsp; • &nbsp;
-<a href="https://app.diagrams.net/?mode=github#HRedLeader962%2FDockerized-SNOW%2Fmaster%2Fdrawio%2Fdockerized_snow_norlab_mppi_plan2.drawio" target="_blank" rel="noopener noreferrer">edit
-</a>
-diagram &nbsp;)
-</sub>
-</div>
-<br>
-
 
 ## Usage
 
@@ -188,6 +167,29 @@ diagram &nbsp;)
 </details> 
 
 <br>
+
+
+## High level architecture  
+
+<div align="center">
+<p>
+<a href="https://viewer.diagrams.net/?target=blank&highlight=0000ff&edit=_blank&layers=1&nav=1&title=dockerized_snow_norlab_mppi_plan2.drawio#Uhttps%3A%2F%2Fraw.githubusercontent.com%2FRedLeader962%2FDockerized-SNOW%2Fmaster%2Fdrawio%2Fdockerized_snow_norlab_mppi_plan2.drawio">
+<img src="drawio/dockerized_snow_norlab_mppi_plan2.svg">
+</a>
+</p>
+<sub>
+(&nbsp; View diagram  
+<a href="https://viewer.diagrams.net/?target=blank&highlight=0000ff&edit=_blank&layers=1&nav=1&title=dockerized_snow_norlab_mppi_plan2.drawio#Uhttps%3A%2F%2Fraw.githubusercontent.com%2FRedLeader962%2FDockerized-SNOW%2Fmaster%2Fdrawio%2Fdockerized_snow_norlab_mppi_plan2.drawio">
+fullscreen
+</a>
+&nbsp; • &nbsp;
+<a href="https://app.diagrams.net/?mode=github#HRedLeader962%2FDockerized-SNOW%2Fmaster%2Fdrawio%2Fdockerized_snow_norlab_mppi_plan2.drawio" target="_blank" rel="noopener noreferrer">edit
+</a>
+diagram &nbsp;)
+</sub>
+</div>
+<br>
+
 
 ---
 ### Instruction:
