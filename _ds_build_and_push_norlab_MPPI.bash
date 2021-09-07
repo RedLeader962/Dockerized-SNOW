@@ -42,20 +42,13 @@ bash ds_build_dependencies.bash ${AARCH} \
   && echo -e "${DS_MSG_DONE} norlab-mppi-dependencies:${DEPEND_IMG_TAG} builded and pushed to dockerhub" \
   && NORLAB_MPPI_DEPENDENCIES_BUILD_AND_PUSH=true
 
-#echo -e "${DS_MSG_BASE} Building norlab-mppi-develop:${DEV_IMG_TAG}"
-#bash ds_build_develop.bash ${AARCH} \
-#  && echo -e "${DS_MSG_BASE} Pushing to dockerhub" \
-#  && sudo docker push norlabsnow/norlab-mppi-develop:${DEV_IMG_TAG} \
-#  && echo -e "${DS_MSG_DONE} norlabsnow/norlab-mppi-develop:${DEV_IMG_TAG} builded and pushed to dockerhub" \
-#  && NORLAB_MPPI_DEVELOP_BUILD_AND_PUSH=true
-#
-# (Priority) todo:on task end >> delete next bloc ↓↓
 echo -e "${DS_MSG_BASE} Building norlab-mppi-develop:${DEV_IMG_TAG}"
 bash ds_build_develop.bash ${AARCH} \
   && echo -e "${DS_MSG_BASE} Pushing to dockerhub" \
-  && sudo docker push norlabsnow/norlab-mppi-develop-:${DEV_IMG_TAG} \
+  && sudo docker push norlabsnow/norlab-mppi-develop:${DEV_IMG_TAG} \
   && echo -e "${DS_MSG_DONE} norlabsnow/norlab-mppi-develop:${DEV_IMG_TAG} builded and pushed to dockerhub" \
   && NORLAB_MPPI_DEVELOP_BUILD_AND_PUSH=true
+
 
 # ...Build & push pass/fail status......................................................................................
 if [ $NORLAB_MPPI_ROS_MELODIC_PYTHON_3_BUILD_AND_PUSH == true ]; then
