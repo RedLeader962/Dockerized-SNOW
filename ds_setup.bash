@@ -3,21 +3,6 @@
 #set -e   # exit script if any statement returns a non-true return value
 
 
-# ...CUDA toolkit path..................................................................................................
-# ref dusty_nv comment at
-#    https://forums.developer.nvidia.com/t/cuda-nvcc-not-found/118068
-
-if [[ ! $(nvcc -V | grep 'nvcc: NVIDIA (R) Cuda compiler driver') == "nvcc: NVIDIA (R) Cuda compiler driver" ]]; then
-  ( \
-  echo ""; \
-  echo "# CUDA toolkit related"; \
-  echo "# ref dusty_nv comment at"; \
-  echo "#    https://forums.developer.nvidia.com/t/cuda-nvcc-not-found/118068"; \
-  echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}"; \
-  echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"; \
-  echo ""; \
-  ) >> ~/.bashrc
-fi
 
 # ...aliasing dev.......................................................................................................
 # ref:
@@ -44,13 +29,39 @@ DS_PATH=$(sudo find / -name 'Dockerized-SNOW' -type d 2>/dev/null)
 
 source ~/.bashrc
 
-# Check cuda
-nvcc -V
-
 # Load environment variable from file
 set -o allexport; source ${DS_PATH}/ds.env; set +o allexport
-echo -e "${DS_MSG_DONE} setup completed
-Available alias:
+
+
+# ...CUDA toolkit path..................................................................................................
+# ref dusty_nv comment at https://forums.developer.nvidia.com/t/cuda-nvcc-not-found/118068
+
+if ! command -v nvcc -V &> /dev/null; then
+  # nvcc command not working
+  echo -e "${DS_MSG_BASE} Fixing cuda path for nvcc";
+
+  ( \
+  echo ""; \
+  echo "# CUDA toolkit related"; \
+  echo "# ref dusty_nv comment at"; \
+  echo "#    https://forums.developer.nvidia.com/t/cuda-nvcc-not-found/118068"; \
+  echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}"; \
+  echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"; \
+  echo ""; \
+  ) >> ~/.bashrc
+
+  source ~/.bashrc
+else
+  if [[ $(nvcc -V | grep 'nvcc: NVIDIA (R) Cuda compiler driver') == "nvcc: NVIDIA (R) Cuda compiler driver" ]]; then
+    echo -e "${DS_MSG_DONE} nvcc installed properly";
+    nvcc -V
+  else
+    echo -e "${DS_MSG_ERROR} nvcc installed properly";
+  fi
+fi
+
+
+echo -e "${DS_MSG_DONE} Setup completed! New available alias:
   ds_cd
   ds_attach
   ds_instantiate_develop
