@@ -51,13 +51,13 @@ if ! command -v nvcc -V &> /dev/null; then
   ) >> ~/.bashrc
 
   source ~/.bashrc
+fi
+
+if [[ $(nvcc -V | grep 'nvcc: NVIDIA (R) Cuda compiler driver') == "nvcc: NVIDIA (R) Cuda compiler driver" ]]; then
+  echo -e "${DS_MSG_DONE} nvcc installed properly";
+  nvcc -V
 else
-  if [[ $(nvcc -V | grep 'nvcc: NVIDIA (R) Cuda compiler driver') == "nvcc: NVIDIA (R) Cuda compiler driver" ]]; then
-    echo -e "${DS_MSG_DONE} nvcc installed properly";
-    nvcc -V
-  else
-    echo -e "${DS_MSG_ERROR} nvcc installed properly";
-  fi
+  echo -e "${DS_MSG_ERROR} nvcc installed properly";
 fi
 
 
