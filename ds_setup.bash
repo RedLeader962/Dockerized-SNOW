@@ -49,12 +49,12 @@ if ! command -v nvcc -V &> /dev/null; then
   echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}"; \
   echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"; \
   echo ""; \
-  ) >> ~/.bashrc \
-    && source ~/.bashrc \
-    && echo -e "${DS_MSG_DONE} CUDA path hack added to ~/.bashrc for nvcc"
+  ) >> ~/.bashrc
+
+  source ~/.bashrc && echo -e "${DS_MSG_DONE} CUDA path hack added to ~/.bashrc for nvcc"
 fi
 
-if [[ $(nvcc -V | grep 'nvcc: NVIDIA (R) Cuda compiler driver') == "nvcc: NVIDIA (R) Cuda compiler driver" ]]; then
+if [[ $(nvcc -V | grep 'nvcc: NVIDIA (R) Cuda compiler driver') == "nvcc: NVIDIA (R) Cuda compiler driver" ]]; then echo "> if TRUE"; else echo "> else FALSE"; fi
   echo -e "${DS_MSG_DONE} nvcc installed properly"
   nvcc -V
 else
@@ -72,5 +72,9 @@ echo -e "${DS_MSG_DONE} Setup completed! New available alias:
   ds_build_develop
   ds_build_melodic_python3
 "
+
+# (Priority) todo:on task end >> delete next bloc ↓↓
+echo -e "${DS_MSG_WARNING} TEST execute nvcc -V"
+nvcc -V
 
 
