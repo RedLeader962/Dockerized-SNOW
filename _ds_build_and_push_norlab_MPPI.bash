@@ -56,21 +56,21 @@ echo "
 SummarySummary
 "
 if [ $NORLAB_MPPI_ROS_MELODIC_PYTHON_3_BUILD_AND_PUSH == true ]; then
-    echo -e "${DS_MSG_DONE} norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG} was build & push"
+    echo -e "${DS_MSG_DONE} build&push norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG}"
 else
-    echo -e "${DS_MSG_ERROR} norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG} failed to build or push"
+    echo -e "${DS_MSG_ERROR} failed to build or push norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG}"
 fi
 
 if [ $NORLAB_MPPI_DEPENDENCIES_BUILD_AND_PUSH == true ]; then
-    echo -e "${DS_MSG_DONE} norlab-mppi-dependencies:${DEPEND_IMG_TAG} was build & push"
+    echo -e "${DS_MSG_DONE} build&push norlab-mppi-dependencies:${DEPEND_IMG_TAG}"
 else
-    echo -e "${DS_MSG_ERROR} norlab-mppi-dependencies:${DEPEND_IMG_TAG} failed to build or push"
+    echo -e "${DS_MSG_ERROR} failed to build or push norlab-mppi-dependencies:${DEPEND_IMG_TAG}"
 fi
 
 if [ $NORLAB_MPPI_DEVELOP_BUILD_AND_PUSH == true ]; then
-    echo -e "${DS_MSG_DONE} norlab-mppi-develop:${DEV_IMG_TAG} was build & push"
+    echo -e "${DS_MSG_DONE} build&push norlab-mppi-develop:${DEV_IMG_TAG}"
 else
-    echo -e "${DS_MSG_ERROR} norlab-mppi-develop:${DEV_IMG_TAG} failed to build or push"
+    echo -e "${DS_MSG_ERROR} failed to build or push norlab-mppi-develop:${DEV_IMG_TAG}"
 fi
 echo "............................................................................
 "
