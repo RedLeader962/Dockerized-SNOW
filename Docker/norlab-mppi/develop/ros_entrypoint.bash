@@ -21,13 +21,13 @@ echo -e "To connect remotely to the container:
 #If you need to rebuild your norlab-mppi ROS project, use \033[1;37m\$ bash /rebuild_norlab_mppi.bash\033[0m from inside the container,
 #"
 
+echo -e "ds_info:"
+bash /ds_info.bash
+
 echo -e "In container available alias:
   ds_info
   ds_python3_check
   ds_rebuild_norlab_mppi
-  ds_fetch_ros_env
-"
-
-bash /ds_info.bash
+  ds_fetch_ros_env"
 
 exec "$@"
