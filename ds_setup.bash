@@ -63,6 +63,7 @@ fi
 
 
 echo -e "${DS_MSG_DONE} Setup completed! New available alias:
+
   ds_cd
   ds_attach
   ds_instantiate_develop
