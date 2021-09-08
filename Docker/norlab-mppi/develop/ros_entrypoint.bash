@@ -21,7 +21,7 @@ echo -e "To connect remotely to the container:
 #If you need to rebuild your norlab-mppi ROS project, use \033[1;37m\$ bash /rebuild_norlab_mppi.bash\033[0m from inside the container,
 #"
 
-echo -e "Dpckerized-SNOW info (ds_info command):" && bash /ds_info.bash
+echo -e "Container information (ds_info command):" && bash /ds_info.bash
 
 echo -e "In container available alias:
 
