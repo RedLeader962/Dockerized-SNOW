@@ -23,6 +23,15 @@ RUN /bin/bash -c "chmod +x /ros_entrypoint.bash" \
     && /bin/bash -c "chmod +x /fetch_ros_env.bash"
 
 
+RUN ( \
+  echo ""; \
+  echo "# Dockerized-SNOW aliases (from develop img)"; \
+  echo "alias ds_rebuild_norlab_mppi='bash /rebuild_norlab_mppi.bash'"; \
+  echo "alias ds_fetch_ros_env='bash /fetch_ros_env.bash'"; \
+  echo "alias ds_python3_check='python3 /ros_catkin_ws/src/${DS_TARGET_PROJECT_SRC_REPO}/src/container_related/try_pytorch.py'"; \
+  echo ""; \
+) >> ~/.bashrc
+
 WORKDIR /ros_catkin_ws/src/${DS_TARGET_PROJECT_SRC_REPO}
 ENTRYPOINT [ "/ros_entrypoint.bash" ]
 CMD [ "bash" ]

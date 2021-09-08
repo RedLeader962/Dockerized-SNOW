@@ -70,7 +70,8 @@ done
 # Fetch all container name, strip those unrelated one and test for exact name
 if [ `docker ps --quiet --all --format "{{.Names}}" | grep ${CONTAINER_NAMES}` == ${CONTAINER_NAMES} ]; then
     # Start container if he is stopped
-    echo -e "${DS_MSG_DONE} Starting container $(docker start ${CONTAINER_NAMES})"
+    echo -e "${DS_MSG_BASE} Starting container $(docker start ${CONTAINER_NAMES})"
+    echo ""
 fi
 
 #sudo docker exec -it ${USER_ARG} ${CONTAINER_NAME} /ros_entrypoint.bash bash

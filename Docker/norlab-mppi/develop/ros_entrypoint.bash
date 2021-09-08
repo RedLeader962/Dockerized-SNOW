@@ -17,9 +17,17 @@ echo -e "To connect remotely to the container:
     $ scp -P ${DS_PYCHARM_DEV_SERVER_PORT} /path/to/foo ${DS_PYCHARM_DEV_USER}@$(hostname -I | awk '{print $1}'):/dest/
 "
 
-echo -e "Check if ${DS_PYTHON3_VERSION} is working properly by running \033[1;37m\$ python3 /ros_catkin_ws/src/${DS_TARGET_PROJECT_SRC_REPO}/src/container_related/try_pytorch.py\033[0m in the container terminal.
-If you need to rebuild your norlab-mppi ROS project, use \033[1;37m\$ bash /rebuild_norlab_mppi.bash\033[0m from inside the container,
-Recall that your project source code is mapped in the container at dir \033[1;37m/ros_catkin_ws/src/${DS_TARGET_PROJECT_SRC_REPO}/\033[0m
+#echo -e "Check if ${DS_PYTHON3_VERSION} is working properly by running \033[1;37m\$ python3 /ros_catkin_ws/src/${DS_TARGET_PROJECT_SRC_REPO}/src/container_related/try_pytorch.py\033[0m in the container terminal.
+#If you need to rebuild your norlab-mppi ROS project, use \033[1;37m\$ bash /rebuild_norlab_mppi.bash\033[0m from inside the container,
+#"
+
+echo -e "In container available alias:
+  ds_info
+  ds_python3_check
+  ds_rebuild_norlab_mppi
+  ds_fetch_ros_env
 "
+
+ds_info
 
 exec "$@"

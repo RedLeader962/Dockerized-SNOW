@@ -389,6 +389,13 @@ WORKDIR /
 COPY ./tools/ds_info.bash /
 #RUN cd / && tree -L 1
 
+RUN ( \
+  echo ""; \
+  echo "# Dockerized-SNOW aliases (from dependencies img)"; \
+  echo "alias ds_info='bash /ds_info.bash'"; \
+  echo ""; \
+) >> ~/.bashrc
+
 # ...source & check ROS environement variable...........................................................................
 # Make sure that you have your environment properly setup. A good way to check is to ensure that environment variables
 # like ROS_ROOT and ROS_PACKAGE_PATH are set:
