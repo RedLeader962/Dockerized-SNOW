@@ -96,10 +96,10 @@ else
       && NORLAB_MPPI_DEVELOP_INSTANTIATED=true
 fi
 
-# ...Instantiate pass/fail status......................................................................................
-if [ $NORLAB_MPPI_DEVELOP_INSTANTIATED == true ]; then
-    echo -e "${DS_MSG_DONE} ${CONTAINER_NAMES} is instantiated and running"
-else
-    echo -e "${DS_MSG_ERROR} ${CONTAINER_NAMES} was not instantiated and is not running"
-fi
-
+## ...Instantiate pass/fail status......................................................................................
+#if [ $NORLAB_MPPI_DEVELOP_INSTANTIATED == true ]; then
+#    echo -e "${DS_MSG_DONE} ${CONTAINER_NAMES} is instantiated and running"
+#else
+#    echo -e "${DS_MSG_ERROR} ${CONTAINER_NAMES} was not instantiated and is not running"
+#fi
+#
