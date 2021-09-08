@@ -28,6 +28,7 @@ echo -e "In container available alias:
   ds_fetch_ros_env
 "
 
+source ~/.bashrc
 ds_info
 
 exec "$@"
