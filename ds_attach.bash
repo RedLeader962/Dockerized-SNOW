@@ -68,10 +68,17 @@ done
 #"
 
 # Fetch all container name, strip those unrelated one and test for exact name
-if [ `docker ps --quiet --all --format "{{.Names}}" | grep ${CONTAINER_NAMES}` == ${CONTAINER_NAMES} ]; then
+#if [ `docker ps --quiet --all --format "{{.Names}}" | grep ${CONTAINER_NAMES}` == ${CONTAINER_NAMES} ]; then
+
+#if [[ `docker ps --quiet --all --format "{{.Names}} {{.State}}" | grep ${CONTAINER_NAMES}` == "${CONTAINER_NAMES} exited" ]]; then echo "if TRUE"; else echo "else FALSE"; fi
+#if [[ -z `docker ps --quiet --all --format "{{.Names}}" | grep IamNOTsnow` ]]; then echo "if TRUE"; else echo "else FALSE"; fi
+
+if [[ `docker ps --quiet --all --format "{{.Names}} {{.State}}" | grep ${CONTAINER_NAMES}` == "${CONTAINER_NAMES} exited" ]]; then
     # Start container if he is stopped
     echo -e "${DS_MSG_BASE} Starting container $(docker start ${CONTAINER_NAMES})"
     echo ""
+elif [[ -z `docker ps --quiet --all --format "{{.Names}}" | grep ${CONTAINER_NAMES}` ]]; then
+    echo -e "${DS_MSG_ERROR} Container ${CONTAINER_NAMES} is not instantiated. Use command ${DS_MSG_BASE_FORMAT}ds_instantiate_develop${DS_MSG_END_FORMAT}"
 fi
 
 #sudo docker exec -it ${USER_ARG} ${CONTAINER_NAME} /ros_entrypoint.bash bash
