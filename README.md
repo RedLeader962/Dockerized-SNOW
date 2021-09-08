@@ -30,7 +30,7 @@
 [comment]: <> (<br>)
 </div>
 
-Containerized development workflow for the _NorLab_MPPI_ and _SNOW_AutoRally_ projects leveraging [_nvidia-docker_](https://github.com/NVIDIA/nvidia-docker) technology.
+Containerized development workflow for the _NorLab_MPPI_ and _SNOW_AutoRally_ projects leveraging [_nvidia-docker_](https://github.com/NVIDIA/nvidia-docker) technology. Configure for **ROS melodic** + **python3**.
 
 **Key benefit:** custom dependencies management, development environment consistency, easy deployment to robots compute box and results reproducibility.    
  
