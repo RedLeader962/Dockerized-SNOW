@@ -77,7 +77,7 @@ diagram &nbsp;)
 
 <br>
 
-## Prompt legend
+## Container prompt legend
 
 <br>
 
