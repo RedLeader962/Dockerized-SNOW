@@ -77,11 +77,16 @@ diagram &nbsp;)
 
 ## Prompt legend
 
+<br>
+
 <div align="center">
 <p>
 <img src="drawio/prompt_legend.svg">
 </p>
 </div>
+
+
+[comment]: <> (![]&#40;drawio/prompt_legend.png&#41;)
 
 
 ## Usage
