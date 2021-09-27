@@ -75,6 +75,14 @@ diagram &nbsp;)
 <br>
 -->
 
+## Prompt legend
+
+<div align="center">
+<p>
+<img src="drawio/prompt_legend.svg">
+</p>
+</div>
+
 
 ## Usage
 
