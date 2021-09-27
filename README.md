@@ -75,6 +75,8 @@ diagram &nbsp;)
 <br>
 -->
 
+<br>
+
 ## Prompt legend
 
 <br>
@@ -88,6 +90,7 @@ diagram &nbsp;)
 
 [comment]: <> (![]&#40;drawio/prompt_legend.png&#41;)
 
+<br>
 
 ## Usage
 
