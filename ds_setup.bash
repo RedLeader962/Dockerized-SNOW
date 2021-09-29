@@ -10,12 +10,37 @@
 # - https://www.baeldung.com/linux/bash-alias-with-parameters
 # - https://unix.stackexchange.com/questions/3773/how-to-pass-parameters-to-an-alias
 
-DS_PATH=$(sudo find / -name 'Dockerized-SNOW' -type d 2>/dev/null)
+#DS_PATH=$(sudo find / -name 'Dockerized-SNOW' -type d 2>/dev/null)
+
+DS_PATH=$(pwd | grep 'Dockerized-SNOW')
+if [[ ! -d $DS_PATH ]]; then
+  echo -n "Enter the absolute path to the '/Dockerized-SNOW' dir: "
+  read RESPONSE
+  DS_PATH="${RESPONSE}/Dockerized-SNOW"
+#  echo ">TEST RESPONSE: ${DS_PATH}"
+
+  while [ ! -d ${DS_PATH} ]
+  do
+    echo -e "(!) '${DS_PATH}' is unreachable"
+    echo -n "Enter the absolute path to dir /Dockerized-SNOW: "
+    read RESPONSE
+    DS_PATH="${RESPONSE}/Dockerized-SNOW"
+#    echo ">TEST RESPONSE: ${DS_PATH}"
+  done
+
+#  echo ">TEST: DS_PATH=${DS_PATH}."
+fi
+
+# Load environment variable from file
+set -o allexport; source ${DS_PATH}/ds.env; set +o allexport
+
+echo -e "${DS_MSG_DONE} The '/Dockerized-SNOW' dir is reachable. Ready to install alias"
+
 
 ( \
   echo ""; \
   echo "# Dockerized-SNOW aliases"; \
-  echo "export DS_PATH=$(sudo find / -name 'Dockerized-SNOW' -type d 2>/dev/null)"
+  echo "export DS_PATH=${DS_PATH}"
   echo "alias ds_cd='cd $DS_PATH'"; \
   echo "alias ds_attach='cd $DS_PATH && bash ds_attach.bash'"; \
   echo "alias ds_instantiate_develop='cd $DS_PATH && bash ds_instantiate_develop.bash'"; \
@@ -30,9 +55,6 @@ DS_PATH=$(sudo find / -name 'Dockerized-SNOW' -type d 2>/dev/null)
 
 # Source bashrc
 source ~/.bashrc
-
-# Load environment variable from file
-set -o allexport; source ${DS_PATH}/ds.env; set +o allexport
 
 
 # ...CUDA toolkit path..................................................................................................
