@@ -199,7 +199,7 @@ if [[ -z $HOST_SOURCE_CODE_FLAG ]]; then
   fi
 fi
 
-# Pass the target project repository basename to the docker container envenrionment variable
+# Pass the target project repository basename to the docker container environment variable
 USER_ARG="${USER_ARG} -e DS_TARGET_PROJECT_SRC_REPO=${DS_TARGET_PROJECT_SRC_REPO}"
 
 echo -e "Create container instance from docker image ${DS_SUB_PROJECT}-${IDE} with tag ${DS_IMAGE_TAG}
@@ -267,8 +267,6 @@ if [ $DRY_RUN == true ]; then
   "
   exit
 fi
-
-
 
 sudo docker run \
   ${RUNTIME_FLAG} \
