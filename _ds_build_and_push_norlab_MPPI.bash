@@ -44,7 +44,7 @@ bash ds_build_dependencies.bash ${AARCH} \
   && echo -e "${DS_MSG_BASE} Pushing to dockerhub" \
   && sudo docker push norlabsnow/norlab-mppi-dependencies-wo-services:${DEPEND_IMG_TAG} \
   && echo -e "${DS_MSG_DONE} norlab-mppi-dependencies-wo-services:${DEPEND_IMG_TAG} builded and pushed to dockerhub" \
-  && NORLAB_MPPI_DEPENDENCIES_WO_SERVICES_BUILD_AND_PUSH=true
+  && NORLAB_MPPI_DEPENDENCIES_WO_SERVICES_BUILD_AND_PUSH=true \
   && sudo docker push norlabsnow/norlab-mppi-dependencies:${DEPEND_IMG_TAG} \
   && echo -e "${DS_MSG_DONE} norlab-mppi-dependencies:${DEPEND_IMG_TAG} builded and pushed to dockerhub" \
   && NORLAB_MPPI_DEPENDENCIES_BUILD_AND_PUSH=true
