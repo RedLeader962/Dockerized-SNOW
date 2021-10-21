@@ -11,8 +11,9 @@
 #   l4t-base: https://ngc.nvidia.com/catalog/containers/nvidia:l4t-base
 #   l4t-ros-noetic-pytorch: https://github.com/NVIDIA-AI-IOT/ros2_jetson/blob/main/docker/DockerFile.l4tbase.ros.noetic
 
+#ARG  BASE_IMG_TAG=x86-ubuntu18.04
 ARG  BASE_IMG_TAG=arm64-l4t-r32.6.1
-FROM norlabsnow/norlab-mppi-dependencies:${BASE_IMG_TAG} as services
+FROM norlabsnow/norlab-mppi-dependencies-wo-services:${BASE_IMG_TAG} as services
 
 
 # ===Service: ssh server================================================================================================

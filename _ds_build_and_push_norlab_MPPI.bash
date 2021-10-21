@@ -24,6 +24,7 @@ elif [[ $(uname -m) == "x86_64" ]]; then
 fi
 
 NORLAB_MPPI_ROS_MELODIC_PYTHON_3_BUILD_AND_PUSH=false
+NORLAB_MPPI_DEPENDENCIES_WO_SERVICES_BUILD_AND_PUSH=false
 NORLAB_MPPI_DEPENDENCIES_BUILD_AND_PUSH=false
 NORLAB_MPPI_DEVELOP_BUILD_AND_PUSH=false
 NORLAB_MPPI_DEVELOP_INSTANTIATED=false
@@ -41,6 +42,9 @@ bash ds_build_melodic_python3.bash ${AARCH} \
 echo -e "${DS_MSG_BASE} Building norlab-mppi-dependencies:${DEPEND_IMG_TAG}"
 bash ds_build_dependencies.bash ${AARCH} \
   && echo -e "${DS_MSG_BASE} Pushing to dockerhub" \
+  && sudo docker push norlabsnow/norlab-mppi-dependencies-wo-services:${DEPEND_IMG_TAG} \
+  && echo -e "${DS_MSG_DONE} norlab-mppi-dependencies-wo-services:${DEPEND_IMG_TAG} builded and pushed to dockerhub" \
+  && NORLAB_MPPI_DEPENDENCIES_WO_SERVICES_BUILD_AND_PUSH=true
   && sudo docker push norlabsnow/norlab-mppi-dependencies:${DEPEND_IMG_TAG} \
   && echo -e "${DS_MSG_DONE} norlab-mppi-dependencies:${DEPEND_IMG_TAG} builded and pushed to dockerhub" \
   && NORLAB_MPPI_DEPENDENCIES_BUILD_AND_PUSH=true
@@ -62,6 +66,12 @@ if [ $NORLAB_MPPI_ROS_MELODIC_PYTHON_3_BUILD_AND_PUSH == true ]; then
     echo -e "${DS_MSG_DONE} build&push norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG}"
 else
     echo -e "${DS_MSG_ERROR} failed to build or push norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG}"
+fi
+
+if [ NORLAB_MPPI_DEPENDENCIES_WO_SERVICES_BUILD_AND_PUSH == true ]; then
+    echo -e "${DS_MSG_DONE} build&push norlab-mppi-dependencies-wo-services:${DEPEND_IMG_TAG}"
+else
+    echo -e "${DS_MSG_ERROR} failed to build or push norlab-mppi-dependencies-wo-services:${DEPEND_IMG_TAG}"
 fi
 
 if [ $NORLAB_MPPI_DEPENDENCIES_BUILD_AND_PUSH == true ]; then
