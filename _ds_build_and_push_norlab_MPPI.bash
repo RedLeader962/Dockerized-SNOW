@@ -102,11 +102,13 @@ if [ `docker ps --quiet --all --format "{{.Names}}" | grep ${CONTAINER_NAMES}` =
     # Stop and remove container if he is started
     echo -e "${DS_MSG_BASE} Stopping container $(docker stop ${CONTAINER_NAMES})" \
       && echo -e "${DS_MSG_BASE} Removing container $(docker rm ${CONTAINER_NAMES})" \
+      && echo -e "${DS_MSG_BASE} Starting a new $(docker rm ${CONTAINER_NAMES})" instance\
       && bash ds_instantiate_develop.bash --name=${CONTAINER_NAMES} --runTag=${DEV_IMG_TAG} \
       && NORLAB_MPPI_DEVELOP_INSTANTIATED=true
 elif [ `docker container ls --quiet --all --format "{{.Names}}" | grep ${CONTAINER_NAMES}` == ${CONTAINER_NAMES} ]; then
     # Remove container if he is started
     echo -e "${DS_MSG_BASE} Removing container $(docker rm ${CONTAINER_NAMES})" \
+      && echo -e "${DS_MSG_BASE} Starting a new $(docker rm ${CONTAINER_NAMES})" instance\
       && bash ds_instantiate_develop.bash --name=${CONTAINER_NAMES} --runTag=${DEV_IMG_TAG} \
       && NORLAB_MPPI_DEVELOP_INSTANTIATED=true
 else
