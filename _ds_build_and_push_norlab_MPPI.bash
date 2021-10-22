@@ -27,6 +27,7 @@ NORLAB_MPPI_ROS_MELODIC_PYTHON_3_BUILD_AND_PUSH=false
 NORLAB_MPPI_DEPENDENCIES_WO_SERVICES_BUILD_AND_PUSH=false
 NORLAB_MPPI_DEPENDENCIES_BUILD_AND_PUSH=false
 NORLAB_MPPI_DEVELOP_BUILD_AND_PUSH=false
+NORLAB_MPPI_DEVELOP_TEAMCITY_BUILD_AND_PUSH=false
 NORLAB_MPPI_DEVELOP_INSTANTIATED=false
 
 
@@ -84,6 +85,9 @@ bash ds_build_develop.bash ${AARCH} \
   && sudo docker push norlabsnow/norlab-mppi-develop:${DEV_IMG_TAG} \
   && echo -e "${DS_MSG_DONE} norlabsnow/norlab-mppi-develop:${DEV_IMG_TAG} built and pushed to dockerhub" \
   && NORLAB_MPPI_DEVELOP_BUILD_AND_PUSH=true \
+  && sudo docker push norlabsnow/norlab-mppi-develop-teamcity:${DEV_IMG_TAG} \
+  && echo -e "${DS_MSG_DONE} norlabsnow/norlab-mppi-develop-teamcity:${DEV_IMG_TAG} built and pushed to dockerhub" \
+  && NORLAB_MPPI_DEVELOP_TEAMCITY_BUILD_AND_PUSH=true \
   && echo
 
 
@@ -116,6 +120,12 @@ if [ $NORLAB_MPPI_DEVELOP_BUILD_AND_PUSH == true ]; then
     echo -e "${DS_MSG_DONE} build&push norlab-mppi-develop:${DEV_IMG_TAG}"
 else
     echo -e "${DS_MSG_ERROR} failed to build or push norlab-mppi-develop:${DEV_IMG_TAG}"
+    exit 1
+fi
+if [ $NORLAB_MPPI_DEVELOP_TEAMCITY_BUILD_AND_PUSH == true ]; then
+    echo -e "${DS_MSG_DONE} build&push norlab-mppi-develop-teamcity:${DEV_IMG_TAG}"
+else
+    echo -e "${DS_MSG_ERROR} failed to build or push norlab-mppi-develop-teamcity:${DEV_IMG_TAG}"
     exit 1
 fi
 echo "............................................................................

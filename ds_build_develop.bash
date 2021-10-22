@@ -210,8 +210,12 @@ fi
 #"
 
 if [ $DRY_RUN == true ]; then
-  echo -e "${DS_MSG_EMPH_FORMAT}${0} dry run${DS_MSG_END_FORMAT}:
+  echo -e "
+  ${DS_MSG_EMPH_FORMAT}${0} dry run${DS_MSG_END_FORMAT}:
   sudo docker build -t norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG} -f ./Docker/${DS_SUB_PROJECT}/${IDE}/Dockerfile ${BASE_IMG_ARG} ${USER_ARG} ./Docker/${DS_SUB_PROJECT}/${IDE}
+
+  ${DS_MSG_EMPH_FORMAT}${0} TeamCity docker image counterpart dry run${DS_MSG_END_FORMAT}:
+  sudo docker build -t norlabsnow/${DS_SUB_PROJECT}-${IDE}-teamcity:${DS_IMAGE_TAG} -f ./Docker/${DS_SUB_PROJECT}/teamcity/Dockerfile --build-arg BASE_IMG="${DS_SUB_PROJECT}-${IDE}" ${BASE_IMG_ARG} ${USER_ARG} ./Docker/${DS_SUB_PROJECT}/${IDE}
   "
   exit
 fi
@@ -220,6 +224,15 @@ fi
 sudo docker build \
   -t norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG} \
   -f ./Docker/${DS_SUB_PROJECT}/${IDE}/Dockerfile \
+  ${BASE_IMG_ARG} \
+  ${USER_ARG} \
+  ./Docker/${DS_SUB_PROJECT}/${IDE}
+
+# ---Build TeamCity docker image counterpart----------------------------------------------------------------------------
+sudo docker build \
+  -t norlabsnow/${DS_SUB_PROJECT}-${IDE}-teamcity:${DS_IMAGE_TAG} \
+  -f ./Docker/${DS_SUB_PROJECT}/teamcity/Dockerfile \
+  --build-arg BASE_IMG="${DS_SUB_PROJECT}-${IDE}" \
   ${BASE_IMG_ARG} \
   ${USER_ARG} \
   ./Docker/${DS_SUB_PROJECT}/${IDE}

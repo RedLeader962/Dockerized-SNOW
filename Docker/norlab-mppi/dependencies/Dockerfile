@@ -277,8 +277,6 @@ RUN apt-get update \
 #   - see Task NLSAR-237 🩹→ Illegal instruction (core dumped) on the arm64-l4t image when running pytorch
 
 RUN pip3 install --no-cache-dir --verbose numpy==1.19.4
-
-
 # ..........................................................................................❮❮❮ Temporary build step ❮❮❮
 
 
