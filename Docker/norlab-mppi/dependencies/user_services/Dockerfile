@@ -80,7 +80,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip3 install --no-cache-dir --verbose psutil
-RUN pip3 install --no-cache-dir --verbose pygit2
+RUN #pip3 install --no-cache-dir --verbose pygit2
 
 # Require a Vim installation suporting python
 #       $ vim --version | grep +python
@@ -89,7 +89,7 @@ RUN pip3 install --no-cache-dir --verbose pygit2
 
 
 # Install Powerline + special font pack
-RUN #sudo pip3 install powerline-status
+#RUN sudo pip3 install powerline-status
 RUN pip3 install --no-cache-dir --verbose powerline-status
 RUN apt-get update \
     && apt-get install -y --no-install-recommends fonts-powerline \
