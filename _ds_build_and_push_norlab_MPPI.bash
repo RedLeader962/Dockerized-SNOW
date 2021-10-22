@@ -34,7 +34,7 @@ NORLAB_MPPI_DEVELOP_INSTANTIATED=false
 echo -e "${DS_MSG_BASE} Building norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG}"
 bash ds_build_melodic_python3.bash ${AARCH} \
   && echo -e "${DS_MSG_BASE} Pushing to dockerhub" \
-  && docker push norlabsnow/norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG} \
+  && sudo docker push norlabsnow/norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG} \
   && echo -e "${DS_MSG_DONE} norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG} builded and pushed to dockerhub" \
   && NORLAB_MPPI_ROS_MELODIC_PYTHON_3_BUILD_AND_PUSH=true \
   && echo
