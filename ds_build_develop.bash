@@ -196,18 +196,6 @@ if [[ "$ADD_TO_TAG" != "" ]]; then
   DS_IMAGE_TAG="${DS_IMAGE_TAG}-${ADD_TO_TAG}"
 fi
 
-## todo:on task end >> delete next bloc ↓↓
-#echo "
-#${0}:
-#  USER_ARG >> ${USER_ARG}
-#  DS_IMAGE_TAG >> ${DS_IMAGE_TAG}
-#  BASE_IMG_ARG >> ${BASE_IMG_ARG}
-#  DS_SUB_PROJECT >> ${DS_SUB_PROJECT}
-#  BASE_IMG_VERSION >> ${BASE_IMG_VERSION}
-#  IDE >> ${IDE}
-#  ADD_TO_TAG >> ${ADD_TO_TAG}
-#  DS_HOST_TYPE >> ${DS_HOST_TYPE}
-#"
 
 if [ $DRY_RUN == true ]; then
   echo -e "
