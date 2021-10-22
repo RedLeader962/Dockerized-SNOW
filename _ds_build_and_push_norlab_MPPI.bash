@@ -39,6 +39,14 @@ bash ds_build_melodic_python3.bash ${AARCH} \
   && NORLAB_MPPI_ROS_MELODIC_PYTHON_3_BUILD_AND_PUSH=true \
   && echo
 
+# Fail fast
+if [ $NORLAB_MPPI_ROS_MELODIC_PYTHON_3_BUILD_AND_PUSH == true ]; then
+    echo -e "${DS_MSG_DONE} build&push norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG}"
+else
+    echo -e "${DS_MSG_ERROR} failed to build or push norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG}"
+    exit 1
+fi
+
 
 echo -e "${DS_MSG_BASE} Building norlab-mppi-dependencies-wo-services and norlab-mppi-dependencies:${DEPEND_IMG_TAG}"
 bash ds_build_dependencies.bash ${AARCH} \
@@ -46,11 +54,29 @@ bash ds_build_dependencies.bash ${AARCH} \
   && sudo docker push norlabsnow/norlab-mppi-dependencies-wo-services:${DEPEND_IMG_TAG} \
   && echo -e "${DS_MSG_DONE} norlab-mppi-dependencies-wo-services:${DEPEND_IMG_TAG} built and pushed to dockerhub" \
   && NORLAB_MPPI_DEPENDENCIES_WO_SERVICES_BUILD_AND_PUSH=true \
-  && echo \
-  && sudo docker push norlabsnow/norlab-mppi-dependencies:${DEPEND_IMG_TAG} \
+  && echo
+
+# Fail fast
+if [ $NORLAB_MPPI_DEPENDENCIES_WO_SERVICES_BUILD_AND_PUSH == true ]; then
+    echo -e "${DS_MSG_DONE} build&push norlab-mppi-dependencies-wo-services:${DEPEND_IMG_TAG}"
+else
+    echo -e "${DS_MSG_ERROR} failed to build or push norlab-mppi-dependencies-wo-services:${DEPEND_IMG_TAG}"
+    exit 1
+fi
+
+sudo docker push norlabsnow/norlab-mppi-dependencies:${DEPEND_IMG_TAG} \
   && echo -e "${DS_MSG_DONE} norlab-mppi-dependencies:${DEPEND_IMG_TAG} built and pushed to dockerhub" \
   && NORLAB_MPPI_DEPENDENCIES_BUILD_AND_PUSH=true \
   && echo
+
+# Fail fast
+if [ $NORLAB_MPPI_DEPENDENCIES_BUILD_AND_PUSH == true ]; then
+    echo -e "${DS_MSG_DONE} build&push norlab-mppi-dependencies:${DEPEND_IMG_TAG}"
+else
+    echo -e "${DS_MSG_ERROR} failed to build or push norlab-mppi-dependencies:${DEPEND_IMG_TAG}"
+    exit 1
+fi
+
 
 echo -e "${DS_MSG_BASE} Building norlab-mppi-develop:${DEV_IMG_TAG}"
 bash ds_build_develop.bash ${AARCH} \
@@ -79,7 +105,6 @@ else
     echo -e "${DS_MSG_ERROR} failed to build or push norlab-mppi-dependencies-wo-services:${DEPEND_IMG_TAG}"
     exit 1
 fi
-
 if [ $NORLAB_MPPI_DEPENDENCIES_BUILD_AND_PUSH == true ]; then
     echo -e "${DS_MSG_DONE} build&push norlab-mppi-dependencies:${DEPEND_IMG_TAG}"
 else
