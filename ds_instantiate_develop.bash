@@ -271,6 +271,8 @@ if [ $DRY_RUN == true ]; then
   exit
 fi
 
+# Splitting instanciation in two part (run & exec) has teh benefit of keeping the container up even when the terminal
+# used to execute ds_instantiate_develop.bash is closed
 sudo docker run \
   ${RUNTIME_FLAG} \
   --interactive \
@@ -292,8 +294,11 @@ sudo docker run \
   ${USER_ARG} \
   norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG}
 
-# Keep the container up even when the terminal use to execute ds_instantiate_develop.bash is closed
-sudo docker exec -it ${CONTAINER_NAME} /ros_entrypoint.bash bash exit # (Priority) todo <-- we are here
+if [[ -n $TEAMCITY_VERSION ]]; then
+  echo -e "${DS_MSG_EMPH_FORMAT}${CONTAINER_NAME} is running inside a TeamCity agent >> keep container detached${DS_MSG_END_FORMAT}"
+else
+  sudo docker exec -it ${CONTAINER_NAME} /ros_entrypoint.bash bash
+fi
 
 # -p10.0.1.103:2222:22 \
 # Change -p10.0.1.7:<host port>:<container port> to your host ip adress
