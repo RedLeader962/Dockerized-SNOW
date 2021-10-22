@@ -171,7 +171,7 @@ if [ $DRY_RUN == true ]; then
 
   sudo docker build -t norlabsnow/${DS_SUB_PROJECT}-dependencies-wo-services:${DS_IMAGE_TAG} -f ./Docker/${DS_SUB_PROJECT}/dependencies/Dockerfile ${BASE_IMG_ARG} ${USER_ARG} ./Docker
   "
-  if [ $NO_SERVICE=false ]; then
+  if [ $NO_SERVICE == false ]; then
   echo -e "${DS_MSG_EMPH_FORMAT}${0} Dry run for dependencies image${DS_MSG_END_FORMAT}:
 
   sudo docker build -t norlabsnow/${DS_SUB_PROJECT}-dependencies:${DS_IMAGE_TAG} -f ./Docker/${DS_SUB_PROJECT}/dependencies/user_services/Dockerfile ${BASE_IMG_ARG_SERVICE} ${USER_ARG} ./Docker
