@@ -22,7 +22,7 @@ function print_help_in_terminal() {
   --appendToTag=<detail>    Add supplemental details to the built image tag eg.: --appendToTag=test
   --dryrun                  Print the docker run command but dont execute it
   --GT-AR                   Project version: Georgia Tech AutoRally refactoring
-  --noservices               Dont build user services component (useful for TeamCity CI server wrapper)
+  --noservices              Dont build user services component (useful for TeamCity CI server wrapper)
 
 \033[1mNote:\033[0m You can pass any docker build flag as additional argument eg:
   --build-arg=\"DS_ROS_PKG=desktop-full\"
@@ -166,7 +166,6 @@ fi
 #"
 
 
-# ❯❯❯ NLSAR-275: ♻︎ → `ds_build_dependencies.bash`  to manage `user_services/Dockerfile` conditionally  ❯❯❯ ❯ ❯ ❯ ❯ ❯ ❯❯
 if [ $DRY_RUN == true ]; then
   echo -e "${DS_MSG_EMPH_FORMAT}${0} Dry run for dependencies image without services${DS_MSG_END_FORMAT}:
 
@@ -188,8 +187,9 @@ sudo docker build \
   ${BASE_IMG_ARG} \
   ${USER_ARG} \
   ./Docker
+  #  ./Docker/${DS_SUB_PROJECT}/dependencies
 
-if [ $NO_SERVICE=false ]; then
+if [ $NO_SERVICE == false ]; then
   # Build context is set to the `Docker` directory in order to copy the prompt config files in the image
   sudo docker build \
     -t norlabsnow/${DS_SUB_PROJECT}-dependencies:${DS_IMAGE_TAG} \
@@ -197,7 +197,4 @@ if [ $NO_SERVICE=false ]; then
     ${BASE_IMG_ARG_SERVICE} \
     ${USER_ARG} \
     ./Docker
-
-  #  ./Docker/${DS_SUB_PROJECT}/dependencies
 fi
-#  ❮ ❮ ❮ ❮ ❮ ❮ ❮❮❮ NLSAR-275: ♻︎ → `ds_build_dependencies.bash`  to manage `user_services/Dockerfile` conditionally  ❮❮❮

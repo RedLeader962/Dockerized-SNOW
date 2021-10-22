@@ -35,20 +35,20 @@ echo -e "${DS_MSG_BASE} Building norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TA
 bash ds_build_melodic_python3.bash ${AARCH} \
   && echo -e "${DS_MSG_BASE} Pushing to dockerhub" \
   && sudo docker push norlabsnow/norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG} \
-  && echo -e "${DS_MSG_DONE} norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG} builded and pushed to dockerhub" \
+  && echo -e "${DS_MSG_DONE} norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG} built and pushed to dockerhub" \
   && NORLAB_MPPI_ROS_MELODIC_PYTHON_3_BUILD_AND_PUSH=true \
   && echo
 
 
-echo -e "${DS_MSG_BASE} Building norlab-mppi-dependencies:${DEPEND_IMG_TAG}"
+echo -e "${DS_MSG_BASE} Building norlab-mppi-dependencies-wo-services and norlab-mppi-dependencies:${DEPEND_IMG_TAG}"
 bash ds_build_dependencies.bash ${AARCH} \
   && echo -e "${DS_MSG_BASE} Pushing to dockerhub" \
   && sudo docker push norlabsnow/norlab-mppi-dependencies-wo-services:${DEPEND_IMG_TAG} \
-  && echo -e "${DS_MSG_DONE} norlab-mppi-dependencies-wo-services:${DEPEND_IMG_TAG} builded and pushed to dockerhub" \
+  && echo -e "${DS_MSG_DONE} norlab-mppi-dependencies-wo-services:${DEPEND_IMG_TAG} built and pushed to dockerhub" \
   && NORLAB_MPPI_DEPENDENCIES_WO_SERVICES_BUILD_AND_PUSH=true \
   && echo \
   && sudo docker push norlabsnow/norlab-mppi-dependencies:${DEPEND_IMG_TAG} \
-  && echo -e "${DS_MSG_DONE} norlab-mppi-dependencies:${DEPEND_IMG_TAG} builded and pushed to dockerhub" \
+  && echo -e "${DS_MSG_DONE} norlab-mppi-dependencies:${DEPEND_IMG_TAG} built and pushed to dockerhub" \
   && NORLAB_MPPI_DEPENDENCIES_BUILD_AND_PUSH=true \
   && echo
 
@@ -56,7 +56,7 @@ echo -e "${DS_MSG_BASE} Building norlab-mppi-develop:${DEV_IMG_TAG}"
 bash ds_build_develop.bash ${AARCH} \
   && echo -e "${DS_MSG_BASE} Pushing to dockerhub" \
   && sudo docker push norlabsnow/norlab-mppi-develop:${DEV_IMG_TAG} \
-  && echo -e "${DS_MSG_DONE} norlabsnow/norlab-mppi-develop:${DEV_IMG_TAG} builded and pushed to dockerhub" \
+  && echo -e "${DS_MSG_DONE} norlabsnow/norlab-mppi-develop:${DEV_IMG_TAG} built and pushed to dockerhub" \
   && NORLAB_MPPI_DEVELOP_BUILD_AND_PUSH=true \
   && echo
 
