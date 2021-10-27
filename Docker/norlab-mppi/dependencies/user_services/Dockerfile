@@ -80,7 +80,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip3 install --no-cache-dir --verbose psutil
-RUN #pip3 install --no-cache-dir --verbose pygit2
+# RUN pip3 install --no-cache-dir --verbose pygit2  # Not required by Powerline if Git is installed
 
 # Require a Vim installation suporting python
 #       $ vim --version | grep +python

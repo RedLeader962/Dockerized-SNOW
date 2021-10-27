@@ -302,3 +302,6 @@ fi
 
 # -p10.0.1.103:2222:22 \
 # Change -p10.0.1.7:<host port>:<container port> to your host ip adress
+
+# ...Develop instance TeamCity counterpart...........................................................................
+# sudo docker run --runtime nvidia  --interactive --tty --network host  --device=/dev/input/js0 --env DISPLAY= --privileged --volume /tmp/.X11-unix/:/tmp/.X11-unix --volume "/etc/localtime:/etc/localtime:ro"   --volume /home/nlsar/Repositories/NorLab_MPPI:/ros_catkin_ws/src/NorLab_MPPI --security-opt seccomp=unconfined --security-opt apparmor=unconfined --cap-add sys_ptrace --env DS_CONTAINER_NAME=TC_MPPI-this  --name TC-MPPI-this -e DS_TARGET_PROJECT_SRC_REPO=NorLab_MPPI norlabsnow/norlab-mppi-develop-teamcity:x86-ubuntu18.04

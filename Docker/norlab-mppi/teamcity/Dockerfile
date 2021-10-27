@@ -10,13 +10,15 @@ WORKDIR /
 # ===install teamcity & CI/CD utilities=================================================================================
 
 RUN pip3 install --no-cache-dir --verbose --upgrade pip
+RUN pip3 install --no-cache-dir --verbose --upgrade pytest
 RUN pip3 install --no-cache-dir --verbose teamcity-messages
 
 
 # ... Finish container setup ...........................................................................................
 
 WORKDIR /ros_catkin_ws/src/${DS_TARGET_PROJECT_SRC_REPO}
-CMD [ "bash" ]
+#CMD [ "bash" ]
+CMD [ "pwd" ]
 
 # ///////////////////////////////////////////////////////////////////////////////////////////// norlab-mppi/teamcity ///
 
