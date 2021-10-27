@@ -18,7 +18,8 @@ RUN pip3 install --no-cache-dir --verbose teamcity-messages
 
 WORKDIR /ros_catkin_ws/src/${DS_TARGET_PROJECT_SRC_REPO}
 #CMD [ "bash" ]
-CMD [ "pwd" ]
+#CMD [ "pwd" ]
+CMD [ "python3 -m pytest tests/" ]
 
 # ///////////////////////////////////////////////////////////////////////////////////////////// norlab-mppi/teamcity ///
 
