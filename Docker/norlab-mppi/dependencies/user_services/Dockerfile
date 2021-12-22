@@ -56,6 +56,10 @@ ENV DS_PYCHARM_DEV_USER=${NEW_USER}
 ARG PASSWORD=lasagne
 RUN useradd -m ${NEW_USER} \
   && yes ${PASSWORD} | passwd ${NEW_USER}
+# Add the 'video' groups to new user as it's required for GPU access.
+# (not a problem on norlab-og but mandatory on Jetson device)
+# Ref: https://forums.developer.nvidia.com/t/how-to-properly-create-new-users/68660/2
+RUN usermod -a -G video ${NEW_USER}
 
 # ...root config........................................................................................................
 # user:newpassword
@@ -123,10 +127,10 @@ RUN /bin/bash -c "cd config_files && tree -L 3"
 
 # Set Promt logo
 #RUN echo DS_LOGO=$'\u22EF𝐒\u22EF' >> ~/.bashrc
-#RUN export DS_LOGO=$'\U22EF\U1D412\U22EF' # ⋯𝐒⋯        mathematical bold capital s (U+1D412)
-#RUN export DS_LOGO=$'\uf2dc' >> ~/.bashrc #            nf-fa-snowflake_o
-#RUN export DS_LOGO=$'\U1D516' >> ~/.bashrc # 𝔖    <-- mathematical fraktur capital s U+1D516
-#RUN export DS_LOGO=$'\U1D57E' >> ~/.bashrc # 𝕾     <-- mathematical bold fraktur capital s U+1D57E
+#RUN export DS_LOGO=$'\U22EF\U1D412\U22EF'  # ⋯𝐒⋯        mathematical bold capital s (U+1D412)
+#RUN export DS_LOGO=$'\uf2dc' >> ~/.bashrc  #            nf-fa-snowflake_o
+#RUN export DS_LOGO=$'\U1D516' >> ~/.bashrc # 𝔖         mathematical fraktur capital s U+1D516      <--
+#RUN export DS_LOGO=$'\U1D57E' >> ~/.bashrc # 𝕾         mathematical bold fraktur capital s U+1D57E <--
 ENV DS_CONTAINER_NAME=IamSnow
 
 
