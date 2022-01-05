@@ -158,10 +158,11 @@ RUN pip3 install --no-cache-dir --verbose scipy
 RUN pip3 install --no-cache-dir --verbose scikit-learn
 RUN pip3 install --no-cache-dir --verbose pandas
 
-# Hack to install matplotlib on arm64
+# Hack to install matplotlib on arm64 and it's required module tkinter
 RUN apt-get update \
     && apt-get install --assume-yes --no-install-recommends \
       python3-matplotlib \
+      python3-tk \
     && rm -rf /var/lib/apt/lists/*
 
 
