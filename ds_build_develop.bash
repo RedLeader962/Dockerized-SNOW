@@ -220,7 +220,7 @@ sudo docker build \
 sudo docker build \
   -t norlabsnow/${DS_SUB_PROJECT}-${IDE}-teamcity:${DS_IMAGE_TAG} \
   -f ./Docker/${DS_SUB_PROJECT}/teamcity/Dockerfile \
-  --build-arg BASE_IMG="${DS_SUB_PROJECT}-${IDE}" \
+  --build-arg BASE_IMG="${DS_SUB_PROJECT}-dependencies-wo-services" \
   ${BASE_IMG_ARG} \
   ${USER_ARG} \
   ./Docker/${DS_SUB_PROJECT}/${IDE}
