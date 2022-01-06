@@ -158,6 +158,20 @@ RUN pip3 install --no-cache-dir --verbose scipy
 RUN pip3 install --no-cache-dir --verbose scikit-learn
 RUN pip3 install --no-cache-dir --verbose pandas
 
+# ...Configure Matplotlib to use a non-interactive backends for TeamCity run............................................
+# Procedure to fix NLSAR-343 ﹅→ `ModuleNotFoundError` when using pyplot & `couldn't connect to display`
+# Solution: install python3-tk and configure matplotlib to use a non-interactive backend in TeamCity
+# Ref:
+#   - https://matplotlib.org/2.0.2/faq/usage_faq.html#what-is-a-backend
+#   - https://matplotlib.org/stable/tutorials/introductory/customizing.html?highlight=matplotlibrc#the-matplotlibrc-file
+#
+## Option 1: Set the MPLBACKEND environment variable at container level in `matplotlibrc`
+#RUN echo "backend : Agg" >> /etc/matplotlibrc
+#
+## Option 2: Set the MPLBACKEND environment variable manualy in the TeamCity build step
+#export MPLBACKEND="Agg"
+#python3 -m pytest tests/
+
 # Hack to install matplotlib on arm64 and it's required module tkinter
 RUN apt-get update \
     && apt-get install --assume-yes --no-install-recommends \

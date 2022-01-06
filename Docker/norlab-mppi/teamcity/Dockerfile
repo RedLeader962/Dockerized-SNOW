@@ -2,8 +2,15 @@
 # /// norlab-mppi/teamcity /////////////////////////////////////////////////////////////////////////////////////////////
 
 ARG BASE_IMG_TAG=arm64-l4t-r32.6.1
-ARG BASE_IMG=norlab-mppi-develop
+#ARG BASE_IMG=norlab-mppi-develop
+## (Priority) todo <-- we are here
+ARG BASE_IMG=norlab-mppi-dependencies-wo-services
 FROM norlabsnow/${BASE_IMG}:${BASE_IMG_TAG} as teamcity
+
+
+ARG DS_TARGET_PROJECT_SRC_REPO=NorLab_MPPI
+ENV DS_TARGET_PROJECT_SRC_REPO=${DS_TARGET_PROJECT_SRC_REPO}
+
 
 WORKDIR /
 
