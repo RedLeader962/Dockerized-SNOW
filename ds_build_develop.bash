@@ -223,4 +223,4 @@ sudo docker build \
   --build-arg BASE_IMG="${DS_SUB_PROJECT}-dependencies-wo-services" \
   ${BASE_IMG_ARG} \
   ${USER_ARG} \
-  ./Docker/${DS_SUB_PROJECT}/${IDE}
+  ./Docker

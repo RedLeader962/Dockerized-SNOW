@@ -30,8 +30,8 @@ RUN ( \
 # ===Final build step===================================================================================================
 WORKDIR /
 RUN #echo $PWD
+COPY ./tools/ds_info.bash /
 RUN #cd / && tree -L 3
-COPY ~/Repositories/Dockerized-SNOW/Docker/tools/ds_info.bash /
 
 
 # ...source & check ROS environement variable...........................................................................
