@@ -22,8 +22,7 @@ RUN pip3 install --no-cache-dir --verbose teamcity-messages
 
 RUN ( \
   echo "Configure Matplotlib to use a non-interactive backends for TeamCity run"; \
-  export MPLBACKEND="Agg"; \
-  echo "MPLBACKEND: $MPLBACKEND" \
+  echo "backend : Agg" >> /etc/matplotlibrc; \
 )
 
 
