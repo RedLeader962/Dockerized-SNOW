@@ -29,9 +29,9 @@ RUN ( \
 
 # ===Final build step===================================================================================================
 WORKDIR /
-#RUN echo $PWD
+RUN echo $PWD
+RUN cd / && tree -L 1
 COPY ./tools/ds_info.bash /
-#RUN cd / && tree -L 1
 
 
 # ...source & check ROS environement variable...........................................................................
