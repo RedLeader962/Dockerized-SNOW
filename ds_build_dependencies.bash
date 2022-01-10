@@ -19,9 +19,10 @@ function print_help_in_terminal() {
   -h, --help                Get help
   --x86                     Build the image version compiled for x86 workstation instead of arm64-l4t
   --l4t-version=<version>   Build arm64-l4t using an other release version (default: r32.6.1)
-  --appendToTag=<detail>    Add suplemental details to the builded image tag eg.: --appendToTag=test
+  --appendToTag=<detail>    Add supplemental details to the built image tag eg.: --appendToTag=test
   --dryrun                  Print the docker run command but dont execute it
   --GT-AR                   Project version: Georgia Tech AutoRally refactoring
+  --noservices              Dont build user services component (useful for TeamCity CI server wrapper)
 
 \033[1mNote:\033[0m You can pass any docker build flag as additional argument eg:
   --build-arg=\"DS_ROS_PKG=desktop-full\"
@@ -55,6 +56,7 @@ BASE_IMG_ARG=""
 DS_SUB_PROJECT="norlab-mppi"
 ADD_TO_TAG=""
 DRY_RUN=false
+NO_SERVICE=false
 
 ## todo:on task end >> delete next bloc ↓↓
 #echo "
@@ -78,6 +80,10 @@ for arg in "$@"; do
   --dryrun)
     DRY_RUN=true
     shift # Remove --dryrun from processing
+    ;;
+  --noservices)
+    NO_SERVICE=true
+    shift # Remove --noservices from processing
     ;;
   --l4t-version)
     echo -e "${DS_MSG_ERROR} ${0} >> pass argument with the equal sign: --l4t-version=${2}" >&2 # Note: '>&2' = print to stderr
@@ -142,6 +148,8 @@ fi
 
 # ---Construct image tag------------------------------------------------------------------------------------------------
 DS_IMAGE_TAG="${DS_IMAGE_TAG}-${BASE_IMG_VERSION}"
+BASE_IMG_ARG_SERVICE=" --build-arg BASE_IMG_TAG=${DS_IMAGE_TAG}"
+
 
 if [[ "$ADD_TO_TAG" != "" ]]; then
   DS_IMAGE_TAG="${DS_IMAGE_TAG}-${ADD_TO_TAG}"
@@ -157,20 +165,36 @@ fi
 #  DS_SUB_PROJECT >> ${DS_SUB_PROJECT}
 #"
 
+
 if [ $DRY_RUN == true ]; then
-  echo -e "${DS_MSG_EMPH_FORMAT}${0} dry run${DS_MSG_END_FORMAT}:
-  sudo docker build -t norlabsnow/${DS_SUB_PROJECT}-dependencies:${DS_IMAGE_TAG} -f ./Docker/${DS_SUB_PROJECT}/dependencies/Dockerfile ${BASE_IMG_ARG} ${USER_ARG} ./Docker
+  echo -e "${DS_MSG_EMPH_FORMAT}${0} Dry run for dependencies image without services${DS_MSG_END_FORMAT}:
+
+  sudo docker build -t norlabsnow/${DS_SUB_PROJECT}-dependencies-wo-services:${DS_IMAGE_TAG} -f ./Docker/${DS_SUB_PROJECT}/dependencies/Dockerfile ${BASE_IMG_ARG} ${USER_ARG} ./Docker
   "
+  if [ $NO_SERVICE == false ]; then
+  echo -e "${DS_MSG_EMPH_FORMAT}${0} Dry run for dependencies image${DS_MSG_END_FORMAT}:
+
+  sudo docker build -t norlabsnow/${DS_SUB_PROJECT}-dependencies:${DS_IMAGE_TAG} -f ./Docker/${DS_SUB_PROJECT}/dependencies/user_services/Dockerfile ${BASE_IMG_ARG_SERVICE} ${USER_ARG} ./Docker
+  "
+  fi
   exit
 fi
 
 # ---Build docker image-------------------------------------------------------------------------------------------------
-# Build context is set to the `Docker` directory in order to copy the prompt config files in the image
 sudo docker build \
-  -t norlabsnow/${DS_SUB_PROJECT}-dependencies:${DS_IMAGE_TAG} \
+  -t norlabsnow/${DS_SUB_PROJECT}-dependencies-wo-services:${DS_IMAGE_TAG} \
   -f ./Docker/${DS_SUB_PROJECT}/dependencies/Dockerfile \
   ${BASE_IMG_ARG} \
   ${USER_ARG} \
   ./Docker
+  #  ./Docker/${DS_SUB_PROJECT}/dependencies
 
-#  ./Docker/${DS_SUB_PROJECT}/dependencies
+if [ $NO_SERVICE == false ]; then
+  # Build context is set to the `Docker` directory in order to copy the prompt config files in the image
+  sudo docker build \
+    -t norlabsnow/${DS_SUB_PROJECT}-dependencies:${DS_IMAGE_TAG} \
+    -f ./Docker/${DS_SUB_PROJECT}/dependencies/user_services/Dockerfile \
+    ${BASE_IMG_ARG_SERVICE} \
+    ${USER_ARG} \
+    ./Docker
+fi

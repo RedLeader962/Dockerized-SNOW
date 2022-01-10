@@ -196,22 +196,14 @@ if [[ "$ADD_TO_TAG" != "" ]]; then
   DS_IMAGE_TAG="${DS_IMAGE_TAG}-${ADD_TO_TAG}"
 fi
 
-## todo:on task end >> delete next bloc ↓↓
-#echo "
-#${0}:
-#  USER_ARG >> ${USER_ARG}
-#  DS_IMAGE_TAG >> ${DS_IMAGE_TAG}
-#  BASE_IMG_ARG >> ${BASE_IMG_ARG}
-#  DS_SUB_PROJECT >> ${DS_SUB_PROJECT}
-#  BASE_IMG_VERSION >> ${BASE_IMG_VERSION}
-#  IDE >> ${IDE}
-#  ADD_TO_TAG >> ${ADD_TO_TAG}
-#  DS_HOST_TYPE >> ${DS_HOST_TYPE}
-#"
 
 if [ $DRY_RUN == true ]; then
-  echo -e "${DS_MSG_EMPH_FORMAT}${0} dry run${DS_MSG_END_FORMAT}:
+  echo -e "
+  ${DS_MSG_EMPH_FORMAT}${0} dry run${DS_MSG_END_FORMAT}:
   sudo docker build -t norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG} -f ./Docker/${DS_SUB_PROJECT}/${IDE}/Dockerfile ${BASE_IMG_ARG} ${USER_ARG} ./Docker/${DS_SUB_PROJECT}/${IDE}
+
+  ${DS_MSG_EMPH_FORMAT}${0} TeamCity docker image counterpart dry run${DS_MSG_END_FORMAT}:
+  sudo docker build -t norlabsnow/${DS_SUB_PROJECT}-${IDE}-teamcity:${DS_IMAGE_TAG} -f ./Docker/${DS_SUB_PROJECT}/teamcity/Dockerfile --build-arg BASE_IMG="${DS_SUB_PROJECT}-${IDE}" ${BASE_IMG_ARG} ${USER_ARG} ./Docker/${DS_SUB_PROJECT}/${IDE}
   "
   exit
 fi
@@ -223,3 +215,12 @@ sudo docker build \
   ${BASE_IMG_ARG} \
   ${USER_ARG} \
   ./Docker/${DS_SUB_PROJECT}/${IDE}
+
+# ---Build TeamCity docker image counterpart----------------------------------------------------------------------------
+sudo docker build \
+  -t norlabsnow/${DS_SUB_PROJECT}-${IDE}-teamcity:${DS_IMAGE_TAG} \
+  -f ./Docker/${DS_SUB_PROJECT}/teamcity/Dockerfile \
+  --build-arg BASE_IMG="${DS_SUB_PROJECT}-dependencies-wo-services" \
+  ${BASE_IMG_ARG} \
+  ${USER_ARG} \
+  ./Docker

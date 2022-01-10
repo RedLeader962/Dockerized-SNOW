@@ -24,8 +24,10 @@ elif [[ $(uname -m) == "x86_64" ]]; then
 fi
 
 NORLAB_MPPI_ROS_MELODIC_PYTHON_3_BUILD_AND_PUSH=false
+NORLAB_MPPI_DEPENDENCIES_WO_SERVICES_BUILD_AND_PUSH=false
 NORLAB_MPPI_DEPENDENCIES_BUILD_AND_PUSH=false
 NORLAB_MPPI_DEVELOP_BUILD_AND_PUSH=false
+NORLAB_MPPI_DEVELOP_TEAMCITY_BUILD_AND_PUSH=false
 NORLAB_MPPI_DEVELOP_INSTANTIATED=false
 
 
@@ -34,23 +36,59 @@ echo -e "${DS_MSG_BASE} Building norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TA
 bash ds_build_melodic_python3.bash ${AARCH} \
   && echo -e "${DS_MSG_BASE} Pushing to dockerhub" \
   && sudo docker push norlabsnow/norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG} \
-  && echo -e "${DS_MSG_DONE} norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG} builded and pushed to dockerhub" \
-  && NORLAB_MPPI_ROS_MELODIC_PYTHON_3_BUILD_AND_PUSH=true
+  && echo -e "${DS_MSG_DONE} norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG} built and pushed to dockerhub" \
+  && NORLAB_MPPI_ROS_MELODIC_PYTHON_3_BUILD_AND_PUSH=true \
+  && echo
+
+# Fail fast
+if [ $NORLAB_MPPI_ROS_MELODIC_PYTHON_3_BUILD_AND_PUSH == true ]; then
+    echo -e "${DS_MSG_DONE} build&push norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG}"
+else
+    echo -e "${DS_MSG_ERROR} failed to build or push norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG}"
+    exit 1
+fi
 
 
-echo -e "${DS_MSG_BASE} Building norlab-mppi-dependencies:${DEPEND_IMG_TAG}"
+echo -e "${DS_MSG_BASE} Building norlab-mppi-dependencies-wo-services and norlab-mppi-dependencies:${DEPEND_IMG_TAG}"
 bash ds_build_dependencies.bash ${AARCH} \
   && echo -e "${DS_MSG_BASE} Pushing to dockerhub" \
-  && sudo docker push norlabsnow/norlab-mppi-dependencies:${DEPEND_IMG_TAG} \
-  && echo -e "${DS_MSG_DONE} norlab-mppi-dependencies:${DEPEND_IMG_TAG} builded and pushed to dockerhub" \
-  && NORLAB_MPPI_DEPENDENCIES_BUILD_AND_PUSH=true
+  && sudo docker push norlabsnow/norlab-mppi-dependencies-wo-services:${DEPEND_IMG_TAG} \
+  && echo -e "${DS_MSG_DONE} norlab-mppi-dependencies-wo-services:${DEPEND_IMG_TAG} built and pushed to dockerhub" \
+  && NORLAB_MPPI_DEPENDENCIES_WO_SERVICES_BUILD_AND_PUSH=true \
+  && echo
+
+# Fail fast
+if [ $NORLAB_MPPI_DEPENDENCIES_WO_SERVICES_BUILD_AND_PUSH == true ]; then
+    echo -e "${DS_MSG_DONE} build&push norlab-mppi-dependencies-wo-services:${DEPEND_IMG_TAG}"
+else
+    echo -e "${DS_MSG_ERROR} failed to build or push norlab-mppi-dependencies-wo-services:${DEPEND_IMG_TAG}"
+    exit 1
+fi
+
+sudo docker push norlabsnow/norlab-mppi-dependencies:${DEPEND_IMG_TAG} \
+  && echo -e "${DS_MSG_DONE} norlab-mppi-dependencies:${DEPEND_IMG_TAG} built and pushed to dockerhub" \
+  && NORLAB_MPPI_DEPENDENCIES_BUILD_AND_PUSH=true \
+  && echo
+
+# Fail fast
+if [ $NORLAB_MPPI_DEPENDENCIES_BUILD_AND_PUSH == true ]; then
+    echo -e "${DS_MSG_DONE} build&push norlab-mppi-dependencies:${DEPEND_IMG_TAG}"
+else
+    echo -e "${DS_MSG_ERROR} failed to build or push norlab-mppi-dependencies:${DEPEND_IMG_TAG}"
+    exit 1
+fi
+
 
 echo -e "${DS_MSG_BASE} Building norlab-mppi-develop:${DEV_IMG_TAG}"
 bash ds_build_develop.bash ${AARCH} \
   && echo -e "${DS_MSG_BASE} Pushing to dockerhub" \
   && sudo docker push norlabsnow/norlab-mppi-develop:${DEV_IMG_TAG} \
-  && echo -e "${DS_MSG_DONE} norlabsnow/norlab-mppi-develop:${DEV_IMG_TAG} builded and pushed to dockerhub" \
-  && NORLAB_MPPI_DEVELOP_BUILD_AND_PUSH=true
+  && echo -e "${DS_MSG_DONE} norlabsnow/norlab-mppi-develop:${DEV_IMG_TAG} built and pushed to dockerhub" \
+  && NORLAB_MPPI_DEVELOP_BUILD_AND_PUSH=true \
+  && sudo docker push norlabsnow/norlab-mppi-develop-teamcity:${DEV_IMG_TAG} \
+  && echo -e "${DS_MSG_DONE} norlabsnow/norlab-mppi-develop-teamcity:${DEV_IMG_TAG} built and pushed to dockerhub" \
+  && NORLAB_MPPI_DEVELOP_TEAMCITY_BUILD_AND_PUSH=true \
+  && echo
 
 
 # ...Build & push pass/fail status......................................................................................
@@ -62,18 +100,33 @@ if [ $NORLAB_MPPI_ROS_MELODIC_PYTHON_3_BUILD_AND_PUSH == true ]; then
     echo -e "${DS_MSG_DONE} build&push norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG}"
 else
     echo -e "${DS_MSG_ERROR} failed to build or push norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG}"
+    exit 1
 fi
 
+if [ $NORLAB_MPPI_DEPENDENCIES_WO_SERVICES_BUILD_AND_PUSH == true ]; then
+    echo -e "${DS_MSG_DONE} build&push norlab-mppi-dependencies-wo-services:${DEPEND_IMG_TAG}"
+else
+    echo -e "${DS_MSG_ERROR} failed to build or push norlab-mppi-dependencies-wo-services:${DEPEND_IMG_TAG}"
+    exit 1
+fi
 if [ $NORLAB_MPPI_DEPENDENCIES_BUILD_AND_PUSH == true ]; then
     echo -e "${DS_MSG_DONE} build&push norlab-mppi-dependencies:${DEPEND_IMG_TAG}"
 else
     echo -e "${DS_MSG_ERROR} failed to build or push norlab-mppi-dependencies:${DEPEND_IMG_TAG}"
+    exit 1
 fi
 
 if [ $NORLAB_MPPI_DEVELOP_BUILD_AND_PUSH == true ]; then
     echo -e "${DS_MSG_DONE} build&push norlab-mppi-develop:${DEV_IMG_TAG}"
 else
     echo -e "${DS_MSG_ERROR} failed to build or push norlab-mppi-develop:${DEV_IMG_TAG}"
+    exit 1
+fi
+if [ $NORLAB_MPPI_DEVELOP_TEAMCITY_BUILD_AND_PUSH == true ]; then
+    echo -e "${DS_MSG_DONE} build&push norlab-mppi-develop-teamcity:${DEV_IMG_TAG}"
+else
+    echo -e "${DS_MSG_ERROR} failed to build or push norlab-mppi-develop-teamcity:${DEV_IMG_TAG}"
+    exit 1
 fi
 echo "............................................................................
 "
@@ -84,11 +137,13 @@ if [ `docker ps --quiet --all --format "{{.Names}}" | grep ${CONTAINER_NAMES}` =
     # Stop and remove container if he is started
     echo -e "${DS_MSG_BASE} Stopping container $(docker stop ${CONTAINER_NAMES})" \
       && echo -e "${DS_MSG_BASE} Removing container $(docker rm ${CONTAINER_NAMES})" \
+      && echo -e "${DS_MSG_BASE} Starting a new $(docker rm ${CONTAINER_NAMES})" instance\
       && bash ds_instantiate_develop.bash --name=${CONTAINER_NAMES} --runTag=${DEV_IMG_TAG} \
       && NORLAB_MPPI_DEVELOP_INSTANTIATED=true
 elif [ `docker container ls --quiet --all --format "{{.Names}}" | grep ${CONTAINER_NAMES}` == ${CONTAINER_NAMES} ]; then
     # Remove container if he is started
     echo -e "${DS_MSG_BASE} Removing container $(docker rm ${CONTAINER_NAMES})" \
+      && echo -e "${DS_MSG_BASE} Starting a new $(docker rm ${CONTAINER_NAMES})" instance\
       && bash ds_instantiate_develop.bash --name=${CONTAINER_NAMES} --runTag=${DEV_IMG_TAG} \
       && NORLAB_MPPI_DEVELOP_INSTANTIATED=true
 else

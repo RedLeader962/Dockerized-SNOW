@@ -263,11 +263,16 @@ fi
 
 if [ $DRY_RUN == true ]; then
   echo -e "${DS_MSG_EMPH_FORMAT}${0} dry run${DS_MSG_END_FORMAT}:
-  sudo docker run ${RUNTIME_FLAG} --interactive --tty ${NETWORK_FLAG} --device=/dev/input/js0 --env DISPLAY=$DISPLAY --privileged --volume "/tmp/.X11-unix/:/tmp/.X11-unix" --volume \"/etc/localtime:/etc/localtime:ro\" ${HOST_DATA_DIR_FLAG} ${HOST_SOURCE_CODE_FLAG} --security-opt seccomp=unconfined --security-opt apparmor=unconfined --cap-add sys_ptrace --env DS_CONTAINER_NAME="${CONTAINER_NAME}" --detach ${USER_ARG} norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG}
+  sudo docker run ${RUNTIME_FLAG} --interactive --tty ${NETWORK_FLAG} --device=/dev/input/js0 --env DISPLAY=$DISPLAY --privileged --env=\"QT_X11_NO_MITSHM=1\" --volume "/tmp/.X11-unix/:/tmp/.X11-unix" --volume \"/etc/localtime:/etc/localtime:ro\" ${HOST_DATA_DIR_FLAG} ${HOST_SOURCE_CODE_FLAG} --security-opt seccomp=unconfined --security-opt apparmor=unconfined --cap-add sys_ptrace --env DS_CONTAINER_NAME="${CONTAINER_NAME}" --detach ${USER_ARG} norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG}
+
+  # Keep the container up even when the terminal use to execute ds_instantiate_develop.bash is closed
+  sudo docker exec -it ${CONTAINER_NAME} /ros_entrypoint.bash bash
   "
   exit
 fi
 
+# Splitting instanciation in two part (run & exec) has teh benefit of keeping the container up even when the terminal
+# used to execute ds_instantiate_develop.bash is closed
 sudo docker run \
   ${RUNTIME_FLAG} \
   --interactive \
@@ -289,8 +294,14 @@ sudo docker run \
   ${USER_ARG} \
   norlabsnow/${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG}
 
-# Keep the container up even when the terminal use to execute ds_instantiate_develop.bash is closed
-sudo docker exec -it ${CONTAINER_NAME} /ros_entrypoint.bash bash
+if [[ -n $TEAMCITY_VERSION ]]; then
+  echo -e "${DS_MSG_EMPH_FORMAT}${CONTAINER_NAME} is running inside a TeamCity agent >> keep container detached${DS_MSG_END_FORMAT}"
+else
+  sudo docker exec -it ${CONTAINER_NAME} /ros_entrypoint.bash bash
+fi
 
 # -p10.0.1.103:2222:22 \
 # Change -p10.0.1.7:<host port>:<container port> to your host ip adress
+
+# ...Develop instance TeamCity counterpart...........................................................................
+# sudo docker run --runtime nvidia  --interactive --tty --network host  --device=/dev/input/js0 --env DISPLAY= --privileged --env="QT_X11_NO_MITSHM=1" --volume /tmp/.X11-unix/:/tmp/.X11-unix --volume "/etc/localtime:/etc/localtime:ro"   --volume /home/nlsar/Repositories/NorLab_MPPI:/ros_catkin_ws/src/NorLab_MPPI --security-opt seccomp=unconfined --security-opt apparmor=unconfined --cap-add sys_ptrace --env DS_CONTAINER_NAME=TC_MPPI-this  --name TC-MPPI-this -e DS_TARGET_PROJECT_SRC_REPO=NorLab_MPPI norlabsnow/norlab-mppi-develop-teamcity:x86-ubuntu18.04
