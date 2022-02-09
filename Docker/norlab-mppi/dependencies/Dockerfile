@@ -253,6 +253,7 @@ RUN pip3 install --no-cache-dir --verbose python-dotenv
 
 # Model predictive control python toolbox https://www.do-mpc.com/en/latest/index.html
 RUN pip3 install --no-cache-dir --verbose do-mpc
+RUN pip3 install --no-cache-dir --verbose gym
 
 
 # ===Final build step===================================================================================================
