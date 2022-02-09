@@ -81,7 +81,7 @@ fi
 
 echo -e "${DS_MSG_BASE} Building norlab-mppi-develop:${DEV_IMG_TAG}"
 bash ds_build_develop.bash ${AARCH} \
-  && echo -e "${DS_MSG_BASE} Pushing to dockerhub" \
+  && echo -e "${DS_MSG_BASE} Pushing norlab-mppi-develop:${DEV_IMG_TAG} to dockerhub" \
   && sudo docker push norlabsnow/norlab-mppi-develop:${DEV_IMG_TAG} \
   && echo -e "${DS_MSG_DONE} norlabsnow/norlab-mppi-develop:${DEV_IMG_TAG} built and pushed to dockerhub" \
   && NORLAB_MPPI_DEVELOP_BUILD_AND_PUSH=true \

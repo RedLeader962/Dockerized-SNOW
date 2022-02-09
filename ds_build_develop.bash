@@ -216,6 +216,8 @@ sudo docker build \
   ${USER_ARG} \
   ./Docker/${DS_SUB_PROJECT}/${IDE}
 
+echo -e "${DS_MSG_BASE} Done building ${DS_SUB_PROJECT}-${IDE}:${DS_IMAGE_TAG}"
+
 # ---Build TeamCity docker image counterpart----------------------------------------------------------------------------
 sudo docker build \
   -t norlabsnow/${DS_SUB_PROJECT}-${IDE}-teamcity:${DS_IMAGE_TAG} \
@@ -224,3 +226,5 @@ sudo docker build \
   ${BASE_IMG_ARG} \
   ${USER_ARG} \
   ./Docker
+
+echo -e "${DS_MSG_BASE} Done building ${DS_SUB_PROJECT}-${IDE}-teamcity:${DS_IMAGE_TAG}"
