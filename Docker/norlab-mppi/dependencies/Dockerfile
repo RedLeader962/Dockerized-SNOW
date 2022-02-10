@@ -252,8 +252,10 @@ RUN pip3 install --no-cache-dir --verbose python-dotenv
 # ...Install simulator..................................................................................................
 RUN pip3 install --no-cache-dir --verbose --upgrade pip
 RUN pip3 install --no-cache-dir --verbose gym
-#RUN pip3 install --no-cache-dir --verbose gym==0.21.0
-#RUN pip3 install --no-cache-dir --verbose seaborn
+# Gym depencies
+RUN pip3 install --no-cache-dir --verbose pyglet
+RUN pip3 install --no-cache-dir --verbose Box2d
+
 
 
 # ...Sequential decision making related tools...........................................................................
