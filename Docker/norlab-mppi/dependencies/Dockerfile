@@ -254,7 +254,7 @@ RUN pip3 install --no-cache-dir --verbose --upgrade pip
 RUN pip3 install --no-cache-dir --verbose gym
 # Gym depencies
 RUN pip3 install --no-cache-dir --verbose pyglet
-RUN pip3 install --no-cache-dir --verbose Box2d
+RUN pip3 install --no-cache-dir --verbose Box2D
 
 
 
