@@ -249,12 +249,18 @@ RUN pip3 install --no-cache-dir --verbose pytest-mock
 RUN pip3 install --no-cache-dir --verbose python-dotenv
 
 
+# ...Install simulator..................................................................................................
+RUN pip3 install --no-cache-dir --verbose --upgrade pip
+RUN pip3 install --no-cache-dir --verbose gym
+#RUN pip3 install --no-cache-dir --verbose gym==0.21.0
+#RUN pip3 install --no-cache-dir --verbose seaborn
+
+
 # ...Sequential decision making related tools...........................................................................
 
 # Model predictive control python toolbox https://www.do-mpc.com/en/latest/index.html
 RUN pip3 install --no-cache-dir --verbose do-mpc
-#RUN pip3 install --no-cache-dir --verbose gym==0.21.0
-#RUN pip3 install --no-cache-dir --verbose seaborn
+
 
 
 # ===Final build step===================================================================================================

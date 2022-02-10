@@ -30,6 +30,8 @@ NORLAB_MPPI_DEVELOP_BUILD_AND_PUSH=false
 NORLAB_MPPI_DEVELOP_TEAMCITY_BUILD_AND_PUSH=false
 NORLAB_MPPI_DEVELOP_INSTANTIATED=false
 
+sudo docker login
+
 
 # ...Build & push.......................................................................................................
 echo -e "${DS_MSG_BASE} Building norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG}"
@@ -49,8 +51,8 @@ else
 fi
 
 
-echo -e "${DS_MSG_BASE} Building norlab-mppi-dependencies-wo-services and norlab-mppi-dependencies:${DEPEND_IMG_TAG}"
-bash ds_build_dependencies.bash ${AARCH} \
+echo -e "${DS_MSG_BASE} Building norlab-mppi-dependencies-wo-services:${DEPEND_IMG_TAG}"
+bash ds_build_dependencies.bash ${AARCH} --noservices \
   && echo -e "${DS_MSG_BASE} Pushing to dockerhub" \
   && sudo docker push norlabsnow/norlab-mppi-dependencies-wo-services:${DEPEND_IMG_TAG} \
   && echo -e "${DS_MSG_DONE} norlab-mppi-dependencies-wo-services:${DEPEND_IMG_TAG} built and pushed to dockerhub" \
@@ -65,7 +67,10 @@ else
     exit 1
 fi
 
-sudo docker push norlabsnow/norlab-mppi-dependencies:${DEPEND_IMG_TAG} \
+echo -e "${DS_MSG_BASE} Building norlab-mppi-dependencies:${DEPEND_IMG_TAG}"
+bash ds_build_dependencies.bash ${AARCH}  \
+  && echo -e "${DS_MSG_BASE} Pushing to dockerhub" \
+  && sudo docker push norlabsnow/norlab-mppi-dependencies:${DEPEND_IMG_TAG} \
   && echo -e "${DS_MSG_DONE} norlab-mppi-dependencies:${DEPEND_IMG_TAG} built and pushed to dockerhub" \
   && NORLAB_MPPI_DEPENDENCIES_BUILD_AND_PUSH=true \
   && echo
