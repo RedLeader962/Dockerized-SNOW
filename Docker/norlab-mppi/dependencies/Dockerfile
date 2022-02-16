@@ -250,6 +250,13 @@ RUN pip3 install --no-cache-dir --verbose python-dotenv
 
 
 # ...Install simulator..................................................................................................
+# Box2D dependencies
+RUN apt-get update \
+    && apt-get install --assume-yes --no-install-recommends \
+        swig \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+# Install gym
 RUN pip3 install --no-cache-dir --verbose --upgrade pip
 RUN pip3 install --no-cache-dir --verbose gym
 # Gym depencies
