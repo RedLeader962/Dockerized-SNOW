@@ -250,12 +250,18 @@ RUN pip3 install --no-cache-dir --verbose python-dotenv
 
 
 # ...Install simulator..................................................................................................
-# Box2D dependencies
+# Dependencies
+#   Box2D require swig
+#   Gym headless server rendering require a virtual X server like xvfb
+#      pyvirtualdisplay is a python wraper for xvfb
 RUN apt-get update \
     && apt-get install --assume-yes --no-install-recommends \
         swig \
+        xvfb \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
+RUN pip3 install --no-cache-dir --verbose pyvirtualdisplay
 # Install gym
 RUN pip3 install --no-cache-dir --verbose --upgrade pip
 RUN pip3 install --no-cache-dir --verbose gym

@@ -239,7 +239,8 @@ New container name: ${DS_MSG_EMPH_FORMAT}${CONTAINER_NAME}${DS_MSG_END_FORMAT}
 
 #sudo xhost +si:localuser:root
 #sudo xhost +si:local:hostname
-#sudo xhost +  # (Priority) todo:fixme!! (ref task NLSAR-189)
+#sudo xhost +  # (Priority) todo:fixme!! (ref task NMO-87 🩹→ Find a secure and permanent solution for the xhost
+#                                         "display not available" problem (initially NLSAR-189))
 
 
 RUNTIME_FLAG="--runtime nvidia "
