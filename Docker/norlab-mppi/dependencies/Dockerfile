@@ -253,21 +253,26 @@ RUN pip3 install --no-cache-dir --verbose python-dotenv
 # Dependencies
 #   Box2D require swig
 #   Gym headless server rendering require a virtual X server like xvfb
-#      pyvirtualdisplay is a python wraper for xvfb
+#       pyvirtualdisplay is a python wraper for xvfb
+#       gym-notebook-wrapper is wrapper for running gym and recording movie on Jupyter or in headless server
+#           ↳ |  require xvfb and python-opengl
 RUN apt-get update \
     && apt-get install --assume-yes --no-install-recommends \
         swig \
         xvfb \
+        python-opengl \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip3 install --no-cache-dir --verbose pyvirtualdisplay
+RUN pip3 install --no-cache-dir --verbose gym-notebook-wrapper
 # Install gym
 RUN pip3 install --no-cache-dir --verbose --upgrade pip
 RUN pip3 install --no-cache-dir --verbose gym
 # Gym depencies
 RUN pip3 install --no-cache-dir --verbose pyglet
-RUN pip3 install --no-cache-dir --verbose Box2D
+RUN #pip3 install --no-cache-dir --verbose Box2D
+RUN pip3 install --no-cache-dir --verbose box2d-py
 
 
 
