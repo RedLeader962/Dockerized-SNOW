@@ -22,14 +22,11 @@ elif [[ $(uname -m) == "x86_64" ]]; then
   DEV_IMG_TAG="x86-ubuntu18.04"
   CONTAINER_NAMES="IamSnow"
 elif [[ $(uname -s) == "Darwin" ]] && [[ $(uname -m) == "arm64" ]]; then
-  # (NICE TO HAVE) todo:implement for osx M1 architecture (ref task NMO-127)
   ARCHITECTURE_FLAG="--M1"
   DEPEND_IMG_TAG="arm64-Darwin-r32.6.1"
   DEV_IMG_TAG="arm64-Darwin-r32.6.1"
   CONTAINER_NAMES="IamSnow-M1"
   CONTAINER_FLAG="--osx --src=${HOME}/PycharmProjects/NorLab_MPPI"
-  echo -e "${DS_MSG_ERROR} Building image for M1 chips is not yet supported"
-  exit 1
 else
   echo -e "${DS_MSG_ERROR} This script does not yet support the $(uname -s) $(uname -m) architecture"
   exit 1
