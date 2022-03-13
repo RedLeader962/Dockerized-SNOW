@@ -59,30 +59,33 @@ source ~/.bashrc
 
 # ...CUDA toolkit path..................................................................................................
 # ref dusty_nv comment at https://forums.developer.nvidia.com/t/cuda-nvcc-not-found/118068
-if ! command -v nvcc -V &> /dev/null; then
-  # nvcc command not working
-  echo -e "${DS_MSG_BASE} Fixing CUDA path for nvcc"
-
-  ( \
-  echo ""; \
-  echo "# CUDA toolkit related"; \
-  echo "# ref dusty_nv comment at"; \
-  echo "#    https://forums.developer.nvidia.com/t/cuda-nvcc-not-found/118068"; \
-  echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}"; \
-  echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"; \
-  echo ""; \
-  ) >> ~/.bashrc
-
-  source ~/.bashrc && echo -e "${DS_MSG_DONE} CUDA path hack added to ~/.bashrc for nvcc"
-fi
-
-if [[ $(nvcc -V | grep 'nvcc: NVIDIA (R) Cuda compiler driver') == "nvcc: NVIDIA (R) Cuda compiler driver" ]]; then
-  echo -e "${DS_MSG_DONE} nvcc installed properly"
-  nvcc -V
+if [[ $(uname -s) == "Darwin" ]] && [[ $(uname -m) == "arm64" ]]; then
+  echo -e "${DS_MSG_BASE} CUDA is not supported yet on Apple M1 computer"
 else
-  echo -e "${DS_MSG_ERROR} Check your nvcc installation. It's NOT installed properly!"
-fi
+  if ! command -v nvcc -V &> /dev/null; then
+    # nvcc command not working
+    echo -e "${DS_MSG_BASE} Fixing CUDA path for nvcc"
 
+    ( \
+    echo ""; \
+    echo "# CUDA toolkit related"; \
+    echo "# ref dusty_nv comment at"; \
+    echo "#    https://forums.developer.nvidia.com/t/cuda-nvcc-not-found/118068"; \
+    echo "export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}"; \
+    echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"; \
+    echo ""; \
+    ) >> ~/.bashrc
+
+    source ~/.bashrc && echo -e "${DS_MSG_DONE} CUDA path hack added to ~/.bashrc for nvcc"
+  fi
+
+  if [[ $(nvcc -V | grep 'nvcc: NVIDIA (R) Cuda compiler driver') == "nvcc: NVIDIA (R) Cuda compiler driver" ]]; then
+    echo -e "${DS_MSG_DONE} nvcc installed properly"
+    nvcc -V
+  else
+    echo -e "${DS_MSG_ERROR} Check your nvcc installation. It's NOT installed properly!"
+  fi
+fi
 
 echo -e "${DS_MSG_DONE} Setup completed! New available alias:
 
