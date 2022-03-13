@@ -41,7 +41,7 @@ ENV DS_PYTHON3_VERSION=python3.6
 ENV ROS_PYTHON_VERSION=3
 
 
-WORKDIR /workspace
+WORKDIR "/workspace"
 
 
 # install development utilities
