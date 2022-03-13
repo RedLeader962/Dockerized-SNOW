@@ -213,7 +213,7 @@ RUN apt-get update \
 FROM ros-scientific-stack-base-image AS ros-performance-pkg-base-image
 
 # https://numba.pydata.org
-RUN pip3 install --no-cache-dir --verbose llvmlite==0.37
+RUN pip3 install --no-cache-dir --verbose llvmlite==0.37.0
 RUN pip3 install --no-cache-dir --verbose numba
 #WORKDIR "/workspace/dependencies"
 #RUN git clone git://github.com/numba/numba.git \
