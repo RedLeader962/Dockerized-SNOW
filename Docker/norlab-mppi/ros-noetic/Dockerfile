@@ -236,8 +236,8 @@ CMD [ "bash" ]
 ##  PyTorch v1.5.0 https://nvidia.box.com/shared/static/3ibazbiwtkl181n95n9em3wtrca7tdzp.whl (torch-1.5.0-cp36-cp36m-linux_aarch64.whl)
 ##  PyTorch v1.7.0 https://nvidia.box.com/shared/static/cs3xn3td6sfgtene6jdvsxlr366m2dhq.whl (torch-1.7.0-cp36-cp36m-linux_aarch64.whl)
 ##  PyTorch v1.9.0 https://nvidia.box.com/shared/static/h1z9sw4bb1ybi0rm3tu8qdj8hs05ljbm.whl (torch-1.9.0-cp36-cp36m-linux_aarch64.whl)
-#ARG PYTORCH_URL=https://nvidia.box.com/shared/static/h1z9sw4bb1ybi0rm3tu8qdj8hs05ljbm.whl
-#ARG PYTORCH_WHL=torch-1.9.0-cp36-cp36m-linux_aarch64.whl
+#ARG PYTORCH_URL_L4T=https://nvidia.box.com/shared/static/h1z9sw4bb1ybi0rm3tu8qdj8hs05ljbm.whl
+#ARG PYTORCH_WHL_L4T=torch-1.9.0-cp36-cp36m-linux_aarch64.whl
 #
 ## Pytorch for x86
 ## https://pytorch.org/get-started/locally/
@@ -246,9 +246,9 @@ CMD [ "bash" ]
 ## Conditional build stage base on architecture version (arm64-l4t and x86)
 #
 #RUN /bin/bash -c "if [[ ${DS_IMAGE_ARCHITECTURE} == 'arm64-l4t' ]]; then \
-#    wget --quiet --show-progress --progress=bar:force:noscroll --no-check-certificate ${PYTORCH_URL} -O ${PYTORCH_WHL} && \
-#        pip3 install --no-cache-dir --verbose ${PYTORCH_WHL} --verbose && \
-#        rm ${PYTORCH_WHL}; \
+#    wget --quiet --show-progress --progress=bar:force:noscroll --no-check-certificate ${PYTORCH_URL_L4T} -O ${PYTORCH_WHL_L4T} && \
+#        pip3 install --no-cache-dir --verbose ${PYTORCH_WHL_L4T} --verbose && \
+#        rm ${PYTORCH_WHL_L4T}; \
 #  elif [[ ${DS_IMAGE_ARCHITECTURE} == 'x86' ]]; then \
 #    pip3 install --no-cache-dir --verbose torch==1.9.0+cu111 -f https://download.pytorch.org/whl/torch_stable.html; \
 #  else \

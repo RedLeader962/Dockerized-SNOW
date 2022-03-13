@@ -95,25 +95,40 @@ RUN pip3 install --no-cache-dir --verbose numpy
 #  PyTorch v1.5.0 https://nvidia.box.com/shared/static/3ibazbiwtkl181n95n9em3wtrca7tdzp.whl (torch-1.5.0-cp36-cp36m-linux_aarch64.whl)
 #  PyTorch v1.7.0 https://nvidia.box.com/shared/static/cs3xn3td6sfgtene6jdvsxlr366m2dhq.whl (torch-1.7.0-cp36-cp36m-linux_aarch64.whl)
 #  PyTorch v1.9.0 https://nvidia.box.com/shared/static/h1z9sw4bb1ybi0rm3tu8qdj8hs05ljbm.whl (torch-1.9.0-cp36-cp36m-linux_aarch64.whl)
-ARG PYTORCH_URL=https://nvidia.box.com/shared/static/h1z9sw4bb1ybi0rm3tu8qdj8hs05ljbm.whl
-ARG PYTORCH_WHL=torch-1.9.0-cp36-cp36m-linux_aarch64.whl
+ARG PYTORCH_URL_L4T=https://nvidia.box.com/shared/static/h1z9sw4bb1ybi0rm3tu8qdj8hs05ljbm.whl
+ARG PYTORCH_WHL_L4T=torch-1.9.0-cp36-cp36m-linux_aarch64.whl
+
+
+# Pytorch for M1 chips
+# PyTorch v1.9.0 https://download.pytorch.org/whl/cpu/torch-1.9.0-cp39-none-macosx_11_0_arm64.whl cpu/torch-1.9.0-cp39-none-macosx_11_0_arm64.whl
+# PyTorch v1.9.1 https://download.pytorch.org/whl/cpu/torch-1.9.1-cp39-none-macosx_11_0_arm64.whl cpu/torch-1.9.1-cp39-none-macosx_11_0_arm64.whl
+ARG PYTORCH_URL_M1=https://download.pytorch.org/whl/cpu/torch-1.9.0-cp39-none-macosx_11_0_arm64.whl
+ARG PYTORCH_WHL_M1=torch-1.9.0-cp39-none-macosx_11_0_arm64.whl
 
 # Pytorch for x86
 # https://pytorch.org/get-started/locally/
+ARG PYTORCH_URL_X86=https://download.pytorch.org/whl/torch_stable.html
+# cu111 ==> cuda version
+ARG PYTORCH_WHL_X86=1.9.0+cu111
 
 # (CRITICAL) todo:fixme!! (ref task NLSAR-230)
 # Conditional build stage base on architecture version (arm64-l4t and x86)
 
+# Note: wget -O save the file under a diferent name
 RUN /bin/bash -c "if [[ ${DS_IMAGE_ARCHITECTURE} == 'arm64-l4t' ]]; then \
-    wget --quiet --show-progress --progress=bar:force:noscroll --no-check-certificate ${PYTORCH_URL} -O ${PYTORCH_WHL} && \
-        pip3 install --no-cache-dir --verbose ${PYTORCH_WHL} --verbose && \
-        rm ${PYTORCH_WHL}; \
-  elif [[ ${DS_IMAGE_ARCHITECTURE} == 'x86' ]]; then \
-    pip3 install --no-cache-dir --verbose torch==1.9.0+cu111 -f https://download.pytorch.org/whl/torch_stable.html; \
-  else \
-    echo 'Architecture ${DS_IMAGE_ARCHITECTURE} is not curently suported'; \
-    exit; \
-  fi"
+    wget --quiet --show-progress --progress=bar:force:noscroll --no-check-certificate ${PYTORCH_URL_L4T} -O ${PYTORCH_WHL_L4T} && \
+        pip3 install --no-cache-dir --verbose ${PYTORCH_WHL_L4T} --verbose && \
+        rm ${PYTORCH_WHL_L4T}; \
+    elif [[ ${DS_IMAGE_ARCHITECTURE} == 'arm64-Darwin' ]]; then \
+        wget --quiet --show-progress --progress=bar:force:noscroll --no-check-certificate ${PYTORCH_URL_M1} -O $PYTORCH_WHL_M1 && \
+        pip3 install --no-cache-dir --verbose ${PYTORCH_WHL_M1} --verbose && \
+        rm ${PYTORCH_WHL_M1}; \
+    elif [[ ${DS_IMAGE_ARCHITECTURE} == 'x86' ]]; then \
+      pip3 install --no-cache-dir --verbose torch==1.9.0+cu111 -f https://download.pytorch.org/whl/torch_stable.html; \
+    else \
+      echo 'Architecture ${DS_IMAGE_ARCHITECTURE} is not curently suported'; \
+      exit; \
+    fi"
 
 ## Install PyTorch for x86 with torchvision
 #    pip3 install torch==1.9.0+cu111 torchvision==0.10.0+cu111 -f https://download.pytorch.org/whl/torch_stable.html \

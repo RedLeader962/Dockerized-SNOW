@@ -19,6 +19,7 @@ function print_help_in_terminal() {
 \033[1m<optional argument>:\033[0m
   -h, --help                Get help
   --x86                     Build the image version compiled for x86 workstation instead of arm64-l4t
+  --M1                      Build the image version compiled for Apple M1 chips (arm64) instead of arm64-l4t
   --l4t-version=<version>   Build arm64-l4t using an other release version (default: r32.6.1)
   --appendToTag=<detail>    Add suplemental details to the builded image tag eg.: --appendToTag=test
   --dryrun                  Print the docker run command but dont execute it
@@ -71,6 +72,10 @@ for arg in "$@"; do
     DS_IMAGE_TAG="x86"
     shift # Remove --x86 from processing
     ;;
+  --M1)
+    DS_IMAGE_TAG="arm64-Darwin"
+    shift # Remove --M1 from processing
+    ;;
   --dryrun)
     DRY_RUN=true
     shift # Remove --dryrun from processing
@@ -120,6 +125,11 @@ elif [[ "$DS_IMAGE_TAG" == "x86" ]] && [[ "$DS_SUB_PROJECT" == "norlab-mppi" ]];
   #  BASE_IMG_VERSION="ubuntu20.04"
   BASE_IMG_VERSION="ubuntu18.04"
   BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/cudagl:11.4.0-devel-${BASE_IMG_VERSION}"
+elif [[ "$DS_IMAGE_TAG" == "arm64-Darwin" ]] && [[ "$DS_SUB_PROJECT" == "norlab-mppi" ]]; then
+  if [[ "$BASE_IMG_VERSION" == "" ]]; then
+    BASE_IMG_VERSION="r32.6.1"
+  fi
+  BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/l4t-base:${BASE_IMG_VERSION}"
 else
   echo -e "${DS_MSG_ERROR} $DS_SUB_PROJECT is not currently supported"
   exit

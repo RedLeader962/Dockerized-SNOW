@@ -12,15 +12,27 @@ set -o allexport; source ds.env; set +o allexport
 #bash ./visual/terminal_splash.bash
 
 if [[ $(uname -m) == "aarch64" ]]; then
-  AARCH=""
+  ARCHITECTURE_FLAG=""
   DEPEND_IMG_TAG="arm64-l4t-r32.6.1"
   DEV_IMG_TAG="arm64-l4t-r32.6.1-XavierSA"
   CONTAINER_NAMES="IamSnow-NX"
 elif [[ $(uname -m) == "x86_64" ]]; then
-  AARCH="--x86"
+  ARCHITECTURE_FLAG="--x86"
   DEPEND_IMG_TAG="x86-ubuntu18.04"
   DEV_IMG_TAG="x86-ubuntu18.04"
   CONTAINER_NAMES="IamSnow"
+elif [[ $(uname -s) == "Darwin" ]] && [[ $(uname -m) == "arm64" ]]; then
+  # (NICE TO HAVE) todo:implement for osx M1 architecture (ref task NMO-127)
+  ARCHITECTURE_FLAG="--M1"
+  DEPEND_IMG_TAG="arm64-Darwin-r32.6.1"
+  DEV_IMG_TAG="arm64-Darwin-r32.6.1"
+  CONTAINER_NAMES="IamSnow-M1"
+  CONTAINER_FLAG="--osx --src=${HOME}/PycharmProjects/NorLab_MPPI"
+  echo -e "${DS_MSG_ERROR} Building image for M1 chips is not yet supported"
+  exit 1
+else
+  echo -e "${DS_MSG_ERROR} This script does not yet support the $(uname -s) $(uname -m) architecture"
+  exit 1
 fi
 
 NORLAB_MPPI_ROS_MELODIC_PYTHON_3_BUILD_AND_PUSH=false
@@ -35,7 +47,7 @@ sudo docker login
 
 # ...Build & push.......................................................................................................
 echo -e "${DS_MSG_BASE} Building norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG}"
-bash ds_build_melodic_python3.bash ${AARCH} \
+bash ds_build_melodic_python3.bash ${ARCHITECTURE_FLAG} \
   && echo -e "${DS_MSG_BASE} Pushing to dockerhub" \
   && sudo docker push norlabsnow/norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG} \
   && echo -e "${DS_MSG_DONE} norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG} built and pushed to dockerhub" \
@@ -52,7 +64,7 @@ fi
 
 
 echo -e "${DS_MSG_BASE} Building norlab-mppi-dependencies-wo-services:${DEPEND_IMG_TAG}"
-bash ds_build_dependencies.bash ${AARCH} --noservices \
+bash ds_build_dependencies.bash ${ARCHITECTURE_FLAG} --noservices \
   && echo -e "${DS_MSG_BASE} Pushing to dockerhub" \
   && sudo docker push norlabsnow/norlab-mppi-dependencies-wo-services:${DEPEND_IMG_TAG} \
   && echo -e "${DS_MSG_DONE} norlab-mppi-dependencies-wo-services:${DEPEND_IMG_TAG} built and pushed to dockerhub" \
@@ -68,7 +80,7 @@ else
 fi
 
 echo -e "${DS_MSG_BASE} Building norlab-mppi-dependencies:${DEPEND_IMG_TAG}"
-bash ds_build_dependencies.bash ${AARCH}  \
+bash ds_build_dependencies.bash ${ARCHITECTURE_FLAG}  \
   && echo -e "${DS_MSG_BASE} Pushing to dockerhub" \
   && sudo docker push norlabsnow/norlab-mppi-dependencies:${DEPEND_IMG_TAG} \
   && echo -e "${DS_MSG_DONE} norlab-mppi-dependencies:${DEPEND_IMG_TAG} built and pushed to dockerhub" \
@@ -85,7 +97,7 @@ fi
 
 
 echo -e "${DS_MSG_BASE} Building norlab-mppi-develop:${DEV_IMG_TAG}"
-bash ds_build_develop.bash ${AARCH} \
+bash ds_build_develop.bash ${ARCHITECTURE_FLAG} \
   && echo -e "${DS_MSG_BASE} Pushing norlab-mppi-develop:${DEV_IMG_TAG} to dockerhub" \
   && sudo docker push norlabsnow/norlab-mppi-develop:${DEV_IMG_TAG} \
   && echo -e "${DS_MSG_DONE} norlabsnow/norlab-mppi-develop:${DEV_IMG_TAG} built and pushed to dockerhub" \
@@ -143,16 +155,16 @@ if [ `docker ps --quiet --all --format "{{.Names}}" | grep ${CONTAINER_NAMES}` =
     echo -e "${DS_MSG_BASE} Stopping container $(docker stop ${CONTAINER_NAMES})" \
       && echo -e "${DS_MSG_BASE} Removing container $(docker rm ${CONTAINER_NAMES})" \
       && echo -e "${DS_MSG_BASE} Starting a new $(docker rm ${CONTAINER_NAMES})" instance\
-      && bash ds_instantiate_develop.bash --name=${CONTAINER_NAMES} --runTag=${DEV_IMG_TAG} \
+      && bash ds_instantiate_develop.bash --name=${CONTAINER_NAMES} --runTag=${DEV_IMG_TAG} ${CONTAINER_FLAG}\
       && NORLAB_MPPI_DEVELOP_INSTANTIATED=true
 elif [ `docker container ls --quiet --all --format "{{.Names}}" | grep ${CONTAINER_NAMES}` == ${CONTAINER_NAMES} ]; then
     # Remove container if he is started
     echo -e "${DS_MSG_BASE} Removing container $(docker rm ${CONTAINER_NAMES})" \
       && echo -e "${DS_MSG_BASE} Starting a new $(docker rm ${CONTAINER_NAMES})" instance\
-      && bash ds_instantiate_develop.bash --name=${CONTAINER_NAMES} --runTag=${DEV_IMG_TAG} \
+      && bash ds_instantiate_develop.bash --name=${CONTAINER_NAMES} --runTag=${DEV_IMG_TAG} ${CONTAINER_FLAG}\
       && NORLAB_MPPI_DEVELOP_INSTANTIATED=true
 else
-    bash ds_instantiate_develop.bash --name=${CONTAINER_NAMES} --runTag=${DEV_IMG_TAG} \
+    bash ds_instantiate_develop.bash --name=${CONTAINER_NAMES} --runTag=${DEV_IMG_TAG} ${CONTAINER_FLAG}\
       && NORLAB_MPPI_DEVELOP_INSTANTIATED=true
 fi
 

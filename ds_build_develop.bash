@@ -17,6 +17,7 @@ function print_help_in_terminal() {
 \033[1m<optional argument>:\033[0m
   -h, --help                Get help
   --x86                     Build the image version compiled for x86 workstation instead of arm64-l4t
+  --M1                      Build the image version compiled for Apple M1 chips (arm64) instead of arm64-l4t
   --l4t-version=<version>   Build arm64-l4t using an other release version (default: r32.6.1)
   --host-type=<type>        Specified the container host type: XavierStandAlone, XavierWarthog, local
   --dryrun                  Print the docker run command but dont execute it
@@ -59,6 +60,10 @@ for arg in "$@"; do
   --x86)
     DS_IMAGE_TAG="x86"
     shift # Remove --x86 from processing
+    ;;
+  --M1)
+    DS_IMAGE_TAG="arm64-Darwin"
+    shift # Remove --M1 from processing
     ;;
   --GT-AR)
     DS_SUB_PROJECT="gt-autorally"
@@ -125,6 +130,8 @@ if [[ "$DS_SUB_PROJECT" == "norlab-mppi" ]]; then
   elif [[ "$DS_IMAGE_TAG" == "x86" ]]; then
     #  BASE_IMG_VERSION="ubuntu20.04"
     BASE_IMG_VERSION="ubuntu18.04"
+  elif [[ "$DS_IMAGE_TAG" == "arm64-Darwin" ]]; then
+    BASE_IMG_VERSION="r32.6.1"
   fi
 
   if [[ "$IDE" == "clion-develop" ]]; then

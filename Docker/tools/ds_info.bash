@@ -13,6 +13,6 @@ ${SP}Numpy version:           $(echo "${PCK_VERSION}" | grep numpy | sed 's/nump
 ${SP}ROS package:             ${DS_ROS_PKG}
 ${SP}ROS python version:      ${ROS_PYTHON_VERSION}
 ${SP}ROS master uri:          ${ROS_MASTER_URI}
-${SP}DS image aarch:          ${DS_IMAGE_ARCHITECTURE}
+${SP}DS image architecture:   ${DS_IMAGE_ARCHITECTURE}
 ${SP}Project src code path:   ${DS_DEV_WORKSPACE}/src/${DS_TARGET_PROJECT_SRC_REPO}
 "
