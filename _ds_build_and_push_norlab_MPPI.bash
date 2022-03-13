@@ -23,8 +23,8 @@ elif [[ $(uname -m) == "x86_64" ]]; then
   CONTAINER_NAMES="IamSnow"
 elif [[ $(uname -s) == "Darwin" ]] && [[ $(uname -m) == "arm64" ]]; then
   ARCHITECTURE_FLAG="--M1"
-  DEPEND_IMG_TAG="arm64-Darwin-r32.6.1"
-  DEV_IMG_TAG="arm64-Darwin-r32.6.1"
+  DEPEND_IMG_TAG="arm64-Darwin-ubuntu18.04"
+  DEV_IMG_TAG="arm64-Darwin-ubuntu18.04"
   CONTAINER_NAMES="IamSnow-M1"
   CONTAINER_FLAG="--osx --src=${HOME}/PycharmProjects/NorLab_MPPI"
 else

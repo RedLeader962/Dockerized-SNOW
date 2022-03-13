@@ -127,9 +127,11 @@ elif [[ "$DS_IMAGE_TAG" == "x86" ]] && [[ "$DS_SUB_PROJECT" == "norlab-mppi" ]];
   BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/cudagl:11.4.0-devel-${BASE_IMG_VERSION}"
 elif [[ "$DS_IMAGE_TAG" == "arm64-Darwin" ]] && [[ "$DS_SUB_PROJECT" == "norlab-mppi" ]]; then
   if [[ "$BASE_IMG_VERSION" == "" ]]; then
-    BASE_IMG_VERSION="r32.6.1"
+    BASE_IMG_VERSION="18.04"
   fi
-  BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/l4t-base:${BASE_IMG_VERSION}"
+#  BASE_IMG_ARG=" --build-arg BASE_IMAGE=nvcr.io/nvidia/l4t-base:${BASE_IMG_VERSION}"
+  BASE_IMG_ARG=" --build-arg BASE_IMAGE=arm64v8/ubuntu:${BASE_IMG_VERSION}"
+  BASE_IMG_VERSION="ubuntu${BASE_IMG_VERSION}"
 else
   echo -e "${DS_MSG_ERROR} $DS_SUB_PROJECT is not currently supported"
   exit

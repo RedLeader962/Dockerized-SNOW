@@ -140,7 +140,7 @@ elif [[ "$DS_IMAGE_TAG" == "x86" ]] && [[ "$DS_SUB_PROJECT" == "norlab-mppi" ]];
   BASE_IMG_ARG=" --build-arg BASE_IMAGE=norlabsnow/norlab-mppi-ros-melodic-python3:x86-${BASE_IMG_VERSION}"
 elif [[ "$DS_IMAGE_TAG" == "arm64-Darwin" ]] && [[ "$DS_SUB_PROJECT" == "norlab-mppi" ]]; then
   if [[ "$BASE_IMG_VERSION" == "" ]]; then
-    BASE_IMG_VERSION="r32.6.1"
+    BASE_IMG_VERSION="ubuntu18.04"
   fi
   BASE_IMG_ARG=" --build-arg BASE_IMAGE=norlabsnow/norlab-mppi-ros-melodic-python3:arm64-Darwin-${BASE_IMG_VERSION}"
 elif [[ "$DS_IMAGE_TAG" == "arm64-l4t" ]] && [[ "$DS_SUB_PROJECT" == "gt-autorally" ]]; then

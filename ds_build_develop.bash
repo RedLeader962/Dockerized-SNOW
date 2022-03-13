@@ -131,7 +131,7 @@ if [[ "$DS_SUB_PROJECT" == "norlab-mppi" ]]; then
     #  BASE_IMG_VERSION="ubuntu20.04"
     BASE_IMG_VERSION="ubuntu18.04"
   elif [[ "$DS_IMAGE_TAG" == "arm64-Darwin" ]]; then
-    BASE_IMG_VERSION="r32.6.1"
+    BASE_IMG_VERSION="ubuntu18.04"
   fi
 
   if [[ "$IDE" == "clion-develop" ]]; then

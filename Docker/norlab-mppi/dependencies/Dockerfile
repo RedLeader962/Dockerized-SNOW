@@ -95,9 +95,11 @@ RUN pip3 install --no-cache-dir --verbose numpy
 #  PyTorch v1.5.0 https://nvidia.box.com/shared/static/3ibazbiwtkl181n95n9em3wtrca7tdzp.whl (torch-1.5.0-cp36-cp36m-linux_aarch64.whl)
 #  PyTorch v1.7.0 https://nvidia.box.com/shared/static/cs3xn3td6sfgtene6jdvsxlr366m2dhq.whl (torch-1.7.0-cp36-cp36m-linux_aarch64.whl)
 #  PyTorch v1.9.0 https://nvidia.box.com/shared/static/h1z9sw4bb1ybi0rm3tu8qdj8hs05ljbm.whl (torch-1.9.0-cp36-cp36m-linux_aarch64.whl)
-ARG PYTORCH_URL_L4T=https://nvidia.box.com/shared/static/h1z9sw4bb1ybi0rm3tu8qdj8hs05ljbm.whl
-ARG PYTORCH_WHL_L4T=torch-1.9.0-cp36-cp36m-linux_aarch64.whl
+ARG PYTORCH_L4T_WHL_URL=https://nvidia.box.com/shared/static/h1z9sw4bb1ybi0rm3tu8qdj8hs05ljbm.whl
+ARG PYTORCH_L4T_WHL=torch-1.9.0-cp36-cp36m-linux_aarch64.whl
 
+# PyTorch (official)
+ARG PYTORCH_OFFICIAL_WHL_URL=https://download.pytorch.org/whl/torch_stable.html
 
 # Pytorch for M1 chips
 # PyTorch v1.9.0 https://download.pytorch.org/whl/cpu/torch-1.9.0-cp39-none-macosx_11_0_arm64.whl cpu/torch-1.9.0-cp39-none-macosx_11_0_arm64.whl
@@ -107,28 +109,39 @@ ARG PYTORCH_WHL_M1=torch-1.9.0-cp39-none-macosx_11_0_arm64.whl
 
 # Pytorch for x86
 # https://pytorch.org/get-started/locally/
-ARG PYTORCH_URL_X86=https://download.pytorch.org/whl/torch_stable.html
 # cu111 ==> cuda version
-ARG PYTORCH_WHL_X86=1.9.0+cu111
+ARG PYTORCH_VERSION_X86="1.9.0+cu111"
 
 # (CRITICAL) todo:fixme!! (ref task NLSAR-230)
 # Conditional build stage base on architecture version (arm64-l4t and x86)
 
 # Note: wget -O save the file under a diferent name
 RUN /bin/bash -c "if [[ ${DS_IMAGE_ARCHITECTURE} == 'arm64-l4t' ]]; then \
-    wget --quiet --show-progress --progress=bar:force:noscroll --no-check-certificate ${PYTORCH_URL_L4T} -O ${PYTORCH_WHL_L4T} && \
-        pip3 install --no-cache-dir --verbose ${PYTORCH_WHL_L4T} --verbose && \
-        rm ${PYTORCH_WHL_L4T}; \
+    wget --quiet --show-progress --progress=bar:force:noscroll --no-check-certificate ${PYTORCH_L4T_WHL_URL} -O ${PYTORCH_L4T_WHL} && \
+        pip3 install --no-cache-dir --verbose ${PYTORCH_L4T_WHL} --verbose && \
+        rm ${PYTORCH_L4T_WHL}; \
     elif [[ ${DS_IMAGE_ARCHITECTURE} == 'arm64-Darwin' ]]; then \
-        wget --quiet --show-progress --progress=bar:force:noscroll --no-check-certificate ${PYTORCH_URL_M1} -O $PYTORCH_WHL_M1 && \
-        pip3 install --no-cache-dir --verbose ${PYTORCH_WHL_M1} --verbose && \
-        rm ${PYTORCH_WHL_M1}; \
+      pip3 install --no-cache-dir --verbose torch==1.9.0 -f ${PYTORCH_OFFICIAL_WHL_URL}; \
     elif [[ ${DS_IMAGE_ARCHITECTURE} == 'x86' ]]; then \
-      pip3 install --no-cache-dir --verbose torch==1.9.0+cu111 -f https://download.pytorch.org/whl/torch_stable.html; \
+      pip3 install --no-cache-dir --verbose torch==${PYTORCH_VERSION_X86} -f ${PYTORCH_OFFICIAL_WHL_URL}; \
     else \
       echo 'Architecture ${DS_IMAGE_ARCHITECTURE} is not curently suported'; \
-      exit; \
+      exit 1; \
     fi"
+#RUN /bin/bash -c "if [[ ${DS_IMAGE_ARCHITECTURE} == 'arm64-l4t' ]]; then \
+#    wget --quiet --show-progress --progress=bar:force:noscroll --no-check-certificate ${PYTORCH_L4T_WHL_URL} -O ${PYTORCH_L4T_WHL} && \
+#        pip3 install --no-cache-dir --verbose ${PYTORCH_L4T_WHL} && \
+#        rm ${PYTORCH_L4T_WHL}; \
+#    elif [[ ${DS_IMAGE_ARCHITECTURE} == 'arm64-Darwin' ]]; then \
+#        wget --quiet --show-progress --progress=bar:force:noscroll ${PYTORCH_URL_M1} -O $PYTORCH_WHL_M1 && \
+#        pip3 install --no-cache-dir --verbose ${PYTORCH_WHL_M1} && \
+#        rm ${PYTORCH_WHL_M1}; \
+#    elif [[ ${DS_IMAGE_ARCHITECTURE} == 'x86' ]]; then \
+#      pip3 install --no-cache-dir --verbose torch==1.9.0+cu111 -f https://download.pytorch.org/whl/torch_stable.html; \
+#    else \
+#      echo 'Architecture ${DS_IMAGE_ARCHITECTURE} is not currently suported'; \
+#      exit 1; \
+#    fi"
 
 ## Install PyTorch for x86 with torchvision
 #    pip3 install torch==1.9.0+cu111 torchvision==0.10.0+cu111 -f https://download.pytorch.org/whl/torch_stable.html \
@@ -199,44 +212,51 @@ RUN apt-get update \
 # ===Install performance optimization package===========================================================================
 FROM ros-scientific-stack-base-image AS ros-performance-pkg-base-image
 
-RUN pip3 install --no-cache-dir --verbose pycuda
-#RUN pip3 install --no-cache-dir --verbose numba
+# https://numba.pydata.org
+RUN pip3 install --no-cache-dir --verbose numba
+RUN pip3 install --no-cache-dir --verbose llvmlite
+
 #RUN pip3 install --no-cache-dir --ignore-installed pybind11
 
-#   - pycuda 2021.1 documentation: https://documen.tician.de/pycuda/index.html
-# (CRITICAL) todo:fixme!! (ref task NLSAR-225)
+### ››› pycude install ››› . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ..
+## pycuda 2021.1 documentation: https://documen.tician.de/pycuda/index.html
+## (Priority) todo:assessment >> consider droping pycuda as it's development seems to lag
+#RUN /bin/bash -c "if [[ ${DS_IMAGE_ARCHITECTURE} != 'arm64-Darwin' ]]; then \
+#      pip3 install --no-cache-dir --verbose pycuda; \
+#    fi"
+#
+## (CRITICAL) todo:fixme!! (ref task NLSAR-225)
+###
+### PyCUDA
+###
+##ENV PATH="/usr/local/cuda/bin:${PATH}"
+##ENV LD_LIBRARY_PATH="/usr/local/cuda/lib64:${LD_LIBRARY_PATH}"
+##RUN echo "$PATH" && echo "$LD_LIBRARY_PATH"
 ##
-## PyCUDA
+##RUN pip3 install --no-cache-dir --verbose pycuda six
+#
+### Ref pycuda doc install instruction: https://wiki.tiker.net/PyCuda/Installation/Linux/#installing-pycuda-on-linux
+##RUN tar xfz pycuda-VERSION.tar.gz \
+##    && cd pycuda-VERSION \
+##    && python3 configure.py --cuda-root=/usr/local/cuda/bin \
+##    && su -c "make install"
 ##
-#ENV PATH="/usr/local/cuda/bin:${PATH}"
-#ENV LD_LIBRARY_PATH="/usr/local/cuda/lib64:${LD_LIBRARY_PATH}"
-#RUN echo "$PATH" && echo "$LD_LIBRARY_PATH"
+### Test PyCUDA
+##RUN echo " \
+##    Test PyCUDA \
+##    " \
+##    && cd pycuda-VERSION/test \
+##    && python test_driver.py
 #
-#RUN pip3 install --no-cache-dir --verbose pycuda six
-
-## Ref pycuda doc install instruction: https://wiki.tiker.net/PyCuda/Installation/Linux/#installing-pycuda-on-linux
-#RUN tar xfz pycuda-VERSION.tar.gz \
-#    && cd pycuda-VERSION \
-#    && python3 configure.py --cuda-root=/usr/local/cuda/bin \
-#    && su -c "make install"
-#
-## Test PyCUDA
-#RUN echo " \
-#    Test PyCUDA \
-#    " \
-#    && cd pycuda-VERSION/test \
-#    && python test_driver.py
-
-#RUN apt-get update \
-#    && apt-get install --assume-yes --no-install-recommends \
-#        build-essential \
-#        python3-dev \
-#        python3-setuptools \
-#        libboost-python-dev \
-#        libboost-thread-dev \
-#    && rm -rf /var/lib/apt/lists/*
-#
-#RUN pip3 install pycuda --verbose
+##RUN apt-get update \
+##    && apt-get install --assume-yes --no-install-recommends \
+##        build-essential \
+##        python3-dev \
+##        python3-setuptools \
+##        libboost-python-dev \
+##        libboost-thread-dev \
+##    && rm -rf /var/lib/apt/lists/*
+### . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .‹‹‹ pycude install ‹‹‹
 
 
 # -------------------
@@ -332,7 +352,7 @@ RUN apt-get update \
 
 
 # ❯❯❯ Temporary build step ❯❯❯..........................................................................................
-# ★ | Temporary work around for the numpy 1.19.5 `Illegal instruction (core dumped)` error when executed on arm64
+# ★ | Temporary work around for the numpy 1.19.5 `Illegal instruction (core dumped)` error when executed on aarch64
 #   - https://github.com/numpy/numpy/issues/18131
 #   - see Task NLSAR-237 🩹→ Illegal instruction (core dumped) on the arm64-l4t image when running pytorch
 
