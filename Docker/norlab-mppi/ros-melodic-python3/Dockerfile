@@ -78,9 +78,10 @@ RUN apt-get update \
 
 # === Install ROS ======================================================================================================
 # ... register the ROS package source ..................................................................................
-# setup sources.list
-RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
+# Setup sources.lst
+RUN sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+# Setup keys
+RUN curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
 
 
 ## Ref: https://github.com/NVIDIA-AI-IOT/ros2_jetson/blob/main/docker/DockerFile.l4tbase.ros.noetic
@@ -200,7 +201,7 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     python3-all-dev
 
-RUN apt-get install -y \
+RUN apt-get update && apt-get install -y \
     python3-rospkg*
 
 
@@ -212,7 +213,7 @@ RUN apt-get install -f
 #ARG ROS_DISTRO_ROS_PCK="ros-${ROS_DISTRO}-`echo ${DS_ROS_PKG} | tr '_' '-'`"
 ARG ROS_DISTRO_ROS_PCK=ros-${ROS_DISTRO}-ros-base
 RUN echo "Be advise ROS_DISTRO_ROS_PCK=${ROS_DISTRO_ROS_PCK} is hardcoded at the end of the dockerfile as a temporary workaround, see  task NMO-92 for info"
-RUN apt-get install -y \
+RUN apt-get update && apt-get install -y \
     ${ROS_DISTRO_ROS_PCK} --fix-missing
 
 RUN apt-get install -y python-catkin-tools
