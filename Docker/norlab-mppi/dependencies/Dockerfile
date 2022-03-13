@@ -214,7 +214,7 @@ FROM ros-scientific-stack-base-image AS ros-performance-pkg-base-image
 
 # https://numba.pydata.org
 RUN pip3 install --no-cache-dir --verbose numba
-RUN pip3 install --no-cache-dir --verbose llvmlite
+#RUN pip3 install --no-cache-dir --verbose llvmlite
 
 #RUN pip3 install --no-cache-dir --ignore-installed pybind11
 
