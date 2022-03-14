@@ -234,7 +234,8 @@ RUN apt-get update \
     && chmod 777 -R /usr/local/lib/python3.6/dist-packages/ \
     && python3 setup.py install
 # Numba v0.31 (Python3.6 + JetPack 4.3/4.4)
-RUN pip3 install --no-cache-dir --verbose numba==0.31 --user
+#RUN pip3 install --no-cache-dir --verbose numba==0.31
+RUN pip3 install --no-cache-dir --verbose numba
 
 #RUN pip3 install --no-cache-dir --verbose llvmlite
 #RUN pip3 install --no-cache-dir --verbose numba
