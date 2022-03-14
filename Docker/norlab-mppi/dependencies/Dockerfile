@@ -310,7 +310,8 @@ RUN apt-get update \
 FROM ros-performance-pkg-base-image AS python-dev-tools
 
 RUN pip3 install --no-cache-dir --verbose pyyaml
-RUN pip3 install --no-cache-dir --verbose jupyter
+RUN pip3 install --no-cache-dir --verbose jupyterlab
+RUN pip3 install --no-cache-dir --verbose notebook
 RUN pip3 install --no-cache-dir --verbose termcolor
 RUN pip3 install --no-cache-dir --verbose decorator
 RUN pip3 install --no-cache-dir --verbose -U mock
