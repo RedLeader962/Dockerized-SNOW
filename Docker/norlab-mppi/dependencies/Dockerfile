@@ -216,6 +216,10 @@ FROM ros-scientific-stack-base-image AS ros-performance-pkg-base-image
 # https://numba.pydata.org
 # (Priority) todo <-- we are here
 
+RUN apt-get update \
+    && apt-get install --assume-yes --no-install-recommends \
+    unzip
+
 # LLVM v3.9 (Python3.6 + JetPack 4.3/4.4)
 #   Ref.: https://gitee.com/Cheng_Loon/jetson-packages-family-good
 RUN apt-get update \
