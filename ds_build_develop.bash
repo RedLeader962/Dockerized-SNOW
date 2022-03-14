@@ -158,7 +158,7 @@ fi
 if [[ "$DS_HOST_TYPE" == "" ]]; then
   if [[ "$DS_IMAGE_TAG" == "arm64-l4t" ]]; then
     DS_HOST_TYPE="XavierStandAlone"
-  elif [[ "$DS_IMAGE_TAG" == "x86" ]]; then
+  elif [[ "$DS_IMAGE_TAG" == "x86" ]] || [[ "$DS_IMAGE_TAG" == "arm64-Darwin" ]]; then
     DS_HOST_TYPE="local"
   fi
 fi
