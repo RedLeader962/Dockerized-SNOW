@@ -225,8 +225,8 @@ RUN apt-get update \
 RUN apt-get update \
     && apt-get install --assume-yes --no-install-recommends \
        llvm-3.9 \
-    && export LLVM_CONFIG=/usr/lib/llvm-3.9/bin/llvm-config \
-    && cd ~ \
+    && export LLVM_CONFIG=${HOME}/lib/llvm-3.9/bin/llvm-config \
+    && cd ${HOME} \
     && wget https://github.com/numba/llvmlite/archive/v0.16.0.zip \
     && unzip v0.16.0.zip \
     && cd llvmlite-0.16.0 \
