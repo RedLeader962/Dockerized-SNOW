@@ -224,7 +224,8 @@ RUN apt-get update \
 #   Ref.: https://gitee.com/Cheng_Loon/jetson-packages-family-good
 RUN apt-get update \
     && apt-get install --assume-yes --no-install-recommends \
-       llvm-3.9 \
+        llvm-3.9 \
+        llvm-3.9-dev \
     && export LLVM_CONFIG=/usr/lib/llvm-3.9/bin/llvm-config \
     && cd ${HOME} \
     && wget https://github.com/numba/llvmlite/archive/v0.16.0.zip \
