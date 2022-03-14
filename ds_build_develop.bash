@@ -164,7 +164,7 @@ if [[ "$DS_HOST_TYPE" == "" ]]; then
 fi
 
 if [[ "$DS_HOST_TYPE" == "local" ]]; then
-  if [[ "$DS_IMAGE_TAG" == "x86" ]]; then
+  if [[ "$DS_IMAGE_TAG" == "x86" ]] || [[ "$DS_IMAGE_TAG" == "arm64-Darwin" ]]; then
     USER_ARG="${USER_ARG} --build-arg DS_HOST_TYPE=${DS_HOST_TYPE}"
     echo "Host type: ${DS_HOST_TYPE}"
   else

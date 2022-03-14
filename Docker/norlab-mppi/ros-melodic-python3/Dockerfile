@@ -60,9 +60,7 @@ RUN apt-get update \
         vim \
         tree \
         apt-utils \
-        zip \
-        gzip \
-        tar \
+        zip gzip tar unzip \
     && rm -rf /var/lib/apt/lists/*
 
 
