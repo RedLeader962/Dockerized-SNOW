@@ -114,10 +114,12 @@ RUN apt-get update \
 #RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash" \
 #    && echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc
 
+# . . Pull required repository. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 RUN mkdir -p "${DS_DEV_WORKSPACE}/src"
 WORKDIR "${DS_DEV_WORKSPACE}/src"
 RUN git clone https://github.com/norlab-ulaval/icp_odom_with_twist.git
 
+# . . Install & setup ROS. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 WORKDIR "${DS_DEV_WORKSPACE}"
 RUN apt-get update \
     && rosdep install --from-paths ./src --ignore-packages-from-source --rosdistro ${ROS_DISTRO} -y

@@ -212,10 +212,27 @@ RUN apt-get update \
 # ===Install performance optimization package===========================================================================
 FROM ros-scientific-stack-base-image AS ros-performance-pkg-base-image
 
+# . . Numba install. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 # https://numba.pydata.org
+
+# LLVM v3.9 (Python3.6 + JetPack 4.3/4.4)
+#   Ref.: https://gitee.com/Cheng_Loon/jetson-packages-family-good
+RUN apt-get update \
+    && apt-get install --assume-yes --no-install-recommends \
+       llvm-3.9 \
+    && export LLVM_CONFIG=/usr/lib/llvm-3.9/bin/llvm-config \
+    && cd ~ \
+    && wget https://github.com/numba/llvmlite/archive/v0.16.0.zip \
+    && unzip v0.16.0.zip \
+    && cd llvmlite-0.16.0 \
+    && chmod 777 -R /usr/local/lib/python3.6/dist-packages/ \
+    && python3 setup.py install
+# Numba v0.31 (Python3.6 + JetPack 4.3/4.4)
+RUN pip3 install --no-cache-dir --verbose numba==0.31 --user
+
 #RUN pip3 install --no-cache-dir --verbose llvmlite
 #RUN pip3 install --no-cache-dir --verbose numba
-RUN conda install --channel=numba llvmlite
+#RUN conda install --channel=numba llvmlite
 #WORKDIR "/workspace/dependencies"
 #RUN git clone git://github.com/numba/numba.git \
 #    && python3 setup.py install
