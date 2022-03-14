@@ -214,6 +214,7 @@ FROM ros-scientific-stack-base-image AS ros-performance-pkg-base-image
 
 # . . Numba install. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 # https://numba.pydata.org
+# (Priority) todo <-- we are here
 
 # LLVM v3.9 (Python3.6 + JetPack 4.3/4.4)
 #   Ref.: https://gitee.com/Cheng_Loon/jetson-packages-family-good
