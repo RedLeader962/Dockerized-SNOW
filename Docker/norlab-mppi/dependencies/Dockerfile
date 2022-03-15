@@ -314,10 +314,10 @@ RUN pip3 install --no-cache-dir --verbose gym
 RUN pip3 install --no-cache-dir --verbose pyglet
 RUN pip3 install --no-cache-dir --verbose box2d-py
 
-# Jupyter + gym related
-RUN pip3 install --no-cache-dir --verbose jupyterlab
-RUN pip3 install --no-cache-dir --verbose notebook
-RUN pip3 install --no-cache-dir --verbose gym-notebook-wrapper
+## Jupyter + gym related
+#RUN pip3 install --no-cache-dir --verbose jupyterlab
+#RUN pip3 install --no-cache-dir --verbose notebook
+#RUN pip3 install --no-cache-dir --verbose gym-notebook-wrapper
 
 
 # ...Sequential decision making related tools...........................................................................
@@ -366,7 +366,7 @@ RUN pip3 install --no-cache-dir --verbose numpy==1.19.4
 # ..........................................................................................❮❮❮ Temporary build step ❮❮❮
 
 
-CMD [ "bash Xvfb :0 -screen 0 1024x768x24 -ac +extension GLX +render -noreset &> xvfb.log &" ]
+CMD [ "bash" ]
 # ///////////////////////////////////////////////////////////////////////////////////////// norlab-mppi/dependencies ///
 
 
