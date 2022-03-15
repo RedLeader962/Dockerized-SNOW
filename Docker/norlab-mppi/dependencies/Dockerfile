@@ -226,6 +226,7 @@ RUN apt-get update \
 ENV LVL_VERSION=4.0
 ENV LVLLITE_VERSION=0.20.0
 
+# (Priority) todo <-- we are here
 # Inspired by https://gitee.com/Cheng_Loon/jetson-packages-family-good
 RUN apt-get update \
     && apt-get install --assume-yes --no-install-recommends \
