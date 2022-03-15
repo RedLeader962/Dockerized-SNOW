@@ -59,7 +59,7 @@ source ~/.bashrc
 
 # ...CUDA toolkit path..................................................................................................
 # ref dusty_nv comment at https://forums.developer.nvidia.com/t/cuda-nvcc-not-found/118068
-if [[ $(uname -s) == "Darwin" ]] && [[ $(uname -m) == "arm64" ]]; then
+if [[ $(uname -s) == "Darwin" ]]; then
   echo -e "${DS_MSG_BASE} CUDA is not supported yet on Apple M1 computer"
 else
   if ! command -v nvcc -V &> /dev/null; then

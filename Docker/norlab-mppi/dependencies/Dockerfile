@@ -37,7 +37,7 @@ WORKDIR "/workspace"
 #    rm -rf /var/lib/apt/lists/*
 
 
-# ===Install OpenCV/PyTorch/PyCUDA======================================================================================
+# ===OpenCV install ====================================================================================================
 # Credit for the next RUN step: NVIDIA-AI-IOT/ros2_jetson
 #    https://github.com/NVIDIA-AI-IOT/ros2_jetson/blob/main/docker/DockerFile.l4tbase.ros.noetic
 
@@ -133,10 +133,8 @@ RUN /bin/bash -c "if [[ ${DS_IMAGE_ARCHITECTURE} == 'arm64-l4t' ]]; then \
 #    pip3 install torch==1.9.0+cu111 torchvision==0.10.0+cu111 -f https://download.pytorch.org/whl/torch_stable.html \
 
 
-## ------------------------
-## torchvision 0.4
-## ------------------------
-#
+# . . torchvision 0.4 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
 #ARG TORCHVISION_VERSION=v0.7.0
 ##ARG PILLOW_VERSION="pillow<7"
 #ARG TORCH_CUDA_ARCH_LIST="7.2"
@@ -159,7 +157,7 @@ RUN /bin/bash -c "if [[ ${DS_IMAGE_ARCHITECTURE} == 'arm64-l4t' ]]; then \
 
 
 
-# ===Install noetic scientific stack step ==============================================================================
+# ===Install python scientific stack ===================================================================================
 FROM ros-pytorch-base-image AS ros-scientific-stack-base-image
 
 # install aditional python package
@@ -207,7 +205,6 @@ FROM ros-scientific-stack-base-image AS ros-performance-pkg-base-image
 ENV LVL_VERSION=4.0
 ENV LVLLITE_VERSION=0.20.0
 
-# (Priority) todo <-- we are here
 # Inspired by https://gitee.com/Cheng_Loon/jetson-packages-family-good
 RUN apt-get update \
     && apt-get install --assume-yes --no-install-recommends \
@@ -229,16 +226,15 @@ RUN apt-get update \
 #RUN pip3 install --no-cache-dir --verbose numba
 #RUN pip3 install --no-cache-dir --ignore-installed pybind11
 
-### ››› pycude install ››› . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ..
+# . . PyCuda install. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+## (Priority) dropping pycuda as it's development seems to lag
+
 ## pycuda 2021.1 documentation: https://documen.tician.de/pycuda/index.html
-## (Priority) todo:assessment >> consider droping pycuda as it's development seems to lag
-#RUN /bin/bash -c "if [[ ${DS_IMAGE_ARCHITECTURE} != 'arm64-Darwin' ]]; then \
-#      pip3 install --no-cache-dir --verbose pycuda; \
-#    fi"
-#
-## (StandBy) todo:fixme!! (ref task NLSAR-225)
+#RUN pip3 install --no-cache-dir --verbose pycuda
+
 ###
-### PyCUDA
+### pycuda custom install
+## (StandBy) todo:fixme!! (ref task NLSAR-225)
 ###
 ##ENV PATH="/usr/local/cuda/bin:${PATH}"
 ##ENV LD_LIBRARY_PATH="/usr/local/cuda/lib64:${LD_LIBRARY_PATH}"
@@ -267,15 +263,12 @@ RUN apt-get update \
 ##        libboost-python-dev \
 ##        libboost-thread-dev \
 ##    && rm -rf /var/lib/apt/lists/*
-### . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .‹‹‹ pycude install ‹‹‹
 
 
-# -------------------
-# torch2trt installations
-#
+# . . torch2trt install. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 #   torch2trt is a PyTorch to TensorRT converter which utilizes the TensorRT Python API
 #   https://github.com/NVIDIA-AI-IOT/torch2trt
-# -------------------
+
 # (CRITICAL) todo:fixme!! (ref task NLSAR-225)
 #RUN git clone https://github.com/NVIDIA-AI-IOT/torch2trt && \
 #    cd torch2trt && \

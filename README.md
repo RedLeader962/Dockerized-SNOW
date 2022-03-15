@@ -95,7 +95,7 @@ diagram &nbsp;)
 ## Usage
 
 <details open>
-  <summary style="font-weight: bolder;font-size: large;">Quick start for the NorLab_MPPI project on x86 workstation</summary>
+  <summary style="font-size: large;">Quick start for the NorLab_MPPI project on <em>x86</em> workstation</summary>
   <br>
 
   - **Requirement:** _docker_ and _nvidia container toolkit_ must be installed ([follow install step 1 and 2](how_to_readme/README_x86_architecture.md))
@@ -113,26 +113,110 @@ diagram &nbsp;)
   cd ~/Repositories/Dockerized-SNOW
   source ds_setup.bash
   
-  # Pull the norlab-mppi-develop image from norlabsnow Dockerhub with the x86-ubuntu20.04 tag
+  # Pull the norlab-mppi-develop image from norlabsnow Dockerhub with the x86-ubuntu18.04 tag
   sudo docker pull norlabsnow/norlab-mppi-develop:x86-ubuntu18.04 
   
   # Create a new docker image instance for development on your machine and start working on the 
-  # NorLab_MPPI project using ROS noetic, Python 3 and Pytorch right away.
-  ds_instantiate_develop --runTag=x86-ubuntu18.04 --name=IamSnow --src="$HOME/Repositories/NorLab_MPPI"
+  # NorLab_MPPI project using ROS melodic, Python 3 and Pytorch right away.
+  ds_instantiate_develop --runTag=x86-ubuntu18.04 --name=MyCoolName --src="$HOME/Repositories/NorLab_MPPI"
 
   ```
 
-  To open an terminal inside _IamSnow_, use the following convenient script 
+  To open an terminal inside _MyCoolNmae_, use the following convenient script 
   ```shell 
-  ds_attach IamSnow
+  ds_attach MyCoolNmae
   ```
-  or use `sudo docker exec -it IamSnow bash`
+  or use `sudo docker exec -it MyCoolName bash`
 
   <br>
 </details>
 
+
+<details open>
+  <summary style="font-size: large;">Quick start for the NorLab_MPPI project on <em>Apple M1 (arm64)</em> workstation</summary>
+  <br>
+
+  - It's the same image as the `arm64-l4t` but with PyTorch and Numba compiled specifically for `arm64-Darwin`
+  - **Tips:** You can use the `--help` flag for usage instruction on most  `ds_*` command
+  - Be advise, cuda is not supported on Apple computer so PyTorch and Numba will work on cpu 
+  
+  ```shell
+  # Create a directory for your development source code if you dont already have one
+  mkdir -p ~/Repositories && cd ~/Repositories
+  
+  # Clone both repositories 
+  sudo git clone https://github.com/norlab-ulaval/NorLab_MPPI.git
+  sudo git clone https://github.com/RedLeader962/Dockerized-SNOW.git
+  
+  # Install aliases
+  cd ~/Repositories/Dockerized-SNOW
+  source ds_setup.bash
+  
+  # Pull the norlab-mppi-develop image from norlabsnow Dockerhub with the arm64-Darwin-ubuntu18.04 tag
+  sudo docker pull norlabsnow/norlab-mppi-develop:arm64-Darwin-ubuntu18.04
+  
+  # Create a new docker image instance for development on your machine and start working on the 
+  # NorLab_MPPI project using ROS melodic, Python 3 and Pytorch right away.
+  ds_instantiate_develop --runTag=arm64-Darwin-ubuntu18.04 --osx --name=MyCoolName --src="$HOME/Repositories/NorLab_MPPI"
+
+  ```
+
+  To open an terminal inside _MyCoolName_, use the following convenient script 
+  ```shell 
+  ds_attach MyCoolName
+  ```
+  or use `sudo docker exec -it MyCoolName bash`
+
+  <br>
+</details>
+
+<details open>
+  <summary style="font-size: large;">Quick start for the NorLab_MPPI project on <em>Apple (x86)</em> workstation</summary>
+  <br>
+
+  - **Tips:** You can use the `--help` flag for usage instruction on most  `ds_*` command
+  - Be advise, cuda is not supported on Apple computer so PyTorch and Numba will work on cpu only
+  
+  Use a x86 docker image and let docker use roseta to emulate the x86 architecture
+  ```shell
+  # Install roseta
+  softwareupdate --install-rosetta
+  ```
+
+  ```shell
+  # Create a directory for your development source code if you dont already have one
+  mkdir -p ~/Repositories && cd ~/Repositories
+  
+  # Clone both repositories 
+  sudo git clone https://github.com/norlab-ulaval/NorLab_MPPI.git
+  sudo git clone https://github.com/RedLeader962/Dockerized-SNOW.git
+  
+  # Install aliases 
+  cd ~/Repositories/Dockerized-SNOW
+  source ds_setup.bash
+  
+  # Pull the norlab-mppi-develop image from norlabsnow Dockerhub with the arm64-Darwin-ubuntu18.04 tag
+  sudo docker pull norlabsnow/norlab-mppi-develop:x86-ubuntu18.04
+  
+  # Create a new docker image instance for development on your machine and start working on the 
+  # NorLab_MPPI project using ROS melodic, Python 3 and Pytorch right away.
+  ds_instantiate_develop --platform='linux/amd64' --runTag=x86-ubuntu18.04 --osx --name=MyCoolName --src="$HOME/Repositories/NorLab_MPPI"
+  # Runnning `uname -m` inside the container will confirm the type of architecture
+
+  ```
+
+  To open an terminal inside _MyCoolname_, use the following convenient script 
+  ```shell 
+  ds_attach MyCoolname
+  ```
+  or use `sudo docker exec -it MyCoolName bash`
+
+  <br>
+</details>
+
+
 <details>
-  <summary style="font-weight: bolder;font-size: large;">Quick start for the SNOW_AutoRally project on x86 workstation</summary>
+  <summary style="font-size: large;">Quick start for the SNOW_AutoRally project on <em>x86</em> workstation</summary>
   <br>
 
   - **Requirement:** _docker_ and _nvidia container toolkit_ must be installed ([follow install step 1 and 2](how_to_readme/README_x86_architecture.md))
@@ -147,13 +231,13 @@ diagram &nbsp;)
   sudo git clone https://github.com/RedLeader962/Dockerized-SNOW.git
   cd ~/Repositories/Dockerized-SNOW
   
-  # Pull the norlab-mppi-develop image from norlabsnow Dockerhub with the x86-ubuntu20.04 tag
+  # Pull the norlab-mppi-develop image from norlabsnow Dockerhub with the x86-ubuntu18.04 tag
   bash ds_build_dependencies.bash --x86 --GT-AR
   bash ds_build_develop.bash --x86 --GT-AR
   
   
   # Create a new docker image instance for development on your machine and start working on the 
-  # NorLab_MPPI project using ROS noetic, Python 3 and Pytorch right away.
+  # NorLab_MPPI project using ROS melodic, Python 3 and Pytorch right away.
   bash ds_instantiate_develop.bash --runTag=x86-ubuntu18.04 --name=THEgtar --src="$HOME/Repositories/SNOW_AutoRally"
   
   
