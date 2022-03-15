@@ -278,8 +278,6 @@ RUN apt-get update \
 FROM ros-performance-pkg-base-image AS python-dev-tools
 
 RUN pip3 install --no-cache-dir --verbose pyyaml
-#RUN pip3 install --no-cache-dir --verbose jupyterlab
-#RUN pip3 install --no-cache-dir --verbose notebook
 RUN pip3 install --no-cache-dir --verbose termcolor
 RUN pip3 install --no-cache-dir --verbose decorator
 RUN pip3 install --no-cache-dir --verbose -U mock
@@ -308,7 +306,6 @@ RUN apt-get update \
 
 RUN pip3 install --no-cache-dir --verbose pyvirtualdisplay
 RUN pip3 install --no-cache-dir --verbose imageio-ffmpeg
-RUN pip3 install --no-cache-dir --verbose gym-notebook-wrapper
 # Install gym
 RUN pip3 install --no-cache-dir --verbose --upgrade pip
 RUN pip3 install --no-cache-dir --verbose gym
@@ -316,10 +313,13 @@ RUN pip3 install --no-cache-dir --verbose gym
 RUN pip3 install --no-cache-dir --verbose pyglet
 RUN pip3 install --no-cache-dir --verbose box2d-py
 
+# Jupyter + gym related
+RUN pip3 install --no-cache-dir --verbose jupyterlab
+RUN pip3 install --no-cache-dir --verbose notebook
+RUN pip3 install --no-cache-dir --verbose gym-notebook-wrapper
 
 
 # ...Sequential decision making related tools...........................................................................
-
 # Model predictive control python toolbox https://www.do-mpc.com/en/latest/index.html
 RUN pip3 install --no-cache-dir --verbose do-mpc
 
