@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-08-18T15:48:16.414Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Safari/605.1.15" etag="inVthwSKOxYFcFB6RgYH" version="14.9.7" type="github">
+<mxfile host="app.diagrams.net" modified="2022-03-15T16:53:23.818Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.3 Safari/605.1.15" etag="0feEWCO1jTa3nTEraslR" version="17.1.3" type="github">
   <diagram id="bTZJt1o0T5sxhTdyZIyC" name="Page-1">
-    <mxGraphModel dx="1577" dy="4195" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1920" pageHeight="1200" math="0" shadow="0">
+    <mxGraphModel dx="946" dy="2705" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1920" pageHeight="1200" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -54,7 +54,7 @@
         <mxCell id="xUTtplGJXiZXMpH6DIID-15" value="ros-melodic-ros-base" style="text;strokeColor=none;fillColor=#FFFFFF;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=1;" parent="xUTtplGJXiZXMpH6DIID-10" vertex="1">
           <mxGeometry y="26" width="360" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="58gTZ6w1oZRNHgXwbD4U-1" value="rviz" style="text;strokeColor=none;fillColor=#FFFFFF;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=1;" vertex="1" parent="xUTtplGJXiZXMpH6DIID-10">
+        <mxCell id="58gTZ6w1oZRNHgXwbD4U-1" value="rviz" style="text;strokeColor=none;fillColor=#FFFFFF;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=1;" parent="xUTtplGJXiZXMpH6DIID-10" vertex="1">
           <mxGeometry y="52" width="360" height="26" as="geometry" />
         </mxCell>
         <mxCell id="xUTtplGJXiZXMpH6DIID-16" value="(Clone repo) norlab-ulaval/icp_odom_with_twist.git" style="text;strokeColor=none;fillColor=#FFFFFF;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=1;" parent="xUTtplGJXiZXMpH6DIID-10" vertex="1">
@@ -66,7 +66,7 @@
         <mxCell id="xUTtplGJXiZXMpH6DIID-19" value="PyTorch 1.9" style="text;strokeColor=none;fillColor=#FFFFFF;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=1;" parent="xUTtplGJXiZXMpH6DIID-10" vertex="1">
           <mxGeometry y="130" width="360" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="B50nd82u5LSKyYwprPi5-9" value="PyCuda and Cython" style="text;strokeColor=none;fillColor=#FFFFFF;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=1;" parent="xUTtplGJXiZXMpH6DIID-10" vertex="1">
+        <mxCell id="B50nd82u5LSKyYwprPi5-9" value="Cython, Numba and llvmlite binding" style="text;strokeColor=none;fillColor=#FFFFFF;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=1;" parent="xUTtplGJXiZXMpH6DIID-10" vertex="1">
           <mxGeometry y="156" width="360" height="26" as="geometry" />
         </mxCell>
         <mxCell id="xUTtplGJXiZXMpH6DIID-20" value="Python scientic stack: Numpy, scipy, jupyter, ..." style="text;strokeColor=none;fillColor=#FFFFFF;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=1;" parent="xUTtplGJXiZXMpH6DIID-10" vertex="1">
