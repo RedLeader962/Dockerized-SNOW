@@ -301,7 +301,7 @@ RUN apt-get update \
     && apt-get install --assume-yes --no-install-recommends \
         swig \
         xvfb \
-        python-opengl \
+        python3-opengl \
         ffmpeg \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
