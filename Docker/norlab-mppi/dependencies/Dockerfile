@@ -309,6 +309,7 @@ RUN pip3 install --no-cache-dir --verbose imageio-ffmpeg
 # Install gym
 RUN pip3 install --no-cache-dir --verbose --upgrade pip
 RUN pip3 install --no-cache-dir --verbose gym
+
 # Gym depencies
 RUN pip3 install --no-cache-dir --verbose pyglet
 RUN pip3 install --no-cache-dir --verbose box2d-py
@@ -365,7 +366,7 @@ RUN pip3 install --no-cache-dir --verbose numpy==1.19.4
 # ..........................................................................................❮❮❮ Temporary build step ❮❮❮
 
 
-CMD [ "bash" ]
+CMD [ "bash Xvfb :0 -screen 0 1024x768x24 -ac +extension GLX +render -noreset &> xvfb.log &" ]
 # ///////////////////////////////////////////////////////////////////////////////////////// norlab-mppi/dependencies ///
 
 

@@ -53,8 +53,6 @@ echo -e "${DS_MSG_DONE} The '/Dockerized-SNOW' dir is reachable. Ready to instal
   echo ""; \
 ) >> ~/.bashrc
 
-# Source bashrc
-source ~/.bashrc
 
 
 # ...CUDA toolkit path..................................................................................................
@@ -85,6 +83,15 @@ else
   else
     echo -e "${DS_MSG_ERROR} Check your nvcc installation. It's NOT installed properly!"
   fi
+fi
+
+if [ -n "$ZSH_VERSION" ]; then
+  echo "source ~/.bashrc" >> ~/.zshrc
+  source ~/.zshrc
+elif [ -n "$BASH_VERSION" ]; then
+  source ~/.bashrc
+else
+  echo -e "${DS_MSG_ERROR} Unknown shell! Check with the maintainer to add it to DS"
 fi
 
 echo -e "${DS_MSG_DONE} Setup completed! New available alias:
