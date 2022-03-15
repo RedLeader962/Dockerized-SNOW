@@ -38,7 +38,7 @@ Believe it or not, it's configured for developing with **ROS melodic** in **pyth
 
 Author: [Luc Coupal](https://redleader962.github.io) 
 
-![](visual/splash_and_promt_screenshot_5.png)
+![](visual/splash_and_promt_screenshot_6.png)
 
 <!-- 
 ```shell
