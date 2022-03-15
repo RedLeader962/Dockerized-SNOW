@@ -132,7 +132,7 @@ diagram &nbsp;)
 </details>
 
 
-<details open>
+<details>
   <summary style="font-size: large;">Quick start for the NorLab_MPPI project on <em>Apple M1 (arm64)</em> workstation</summary>
   <br>
 
@@ -170,7 +170,7 @@ diagram &nbsp;)
   <br>
 </details>
 
-<details open>
+<details>
   <summary style="font-size: large;">Quick start for the NorLab_MPPI project on <em>Apple (x86)</em> workstation</summary>
   <br>
 
