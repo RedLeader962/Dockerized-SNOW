@@ -34,7 +34,7 @@ RUN ( \
 
 WORKDIR /ros_catkin_ws/src/${DS_TARGET_PROJECT_SRC_REPO}
 ENTRYPOINT [ "/ros_entrypoint.bash" ]
-CMD [ "bash Xvfb :0 -screen 0 1024x768x24 -ac +extension GLX +render -noreset &> xvfb.log &" ]
+CMD [ "bash" ]
 
 # ////////////////////////////////////////////////////////////////////////////////////////////// norlab-mppi/develop ///
 
