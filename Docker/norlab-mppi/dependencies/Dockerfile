@@ -215,10 +215,6 @@ FROM ros-scientific-stack-base-image AS ros-performance-pkg-base-image
 # . . Numba install. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 # https://numba.pydata.org
 
-RUN apt-get update \
-    && apt-get install --assume-yes --no-install-recommends \
-
-
 # LLVM v3.9 (Python3.6 + JetPack 4.3/4.4)
 # Numba v0.31 (Python3.6 + JetPack 4.3/4.4)
 #ENV LVL_VERSION=3.9
