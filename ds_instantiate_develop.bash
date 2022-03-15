@@ -217,8 +217,6 @@ New container name: ${DS_MSG_EMPH_FORMAT}${CONTAINER_NAME}${DS_MSG_END_FORMAT}
 #  USER_ARG >> ${USER_ARG}
 #"
 
-
-
 ## todo:assessment (ref task NLSAR-159 Fix the execute permission of source code mounted volume)
 #sudo chmod --recursive +x "${CONTAINER_SIDE_HOST_SRC_CODE_VOLUME}${SRC_BASENAME}"
 
