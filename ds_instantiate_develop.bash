@@ -272,7 +272,7 @@ if [ $DRY_RUN == true ]; then
   exit
 fi
 
-# Splitting instanciation in two part (run & exec) has teh benefit of keeping the container up even when the terminal
+# Splitting instanciation in two part (run & exec) has the benefit of keeping the container up even when the terminal
 # used to execute ds_instantiate_develop.bash is closed
 sudo docker run \
   ${RUNTIME_FLAG} \

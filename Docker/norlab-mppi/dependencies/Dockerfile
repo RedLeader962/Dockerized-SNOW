@@ -128,24 +128,9 @@ RUN /bin/bash -c "if [[ ${DS_IMAGE_ARCHITECTURE} == 'arm64-l4t' ]]; then \
       echo 'Architecture ${DS_IMAGE_ARCHITECTURE} is not curently suported'; \
       exit 1; \
     fi"
-#RUN /bin/bash -c "if [[ ${DS_IMAGE_ARCHITECTURE} == 'arm64-l4t' ]]; then \
-#    wget --quiet --show-progress --progress=bar:force:noscroll --no-check-certificate ${PYTORCH_L4T_WHL_URL} -O ${PYTORCH_L4T_WHL} && \
-#        pip3 install --no-cache-dir --verbose ${PYTORCH_L4T_WHL} && \
-#        rm ${PYTORCH_L4T_WHL}; \
-#    elif [[ ${DS_IMAGE_ARCHITECTURE} == 'arm64-Darwin' ]]; then \
-#        wget --quiet --show-progress --progress=bar:force:noscroll ${PYTORCH_URL_M1} -O $PYTORCH_WHL_M1 && \
-#        pip3 install --no-cache-dir --verbose ${PYTORCH_WHL_M1} && \
-#        rm ${PYTORCH_WHL_M1}; \
-#    elif [[ ${DS_IMAGE_ARCHITECTURE} == 'x86' ]]; then \
-#      pip3 install --no-cache-dir --verbose torch==1.9.0+cu111 -f https://download.pytorch.org/whl/torch_stable.html; \
-#    else \
-#      echo 'Architecture ${DS_IMAGE_ARCHITECTURE} is not currently suported'; \
-#      exit 1; \
-#    fi"
 
 ## Install PyTorch for x86 with torchvision
 #    pip3 install torch==1.9.0+cu111 torchvision==0.10.0+cu111 -f https://download.pytorch.org/whl/torch_stable.html \
-
 
 
 ## ------------------------
@@ -215,8 +200,8 @@ FROM ros-scientific-stack-base-image AS ros-performance-pkg-base-image
 # . . Numba install. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 # https://numba.pydata.org
 
-# LLVM v3.9 (Python3.6 + JetPack 4.3/4.4)
-# Numba v0.31 (Python3.6 + JetPack 4.3/4.4)
+# LLVM v3.9 <== (Python3.6 + JetPack 4.3/4.4)
+# Numba v0.31 <== (Python3.6 + JetPack 4.3/4.4)
 #ENV LVL_VERSION=3.9
 #ENV LVLLITE_VERSION=0.16.0
 ENV LVL_VERSION=4.0
