@@ -316,9 +316,9 @@ RUN pip3 install --no-cache-dir --verbose pyglet
 RUN pip3 install --no-cache-dir --verbose box2d-py
 
 ## Jupyter + gym related
-#RUN pip3 install --no-cache-dir --verbose jupyterlab
-#RUN pip3 install --no-cache-dir --verbose notebook
-#RUN pip3 install --no-cache-dir --verbose gym-notebook-wrapper
+RUN pip3 install --no-cache-dir --verbose jupyterlab
+RUN pip3 install --no-cache-dir --verbose notebook
+RUN pip3 install --no-cache-dir --verbose gym-notebook-wrapper
 
 
 # ...Sequential decision making related tools...........................................................................

@@ -257,9 +257,12 @@ if [ $OSX == true ]; then
   # todo:investigate?? >> The next line cause error on other os
   DS_HOST_IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
 #  USER_ARG="${USER_ARG} --env=DISPLAY=${DS_HOST_IP}:0 "
-  DISPLAY=${DS_HOST_IP}:1
-  open -a XQuartz
-  sudo xhost + ${DS_HOST_IP}
+#  DISPLAY=${DS_HOST_IP}:0
+#  DISPLAY=:0
+#  DISPLAY=/private/tmp/com.apple.launchd.kGu1Vwz7kg/org.xquartz:0
+  #  Xvfb :1 -screen 0 1024x768x24 -ac +render -noreset &> xvfb.log &
+#  open -a XQuartz
+#  sudo xhost + ${DS_HOST_IP}
 fi
 
 if [ $DRY_RUN == true ]; then
