@@ -299,6 +299,7 @@ RUN apt-get update \
     && apt-get install --assume-yes --no-install-recommends \
         swig \
         xvfb \
+        mesa-utils \
         python-opengl \
         ffmpeg \
     && apt-get clean \
@@ -313,7 +314,6 @@ RUN pip3 install --no-cache-dir --verbose gym
 # Gym depencies
 RUN pip3 install --no-cache-dir --verbose pyglet
 RUN pip3 install --no-cache-dir --verbose box2d-py
-RUN echo" export DISPLAY=:0 ">>/etc/profile
 
 ## Jupyter + gym related
 #RUN pip3 install --no-cache-dir --verbose jupyterlab

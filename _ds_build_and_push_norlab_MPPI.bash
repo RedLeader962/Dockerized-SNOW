@@ -96,13 +96,13 @@ function echo_fail_fast_msg() {
 }
 
 echo -e "${DS_MSG_BASE} Building norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG}"
-bash ds_build_melodic_python3.bash ${ARCHITECTURE_FLAG} \
-  && NORLAB_MPPI_ROS_MELODIC_PYTHON_3_BUILD=true
+bash ds_build_melodic_python3.bash ${ARCHITECTURE_FLAG} &&
+  NORLAB_MPPI_ROS_MELODIC_PYTHON_3_BUILD=true
 
 echo_fail_fast_msg ${NORLAB_MPPI_ROS_MELODIC_PYTHON_3_BUILD} "build norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG}"
 
 if [ ${PUSH} == true ]; then
-  bash echo -e "${DS_MSG_BASE} Pushing norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG} to dockerhub" &&
+  echo -e "${DS_MSG_BASE} Pushing norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG} to dockerhub" &&
     sudo docker push norlabsnow/norlab-mppi-ros-melodic-python3:${DEPEND_IMG_TAG} &&
     NORLAB_MPPI_ROS_MELODIC_PYTHON_3_PUSH=true
 
@@ -110,13 +110,13 @@ if [ ${PUSH} == true ]; then
 fi
 
 echo -e "${DS_MSG_BASE} Building norlab-mppi-dependencies-wo-services:${DEPEND_IMG_TAG}"
-bash ds_build_dependencies.bash ${ARCHITECTURE_FLAG} --noservices \
-  && NORLAB_MPPI_DEPENDENCIES_WO_SERVICES_BUILD=true
+bash ds_build_dependencies.bash ${ARCHITECTURE_FLAG} --noservices &&
+  NORLAB_MPPI_DEPENDENCIES_WO_SERVICES_BUILD=true
 
 echo_fail_fast_msg ${NORLAB_MPPI_DEPENDENCIES_WO_SERVICES_BUILD} "build norlab-mppi-dependencies-wo-services:${DEPEND_IMG_TAG}"
 
 if [ ${PUSH} == true ]; then
-  bash echo -e "${DS_MSG_BASE} Pushing norlab-mppi-dependencies-wo-services:${DEPEND_IMG_TAG} to dockerhub" &&
+  echo -e "${DS_MSG_BASE} Pushing norlab-mppi-dependencies-wo-services:${DEPEND_IMG_TAG} to dockerhub" &&
     sudo docker push norlabsnow/norlab-mppi-dependencies-wo-services:${DEPEND_IMG_TAG} &&
     NORLAB_MPPI_DEPENDENCIES_WO_SERVICES_PUSH=true
 
@@ -124,36 +124,36 @@ if [ ${PUSH} == true ]; then
 fi
 
 echo -e "${DS_MSG_BASE} Building norlab-mppi-dependencies:${DEPEND_IMG_TAG}"
-bash ds_build_dependencies.bash ${ARCHITECTURE_FLAG} \
-  && NORLAB_MPPI_DEPENDENCIES_BUILD=true
+bash ds_build_dependencies.bash ${ARCHITECTURE_FLAG} &&
+  NORLAB_MPPI_DEPENDENCIES_BUILD=true
 
 echo_fail_fast_msg ${NORLAB_MPPI_DEPENDENCIES_BUILD} "build norlab-mppi-dependencies:${DEPEND_IMG_TAG}"
 
 if [ ${PUSH} == true ]; then
-  bash echo -e "${DS_MSG_BASE} Pushing norlab-mppi-dependencies:${DEPEND_IMG_TAG} to dockerhub" &&
+  echo -e "${DS_MSG_BASE} Pushing norlab-mppi-dependencies:${DEPEND_IMG_TAG} to dockerhub" &&
     sudo docker push norlabsnow/norlab-mppi-dependencies:${DEPEND_IMG_TAG} &&
     NORLAB_MPPI_DEPENDENCIES_PUSH=true
 
-    echo_fail_fast_msg ${NORLAB_MPPI_DEPENDENCIES_PUSH} "push norlab-mppi-dependencies:${DEPEND_IMG_TAG}"
+  echo_fail_fast_msg ${NORLAB_MPPI_DEPENDENCIES_PUSH} "push norlab-mppi-dependencies:${DEPEND_IMG_TAG}"
 fi
 
 echo -e "${DS_MSG_BASE} Building norlab-mppi-develop:${DEV_IMG_TAG}"
-bash ds_build_develop.bash ${ARCHITECTURE_FLAG} \
-  && NORLAB_MPPI_DEVELOP_BUILD=true \
-  && NORLAB_MPPI_DEVELOP_TEAMCITY_BUILD=true
+bash ds_build_develop.bash ${ARCHITECTURE_FLAG} &&
+  NORLAB_MPPI_DEVELOP_BUILD=true &&
+  NORLAB_MPPI_DEVELOP_TEAMCITY_BUILD=true
 
 echo_fail_fast_msg ${NORLAB_MPPI_DEVELOP_BUILD} "build norlab-mppi-develop::${DEPEND_IMG_TAG}"
 echo_fail_fast_msg ${NORLAB_MPPI_DEVELOP_TEAMCITY_BUILD} "build norlab-mppi-develop-teamcity::${DEPEND_IMG_TAG}"
 
 if [ ${PUSH} == true ]; then
-  bash echo -e "${DS_MSG_BASE} Pushing norlab-mppi-develop:${DEV_IMG_TAG} to dockerhub" &&
+  echo -e "${DS_MSG_BASE} Pushing norlab-mppi-develop:${DEV_IMG_TAG} to dockerhub" &&
     sudo docker push norlabsnow/norlab-mppi-develop:${DEV_IMG_TAG} &&
     NORLAB_MPPI_DEVELOP_PUSH=true &&
     sudo docker push norlabsnow/norlab-mppi-develop-teamcity:${DEV_IMG_TAG} &&
     NORLAB_MPPI_DEVELOP_TEAMCITY_PUSH=true
 
-    echo_fail_fast_msg ${NORLAB_MPPI_DEVELOP_PUSH} "push norlab-mppi-develop::${DEPEND_IMG_TAG}"
-    echo_fail_fast_msg ${NORLAB_MPPI_DEVELOP_TEAMCITY_PUSH} "push norlab-mppi-develop-teamcity::${DEPEND_IMG_TAG}"
+  echo_fail_fast_msg ${NORLAB_MPPI_DEVELOP_PUSH} "push norlab-mppi-develop::${DEPEND_IMG_TAG}"
+  echo_fail_fast_msg ${NORLAB_MPPI_DEVELOP_TEAMCITY_PUSH} "push norlab-mppi-develop-teamcity::${DEPEND_IMG_TAG}"
 fi
 
 # ...Build & push pass/fail status......................................................................................
