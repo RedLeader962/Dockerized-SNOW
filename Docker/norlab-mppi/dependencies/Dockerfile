@@ -313,7 +313,7 @@ RUN pip3 install --no-cache-dir --verbose gym
 # Gym depencies
 RUN pip3 install --no-cache-dir --verbose pyglet
 RUN pip3 install --no-cache-dir --verbose box2d-py
-#RUN echo" export DISPLAY=:0 ">>/etc/profile
+RUN echo" export DISPLAY=:0 ">>/etc/profile
 
 ## Jupyter + gym related
 #RUN pip3 install --no-cache-dir --verbose jupyterlab

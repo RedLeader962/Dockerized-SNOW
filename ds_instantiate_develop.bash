@@ -255,8 +255,8 @@ if [ $OSX == true ]; then
   "
 #  --publish=7777:7777
   # todo:investigate?? >> The next line cause error on other os
-  DS_HOST_IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
-  USER_ARG="${USER_ARG} --env=DISPLAY=${DS_HOST_IP}:0 "
+#  DS_HOST_IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
+#  USER_ARG="${USER_ARG} --env=DISPLAY=${DS_HOST_IP}:0 "
 fi
 
 if [ $DRY_RUN == true ]; then
