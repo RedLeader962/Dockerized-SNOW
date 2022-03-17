@@ -80,10 +80,11 @@ RUN apt-get update \
 #       build for JetPack (L4T). https://elinux.org/Jetson_Zoo#PyTorch_.28Caffe2.29
 
 RUN pip3 install --no-cache-dir --verbose --upgrade pip
-RUN pip3 install --no-cache-dir --verbose setuptools
-RUN pip3 install --no-cache-dir --verbose wheel
-RUN pip3 install --no-cache-dir --verbose Cython
-RUN pip3 install --no-cache-dir --verbose numpy
+RUN pip3 install --no-cache-dir --verbose  \
+    setuptools \
+    wheel \
+    Cython \
+    numpy
 
 
 # PyTorch (for JetPack)
@@ -161,13 +162,10 @@ RUN /bin/bash -c "if [[ ${DS_IMAGE_ARCHITECTURE} == 'arm64-l4t' ]]; then \
 FROM ros-pytorch-base-image AS ros-scientific-stack-base-image
 
 # install aditional python package
-RUN pip3 install --upgrade pip
-#RUN pip3 install --no-cache-dir --verbose setuptools
-#RUN pip3 install --no-cache-dir --verbose wheel
-
-RUN pip3 install --no-cache-dir --verbose scipy
-RUN pip3 install --no-cache-dir --verbose scikit-learn
-RUN pip3 install --no-cache-dir --verbose pandas
+RUN pip3 install --no-cache-dir --verbose \
+    scipy \
+    scikit-learn \
+    pandas
 
 # ...Configure Matplotlib to use a non-interactive backends for TeamCity run............................................
 # Procedure to fix NLSAR-343 ﹅→ `ModuleNotFoundError` when using pyplot & `couldn't connect to display`
@@ -277,14 +275,17 @@ RUN apt-get update \
 # ===install utilities==================================================================================================
 FROM ros-performance-pkg-base-image AS python-dev-tools
 
-RUN pip3 install --no-cache-dir --verbose pyyaml
-RUN pip3 install --no-cache-dir --verbose termcolor
-RUN pip3 install --no-cache-dir --verbose decorator
+RUN pip3 install --no-cache-dir --verbose \
+    pyyaml \
+    termcolor \
+    decorator \
+    pytest \
+    pytest-benchmark \
+    pytest-mock \
+    python-dotenv \
+    dataclasses
+
 RUN pip3 install --no-cache-dir --verbose -U mock
-RUN pip3 install --no-cache-dir --verbose pytest
-RUN pip3 install --no-cache-dir --verbose pytest-benchmark
-RUN pip3 install --no-cache-dir --verbose pytest-mock
-RUN pip3 install --no-cache-dir --verbose python-dotenv
 
 
 # ...Install simulator..................................................................................................
@@ -305,20 +306,24 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip3 install --no-cache-dir --verbose pyvirtualdisplay
-RUN pip3 install --no-cache-dir --verbose imageio-ffmpeg
+RUN pip3 install --no-cache-dir --verbose \
+    pyvirtualdisplay \
+    imageio-ffmpeg
+
 # Install gym
-RUN pip3 install --no-cache-dir --verbose --upgrade pip
-RUN pip3 install --no-cache-dir --verbose gym
+RUN pip3 install --no-cache-dir --verbose --upgrade pip \
+    pip3 install --no-cache-dir --verbose gym
 
 # Gym depencies
-RUN pip3 install --no-cache-dir --verbose pyglet
-RUN pip3 install --no-cache-dir --verbose box2d-py
+RUN pip3 install --no-cache-dir --verbose \
+    pyglet \
+    box2d-py
 
 ## Jupyter + gym related
-RUN pip3 install --no-cache-dir --verbose jupyterlab
-RUN pip3 install --no-cache-dir --verbose notebook
-RUN pip3 install --no-cache-dir --verbose gym-notebook-wrapper
+RUN pip3 install --no-cache-dir --verbose \
+    jupyterlab \
+    notebook \
+    gym-notebook-wrapper
 
 
 # ...Sequential decision making related tools...........................................................................
