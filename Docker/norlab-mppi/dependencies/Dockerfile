@@ -275,19 +275,6 @@ RUN apt-get update \
 # ===install utilities==================================================================================================
 FROM ros-performance-pkg-base-image AS python-dev-tools
 
-RUN pip3 install --no-cache-dir --verbose \
-    pyyaml \
-    termcolor \
-    decorator \
-    pytest \
-    pytest-benchmark \
-    pytest-mock \
-    python-dotenv \
-    dataclasses
-
-RUN pip3 install --no-cache-dir --verbose -U mock
-
-
 # ...Install simulator..................................................................................................
 # Dependencies
 #   box2d-py dependency: swig
@@ -311,8 +298,7 @@ RUN pip3 install --no-cache-dir --verbose \
     imageio-ffmpeg
 
 # Install gym
-RUN pip3 install --no-cache-dir --verbose --upgrade pip \
-    pip3 install --no-cache-dir --verbose gym
+RUN pip3 install --no-cache-dir --verbose gym
 
 # Gym depencies
 RUN pip3 install --no-cache-dir --verbose \
@@ -332,6 +318,22 @@ RUN pip3 install --no-cache-dir --verbose do-mpc
 
 
 
+# ...install python general development package.........................................................................
+RUN pip3 install --no-cache-dir --verbose \
+    pyyaml \
+    termcolor \
+    decorator \
+    pytest \
+    pytest-benchmark \
+    pytest-mock \
+    python-dotenv \
+    dataclasses
+
+    # black[d]
+
+RUN pip3 install --no-cache-dir --verbose -U mock
+
+
 # ===Final build step===================================================================================================
 FROM python-dev-tools AS final
 
@@ -340,7 +342,6 @@ RUN apt-get update \
     && apt-get install --assume-yes --no-install-recommends \
         usbutils \
         rsync \
-        tar \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -356,9 +357,6 @@ RUN apt-get update \
 #        g++ \
 #        gdb \
 #        clang \
-#        cmake \
-#        rsync \
-#        tar \
 #        gdbserver \
 #    && rm -rf /var/lib/apt/lists/*
 
